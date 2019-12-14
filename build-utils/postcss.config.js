@@ -1,9 +1,4 @@
 module.exports = {
-  plugins: [
-    require("autoprefixer"),
-    require("cssnano")({
-      preset: "default",
-    }),
-  ],
+  plugins: [require("autoprefixer")],
   sourceMap: process.env.NODE_ENV === "development",
 };

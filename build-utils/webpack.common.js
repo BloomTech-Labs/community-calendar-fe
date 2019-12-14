@@ -1,6 +1,7 @@
 /* Shared config for all environments */
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = isDevelopment => ({
   entry: {
@@ -102,6 +103,16 @@ module.exports = isDevelopment => ({
   resolve: {
     extensions: ["*", ".js", ".jsx", ".scss", ".sass", ".css"],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "My Project",
+      template: "./src/index.html",
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].[hash].css",
+      chunkFilename: "[id].[hash].css",
+    }),
+  ],
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "../", "dist"),
