@@ -1,11 +1,11 @@
 /* Shared config for all environments */
-const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = isDevelopment => ({
   entry: {
-    app: "./src/index.js",
+    app: './src/index.js',
   },
   module: {
     rules: [
@@ -13,7 +13,7 @@ module.exports = isDevelopment => ({
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         // run eslint before compiling
-        use: ["babel-loader", "eslint-loader"],
+        use: ['babel-loader', 'eslint-loader'],
       },
       {
         // look for css/sass modules
@@ -23,10 +23,10 @@ module.exports = isDevelopment => ({
         loader: [
           // last loader
           // MiniCss plugin extracts css to separate file for production
-          isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
             // resolve url() and @import in CSS
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               // use module rules on @import resources
               importLoaders: 1,
@@ -36,24 +36,24 @@ module.exports = isDevelopment => ({
           },
           {
             // apply prefixes and minimize
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
               sourceMap: isDevelopment,
               config: {
                 path: path.resolve(
                   __dirname,
-                  "../",
-                  "build-utils/postcss.config.js",
+                  '../',
+                  'build-utils/postcss.config.js',
                 ),
               },
             },
           },
           {
             // first loader. convert SASS to CSS
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               sourceMap: isDevelopment,
-              implementation: require("node-sass"),
+              implementation: require('node-sass'),
             },
           },
         ],
@@ -66,34 +66,34 @@ module.exports = isDevelopment => ({
         loader: [
           // last loader
           // MiniCss plugin extracts css to separate file for production
-          isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
             // resolve url() and @import in CSS
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               sourceMap: isDevelopment,
             },
           },
           {
             // apply prefixes and minimize
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
               sourceMap: isDevelopment,
               config: {
                 path: path.resolve(
                   __dirname,
-                  "../",
-                  "build-utils/postcss.config.js",
+                  '../',
+                  'build-utils/postcss.config.js',
                 ),
               },
             },
           },
           {
             // first loader. convert SASS to CSS
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               sourceMap: isDevelopment,
-              implementation: require("node-sass"),
+              implementation: require('node-sass'),
             },
           },
         ],
@@ -103,9 +103,9 @@ module.exports = isDevelopment => ({
         test: /\.(png|jpe?g|gif|svg)$/,
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
-              outputPath: "images",
+              outputPath: 'images',
             },
           },
         ],
@@ -114,31 +114,31 @@ module.exports = isDevelopment => ({
   },
   resolve: {
     extensions: [
-      "*",
-      ".js",
-      ".jsx",
-      ".scss",
-      ".sass",
-      ".css",
-      ".png",
-      ".jpg",
-      ".jpeg",
-      ".gif",
-      ".svg",
+      '*',
+      '.js',
+      '.jsx',
+      '.scss',
+      '.sass',
+      '.css',
+      '.png',
+      '.jpg',
+      '.jpeg',
+      '.gif',
+      '.svg',
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "My Project",
-      template: "./src/index.html",
+      title: 'My Project',
+      template: './src/index.html',
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[hash].css",
-      chunkFilename: "[id].[hash].css",
+      filename: '[name].[hash].css',
+      chunkFilename: '[id].[hash].css',
     }),
   ],
   output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "../", "dist"),
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, '../', 'dist'),
   },
-});
+})

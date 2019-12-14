@@ -1,15 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import "./index.scss";
-import "./blah.css";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import {Auth0Provider} from './contexts/auth0-context.jsx'
+import {BrowserRouter as Router} from 'react-router-dom'
+
+import './index.scss'
 
 ReactDOM.render(
-  <App title={"React is cool"} />,
-  document.getElementById("root"),
-);
+  <Router>
+    <Auth0Provider>
+      <App title={'React is cool'} />
+    </Auth0Provider>
+  </Router>,
+  document.getElementById('root'),
+)
 
 // Updates the app without refreshing the browser in development
-if (process.env.NODE_ENV === "development") {
-  module.hot.accept();
+if (process.env.NODE_ENV === 'development') {
+  module.hot.accept()
 }
