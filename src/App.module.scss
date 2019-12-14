@@ -1,7 +1,16 @@
+$imgSize: 100px;
+
 .app {
   background-color: #fff;
   p {
     color: green;
+  }
+  .grayImage {
+    width: $imgSize;
+    height: $imgSize;
+    background-image: url("./images/gray_pixel.gif");
+    background-repeat: repeat;
+    border: 2px solid blue;
   }
 }
 

@@ -98,10 +98,34 @@ module.exports = isDevelopment => ({
           },
         ],
       },
+      {
+        // Process images
+        test: /\.(png|jpe?g|gif|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              outputPath: "images",
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {
-    extensions: ["*", ".js", ".jsx", ".scss", ".sass", ".css"],
+    extensions: [
+      "*",
+      ".js",
+      ".jsx",
+      ".scss",
+      ".sass",
+      ".css",
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".gif",
+      ".svg",
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
