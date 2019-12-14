@@ -18,3 +18,8 @@ Install the [Prettier](https://marketplace.visualstudio.com/items?itemName=esben
   "prettier.requireConfig": true
 }
 ```
+#### Required env variables:
+- AUTH0_DOMAIN
+- AUTH0_CLIENT_ID
+- API_AUDIENCE
+- APOLLO_SERVER

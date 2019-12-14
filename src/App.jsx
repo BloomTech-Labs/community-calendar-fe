@@ -1,18 +1,92 @@
-import React from "react";
-import { app, zerb, nerk, grayImage } from "./App.module.scss";
-import Thing from "./Thing";
+import React, {useState} from 'react'
+import {Route} from 'react-router-dom'
+import Home from './components/home.jsx'
+import Header from './components/header.jsx'
 
-const App = props => {
+//apollo
+import {ApolloProvider} from 'react-apollo'
+import {ApolloClient} from 'apollo-client'
+import {HttpLink} from 'apollo-link-http'
+import {InMemoryCache} from 'apollo-cache-inmemory'
+import {setContext} from 'apollo-link-context'
+
+//auth0
+import {useAuth0} from './contexts/auth0-context.jsx'
+
+function App() {
+  const {
+    isLoading,
+    user,
+    loginWithRedirect,
+    logout,
+    getTokenSilently,
+  } = useAuth0()
+  const [accessToken, setAccessToken] = useState('')
+
+  const getAccessToken = async () => {
+    try {
+      const token = await getTokenSilently()
+      setAccessToken(token)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  getAccessToken()
+
+  const httpLink = new HttpLink({
+    uri: process.env.APOLLO_SERVER,
+  })
+
+  const authLink = setContext((_, {headers}) => {
+    const token = accessToken
+    if (token) {
+      return {
+        headers: {
+          ...headers,
+          authorization: `Bearer ${token}`,
+        },
+      }
+    } else {
+      return {
+        headers: {
+          ...headers,
+        },
+      }
+    }
+  })
+
+  const client = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+  })
+
   return (
-    <div className="blah">
-      <div className={app}>
-        <p>I'm a SCSS module</p>
-        <p className={`${zerb} ${nerk}`}>{props.title}</p>
-        <div className={grayImage}></div>
-      </div>
-      <Thing />{" "}
-    </div>
-  );
-};
+    <ApolloProvider client={client}>
+      <Header />
+      <div>
+        {!isLoading && !user && (
+          <>
+            <h1>Click Below!</h1>
+            <button onClick={loginWithRedirect}>Login</button>
+          </>
+        )}
+        {!isLoading && user && (
+          <>
+            <h1>You are logged in!</h1>
+            <p>Hello {user.name}</p>
 
-export default App;
+            {user.picture && <img src={user.picture} alt='My Avatar' />}
+            <hr />
+
+            <button onClick={() => logout({returnTo: window.location.origin})}>
+              Logout
+            </button>
+          </>
+        )}
+        <Route exact path='/' component={Home} />
+      </div>
+    </ApolloProvider>
+  )
+}
+
+export default App
