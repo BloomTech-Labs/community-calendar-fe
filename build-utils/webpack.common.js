@@ -1,7 +1,6 @@
 /* Shared config for all environments */
-const path = require("path")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const autoprefixer = require("autoprefixer")
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = isDevelopment => ({
   entry: {
@@ -12,51 +11,88 @@ module.exports = isDevelopment => ({
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
+        // run eslint before compiling
         use: ["babel-loader", "eslint-loader"],
       },
       {
-        // look for scss modules
-        test: /\.module\.s(a|c)ss$/,
+        // look for css/sass modules
+        test: /\.(sa|sc|c)ss$/,
+        include: /\.module\.(sa|sc|c)ss$/,
+        // loaders to transform files. Loaders are executed in opposite order of declarationc
         loader: [
+          // last loader
+          // MiniCss plugin extracts css to separate file for production
           isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
           {
+            // resolve url() and @import in CSS
             loader: "css-loader",
             options: {
+              // use module rules on @import resources
+              importLoaders: 1,
               modules: true,
               sourceMap: isDevelopment,
             },
           },
           {
+            // apply prefixes and minimize
             loader: "postcss-loader",
             options: {
-              plugins: () => [autoprefixer()],
+              sourceMap: isDevelopment,
+              config: {
+                path: path.resolve(
+                  __dirname,
+                  "../",
+                  "build-utils/postcss.config.js",
+                ),
+              },
             },
           },
           {
+            // first loader. convert SASS to CSS
             loader: "sass-loader",
             options: {
               sourceMap: isDevelopment,
+              implementation: require("node-sass"),
             },
           },
         ],
       },
       {
-        // look for regular scss stylesheets
-        test: /\.s(a|c)ss$/,
-        exclude: /\.module.(s(a|c)ss)$/,
+        // look for standard css/sass stylesheets
+        test: /\.(sa|sc|c)ss$/,
+        exclude: /\.module\.(sa|sc|c)ss$/,
+        // loaders to transform files. Loaders are executed in opposite order of declarationc
         loader: [
+          // last loader
+          // MiniCss plugin extracts css to separate file for production
           isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
-          "css-loader",
           {
-            loader: "postcss-loader",
+            // resolve url() and @import in CSS
+            loader: "css-loader",
             options: {
-              plugins: () => [autoprefixer()],
+              sourceMap: isDevelopment,
             },
           },
           {
+            // apply prefixes and minimize
+            loader: "postcss-loader",
+            options: {
+              sourceMap: isDevelopment,
+              config: {
+                path: path.resolve(
+                  __dirname,
+                  "../",
+                  "build-utils/postcss.config.js",
+                ),
+              },
+            },
+          },
+          {
+            // first loader. convert SASS to CSS
             loader: "sass-loader",
             options: {
               sourceMap: isDevelopment,
+              implementation: require("node-sass"),
             },
           },
         ],
@@ -64,10 +100,10 @@ module.exports = isDevelopment => ({
     ],
   },
   resolve: {
-    extensions: ["*", ".js", ".jsx", ".scss"],
+    extensions: ["*", ".js", ".jsx", ".scss", ".sass", ".css"],
   },
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "../", "dist"),
   },
-})
+});
