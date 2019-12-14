@@ -1,0 +1,11 @@
+$test1: #de5300;
+
+@mixin autoprefixTest {
+  user-select: none;
+}
+
+body {
+  min-height: 100vh;
+  @include autoprefixTest;
+  background: linear-gradient(to bottom, $test1, black);
+}
