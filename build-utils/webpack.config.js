@@ -7,6 +7,8 @@ const configEnvKeys = require('./env_variables.config.js')
 
 module.exports = env => {
   console.log('process.env.AUTH0_DOMAIN', process.env.AUTH0_DOMAIN)
+  const processVars = dotenv.config()
+  console.log('processVars in webpack.config', processVars)
   console.log('command line env variables', env)
   const isDevelopment = env.environment === 'development'
   // environment specific settings
