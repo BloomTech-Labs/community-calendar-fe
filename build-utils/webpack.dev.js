@@ -6,7 +6,7 @@ module.exports = webpack => {
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
-      contentBase: './dist',
+      contentBase: './public',
       port: 3000,
       hot: true,
     },
