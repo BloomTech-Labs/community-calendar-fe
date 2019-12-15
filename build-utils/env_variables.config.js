@@ -19,6 +19,8 @@ module.exports = (env, path, dotenv) => {
   }
   // format environment variables to nice object
   const envVars = fileEnv ? {...env, ...fileEnv} : env
+  const {parsed: dotVars} = dotenv.config()
+  console.log('dotvars', dotVars)
   return Object.keys(envVars).reduce((prev, next) => {
     prev[`process.env.${next}`] = JSON.stringify(envVars[next])
     return prev
