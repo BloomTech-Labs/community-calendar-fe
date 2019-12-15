@@ -6,6 +6,7 @@ const path = require('path')
 const configEnvKeys = require('./env_variables.config.js')
 
 module.exports = env => {
+  console.log('command line env variables', env)
   const isDevelopment = env.environment === 'development'
   // environment specific settings
   const envConfig = require(`./webpack.${isDevelopment ? 'dev' : 'prod'}.js`)
