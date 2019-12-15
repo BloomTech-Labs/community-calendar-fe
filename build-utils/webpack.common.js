@@ -141,8 +141,7 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
       filename: '[name].[hash].css',
       chunkFilename: '[id].[hash].css',
     }),
-    // make process.env properties available to React
-    // new webpack.DefinePlugin(envKeys),
+    new webpack.DefinePlugin(envKeys),
   ],
   output: {
     filename: '[name].bundle.js',

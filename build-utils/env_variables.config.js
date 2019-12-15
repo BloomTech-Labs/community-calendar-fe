@@ -19,8 +19,17 @@ module.exports = (env, path, dotenv) => {
   }
   // format environment variables to nice object
   const envVars = fileEnv ? {...env, ...fileEnv} : env
-  return Object.keys(envVars).reduce((prev, next) => {
-    prev[`process.env.${next}`] = JSON.stringify(envVars[next])
+  //get env variables injected from deployment platforms such as Zeit
+  let injectedVars = Object.keys(process.env)
+    .filter(key => /^REACT_APP_/i.test(key))
+    .reduce((env, key) => {
+      env[key] = process.env[key]
+      return env
+    }, {})
+
+  const combined = {...envVars, ...injectedVars}
+  return Object.keys(combined).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(combined[next])
     return prev
   }, {})
 }
