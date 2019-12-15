@@ -18,7 +18,15 @@ Install the [Prettier](https://marketplace.visualstudio.com/items?itemName=esben
   "prettier.requireConfig": true
 }
 ```
+
+### Environment Variables
+
+Create two files for environment variables: `.env` and `.env.development`.
+Use the .env.development file to store secrets for local development.
+Use '.env' to test the production build locally.
+
 #### Required env variables:
+
 - AUTH0_DOMAIN
 - AUTH0_CLIENT_ID
 - API_AUDIENCE

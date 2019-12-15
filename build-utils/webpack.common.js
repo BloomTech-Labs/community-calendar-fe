@@ -1,9 +1,9 @@
 /* Shared config for all environments */
-const path = require('path')
+const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-module.exports = isDevelopment => ({
+module.exports = (isDevelopment, path, webpack, envKeys) => ({
   entry: {
     app: './src/index.js',
   },
@@ -128,14 +128,20 @@ module.exports = isDevelopment => ({
     ],
   },
   plugins: [
+    // delete contents of /dist
+    new CleanWebpackPlugin({
+      verbose: true,
+    }),
+    // generate index.html
     new HtmlWebpackPlugin({
-      title: 'My Project',
       template: './src/index.html',
     }),
+    // put css in separate file from js
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css',
       chunkFilename: '[id].[hash].css',
     }),
+    new webpack.DefinePlugin(envKeys),
   ],
   output: {
     filename: '[name].bundle.js',

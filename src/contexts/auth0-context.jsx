@@ -1,5 +1,6 @@
 import React, {Component, createContext, useContext} from 'react'
 import createAuth0Client from '@auth0/auth0-spa-js'
+import PropTypes from 'prop-types'
 
 //create the context
 export const Auth0Context = createContext()
@@ -75,4 +76,8 @@ export class Auth0Provider extends Component {
       </Auth0Context.Provider>
     )
   }
+}
+
+Auth0Provider.propTypes = {
+  children: PropTypes.func,
 }
