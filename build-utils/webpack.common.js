@@ -19,7 +19,7 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
         // look for css/sass modules
         test: /\.(sa|sc|c)ss$/,
         include: /\.module\.(sa|sc|c)ss$/,
-        // loaders to transform files. Loaders are executed in opposite order of declarationc
+        // loaders to transform files. Loaders are executed in opposite order of declaration
         loader: [
           // last loader
           // MiniCss plugin extracts css to separate file for production
@@ -141,6 +141,7 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
       filename: '[name].[hash].css',
       chunkFilename: '[id].[hash].css',
     }),
+    // make process.env properties available to React
     new webpack.DefinePlugin(envKeys),
   ],
   output: {

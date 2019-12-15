@@ -4,7 +4,7 @@ Webpack settings for production env
 const TerserPlugin = require('terser-webpack-plugin')
 var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
-module.exports = webpack => ({
+module.exports = () => ({
   // sets process.env.NODE_ENV = 'production'
   mode: 'production',
   optimization: {

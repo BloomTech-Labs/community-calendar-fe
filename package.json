@@ -1,5 +1,5 @@
 {
-  "name": "react-template",
+  "name": "community-calendar-fe",
   "version": "1.0.0",
   "description": "Community Calendar FE: A React application which engages communites through events",
   "main": "index.js",
