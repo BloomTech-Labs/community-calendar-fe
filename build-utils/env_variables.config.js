@@ -1,23 +1,26 @@
 const fs = require('fs')
 module.exports = (env, path, dotenv) => {
+  let fileEnv = null
   //get root path
   const rootPath = path.join(__dirname, '../')
+  // production .env file
+  const prodEnv = rootPath + '.env'
+  // check if production .env file exists
+  if (fs.existsSync(prodEnv)) {
+    // concat base path with current env
+    const envPath = `${prodEnv}.${env.environment}`
 
-  // default .env file
-  const basePath = rootPath + './.env'
+    // check if .env file for current env exist, else use .env
+    // use for development and testing
+    const finalPath = fs.existsSync(envPath) ? envPath : prodEnv
 
-  // concat base path with current env
-  const envPath = `${basePath}.${env}`
-
-  // check if .env file for current env exist, else use .env
-  const finalPath = fs.existsSync(envPath) ? envPath : basePath
-
-  // set path parameter in dotenv config
-  const fileEnv = dotenv.config({path: finalPath}).parsed
-
+    // set path parameter in dotenv config
+    fileEnv = dotenv.config({path: finalPath}).parsed
+  }
   // format environment variables to nice object
-  return Object.keys(fileEnv).reduce((prev, next) => {
-    prev[`process.env.${next}`] = JSON.stringify(fileEnv[next])
+  const envVars = fileEnv ? {...env, ...fileEnv} : env
+  return Object.keys(envVars).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(envVars[next])
     return prev
   }, {})
 }

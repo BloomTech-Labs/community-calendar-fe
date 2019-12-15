@@ -5,14 +5,13 @@ const dotenv = require('dotenv')
 const path = require('path')
 const configEnvKeys = require('./env_variables.config.js')
 
-module.exports = ({env}) => {
-  const isDevelopment = env === 'development'
+module.exports = env => {
+  const isDevelopment = env.environment === 'development'
   // environment specific settings
   const envConfig = require(`./webpack.${isDevelopment ? 'dev' : 'prod'}.js`)
-
   // prepare environment variables
   const envKeys = configEnvKeys(env, path, dotenv)
-  console.log('envkeys', envKeys)
+  console.log('Process.env keys available to client:', envKeys)
   // merge webpack configs based on current env
   const result = webpackMerge(
     commonConfig(isDevelopment, path, webpack, envKeys),

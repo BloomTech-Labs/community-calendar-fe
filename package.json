@@ -4,8 +4,8 @@
   "description": "Community Calendar FE: A React application which engages communites through events",
   "main": "index.js",
   "scripts": {
-    "dev": " webpack-dev-server --env.env=development --config build-utils/webpack.config.js  --open",
-    "build": "webpack --env.env=production --config build-utils/webpack.config.js  ",
+    "dev": " webpack-dev-server --env.environment=development  --config build-utils/webpack.config.js  --open",
+    "build": "webpack --env.environment=production  --config build-utils/webpack.config.js  ",
     "format": "prettier --write \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" ",
     "lint": "eslint \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" --quiet",
     "test": "echo \"Error: no test specified\" && exit 1"
