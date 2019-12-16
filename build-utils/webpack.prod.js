@@ -1,11 +1,11 @@
 /* 
 Webpack settings for production env
  */
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = () => ({
+  // sets process.env.NODE_ENV = 'production'
   mode: 'production',
   optimization: {
     minimize: true,
@@ -17,7 +17,6 @@ module.exports = () => ({
   },
   devtool: 'source-map',
   plugins: [
-    new CleanWebpackPlugin(),
     // minimize the css bundle
     new OptimizeCssAssetsPlugin({
       cssProcessor: require('cssnano'),

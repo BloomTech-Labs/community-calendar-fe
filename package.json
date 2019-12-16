@@ -1,11 +1,11 @@
 {
-  "name": "react-template",
+  "name": "community-calendar-fe",
   "version": "1.0.0",
-  "description": "",
+  "description": "Community Calendar FE: A React application which engages communites through events",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server  --config build-utils/webpack.config.js --env.env=dev --open",
-    "build": "cross-env NODE_ENV=production webpack --config build-utils/webpack.config.js --env.env=prod ",
+    "dev": " webpack-dev-server --env.environment=development  --config build-utils/webpack.config.js  --open",
+    "build": "webpack --env.environment=production  --config build-utils/webpack.config.js  ",
     "format": "prettier --write \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" ",
     "lint": "eslint \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" --quiet",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,6 +18,7 @@
     "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
     "autoprefixer": "^9.7.3",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
@@ -47,13 +48,13 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.6.0",
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
     "apollo-link-context": "^1.0.19",
     "apollo-link-http": "^1.5.16",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
+    "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-apollo": "^3.1.3",
     "react-dom": "^16.12.0",

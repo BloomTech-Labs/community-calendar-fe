@@ -34,7 +34,7 @@ function App() {
   getAccessToken()
 
   const httpLink = new HttpLink({
-    uri: process.env.APOLLO_SERVER,
+    uri: process.env.REACT_APP_APOLLO_SERVER,
   })
 
   const authLink = setContext((_, {headers}) => {

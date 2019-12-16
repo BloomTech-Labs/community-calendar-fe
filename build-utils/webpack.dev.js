@@ -1,26 +1,15 @@
 /* Webpack settings for development */
-const webpack = require('webpack')
-const dotenv = require('dotenv')
 
-module.exports = () => {
-  const env = dotenv.config().parsed
-
-  const envKeys = Object.keys(env).reduce((prev, next) => {
-    prev[`process.env.${next}`] = JSON.stringify(env[next])
-    return prev
-  }, {})
-
+module.exports = webpack => {
   return {
+    // sets process.env.NODE_ENV = 'development'
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
-      contentBase: './dist',
+      contentBase: './public',
       port: 3000,
       hot: true,
     },
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.DefinePlugin(envKeys),
-    ],
+    plugins: [new webpack.HotModuleReplacementPlugin()],
   }
 }
