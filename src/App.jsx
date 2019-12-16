@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Route} from 'react-router-dom'
-import Home from './components/home.jsx'
-import Header from './components/header.jsx'
+import Home from './pages/home'
+import Header from './components/header'
 
 //apollo
 import {ApolloProvider} from 'react-apollo'
@@ -67,7 +67,9 @@ function App() {
         {!isLoading && !user && (
           <>
             <h1>Click Below!</h1>
-            <button onClick={loginWithRedirect}>Login</button>
+            <button className='button is-primary' onClick={loginWithRedirect}>
+              Login
+            </button>
           </>
         )}
         {!isLoading && user && (

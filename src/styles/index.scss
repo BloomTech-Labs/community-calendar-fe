@@ -1,0 +1,21 @@
+@charset "utf-8";
+@import '_normalize.scss';
+@import '~bulma/sass/base/minireset.sass';
+@import '_global.scss';
+@import '_variables';
+@import '_typography';
+
+/*
+declare/import  bulma class modifications and custom classes before 
+bulma or the classes will be duplicated in the output
+
+importing everything.
+*/
+@import '~bulma/sass/utilities/_all.sass';
+@import '~bulma/sass/base/generic.sass';
+@import '~bulma/sass/base/helpers.sass';
+@import '~bulma/sass/elements/_all.sass';
+@import '~bulma/sass/components/_all.sass';
+@import '~bulma/sass/form/_all.sass';
+@import '~bulma/sass/grid/_all.sass';
+@import '~bulma/sass/layout/_all.sass';
