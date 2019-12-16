@@ -113,7 +113,7 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
     ],
   },
   resolve: {
-    modules: ['node_modules', 'src/styles', 'src/pages', 'src/components'],
+    modules: ['node_modules', 'src/styles', 'test-utils'],
     //  imports don't have to use the  file extension
     enforceExtension: false,
     extensions: [
