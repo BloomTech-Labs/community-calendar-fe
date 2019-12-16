@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Route} from 'react-router-dom'
 import Home from 'home'
-import Header from 'header.jsx'
+import Header from 'header'
 
 //apollo
 import {ApolloProvider} from 'react-apollo'
