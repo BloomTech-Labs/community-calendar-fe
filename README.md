@@ -31,7 +31,7 @@ Use '.env' to test the production build locally.
 
 #### Required env variables:
 
-- AUTH0_DOMAIN
-- AUTH0_CLIENT_ID
-- API_AUDIENCE
-- APOLLO_SERVER
+- REACT_APP_AUTH0_DOMAIN
+- REACT_APP_AUTH0_CLIENT_ID
+- REACT_APP_AUTH0_API_AUDIENCE
+- REACT_APP_APOLLO_SERVER
