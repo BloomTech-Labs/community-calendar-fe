@@ -22,7 +22,7 @@ export default function Header() {
   }
 
   return (
-    <header>
+    <header className='has-background-info'>
       <nav>
         <div>
           <button className='navbar-item'>Community Calendar</button>
