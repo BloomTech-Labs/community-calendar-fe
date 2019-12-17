@@ -9,7 +9,7 @@ export default function Navbar() {
       <div>
         <button className='navbar-item'>Community Calendar</button>
       </div>
-      <h3 className='butler-font'>Butler Font</h3>
+      <h3 className='Butler'>Butler Font</h3>
     </nav>
   )
 }
