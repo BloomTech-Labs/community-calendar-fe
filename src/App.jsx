@@ -64,31 +64,34 @@ function App() {
     <ApolloProvider client={client}>
       <Navbar />
       <Route exact path='/' component={Home} />
+      
       {/* Login test playground */}
-      <h3>Login Test Playground</h3>
-      <div>
-        {!isLoading && !user && (
-          <>
-            <h1>Click Below!</h1>
-            <button className='button is-primary' onClick={loginWithRedirect}>
-              Login
-            </button>
-          </>
-        )}
-        {!isLoading && user && (
-          <>
-            <h1>You are logged in!</h1>
-            <p>Hello {user.name}</p>
+      <section className="section">
+        <h3>Login Test Playground</h3>
+        <div>
+          {!isLoading && !user && (
+            <>
+              <h1>Click Below!</h1>
+              <button className='button is-primary' onClick={loginWithRedirect}>
+                Login
+              </button>
+            </>
+          )}
+          {!isLoading && user && (
+            <>
+              <h1>You are logged in!</h1>
+              <p>Hello {user.name}</p>
 
-            {user.picture && <img src={user.picture} alt='My Avatar' />}
-            <hr />
+              {user.picture && <img src={user.picture} alt='My Avatar' />}
+              <hr />
 
-            <button onClick={() => logout({returnTo: window.location.origin})}>
-              Logout
-            </button>
-          </>
-        )}
-      </div>
+              <button onClick={() => logout({returnTo: window.location.origin})}>
+                Logout
+              </button>
+            </>
+          )}
+        </div>
+      </section>
     </ApolloProvider>
   )
 }
