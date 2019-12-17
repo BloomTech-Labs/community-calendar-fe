@@ -1,0 +1,42 @@
+html {
+  font-size: 62.5%;
+  line-height: 1.5;
+}
+
+body {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 3.1rem;
+}
+
+h3 {
+  font-size: 2.8rem;
+}
+
+h4 {
+  font-size: 2.4rem;
+}
+
+h5 {
+  font-size: 2rem;
+}
+
+h6 {
+  font-size: 1.6rem;
+}
+
+/* hand cursor on clickable elements */
+label,
+input[type='button'],
+input[type='submit'],
+input[type='file'],
+button {
+  cursor: pointer;
+}

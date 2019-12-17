@@ -1,9 +1,10 @@
 @charset "utf-8";
 @import '_normalize.scss';
 @import '~bulma/sass/base/minireset.sass';
-@import '_global.scss';
+@import '_custom_reset.scss';
 @import '_variables';
 @import '_typography';
+@import '_global.scss';
 
 /*
 declare/import  bulma class modifications and custom classes before 
