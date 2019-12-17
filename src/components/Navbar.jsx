@@ -1,5 +1,5 @@
 import React from 'react'
-import {navbar} from './style_modules/navbar.module.scss'
+import {navbar} from './style_modules/Navbar.module.scss'
 import CCLogo from './CCLogo'
 
 export default function Navbar() {
