@@ -8,16 +8,15 @@ Object {
       <header
         class="has-background-info"
       >
-        <nav>
+        <nav
+          class="nav-bar"
+        >
           <div>
             <button
               class="navbar-item"
             >
               Community Calendar
             </button>
-          </div>
-          <div>
-             
           </div>
         </nav>
       </header>
@@ -27,16 +26,15 @@ Object {
     <header
       class="has-background-info"
     >
-      <nav>
+      <nav
+        class="nav-bar"
+      >
         <div>
           <button
             class="navbar-item"
           >
             Community Calendar
           </button>
-        </div>
-        <div>
-           
         </div>
       </nav>
     </header>
