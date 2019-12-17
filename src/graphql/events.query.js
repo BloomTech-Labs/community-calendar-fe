@@ -37,12 +37,3 @@ export const GET_EVENTS = gql`
   ${EVENT_DETAIL_DATA}
   ${ADDRESS_DETAIL_DATA}
 `;
-
-export const TEST_GET = gql`
-  query {
-    events {
-      ...EventDetail
-    }
-  }
-  ${EVENT_DETAIL_DATA}
-`;
