@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Route} from 'react-router-dom'
 import Home from './pages/home'
-import Header from './components/header'
+import Navbar from './components/Navbar'
 
 //apollo
 import {ApolloProvider} from 'react-apollo'
@@ -62,7 +62,7 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <Header />
+      <Navbar />
       <div>
         {!isLoading && !user && (
           <>

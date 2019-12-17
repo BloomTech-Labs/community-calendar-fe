@@ -1,0 +1,11 @@
+@import '_variables.scss';
+
+.navbar {
+  padding: 0 $bodyPaddingX-hd;
+  height: 72px;
+
+  svg {
+    height: 50px;
+    width: 50px;
+  }
+}
