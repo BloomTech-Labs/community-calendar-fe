@@ -7,6 +7,7 @@ export default function Header() {
         <div>
           <button className='navbar-item'>Community Calendar</button>
         </div>
+        <h3 className='Butler'>Butler Font</h3>
       </nav>
     </header>
   )
