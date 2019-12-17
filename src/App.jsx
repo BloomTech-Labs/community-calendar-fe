@@ -63,6 +63,9 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Navbar />
+      <Route exact path='/' component={Home} />
+      {/* Login test playground */}
+      <h3>Login Test Playground</h3>
       <div>
         {!isLoading && !user && (
           <>
@@ -85,7 +88,6 @@ function App() {
             </button>
           </>
         )}
-        <Route exact path='/' component={Home} />
       </div>
     </ApolloProvider>
   )
