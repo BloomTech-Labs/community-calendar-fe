@@ -1,7 +1,7 @@
 @import '_variables.scss';
 
-.header {
-  padding: 0 $minX;
+.navbar {
+  padding: 0 $bodyPaddingX-hd;
   height: 72px;
 
   svg {

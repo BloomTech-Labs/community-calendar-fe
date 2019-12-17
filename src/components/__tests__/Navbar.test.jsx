@@ -1,11 +1,11 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import Header from '../components/header'
+import Navbar from '../Navbar'
 
-describe('Tests for Header.jsx', () => {
-  it('should render', () => {
-    const tree = render(<Header />)
+describe('Tests for Navbar.jsx', () => {
+  test('should render without props', () => {
+    const tree = render(<Navbar />)
     expect(tree).toMatchSnapshot()
   })
 })
