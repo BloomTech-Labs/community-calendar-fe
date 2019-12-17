@@ -1,16 +1,24 @@
 // Import a Google Font
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+@mixin Poppins {
+  font-family: Poppins, sans-serif;
+}
+
+.poppins-font {
+  font-family: Poppins, sans-serif;
+}
 
 @font-face {
   font-family: Butler;
   src: url(../assets/fonts/Butler-Bold.woff2) format('woff2'),
     url(../assets/fonts/Butler-Bold.woff) format('woff');
   font-display: optional;
-  src: local('?'), url('Butler-Bold.woff') format('woff'),
-    url('Butler-Bold.woff') format('woff2'),
-    url('Butler-Bold.ttf') format('truetype');
 }
 
 @mixin Butler {
+  font-family: Butler, Georgia, 'Times New Roman', Times, serif;
+}
+
+.butler-font {
   font-family: Butler, Georgia, 'Times New Roman', Times, serif;
 }
