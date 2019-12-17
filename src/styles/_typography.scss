@@ -12,7 +12,7 @@
   font-family: Butler;
   src: url(../assets/fonts/Butler-Bold.woff2) format('woff2'),
     url(../assets/fonts/Butler-Bold.woff) format('woff');
-  font-display: optional;
+  font-display: block;
 }
 
 @mixin Butler {
