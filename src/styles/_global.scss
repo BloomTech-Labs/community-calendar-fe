@@ -1,3 +1,7 @@
+html {
+  padding-top: $navbar-height;
+}
+
 body {
   @include Poppins;
 }

@@ -1,11 +1,38 @@
 @import '_variables.scss';
+@import '_animations.scss';
+@import '~bulma/sass/utilities/_all.sass';
 
 .navbar {
   padding: 0 $bodyPaddingX-hd;
-  height: 72px;
+  height: $navbar-height;
+  border-bottom: 2px solid $black-bis;
+  margin-top: 0 !important;
 
-  svg {
-    height: 50px;
-    width: 50px;
+  button {
+    border: 0;
+    border-radius: $radius;
+    background: none;
+    position: relative;
+    transition: color 0.4s ease-in-out 0.1s;
+    &:hover {
+      color: #fff;
+    }
+    &:before {
+      content: '';
+      z-index: -100;
+      position: absolute;
+      border-radius: $radius;
+      background: none;
+      width: 100%;
+      height: 100%;
+      left: 50%;
+      margin-left: -50%;
+      background-color: $black-bis;
+      transform: scale(0);
+      transition: all 0.3s ease-in-out 0s;
+    }
+    &:hover:before {
+      transform: scale(1);
+    }
   }
 }

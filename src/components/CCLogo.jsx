@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const CCLogo = ({fill, dimensions}) => {
+const CCLogo = ({fill, dimensions, dataId}) => {
   return (
     <svg
+      data-id={dataId}
       width={dimensions}
       height={dimensions}
       viewBox='0 0 30 33'
@@ -21,6 +22,7 @@ const CCLogo = ({fill, dimensions}) => {
 CCLogo.propTypes = {
   fill: PropTypes.string,
   dimensions: PropTypes.number,
+  dataId: PropTypes.string,
 }
 
 export default CCLogo
