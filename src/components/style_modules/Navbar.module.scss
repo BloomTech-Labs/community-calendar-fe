@@ -6,31 +6,33 @@
   padding: 0 $bodyPaddingX-hd;
   height: $navbar-height;
   border-bottom: 2px solid $black-bis;
-  align-items: center;
-  margin: 0;
+  margin-top: 0 !important;
 
   button {
     border: 0;
+    border-radius: $radius;
     background: none;
     position: relative;
+    transition: color 0.4s ease-in-out 0.1s;
+    &:hover {
+      color: #fff;
+    }
     &:before {
       content: '';
+      z-index: -100;
       position: absolute;
+      border-radius: $radius;
+      background: none;
       width: 100%;
-      height: 3px;
-      bottom: -2px;
-      left: 0;
-      background-color: #000;
-      visibility: hidden;
-      -webkit-transform: scaleX(0);
-      transform: scaleX(0);
-      -webkit-transition: all 0.3s ease-in-out 0s;
+      height: 100%;
+      left: 50%;
+      margin-left: -50%;
+      background-color: $black-bis;
+      transform: scale(0);
       transition: all 0.3s ease-in-out 0s;
     }
     &:hover:before {
-      visibility: visible;
-      -webkit-transform: scaleX(1);
-      transform: scaleX(1);
+      transform: scale(1);
     }
   }
 }

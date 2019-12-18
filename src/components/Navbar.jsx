@@ -5,36 +5,48 @@ import CCLogo from './CCLogo'
 import NavbarSearch from './NavbarSearch'
 
 export default function Navbar() {
-  const {
-    isLoading,
-    user,
-    loginWithRedirect,
-    logout,
-    getTokenSilently,
-  } = useAuth0()
+  const {user, loginWithRedirect, logout} = useAuth0()
 
   return (
     <nav
-      className={`${navbar} navbar has-background-white is-fixed-top columns `}
+      className={`${navbar} navbar has-background-white is-fixed-top columns level `}
     >
-      <div className='column is-narrow'>
+      <div className='column is-narrow is-flex level is-marginless'>
         <a
+          className='is-flex level is-marginless'
           href='https://communitycalendar.netlify.com'
           title='Go to CommunityCalendar.netlify.com'
         >
           <CCLogo dimensions={35} />
         </a>
       </div>
-      <div className='column is-one-quarter'>
+      <div className='column   is-flex level is-marginless'>
         <NavbarSearch />
       </div>
-      <div className='column'></div>
-      <div className='column is-narrow '>
-        <button className='has-text-weight-bold is-size-5'>Sign In</button>
-      </div>
-      <div className='column is-narrow is-size-5'>
-        <button>Sign Up</button>
-      </div>
+      {user ? (
+        <div className='column is-narrow '>
+          <button
+            onClick={() => logout({returnTo: window.location.origin})}
+            className='button is-size-5'
+          >
+            Log Out
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className='column is-narrow '>
+            <button
+              onClick={loginWithRedirect}
+              className='button has-text-weight-bold is-size-5'
+            >
+              Sign In
+            </button>
+            {/* </div> */}
+            {/* <div className='column is-narrow '> */}
+            <button className='button is-size-5'>Sign Up</button>
+          </div>
+        </>
+      )}
     </nav>
   )
 }
