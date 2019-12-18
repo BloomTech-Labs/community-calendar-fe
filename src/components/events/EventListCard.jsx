@@ -2,16 +2,13 @@ import React from 'react'
 import * as moment from 'moment';
 
 //styles
-import {event_list_item, event_details, event_image} from '../style_modules/EventListCard.module.scss'
+import {event_details, event_image} from '../style_modules/EventListCard.module.scss'
 
 export default function EventListCard(props) {
   const {item} = props;
 
   return (
-    <div className={`columns ${event_list_item}`}>
-      {/* <div className={`column is-narrow ${event_image}`}>
-        <img src={item.event_images[0].url} />
-      </div> */}
+    <div className="columns">
       <img src={item.event_images[0].url} className={`column is-narrow ${event_image}`} />
       <div className={`column ${event_details}`}>
         <p className="is-size-7 is-uppercase has-text-weight-bold">
