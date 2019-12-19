@@ -13,7 +13,6 @@ import {setContext} from 'apollo-link-context'
 
 //pages
 import Home from './pages/home'
-import Events from './pages/events'
 
 //components
 import Navbar from './components/Navbar'
@@ -70,7 +69,6 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route path='/events' component={Events} />
       </Switch>
       
       {/* Login test playground */}
