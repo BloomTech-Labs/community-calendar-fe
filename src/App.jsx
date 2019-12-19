@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Route} from 'react-router-dom'
 import Home from './pages/home'
 import Navbar from './components/Navbar'
-
+import EventView from './components/events/EventView'
 //apollo
 import {ApolloProvider} from 'react-apollo'
 import {ApolloClient} from 'apollo-client'
@@ -64,6 +64,7 @@ function App() {
     <ApolloProvider client={client}>
       <Navbar />
       <Route exact path='/' component={Home} />
+      <Route path='/events' component={EventView}/>
       
       {/* Login test playground */}
       <section className="section">
