@@ -1,0 +1,7 @@
+@import '_variables.scss';
+@import '~bulma/sass/utilities/_all.sass';
+
+.event_list {
+  padding-left: 64px !important;
+  max-width: 1000px;
+}
