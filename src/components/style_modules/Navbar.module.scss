@@ -8,7 +8,7 @@
   border-bottom: 2px solid $black-bis;
   margin-top: 0 !important;
 
-  button {
+  .navbutton {
     border: 0;
     border-radius: $radius;
     background: none;
@@ -35,4 +35,18 @@
       transform: scale(1);
     }
   }
+}
+
+.profileButton {
+  border: none;
+  background-color: #fff;
+  img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.navsearch {
+  padding-left: 12px;
+  align-items: center !important;
 }

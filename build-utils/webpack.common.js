@@ -28,17 +28,19 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
             // resolve url() and @import in CSS
             loader: 'css-loader',
             options: {
+              // number of loaders before this one
+              importLoaders: 2,
               // use module rules on @import resources
-              importLoaders: 1,
               modules: true,
               sourceMap: isDevelopment,
+              // Class names will be camelized, the original class name will not to be removed from the locals
+              localsConvention: 'camelCase',
             },
           },
           {
             // apply prefixes and minimize
             loader: 'postcss-loader',
             options: {
-              sourceMap: isDevelopment,
               config: {
                 path: path.resolve(
                   __dirname,
@@ -52,7 +54,6 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
             // first loader. convert SASS to CSS
             loader: 'sass-loader',
             options: {
-              sourceMap: isDevelopment,
               implementation: require('node-sass'),
             },
           },
@@ -71,14 +72,17 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
             // resolve url() and @import in CSS
             loader: 'css-loader',
             options: {
+              // number of loaders before this one
+              importLoaders: 2,
               sourceMap: isDevelopment,
+              // Class names will be camelized, the original class name will not to be removed from the locals
+              localsConvention: 'camelCase',
             },
           },
           {
             // apply prefixes and minimize
             loader: 'postcss-loader',
             options: {
-              sourceMap: isDevelopment,
               config: {
                 path: path.resolve(
                   __dirname,
@@ -92,7 +96,6 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
             // first loader. convert SASS to CSS
             loader: 'sass-loader',
             options: {
-              sourceMap: isDevelopment,
               implementation: require('node-sass'),
             },
           },
