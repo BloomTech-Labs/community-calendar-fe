@@ -16,7 +16,6 @@ import Home from './pages/home'
 
 //components
 import Navbar from 'navbar/Navbar'
-import EventView from './components/events/EventView'
 
 function App() {
   const {
