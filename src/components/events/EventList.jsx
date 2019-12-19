@@ -16,8 +16,6 @@ export default function EventList() {
   if (loading) return <p>LOADING</p>
   if (error) return <p>ERROR</p>
 
-  console.log(data, 'GET_EVENTS data')
-
   return (
     <section className={`section ${event_list}`}>
       <h3 className='is-family-secondary is-size-2'>Events</h3>
