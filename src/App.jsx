@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import {Route} from 'react-router-dom'
-import Home from './pages/home'
-import Navbar from './components/Navbar'
-import EventView from './components/events/EventView'
+import {Route, Switch} from 'react-router-dom'
+
+//auth0
+import {useAuth0} from './contexts/auth0-context.jsx'
+
 //apollo
 import {ApolloProvider} from 'react-apollo'
 import {ApolloClient} from 'apollo-client'
@@ -10,8 +11,12 @@ import {HttpLink} from 'apollo-link-http'
 import {InMemoryCache} from 'apollo-cache-inmemory'
 import {setContext} from 'apollo-link-context'
 
-//auth0
-import {useAuth0} from './contexts/auth0-context.jsx'
+//pages
+import Home from './pages/home'
+
+//components
+import Navbar from 'navbar/Navbar'
+import EventView from './components/events/EventView'
 
 function App() {
   const {
@@ -63,11 +68,12 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Navbar />
-      <Route exact path='/' component={Home} />
-      <Route path='/events' component={EventView}/>
-      
+      <Switch>
+        <Route exact path='/' component={Home} />
+      </Switch>
+
       {/* Login test playground */}
-      <section className="section">
+      <section className='section'>
         <h3>Login Test Playground</h3>
         <div>
           {!isLoading && !user && (
@@ -86,7 +92,9 @@ function App() {
               {user.picture && <img src={user.picture} alt='My Avatar' />}
               <hr />
 
-              <button onClick={() => logout({returnTo: window.location.origin})}>
+              <button
+                onClick={() => logout({returnTo: window.location.origin})}
+              >
                 Logout
               </button>
             </>

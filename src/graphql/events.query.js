@@ -32,6 +32,9 @@ export const GET_EVENTS = gql`
         name
         ...AddressDetail
       }
+      event_images {
+        url
+      }
     }
   }
   ${EVENT_DETAIL_DATA}
