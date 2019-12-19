@@ -1,5 +1,6 @@
 import React from 'react'
 import * as moment from 'moment'
+import PropTypes from 'prop-types'
 
 //styles
 import {
@@ -18,12 +19,17 @@ export default function EventListCard(props) {
         className={`column is-narrow ${event_image}`}
       />
       <div className={`column ${event_details}`}>
-        <p className=' is-size-7 is-uppercase has-text-weight-bold color_chalice'>
+        <p
+          data-id='event_location'
+          className=' is-size-7 is-uppercase has-text-weight-bold color_chalice'
+        >
           {(item.locations && item.locations.neighborhood) || 'North End'}
         </p>
-        <p className='is-size-5 has-text-weight-bold'>{item.title}</p>
+        <p data-id='event_title' className='is-size-5 has-text-weight-bold'>
+          {item.title}
+        </p>
         <p className='is-size-6'>
-          <span className='color_chalice'>
+          <span data-id='event_time' className='color_chalice'>
             {`${moment(item.start).format('h:mm a')} - ${moment(
               item.end,
             ).format('h:mm a')}`}
@@ -34,8 +40,14 @@ export default function EventListCard(props) {
           <span className='color_chalice'>Free</span>
         </p>
         <br />
-        <p className='is-size-7'>{item.description}</p>
+        <p data-id='event_description' className='is-size-7'>
+          {item.description}
+        </p>
       </div>
     </div>
   )
+}
+
+EventListCard.propTypes = {
+  item: PropTypes.object,
 }
