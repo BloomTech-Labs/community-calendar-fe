@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import EventView from './components/events/EventView'
 import {Route, Switch} from 'react-router-dom'
 
 //auth0
@@ -69,6 +70,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
+        <Route path='/events' component={EventView}/>
       </Switch>
 
       {/* Login test playground */}
