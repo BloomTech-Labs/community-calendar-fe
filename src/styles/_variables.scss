@@ -1,10 +1,23 @@
 //============= Palette =============
 $red: #ff2d2d;
+$bittersweet: #ff6768;
+$sunsetOrange: #ff4b4d;
+$danger: $sunsetOrange;
+$shark: #21242c;
+$astronaut: #263d67;
+$chalice: #acaaaa;
+$silver: #c0c0c0;
+$iconLight: #999999;
 
 //============= Spacing And Layout=============
 $bodyPaddingX-hd: 2rem;
 $navbar-height: 72px;
 $navbar-padding-vertical: 10px;
+
+//============= Borders =============
+$radius-small: 2px;
+$radius: 6px;
+$radius-large: 10px;
 
 //============ Typography ===========
 $family-primary: Poppins, sans-serif;

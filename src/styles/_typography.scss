@@ -1,3 +1,4 @@
+@import './variables';
 // Import a Google Font
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 @mixin Poppins {
@@ -21,4 +22,8 @@
 
 .Butler {
   font-family: Butler, Georgia, 'Times New Roman', Times, serif;
+}
+
+.color_chalice {
+  color: $chalice;
 }
