@@ -7,6 +7,11 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
   entry: {
     app: './src/index.js',
   },
+  output: {
+    filename: '[name].bundle.js',
+    pulicPath: '/',
+    path: path.resolve(__dirname, '../', 'public'),
+  },
   module: {
     rules: [
       {
@@ -163,8 +168,4 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
     }),
     new webpack.DefinePlugin(envKeys),
   ],
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, '../', 'public'),
-  },
 })
