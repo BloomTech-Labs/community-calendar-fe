@@ -1,31 +1,31 @@
 import React from 'react'
-import {useAuth0} from '../contexts/auth0-context.jsx'
+import {useAuth0} from '../../contexts/auth0-context.jsx'
 import ReactGA from 'react-ga'
 
 //components
-import CCLogo from './CCLogo'
+import CCLogo from 'icons/CCLogo'
 import NavbarSearch from './NavbarSearch'
 
 //styles
-import {navbar, searchbar} from './style_modules/Navbar.module.scss'
+import {navbar, searchbar} from '../style_modules/Navbar.module.scss'
 
 export default function Navbar() {
-  const {user, loginWithRedirect, logout} = useAuth0();
+  const {user, loginWithRedirect, logout} = useAuth0()
 
-  const handleLogin = (event) => {
+  const handleLogin = event => {
     ReactGA.event({
       category: 'User',
-      action: 'Clicked Login'
-    });
-    loginWithRedirect();
+      action: 'Clicked Login',
+    })
+    loginWithRedirect()
   }
 
-  const handleLogout = (event) => {
+  const handleLogout = event => {
     ReactGA.event({
       category: 'User',
-      action: 'Clicked Logout'
-    });
-    logout({returnTo: window.location.origin});
+      action: 'Clicked Logout',
+    })
+    logout({returnTo: window.location.origin})
   }
 
   return (
@@ -46,10 +46,7 @@ export default function Navbar() {
       </div>
       {user ? (
         <div className='column is-narrow '>
-          <button
-            onClick={handleLogout}
-            className='button is-size-5'
-          >
+          <button onClick={handleLogout} className='button is-size-5'>
             Log Out
           </button>
         </div>
@@ -62,8 +59,6 @@ export default function Navbar() {
             >
               Sign In
             </button>
-            {/* </div> */}
-            {/* <div className='column is-narrow '> */}
             <button className='button is-size-5'>Sign Up</button>
           </div>
         </>

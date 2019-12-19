@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga'
 
 //components
 import EventList from '../components/events/EventList'
@@ -8,7 +8,7 @@ import EventList from '../components/events/EventList'
 import {home} from './home.module'
 
 const Home = () => {
-  ReactGA.pageview('/');
+  ReactGA.pageview('/')
 
   return (
     <>

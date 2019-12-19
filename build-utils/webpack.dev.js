@@ -9,6 +9,7 @@ module.exports = webpack => {
       contentBase: './public',
       port: 3000,
       hot: true,
+      historyApiFallback: true,
     },
     plugins: [new webpack.HotModuleReplacementPlugin()],
   }

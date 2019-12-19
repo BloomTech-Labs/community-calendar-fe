@@ -15,7 +15,7 @@ import {setContext} from 'apollo-link-context'
 import Home from './pages/home'
 
 //components
-import Navbar from './components/Navbar'
+import Navbar from 'navbar/Navbar'
 
 function App() {
   const {
@@ -70,9 +70,9 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
       </Switch>
-      
+
       {/* Login test playground */}
-      <section className="section">
+      <section className='section'>
         <h3>Login Test Playground</h3>
         <div>
           {!isLoading && !user && (
@@ -91,7 +91,9 @@ function App() {
               {user.picture && <img src={user.picture} alt='My Avatar' />}
               <hr />
 
-              <button onClick={() => logout({returnTo: window.location.origin})}>
+              <button
+                onClick={() => logout({returnTo: window.location.origin})}
+              >
                 Logout
               </button>
             </>
