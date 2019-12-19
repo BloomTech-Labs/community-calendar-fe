@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
-import {Route} from 'react-router-dom'
-import Home from './pages/home'
-import Navbar from './components/Navbar'
+import {Route, Switch} from 'react-router-dom'
+
+//auth0
+import {useAuth0} from './contexts/auth0-context.jsx'
 
 //apollo
 import {ApolloProvider} from 'react-apollo'
@@ -10,8 +11,12 @@ import {HttpLink} from 'apollo-link-http'
 import {InMemoryCache} from 'apollo-cache-inmemory'
 import {setContext} from 'apollo-link-context'
 
-//auth0
-import {useAuth0} from './contexts/auth0-context.jsx'
+//pages
+import Home from './pages/home'
+import Events from './pages/events'
+
+//components
+import Navbar from './components/Navbar'
 
 function App() {
   const {
@@ -63,7 +68,10 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Navbar />
-      <Route exact path='/' component={Home} />
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route path='/events' component={Events} />
+      </Switch>
       
       {/* Login test playground */}
       <section className="section">

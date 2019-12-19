@@ -4,11 +4,8 @@ import ReactGA from 'react-ga';
 //components
 import EventList from '../components/events/EventList'
 
-//styles
-import {home} from './home.module'
-
-const Home = () => {
-  ReactGA.pageview('/');
+const Events = () => {
+  ReactGA.pageview('/events');
 
   return (
     <>
@@ -17,4 +14,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Events
