@@ -1,7 +1,7 @@
 import React from 'react'
-import {useAuth0} from '../contexts/auth0-context.jsx'
-import {navbar, searchbar} from './style_modules/Navbar.module.scss'
-import CCLogo from './CCLogo'
+import {useAuth0} from '../../contexts/auth0-context.jsx'
+import {navbar} from '../style_modules/Navbar.module.scss'
+import CCLogo from 'icons/CCLogo'
 import NavbarSearch from './NavbarSearch'
 
 export default function Navbar() {
@@ -14,7 +14,7 @@ export default function Navbar() {
       <div className='column is-narrow is-flex level is-marginless'>
         <a
           className='is-flex level is-marginless'
-          href='https://communitycalendar.netlify.com'
+          href='/'
           title='Go to CommunityCalendar.netlify.com'
         >
           <CCLogo dimensions={35} />
@@ -41,9 +41,9 @@ export default function Navbar() {
             >
               Sign In
             </button>
-            {/* </div> */}
-            {/* <div className='column is-narrow '> */}
-            <button className='button is-size-5'>Sign Up</button>
+            <button onClick={loginWithRedirect} className='button is-size-5'>
+              Sign Up
+            </button>
           </div>
         </>
       )}

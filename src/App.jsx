@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Route} from 'react-router-dom'
 import Home from './pages/home'
-import Navbar from './components/Navbar'
+import Navbar from './components/navbar/Navbar'
 
 //apollo
 import {ApolloProvider} from 'react-apollo'
@@ -64,9 +64,9 @@ function App() {
     <ApolloProvider client={client}>
       <Navbar />
       <Route exact path='/' component={Home} />
-      
+
       {/* Login test playground */}
-      <section className="section">
+      <section className='section'>
         <h3>Login Test Playground</h3>
         <div>
           {!isLoading && !user && (
@@ -85,7 +85,9 @@ function App() {
               {user.picture && <img src={user.picture} alt='My Avatar' />}
               <hr />
 
-              <button onClick={() => logout({returnTo: window.location.origin})}>
+              <button
+                onClick={() => logout({returnTo: window.location.origin})}
+              >
                 Logout
               </button>
             </>

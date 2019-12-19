@@ -4,8 +4,8 @@
 .event_image {
   width: 194px;
   height: 194px;
-  
-  padding-top: 32px !important;  
+
+  padding-top: 32px !important;
   padding-bottom: 24px !important;
 
   object-fit: contain;
@@ -13,7 +13,11 @@
 }
 
 .event_details {
-  padding-top: 32px !important;  
+  padding-top: 32px !important;
   padding-bottom: 24px !important;
   border-bottom: 1px solid $grey-lighter;
+}
+
+.community {
+  color: $chalice;
 }
