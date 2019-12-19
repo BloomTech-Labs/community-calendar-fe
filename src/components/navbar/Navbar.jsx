@@ -1,91 +1,68 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import {useAuth0} from '../../contexts/auth0-context.jsx'
-import {
-  navbar,
-  profileButton,
-  navsearch,
-} from '../style_modules/Navbar.module.scss'
+import ReactGA from 'react-ga'
+
+//components
 import CCLogo from 'icons/CCLogo'
 import NavbarSearch from './NavbarSearch'
 
+//styles
+import {navbar, searchbar} from '../style_modules/Navbar.module.scss'
+
 export default function Navbar() {
   const {user, loginWithRedirect, logout} = useAuth0()
-  const dropContainer = useRef(null)
-  const toggleDropdown = () => {
-    dropContainer.current.classList.toggle('is-active')
+
+  const handleLogin = event => {
+    ReactGA.event({
+      category: 'User',
+      action: 'Clicked Login',
+    })
+    loginWithRedirect()
+  }
+
+  const handleLogout = event => {
+    ReactGA.event({
+      category: 'User',
+      action: 'Clicked Logout',
+    })
+    logout({returnTo: window.location.origin})
   }
 
   return (
-    <nav className={`${navbar} navbar has-background-white is-fixed-top  `}>
-      <div className='navbar-brand'>
+    <nav
+      className={`${navbar} navbar has-background-white is-fixed-top columns level `}
+    >
+      <div className='column is-narrow is-flex level is-marginless'>
         <a
           className='is-flex level is-marginless'
-          href={window.location.origin}
+          href='https://communitycalendar.netlify.com'
           title='Go to CommunityCalendar.netlify.com'
         >
           <CCLogo dimensions={35} />
         </a>
       </div>
-      <div className='navbar-menu'>
-        <div className={`navbar-start  ${navsearch}`}>
-          <NavbarSearch />
-        </div>
-        <div className='navbar-end'>
-          {user ? (
-            <div className='dropdown is-right ' ref={dropContainer}>
-              <div className='dropdown-trigger'>
-                <button
-                  onClick={toggleDropdown}
-                  className={`${profileButton} is-paddingless is-marginless`}
-                  aria-haspopup='true'
-                  aria-controls='dropdown-menu6'
-                >
-                  <img className='is-rounded' src={user.picture} alt='' />
-                </button>
-              </div>
-              <div className='dropdown-menu' id='dropdown-menu6' role='menu'>
-                <div className='dropdown-content'>
-                  <div
-                    className='dropdown-item'
-                    onClick={() => logout({returnTo: window.location.origin})}
-                  >
-                    Log Out
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className='column is-narrow '>
-                <button
-                  onClick={loginWithRedirect}
-                  className='button navbutton has-text-weight-bold is-size-5'
-                >
-                  Sign In
-                </button>
-                <button
-                  onClick={loginWithRedirect}
-                  className='button navbutton is-size-5'
-                >
-                  Sign Up
-                </button>
-              </div>
-            </>
-          )}
-        </div>
-        {/* navbar end*/}
-      </div>{' '}
-      {/* navbar menu*/}
-    </nav>
-  )
-}
-/* 
+      <div className='column   is-flex level is-marginless'>
+        <NavbarSearch />
+      </div>
+      {user ? (
         <div className='column is-narrow '>
-          <button
-            onClick={() => logout({returnTo: window.location.origin})}
-            className='button is-size-5'
-          >
+          <button onClick={handleLogout} className='button is-size-5'>
             Log Out
           </button>
         </div>
- */
+      ) : (
+        <>
+          <div className='column is-narrow '>
+            <button
+              onClick={handleLogin}
+              className='button has-text-weight-bold is-size-5'
+            >
+              Sign In
+            </button>
+            <button className='button is-size-5'>Sign Up</button>
+          </div>
+        </>
+      )}
+    </nav>
+  )
+}

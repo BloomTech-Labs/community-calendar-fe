@@ -9,7 +9,7 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
   },
   output: {
     filename: '[name].bundle.js',
-    pulicPath: '/',
+    publicPath: '/',
     path: path.resolve(__dirname, '../', 'public'),
   },
   module: {

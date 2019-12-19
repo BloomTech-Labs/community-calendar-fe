@@ -15,7 +15,7 @@ import {setContext} from 'apollo-link-context'
 import Home from './pages/home'
 
 //components
-import Navbar from './components/Navbar'
+import Navbar from 'navbar/Navbar'
 
 function App() {
   const {
