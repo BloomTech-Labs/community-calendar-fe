@@ -1,6 +1,6 @@
 import React from 'react'
+import * as moment from 'moment';
 import {Link} from "react-router-dom";
-import * as moment from 'moment'
 import PropTypes from 'prop-types'
 
 //styles
