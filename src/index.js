@@ -7,6 +7,7 @@ import gaConfig from '../gaConfig'
 
 //components
 import App from './App'
+import ScrollToTop from './utils/ScrollToTop'
 
 //styles
 import 'index.scss'
@@ -18,6 +19,7 @@ ReactGA.initialize(trackingID, gaConfig[process.env.NODE_ENV])
 ReactDOM.render(
   <Router>
     <Auth0Provider>
+      <ScrollToTop />
       <App />
     </Auth0Provider>
   </Router>,
