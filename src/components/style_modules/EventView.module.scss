@@ -1,0 +1,35 @@
+@import '_variables.scss';
+@import '~bulma/sass/utilities/_all.sass';
+
+.banner {
+    img {
+        width: 100%;
+    }
+}
+
+// .container {
+
+// }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: $shark;
+    color: white;
+    padding: 32px;
+
+    h1 {
+        font-size: 48px;
+        // font-style: bold;
+        margin-bottom: 35px;
+    }
+
+    .panel_right {
+        display: flex;
+        align-items: flex-end;
+
+        p {
+            padding-right: 30px;
+        }
+    }
+}
