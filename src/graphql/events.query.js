@@ -22,7 +22,7 @@ export const ADDRESS_DETAIL_DATA = gql`
 
 export const GET_EVENTS = gql`
   query {
-    events {
+    events(orderBy: start_DESC) {
       ...EventDetail
       creator {
         id
