@@ -1,4 +1,8 @@
-import React from "react";
+import React  from "react";
+import {useParams} from 'react-router-dom'
+//graphql
+import {useQuery} from 'react-apollo'
+import {GET_EVENT_BY_ID} from '../../graphql/events.query'
 
 //styles
 import {
@@ -15,8 +19,14 @@ import {
 
 const EventView = props => {
 
+    const queryParams = useParams()
+    console.log("query params", queryParams)
     //destructure event information passed through props
-    const {
+    const {data, loading, error} = useQuery(GET_EVENT_BY_ID(queryParams.id))
+  if (loading) return <p>LOADING</p>
+  if (error) return <p>Error</p>
+
+     const {
         id,
         title,
         description,
@@ -25,11 +35,10 @@ const EventView = props => {
         creator,
         locations,
         event_images
-    } = props.location.state.item;
-
-    console.log(props.location.state.item);
-
+    } = data.events.length && data.events[0];
+ 
     //destructure first item in locations array (why is it an array?)
+    
     const {
         name,
         street_address,

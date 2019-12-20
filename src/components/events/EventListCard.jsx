@@ -15,7 +15,7 @@ export default function EventListCard(props) {
   const {item} = props
 
   return (
-    <Link className={link} to={{pathname: `events/${item.id}`, state: {item}}} >
+    <Link className={link} to={`events/${item.id}`} >
       <div className='columns'>
         <img
           src={item.event_images[0].url}
