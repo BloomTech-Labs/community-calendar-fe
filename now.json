@@ -1,4 +1,3 @@
-// prevent comments from being posted by now[bot] on our pull requests
 {
   "github": {
     "silent": true
