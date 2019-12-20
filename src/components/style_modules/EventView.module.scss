@@ -11,7 +11,7 @@
 
 // }
 
-.header {
+.top_div {
     display: flex;
     justify-content: space-between;
     background-color: $shark;
@@ -32,4 +32,20 @@
             padding-right: 30px;
         }
     }
+}
+
+.middle_div {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 0;
+}
+
+
+
+button {
+    border-radius: 10px;
+    padding: 14px 40px;
+    font-size: 18px;
+    background-color: $shark;
+    color: white;
 }
