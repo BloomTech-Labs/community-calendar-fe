@@ -23,7 +23,7 @@ export default function EventList() {
         <button className='color_chalice is-size-4'>Today</button>
         <button className='color_chalice is-size-4'>Tomorrow</button>
         <button className='color_chalice is-size-4'>This Weekend</button>
-        <button className='has-text-weight-bold is-size-4'>All Upcoming</button>
+        <button className='color_black has-text-weight-bold is-size-4'>All Upcoming</button>
       </div>
       <div className='columns'></div>
       <div className='column'></div>
