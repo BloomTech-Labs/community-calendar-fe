@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import EventView from './components/events/EventView'
 import {Route, Switch} from 'react-router-dom'
 
 //auth0
@@ -18,6 +17,7 @@ import Home from './pages/home'
 
 //components
 import Navbar from 'navbar/Navbar'
+import EventView from 'events/EventView'
 
 function App() {
   const {
@@ -71,7 +71,9 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route path='/events' component={Events} />
+        <Route exact path='/events' component={Events} />
+        <Route path='/events/:id' component={EventView} />
+
 
       </Switch>
     </ApolloProvider>
