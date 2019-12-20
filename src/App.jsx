@@ -15,7 +15,6 @@ import {setContext} from 'apollo-link-context'
 //pages
 import Events from './pages/events'
 import Home from './pages/home'
-import Test from './pages/test'
 
 //components
 import Navbar from 'navbar/Navbar'
@@ -73,7 +72,6 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/events' component={Events} />
-        <Route path='/test' component={Test} />
 
       </Switch>
     </ApolloProvider>
