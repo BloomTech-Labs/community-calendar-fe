@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": " webpack-dev-server --env.environment=development  --config build-utils/webpack.config.js  --open",
-    "build": "webpack --env.environment=production  --config build-utils/webpack.config.js",
+    "build": "webpack --env.environment=production  --config build-utils/webpack.config.js && cp src/_redirects public/_redirects",
     "format": "prettier --write \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" ",
     "lint": "eslint \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" --quiet",
     "test": "jest",
