@@ -14,6 +14,7 @@ import {setContext} from 'apollo-link-context'
 
 //pages
 import Home from './pages/home'
+import Test from './pages/test'
 
 //components
 import Navbar from 'navbar/Navbar'
@@ -70,38 +71,9 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route path='/events' component={EventView}/>
+        <Route path='/events' component={EventView} />
+        <Route path='/test' component={Test} />
       </Switch>
-
-      {/* Login test playground */}
-      <section className='section'>
-        <h3>Login Test Playground</h3>
-        <div>
-          {!isLoading && !user && (
-            <>
-              <h1>Click Below!</h1>
-              <button className='button is-primary' onClick={loginWithRedirect}>
-                Login
-              </button>
-            </>
-          )}
-          {!isLoading && user && (
-            <>
-              <h1>You are logged in!</h1>
-              <p>Hello {user.name}</p>
-
-              {user.picture && <img src={user.picture} alt='My Avatar' />}
-              <hr />
-
-              <button
-                onClick={() => logout({returnTo: window.location.origin})}
-              >
-                Logout
-              </button>
-            </>
-          )}
-        </div>
-      </section>
     </ApolloProvider>
   )
 }
