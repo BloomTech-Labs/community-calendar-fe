@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import {
   event_details,
   event_image,
+  link
   // community,
 } from '../style_modules/EventListCard.module.scss'
 
@@ -14,7 +15,7 @@ export default function EventListCard(props) {
   const {item} = props
 
   return (
-    // <Link to={{pathname: '/events', state: {item}}} >
+    <Link className={link} to={{pathname: '/events', state: {item}}} >
       <div className='columns'>
         <img
           src={item.event_images[0].url}
@@ -27,7 +28,7 @@ export default function EventListCard(props) {
           >
             {(item.locations && item.locations.neighborhood) || 'North End'}
           </p>
-          <p data-id='event_title' className='is-size-5 has-text-weight-bold'>
+          <p data-id='event_title' className='is-size-5 has-text-weight-bold color_black'>
             {item.title}
           </p>
           <p className='is-size-6'>
@@ -42,12 +43,12 @@ export default function EventListCard(props) {
             <span className='color_chalice'>Free</span>
           </p>
           <br />
-          <p data-id='event_description' className='is-size-7'>
+          <p data-id='event_description' className='is-size-7 color_black'>
             {item.description}
           </p>
         </div>
       </div>
-    // </Link>
+     </Link>
   )
 }
 

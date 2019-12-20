@@ -21,3 +21,10 @@
 .community {
   color: $chalice;
 }
+
+.link {
+  all: unset;
+  :hover {
+    background-color: $link_hover;
+  }
+}
