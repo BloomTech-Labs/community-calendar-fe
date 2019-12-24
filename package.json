@@ -4,8 +4,8 @@
   "description": "Community Calendar FE: A React application which engages communites through events",
   "main": "index.js",
   "scripts": {
-    "dev": " webpack-dev-server --env.environment=development  --config build-utils/webpack.config.js  --open",
-    "build": "webpack --env.environment=production  --config build-utils/webpack.config.js  ",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --mode=development  --env.environment=development  --config build-utils/webpack.config.js  --open",
+    "build": "cross-env NODE_ENV=production webpack --mode=production --env.environment=production  --config build-utils/webpack.config.js  ",
     "format": "prettier --write \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" ",
     "lint": "eslint \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" --quiet",
     "test": "jest",
@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.6.0",
+    "@hot-loader/react-dom": "^16.11.0",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
     "apollo-link-context": "^1.0.19",

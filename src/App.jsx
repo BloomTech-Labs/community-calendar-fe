@@ -1,3 +1,4 @@
+import {hot} from 'react-hot-loader/root'
 import React, {useState} from 'react'
 import {Route, Switch} from 'react-router-dom'
 
@@ -73,11 +74,9 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route exact path='/events' component={Events} />
         <Route path='/events/:id' component={EventView} />
-
-
       </Switch>
     </ApolloProvider>
   )
 }
 
-export default App
+export default hot(App)
