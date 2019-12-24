@@ -1,5 +1,6 @@
 import React from 'react'
 import {useAuth0} from '../../contexts/auth0-context.jsx'
+import {Link} from 'react-router-dom'
 import ReactGA from 'react-ga'
 
 //components
@@ -33,13 +34,13 @@ export default function Navbar() {
       className={`${navbar} navbar has-background-white is-fixed-top columns level `}
     >
       <div className='column is-narrow is-flex level is-marginless'>
-        <a
+        <Link
           className='is-flex level is-marginless'
-          href='https://communitycalendar.netlify.com'
+          to='/'
           title='Go to CommunityCalendar.netlify.com'
         >
           <CCLogo dimensions={35} />
-        </a>
+        </Link>
       </div>
       <div className='column   is-flex level is-marginless'>
         <NavbarSearch />
