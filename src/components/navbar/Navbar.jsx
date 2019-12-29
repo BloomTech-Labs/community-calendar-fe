@@ -8,7 +8,7 @@ import CCLogo from 'icons/CCLogo'
 import NavbarSearch from './NavbarSearch'
 
 //styles
-import {navbar, searchbar} from '../style_modules/Navbar.module.scss'
+import {navbar} from '../style_modules/Navbar.module.scss'
 
 export default function Navbar() {
   const {user, loginWithRedirect, logout} = useAuth0()
@@ -31,39 +31,41 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`${navbar} navbar has-background-white is-fixed-top columns level `}
+      className={`${navbar} navbar has-background-white is-fixed-top `}
+      role='navigation'
+      aria-label='main navigation'
     >
-      <div className='column is-narrow is-flex level is-marginless'>
-        <Link
-          className='is-flex level is-marginless'
-          to='/'
-          title='Go to CommunityCalendar.netlify.com'
-        >
-          <CCLogo dimensions={35} />
-        </Link>
-      </div>
-      <div className='column   is-flex level is-marginless'>
+      <Link
+        className='navbar-brand'
+        to='/'
+        title='Go to CommunityCalendar.netlify.com'
+      >
+        <CCLogo dimensions={35} />
+      </Link>
+      <div className='navbar-menu'>
         <NavbarSearch />
-      </div>
-      {user ? (
-        <div className='column is-narrow '>
-          <button onClick={handleLogout} className='button is-size-5'>
-            Log Out
-          </button>
-        </div>
-      ) : (
-        <>
-          <div className='column is-narrow '>
-            <button
-              onClick={handleLogin}
-              className='button has-text-weight-bold is-size-5'
-            >
-              Sign In
+        <div className='navbar-end'>
+          {user ? (
+            <button onClick={handleLogout} className='button is-size-5'>
+              Log Out
             </button>
-            <button className='button is-size-5'>Sign Up</button>
-          </div>
-        </>
-      )}
+          ) : (
+            <>
+              <button
+                onClick={handleLogin}
+                className='button has-text-weight-bold is-size-5'
+              >
+                Sign In
+              </button>
+              <button onClick={handleLogin} className='button is-size-5'>
+                Sign Up
+              </button>
+            </>
+          )}
+        </div>
+        {/* navbar-end */}
+      </div>
+      {/* navbar-menu */}
     </nav>
   )
 }

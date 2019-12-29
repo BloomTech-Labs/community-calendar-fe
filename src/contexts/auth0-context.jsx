@@ -79,5 +79,5 @@ export class Auth0Provider extends Component {
 }
 
 Auth0Provider.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.array,
 }

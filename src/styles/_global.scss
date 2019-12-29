@@ -5,3 +5,12 @@ html {
 body {
   @include Poppins;
 }
+
+/* hand cursor on clickable elements */
+label,
+input[type='button'],
+input[type='submit'],
+input[type='file'],
+button {
+  cursor: pointer;
+}
