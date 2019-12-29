@@ -160,6 +160,7 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
     // generate index.html
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      favicon: './src/assets/images/cc_favicon.ico',
     }),
     // put css in separate file from js
     new MiniCssExtractPlugin({
