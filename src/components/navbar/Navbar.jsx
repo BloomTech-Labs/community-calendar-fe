@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link} from 'react-router-dom'
 import ReactGA from 'react-ga'
@@ -12,6 +12,8 @@ import {navbar} from '../style_modules/Navbar.module.scss'
 
 export default function Navbar() {
   const {user, loginWithRedirect, logout} = useAuth0()
+  // used to toggle dropdown
+  const [showDropdown, setShowDropdown] = useState(false)
 
   const handleLogin = event => {
     ReactGA.event({
@@ -46,9 +48,27 @@ export default function Navbar() {
         <NavbarSearch />
         <div className='navbar-end'>
           {user ? (
-            <button onClick={handleLogout} className='button is-size-5'>
-              Log Out
-            </button>
+            <>
+              <div
+                className={`dropdown is-right is-hoverable                 }`}
+              >
+                <div
+                  class='dropdown-trigger'
+                  aria-haspopup='true'
+                  aria-controls='dropdown-menu2'
+                  onClick={() => setShowDropdown(!showDropdown)}
+                >
+                  &#128053;
+                </div>
+                <div class='dropdown-menu' id='dropdown-menu' role='menu'>
+                  <div className='dropdown-content'>
+                    <div className='dropdown-item' onClick={handleLogout}>
+                      Log Out
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
           ) : (
             <>
               <button
@@ -69,3 +89,7 @@ export default function Navbar() {
     </nav>
   )
 }
+
+/* className={`dropdown is-right is-hoverable ${
+                  showDropdown ? 'is-active' : ''
+                } `}*/

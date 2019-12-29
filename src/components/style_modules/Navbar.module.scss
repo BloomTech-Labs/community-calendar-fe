@@ -7,6 +7,8 @@
   height: $navbar-height;
   border-bottom: 2px solid $black-bis;
   margin-top: 0 !important;
+  display: flex;
+  align-items: center;
 
   button {
     border: 0;
@@ -48,5 +50,6 @@
 
 .navsearch {
   padding-left: 12px;
+  display: flex;
   align-items: center !important;
 }

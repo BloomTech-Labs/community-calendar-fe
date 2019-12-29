@@ -1,7 +1,28 @@
+@import '_variables.scss';
+@import '~bulma/sass/utilities/initial-variables.sass';
+@import '~bulma/sass/utilities/mixins.sass';
+
 // ===== Navbar =====
 
 .navbar-brand,
 .navbar-start,
 .navbar-end {
   align-items: center;
+}
+
+.navbar-menu {
+  background-color: transparent;
+  box-shadow: none;
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding: 0;
+}
+
+.dropdown-item {
+  transition: background-color 2s, color 2s;
+  &:hover {
+    background-color: $shark;
+    color: white;
+  }
 }
