@@ -49,16 +49,20 @@ export default function Navbar() {
         <div className='navbar-end'>
           {user ? (
             <>
-              <div
-                className={`dropdown is-right is-hoverable                 }`}
-              >
+              <div className={`dropdown is-right is-hoverable`}>
                 <div
-                  class='dropdown-trigger'
+                  class='dropdown-trigger is-flex'
                   aria-haspopup='true'
                   aria-controls='dropdown-menu2'
                   onClick={() => setShowDropdown(!showDropdown)}
                 >
-                  &#128053;
+                  <img
+                    src={`${user.picture}`}
+                    className='is-round'
+                    width='35'
+                    height='35'
+                    alt=''
+                  />
                 </div>
                 <div class='dropdown-menu' id='dropdown-menu' role='menu'>
                   <div className='dropdown-content'>

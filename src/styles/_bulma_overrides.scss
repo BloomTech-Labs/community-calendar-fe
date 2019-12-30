@@ -19,10 +19,16 @@
   padding: 0;
 }
 
-.dropdown-item {
-  transition: background-color 2s, color 2s;
-  &:hover {
-    background-color: $shark;
-    color: white;
+.dropdown {
+  &:hover,
+  &-item:hover {
+    cursor: pointer;
+  }
+  &-item {
+    transition: background-color 0.5s, color 0.5s;
+    &:hover {
+      background-color: $shark;
+      color: white;
+    }
   }
 }
