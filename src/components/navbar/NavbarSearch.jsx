@@ -1,5 +1,5 @@
 import React from 'react'
-import {navsearch} from '../style_modules/Navbar.module'
+import {navsearch} from '../style_modules/Navbar.module.scss'
 
 const NavbarSearch = () => (
   <div className={`${navsearch} navbar-start control`}>

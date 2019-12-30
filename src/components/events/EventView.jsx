@@ -22,19 +22,13 @@ const EventView = () => {
   //destructure event information passed through props
   const {data, loading, error} = useQuery(GET_EVENT_BY_ID(queryParams.id))
 
-  useEffect(() => {
-    console.log('EventView Mounted')
-    return () => console.log('EventView dismounted')
-  }, [])
-
   if (loading) return <p>LOADING</p>
   if (error) return <p>Error</p>
 
   const {id, title, description, start, end, creator, locations, event_images} =
     data.events.length && data.events[0]
 
-  //destructure first item in locations array (why is it an array?)
-
+  //destructure first item in locations array
   const {
     name,
     street_address,

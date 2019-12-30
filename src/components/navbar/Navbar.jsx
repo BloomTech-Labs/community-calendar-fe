@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import ReactGA from 'react-ga'
 
 //components
-import CCLogo from 'icons/CCLogo'
+import CCLogo from '../icons/CCLogo'
 import NavbarSearch from './NavbarSearch'
 
 //styles
@@ -12,6 +12,7 @@ import {navbar} from '../style_modules/Navbar.module.scss'
 
 export default function Navbar() {
   const {user, loginWithRedirect, logout} = useAuth0()
+  console.log('auth0 context user', user)
   // used to toggle dropdown
   const [showDropdown, setShowDropdown] = useState(false)
 
@@ -51,7 +52,7 @@ export default function Navbar() {
             <>
               <div className={`dropdown is-right is-hoverable`}>
                 <div
-                  class='dropdown-trigger is-flex'
+                  className='dropdown-trigger is-flex'
                   aria-haspopup='true'
                   aria-controls='dropdown-menu2'
                   onClick={() => setShowDropdown(!showDropdown)}
@@ -64,7 +65,7 @@ export default function Navbar() {
                     alt=''
                   />
                 </div>
-                <div class='dropdown-menu' id='dropdown-menu' role='menu'>
+                <div className='dropdown-menu' id='dropdown-menu' role='menu'>
                   <div className='dropdown-content'>
                     <div className='dropdown-item' onClick={handleLogout}>
                       Log Out

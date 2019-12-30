@@ -12,10 +12,6 @@ import {
 
 export default function EventList() {
   const {data, loading, error} = useQuery(GET_EVENTS)
-  useEffect(() => {
-    console.log('EventList Mounted')
-    return () => console.log('EventList dismounted')
-  }, [])
 
   if (loading) return <p>LOADING</p>
   if (error) return <p>ERROR</p>
