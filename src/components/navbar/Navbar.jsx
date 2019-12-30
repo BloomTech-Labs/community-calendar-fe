@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link} from 'react-router-dom'
 import ReactGA from 'react-ga'
@@ -8,13 +8,35 @@ import CCLogo from '../icons/CCLogo'
 import NavbarSearch from './NavbarSearch'
 
 //styles
-import {navbar} from '../style_modules/Navbar.module.scss'
+import {cc_navbar} from '../style_modules/Navbar.module.scss'
 
 export default function Navbar() {
   const {user, loginWithRedirect, logout} = useAuth0()
   console.log('auth0 context user', user)
-  // used to toggle dropdown
-  const [showDropdown, setShowDropdown] = useState(false)
+
+  // used to show/hide the dropdown menu
+  const dropMenu = useRef(null)
+  /* 
+if the dropdown menu is open and the user clicks 
+outside of it close the dropdown menu
+ */
+  useEffect(() => {
+    const wasDropdownClicked = e => {
+      // if user clicks div.dropdown-trigger toggle the menu
+      if (/dropdown-trigger/g.test(e.target.className)) {
+        dropMenu.current.classList.toggle('is-active')
+        // if clicks outside of dropdown menu close menu
+      } else if (!/(dropdown-(trigger|content))/g.test(e.target.className)) {
+        dropMenu.current.classList.remove('is-active')
+      }
+    }
+    // add event listener
+    window.addEventListener('click', wasDropdownClicked)
+    // remove event listener when navbar is dismounted
+    return () => {
+      window.removeEventListener('click', wasDropdownClicked)
+    }
+  }, [])
 
   const handleLogin = event => {
     ReactGA.event({
@@ -34,7 +56,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`${navbar} navbar has-background-white is-fixed-top `}
+      className={`${cc_navbar} navbar has-background-white is-fixed-top `}
       role='navigation'
       aria-label='main navigation'
     >
@@ -50,12 +72,11 @@ export default function Navbar() {
         <div className='navbar-end'>
           {user ? (
             <>
-              <div className={`dropdown is-right is-hoverable`}>
+              <div ref={dropMenu} className={`dropdown is-right`}>
                 <div
                   className='dropdown-trigger is-flex'
                   aria-haspopup='true'
                   aria-controls='dropdown-menu2'
-                  onClick={() => setShowDropdown(!showDropdown)}
                 >
                   <img
                     src={`${user.picture}`}
@@ -67,6 +88,7 @@ export default function Navbar() {
                 </div>
                 <div className='dropdown-menu' id='dropdown-menu' role='menu'>
                   <div className='dropdown-content'>
+                    <div className='dropdown-item'>Profile</div>
                     <div className='dropdown-item' onClick={handleLogout}>
                       Log Out
                     </div>

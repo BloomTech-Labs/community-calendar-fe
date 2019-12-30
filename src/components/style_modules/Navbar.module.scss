@@ -2,13 +2,17 @@
 @import '_animations.scss';
 @import '~bulma/sass/utilities/_all.sass';
 
-.navbar {
+.cc_navbar {
   padding: 0 $bodyPaddingX-hd;
   height: $navbar-height;
   border-bottom: 2px solid $black-bis;
   margin-top: 0 !important;
   display: flex;
   align-items: center;
+
+  img {
+    pointer-events: none;
+  }
 
   button {
     border: 0;
