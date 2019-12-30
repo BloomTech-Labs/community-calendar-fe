@@ -11,7 +11,6 @@ import {
   top_div,
   middle_div,
   bottom_div,
-  container,
   panel_left,
   panel_right,
   space_around,
@@ -65,8 +64,12 @@ const EventView = () => {
       : `${endHours}:${String(endMinutes).padStart(2, '0')} am`
 
   return (
-    <div className={`${container} Butler`}>
-      <img className={banner} src={event_images[0].url} alt='banner' />
+    <div className={` Butler`}>
+      <img
+        className={`${banner} is-block mx-auto`}
+        src={event_images[0].url}
+        alt='banner'
+      />
       <div className={top_div}>
         <div className={panel_left}>
           <h1>{title}</h1>

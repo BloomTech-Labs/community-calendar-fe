@@ -1,8 +1,5 @@
-html {
-  padding-top: $navbar-height;
-}
-
 body {
+  padding-top: $navbar-height;
   @include Poppins;
 }
 

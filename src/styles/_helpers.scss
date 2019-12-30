@@ -5,3 +5,12 @@
 @mixin is-round {
   border-radius: 50%;
 }
+
+// horizontally center an element
+.mx-auto {
+  margin: 0 auto;
+}
+
+@mixin mx-auto {
+  margin: 0 auto;
+}

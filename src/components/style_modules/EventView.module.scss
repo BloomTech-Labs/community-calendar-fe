@@ -2,50 +2,41 @@
 @import '~bulma/sass/utilities/_all.sass';
 
 .banner {
-    img {
-        width: 100%;
-    }
+  max-height: 250px;
 }
 
-// .container {
-
-// }
-
 .top_div {
+  display: flex;
+  justify-content: space-between;
+  background-color: $shark;
+  color: white;
+  padding: 32px;
+
+  h1 {
+    font-size: 48px;
+    margin-bottom: 35px;
+  }
+
+  .panel_right {
     display: flex;
-    justify-content: space-between;
-    background-color: $shark;
-    color: white;
-    padding: 32px;
+    align-items: flex-end;
 
-    h1 {
-        font-size: 48px;
-        // font-style: bold;
-        margin-bottom: 35px;
+    p {
+      padding-right: 30px;
     }
-
-    .panel_right {
-        display: flex;
-        align-items: flex-end;
-
-        p {
-            padding-right: 30px;
-        }
-    }
+  }
 }
 
 .middle_div {
-    display: flex;
-    justify-content: space-around;
-    padding: 50px 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 50px 0;
 }
 
-
-
 button {
-    border-radius: 10px;
-    padding: 14px 40px;
-    font-size: 18px;
-    background-color: $shark;
-    color: white;
+  border-radius: 10px;
+  padding: 14px 40px;
+  font-size: 18px;
+  background-color: $shark;
+  color: white;
 }
