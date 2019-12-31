@@ -1,6 +1,8 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link} from 'react-router-dom'
+import HeartIcon from '../icons/HeartIcon'
+import ArrowIcon from '../icons/ArrowIcon'
 import ReactGA from 'react-ga'
 
 //components
@@ -8,7 +10,7 @@ import CCLogo from '../icons/CCLogo'
 import NavbarSearch from './NavbarSearch'
 
 //styles
-import {cc_navbar} from '../style_modules/Navbar.module.scss'
+import {cc_navbar} from './Navbar.module.scss'
 
 export default function Navbar() {
   const {user, loginWithRedirect, logout} = useAuth0()
@@ -116,7 +118,3 @@ outside of it close the dropdown menu
     </nav>
   )
 }
-
-/* className={`dropdown is-right is-hoverable ${
-                  showDropdown ? 'is-active' : ''
-                } `}*/

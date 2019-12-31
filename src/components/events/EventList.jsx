@@ -5,10 +5,7 @@ import EventListCard from './EventListCard'
 import {useQuery} from 'react-apollo'
 import {GET_EVENTS} from '../../graphql/events.query'
 //styles
-import {
-  event_list,
-  event_filter_buttons,
-} from '../style_modules/EventList.module.scss'
+import {event_list, event_filter_buttons} from './styles/EventList.module.scss'
 
 export default function EventList() {
   const {data, loading, error} = useQuery(GET_EVENTS)

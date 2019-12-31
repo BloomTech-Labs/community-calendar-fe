@@ -15,7 +15,7 @@ import {
   panel_right,
   space_around,
   main,
-} from '../style_modules/EventView.module.scss'
+} from './styles/EventView.module.scss'
 
 const EventView = () => {
   const queryParams = useParams()

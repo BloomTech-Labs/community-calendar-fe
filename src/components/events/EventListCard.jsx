@@ -1,21 +1,21 @@
 import React from 'react'
-import * as moment from 'moment';
-import {Link} from "react-router-dom";
+import * as moment from 'moment'
+import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 //styles
 import {
   event_details,
   event_image,
-  link
+  link,
   // community,
-} from '../style_modules/EventListCard.module.scss'
+} from './styles/EventListCard.module.scss'
 
 export default function EventListCard(props) {
   const {item} = props
 
   return (
-    <Link className={link} to={`events/${item.id}`} >
+    <Link className={link} to={`events/${item.id}`}>
       <div className='columns'>
         <img
           src={item.event_images[0].url}
@@ -28,7 +28,10 @@ export default function EventListCard(props) {
           >
             {(item.locations && item.locations.neighborhood) || 'North End'}
           </p>
-          <p data-id='event_title' className='is-size-5 has-text-weight-bold color_black'>
+          <p
+            data-id='event_title'
+            className='is-size-5 has-text-weight-bold color_black'
+          >
             {item.title}
           </p>
           <p className='is-size-6'>
@@ -48,7 +51,7 @@ export default function EventListCard(props) {
           </p>
         </div>
       </div>
-     </Link>
+    </Link>
   )
 }
 

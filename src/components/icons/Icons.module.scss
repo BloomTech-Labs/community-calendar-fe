@@ -1,0 +1,24 @@
+@import '_variables.scss';
+
+.heart {
+  transition: transform 0.2s;
+  fill: none;
+  path {
+    stroke: $shark;
+  }
+  &:hover {
+    transform: scale(1.1);
+  }
+  &.liked {
+    fill: $sunsetOrange;
+  }
+}
+
+.arrow {
+  path {
+    fill: $shark;
+  }
+  &.leftArrow {
+    transform: rotate(180deg);
+  }
+}
