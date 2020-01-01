@@ -2,6 +2,7 @@
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 module.exports = (isDevelopment, path, webpack, envKeys) => ({
   entry: {
@@ -168,5 +169,7 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
       chunkFilename: '[id].[hash].css',
     }),
     new webpack.DefinePlugin(envKeys),
+    // only import 'en' locales
+    new MomentLocalesPlugin(),
   ],
 })
