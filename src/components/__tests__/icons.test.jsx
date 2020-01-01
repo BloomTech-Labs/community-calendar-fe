@@ -29,4 +29,25 @@ describe('Tests Icon Components', () => {
       expect(tree).toMatchSnapshot()
     })
   })
+
+  describe('Tests for ListIcon component', () => {
+    test('should match snapshot', () => {
+      const tree = render(<ListIcon />)
+      expect(tree).toMatchSnapshot()
+    })
+  })
+
+  describe('Tests for ShareIcon component', () => {
+    test('should match snapshot', () => {
+      const tree = render(<ShareIcon />)
+      expect(tree).toMatchSnapshot()
+    })
+  })
+
+  describe('Tests for ArrowIcon component', () => {
+    test('should match snapshot', () => {
+      const tree = render(<ArrowIcon />)
+      expect(tree).toMatchSnapshot()
+    })
+  })
 })

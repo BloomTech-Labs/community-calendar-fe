@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect'
 import userEvent from '@testing-library/user-event'
 import EventListCard from '../events/EventListCard'
 import {MemoryRouter} from 'react-router-dom'
-import * as moment from 'moment'
+import moment from 'moment'
 
 jest.mock('moment', () => {
   const moment = require.requireActual('moment')
