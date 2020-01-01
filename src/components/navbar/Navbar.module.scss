@@ -56,4 +56,10 @@
   padding-left: 12px;
   display: flex;
   align-items: center !important;
+  border-radius: $radius;
+  max-width: 100px;
+
+  @include tablet {
+    max-width: 100%;
+  }
 }

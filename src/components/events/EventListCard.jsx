@@ -8,6 +8,8 @@ import {
   event_details,
   event_image,
   link,
+  cardContainer,
+  descriptionUnderline,
   // community,
 } from './styles/EventListCard.module.scss'
 
@@ -16,7 +18,7 @@ export default function EventListCard(props) {
 
   return (
     <Link className={link} to={`events/${item.id}`}>
-      <div className='columns'>
+      <div className={`${cardContainer} columns`}>
         <img
           src={item.event_images[0].url}
           className={`column is-narrow ${event_image}`}
@@ -46,14 +48,14 @@ export default function EventListCard(props) {
             &nbsp;
             <span className='color_chalice'>Free</span>
           </p>
-          <br />
           <p
             data-id='event_description'
             data-testid='event_description'
-            className='is-size-7 color_black'
+            className='is-size-7 color_black is-hidden-mobile'
           >
             {item.description}
           </p>
+          <div className={descriptionUnderline}></div>
         </div>
       </div>
     </Link>

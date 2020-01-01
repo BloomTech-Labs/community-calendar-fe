@@ -1,8 +1,9 @@
 @import '_variables.scss';
 @import '~bulma/sass/utilities/_all.sass';
+@import '_helpers.scss';
 
 .event_list {
-  margin: 0 auto;
+  @include mx-auto;
   max-width: 1120px;
 }
 
