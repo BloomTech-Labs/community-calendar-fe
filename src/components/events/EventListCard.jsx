@@ -1,5 +1,6 @@
 import React from 'react'
-import * as moment from 'moment'
+import moment from 'moment'
+// import * as moment from 'moment'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -30,6 +31,7 @@ export default function EventListCard(props) {
           </p>
           <p
             data-id='event_title'
+            data-testid='event_title'
             className='is-size-5 has-text-weight-bold color_black'
           >
             {item.title}
@@ -46,7 +48,11 @@ export default function EventListCard(props) {
             <span className='color_chalice'>Free</span>
           </p>
           <br />
-          <p data-id='event_description' className='is-size-7 color_black'>
+          <p
+            data-id='event_description'
+            data-testid='event_description'
+            className='is-size-7 color_black'
+          >
             {item.description}
           </p>
         </div>

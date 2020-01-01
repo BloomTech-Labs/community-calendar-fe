@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {render} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import userEvent from '@testing-library/user-event'
@@ -6,8 +6,12 @@ import userEvent from '@testing-library/user-event'
 // Specific to current test
 import Navbar from '../navbar/Navbar'
 import {MemoryRouter} from 'react-router-dom'
+
 // import module containing useAuth0 so it can be mocked
 import {useAuth0} from '../../contexts/auth0-context.jsx'
+
+//Mocks
+jest.mock('../../contexts/auth0-context.jsx')
 
 // fake user data
 const user = {
@@ -16,9 +20,6 @@ const user = {
   email: 'testuser@test.com',
   picture: '',
 }
-
-//mock useAuth0
-jest.mock('../../contexts/auth0-context.jsx')
 
 describe('Tests for Navbar.jsx', () => {
   beforeEach(() => {
@@ -61,6 +62,15 @@ describe('Tests for Navbar.jsx', () => {
   })
 
   test('should call loginWithRedirect() when user clicks "Sign In"', () => {
+    // mock useRef
+    const classList = {
+      toggle: jest.fn(),
+      remove: jest.fn(),
+    }
+    const useRefMock = jest
+      .spyOn(React, 'useRef')
+      .mockImplementation({current: classList})
+
     /* create mock function outside of useAuth0 mock
     so assertions can be run on it
     */

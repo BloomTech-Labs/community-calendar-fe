@@ -2,17 +2,27 @@ import React from 'react'
 import {render} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import userEvent from '@testing-library/user-event'
-import * as moment from 'moment'
-/*
-jest.mock('moment', () => {
-  const mMoment = {
-    format: jest.fn().mockReturnThis(),
-    valueOf: jest.fn()
-  };
-  return jest.fn(() => mMoment);
-});
- */
 import EventListCard from '../events/EventListCard'
+import {MemoryRouter} from 'react-router-dom'
+import * as moment from 'moment'
+
+jest.mock('moment', () => {
+  const moment = require.requireActual('moment')
+  // moment is both an object and function so create an actual instance of it
+  const momentInstance = moment()
+
+  // spy on methods of moment and modify them
+  jest.spyOn(momentInstance, 'format').mockImplementation(() => '')
+
+  // create a fake instance of moment
+  function fakeMoment() {
+    return momentInstance
+  }
+
+  // apply properites of moment to fakeMoment
+  Object.assign(fakeMoment, moment)
+  return fakeMoment
+})
 
 const data = {
   locations: [
@@ -42,9 +52,13 @@ const data = {
   start: '2019-11-21T23:00:00.000Z',
 }
 
-describe.skip('Tests for EventListCard', () => {
+describe('Tests for EventListCard', () => {
   test('Should render data from props', () => {
-    const {getByText, getByTestId} = render(<EventListCard item={data} />)
+    const {getByText, getByTestId} = render(
+      <MemoryRouter>
+        <EventListCard item={data} />
+      </MemoryRouter>,
+    )
 
     expect(getByTestId('event_description')).toHaveTextContent(data.description)
     expect(getByTestId('event_title')).toHaveTextContent(data.title)

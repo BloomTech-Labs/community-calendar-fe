@@ -7,7 +7,7 @@ Object {
     <div>
       <nav
         aria-label="main navigation"
-        class="navbar navbar has-background-white is-fixed-top "
+        class="cc_navbar navbar has-background-white is-fixed-top "
         role="navigation"
       >
         <a
@@ -45,7 +45,7 @@ Object {
             class="navbar-end"
           >
             <div
-              class="dropdown is-right is-hoverable"
+              class="dropdown is-right"
             >
               <div
                 aria-controls="dropdown-menu2"
@@ -71,6 +71,11 @@ Object {
                   <div
                     class="dropdown-item"
                   >
+                    Profile
+                  </div>
+                  <div
+                    class="dropdown-item"
+                  >
                     Log Out
                   </div>
                 </div>
@@ -84,7 +89,7 @@ Object {
   "container": <div>
     <nav
       aria-label="main navigation"
-      class="navbar navbar has-background-white is-fixed-top "
+      class="cc_navbar navbar has-background-white is-fixed-top "
       role="navigation"
     >
       <a
@@ -122,7 +127,7 @@ Object {
           class="navbar-end"
         >
           <div
-            class="dropdown is-right is-hoverable"
+            class="dropdown is-right"
           >
             <div
               aria-controls="dropdown-menu2"
@@ -145,6 +150,11 @@ Object {
               <div
                 class="dropdown-content"
               >
+                <div
+                  class="dropdown-item"
+                >
+                  Profile
+                </div>
                 <div
                   class="dropdown-item"
                 >
