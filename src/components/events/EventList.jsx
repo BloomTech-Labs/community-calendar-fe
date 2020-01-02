@@ -8,6 +8,11 @@ import {useQuery} from 'react-apollo'
 import {GET_EVENTS} from '../../graphql/events.query'
 //styles
 import {
+  column,
+  columns,
+  isMultiline,
+  isNarrow,
+  isMobile,
   event_list,
   event_filter_buttons,
   grid_container,
@@ -33,8 +38,11 @@ export default function EventList() {
           All Upcoming
         </button>
       </div>
-      <div className='columns is-mobile' style={{justifyContent: 'flex-end'}}>
-        <div className=' column is-narrow'>
+      <div
+        className={`${columns} ${isMobile}`}
+        style={{justifyContent: 'flex-end'}}
+      >
+        <div className={` ${column} ${isNarrow}`}>
           <div
             className='is-inline-block is-clickable'
             onClick={() => setShowListView(true)}
@@ -53,7 +61,7 @@ export default function EventList() {
       <div
         className={` ${
           useListView
-            ? `${list_container} columns is-multiline`
+            ? `${list_container} ${columns} ${isMultiline}`
             : grid_container
         }`}
       >

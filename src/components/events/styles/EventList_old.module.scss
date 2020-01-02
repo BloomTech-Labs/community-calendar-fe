@@ -1,33 +1,6 @@
 @import '_variables.scss';
 @import '~bulma/sass/utilities/_all.sass';
 @import '_helpers.scss';
-@import '~bulma/sass/grid/columns.sass';
-
-// ===== Columns =====
-.column,
-.columns {
-  padding: 0;
-  margin: {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-}
-
-.columns:last-child {
-  margin-bottom: initial;
-}
-
-.columns:not(:last-child) {
-  margin-bottom: initial;
-}
-
-.is-narrow {
-}
-
-.is-mobile {
-}
 
 .event_list {
   @include mx-auto;
@@ -56,8 +29,6 @@ $lgGrid: $smallGrid * 3;
 }
 
 .grid_container {
-  display: flex;
-  flex-wrap: wrap;
   @include mx-auto;
   max-width: $smallGrid;
 
