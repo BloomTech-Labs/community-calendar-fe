@@ -1,13 +1,21 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import EventListCard from './EventListCard'
+import ListIcon from 'icons/ListIcon'
+import GridIcon from 'icons/GridIcon'
 
 //graphql
 import {useQuery} from 'react-apollo'
 import {GET_EVENTS} from '../../graphql/events.query'
 //styles
-import {event_list, event_filter_buttons} from './styles/EventList.module.scss'
+import {
+  event_list,
+  event_filter_buttons,
+  grid_container,
+  iconDivider,
+} from './styles/EventList.module.scss'
 
 export default function EventList() {
+  const [useListView, setShowListView] = useState(true)
   const {data, loading, error} = useQuery(GET_EVENTS)
 
   if (loading) return <p>LOADING</p>
@@ -24,14 +32,16 @@ export default function EventList() {
           All Upcoming
         </button>
       </div>
-      <div className='columns'></div>
-      <div className='column'></div>
-      <div className='column'></div>
-      <div className='columns is-multiline'>
+      <div>
+        <ListIcon />
+        <span className={iconDivider}>&#124;</span>
+        <GridIcon />
+      </div>
+      <div
+        className={` ${useListView ? 'columns is-multiline' : grid_container}`}
+      >
         {data.events.map(item => (
-          <div key={item.id} className='column is-full'>
-            <EventListCard item={item} />
-          </div>
+          <EventListCard key={item.id} item={item} useListView={useListView} />
         ))}
       </div>
     </section>

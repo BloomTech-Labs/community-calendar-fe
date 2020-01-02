@@ -5,10 +5,12 @@ import PropTypes from 'prop-types'
 
 //styles
 import {
+  listCard,
+  gridCard,
+  eventDescription,
   event_details,
   event_image,
   link,
-  cardContainer,
   descriptionUnderline,
   // community,
 } from './styles/EventListCard.module.scss'
@@ -18,7 +20,7 @@ export default function EventListCard(props) {
 
   return (
     <Link className={link} to={`events/${item.id}`}>
-      <div className={`${cardContainer} columns`}>
+      <div className={props.useListView ? `${listCard} columns` : gridCard}>
         <img
           src={item.event_images[0].url}
           className={`column is-narrow ${event_image}`}
@@ -51,7 +53,7 @@ export default function EventListCard(props) {
           <p
             data-id='event_description'
             data-testid='event_description'
-            className='is-size-7 color_black is-hidden-mobile'
+            className={`${eventDescription} is-size-7 color_black is-hidden-mobile`}
           >
             {item.description}
           </p>
@@ -64,4 +66,5 @@ export default function EventListCard(props) {
 
 EventListCard.propTypes = {
   item: PropTypes.object,
+  useListView: PropTypes.bool,
 }
