@@ -33,7 +33,7 @@ export default function EventList() {
           All Upcoming
         </button>
       </div>
-      <div className='columns' style={{justifyContent: 'flex-end'}}>
+      <div className='columns is-mobile' style={{justifyContent: 'flex-end'}}>
         <div className=' column is-narrow'>
           <div
             className='is-inline-block is-clickable'
