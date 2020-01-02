@@ -12,6 +12,7 @@ $link_hover: lightGrey;
 
 //============= Spacing And Layout=============
 $bodyPaddingX-hd: 2rem;
+$container-width: 1400px;
 $navbar-height: 72px;
 $navbar-padding-vertical: 10px;
 $mobile-xs: 499px;
@@ -36,3 +37,6 @@ $family-secondary: Butler, Georgia, 'Times New Roman', Times, serif;
 //============ Dropdowns ===========
 $dropdown-item-hover-color: #fff;
 $dropdown-item-hover-background-color: $shark;
+
+//============ Animations ===========
+$duration-short: 0.2s;

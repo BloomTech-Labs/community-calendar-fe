@@ -11,6 +11,7 @@ import {
   event_list,
   event_filter_buttons,
   grid_container,
+  list_container,
   iconDivider,
 } from './styles/EventList.module.scss'
 
@@ -32,13 +33,29 @@ export default function EventList() {
           All Upcoming
         </button>
       </div>
-      <div>
-        <ListIcon />
-        <span className={iconDivider}>&#124;</span>
-        <GridIcon />
+      <div className='columns' style={{justifyContent: 'flex-end'}}>
+        <div className=' column is-narrow'>
+          <div
+            className='is-inline-block is-clickable'
+            onClick={() => setShowListView(true)}
+          >
+            <ListIcon isActive={useListView} />
+          </div>
+          <span className={iconDivider}>&#124;</span>
+          <div
+            className='is-inline-block is-clickable'
+            onClick={() => setShowListView(false)}
+          >
+            <GridIcon isActive={!useListView} />
+          </div>
+        </div>
       </div>
       <div
-        className={` ${useListView ? 'columns is-multiline' : grid_container}`}
+        className={` ${
+          useListView
+            ? `${list_container} columns is-multiline`
+            : grid_container
+        }`}
       >
         {data.events.map(item => (
           <EventListCard key={item.id} item={item} useListView={useListView} />

@@ -13,6 +13,10 @@
   margin: 0 auto;
 }
 
+.is-clickable {
+  cursor: pointer;
+}
+
 @mixin mx-auto {
   margin: 0 auto;
 }

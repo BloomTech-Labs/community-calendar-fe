@@ -50,3 +50,7 @@
 .columns:last-child {
   margin-bottom: initial;
 }
+
+.columns:not(:last-child) {
+  margin-bottom: initial;
+}

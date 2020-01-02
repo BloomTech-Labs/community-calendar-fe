@@ -10,17 +10,21 @@
 }
 
 .list-card {
-  margin-top: $gap-lg !important;
+  margin-top: $gap-md * 2 !important;
   border-radius: $radius-small;
   width: 100%;
   @include cardHover;
 
   .event_image {
+    margin-top: $gap-md * 2 !important;
     width: 194px;
     height: 194px;
     object-fit: cover;
     border-radius: $radius-small;
     @include mx-auto;
+    @include tablet {
+      margin-top: 0 !important;
+    }
   }
 
   .event_details {
@@ -52,7 +56,7 @@
 .grid-card {
   display: inline-flex;
   flex-direction: column;
-  width: 320px;
+  max-width: 320px;
   min-height: 401px;
   border-radius: $radius-small;
   margin: {
@@ -61,16 +65,7 @@
     left: $gap-md !important;
   }
   @include cardHover;
-  /* 
-  @include desktop {
-    margin: {
-      top: $gap !important;
-      right: $gap !important;
-      left: $gap !important;
-    }
-  }
 
- */
   .event_image {
     width: 100%;
     height: 280px;

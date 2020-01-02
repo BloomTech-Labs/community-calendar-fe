@@ -57,9 +57,12 @@
   display: flex;
   align-items: center !important;
   border-radius: $radius;
+  width: 100%;
   max-width: 100px;
+  flex-grow: 1;
+  transition: width 0.4s;
 
   @include tablet {
-    max-width: 100%;
+    max-width: 350px;
   }
 }
