@@ -2,8 +2,8 @@ import React, {useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 //graphql
 import {useQuery} from 'react-apollo'
-import {GET_EVENT_BY_ID} from '../../graphql/events.query'
-import {months, weekDays} from '../../utils/time-helpers.js'
+import {GET_EVENT_BY_ID} from '../graphql/events.query'
+import {months, weekDays} from '../utils/time-helpers.js'
 
 //styles
 import {

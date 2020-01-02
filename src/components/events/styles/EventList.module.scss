@@ -31,7 +31,6 @@
 
 .event_list {
   @include mx-auto;
-  max-width: $container-width;
 }
 
 .iconDivider {
@@ -67,16 +66,5 @@ $lgGrid: $smallGrid * 3;
 
   @media screen and (min-width: $lgGrid) {
     max-width: $lgGrid;
-  }
-}
-
-.event_filter_buttons {
-  button:first-of-type {
-    padding-left: 0;
-  }
-
-  button {
-    border: none;
-    background-color: white;
   }
 }

@@ -1,0 +1,12 @@
+@import '_variables.scss';
+
+.event_filter_buttons {
+  button:first-of-type {
+    padding-left: 0;
+  }
+
+  button {
+    border: none;
+    background-color: white;
+  }
+}

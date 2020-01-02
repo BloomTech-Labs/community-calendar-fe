@@ -13,12 +13,19 @@
   margin: 0 auto;
 }
 
+@mixin mx-auto {
+  margin: 0 auto;
+}
+
+// Change cursor when hovering a clickable element
 .is-clickable {
   cursor: pointer;
 }
 
-@mixin mx-auto {
-  margin: 0 auto;
+// wrapper for each page
+.page-wrapper {
+  @include mx-auto;
+  max-width: $container-width;
 }
 
 @mixin mobile-xs-up {
