@@ -1,47 +1,18 @@
 @import '_variables.scss';
+@import '_mixins.scss';
 @import '~bulma/sass/utilities/_all.sass';
-@import '_helpers.scss';
 @import '~bulma/sass/grid/columns.sass';
-
-// ===== Columns =====
-.column,
-.columns {
-  padding: 0;
-  margin: {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-}
-
-.columns:last-child {
-  margin-bottom: initial;
-}
-
-.columns:not(:last-child) {
-  margin-bottom: initial;
-}
-
-.is-narrow {
-}
-
-.is-mobile {
-}
 
 .event_list {
   @include mx-auto;
 }
 
 .iconDivider {
-  color: $iconLight;
   display: inline-block;
-  font: {
-    size: 36px;
-    weight: 100;
-  }
-  margin-left: 8px;
-  margin-right: 8px;
+  @include content-divider(y, 2px);
+  height: 30px;
+  margin-left: $gap-xxs;
+  margin-right: $gap-xxs;
 }
 
 $smallGrid: ($gridCard-w + ($gap-md * 2));
@@ -67,4 +38,32 @@ $lgGrid: $smallGrid * 3;
   @media screen and (min-width: $lgGrid) {
     max-width: $lgGrid;
   }
+}
+
+// ===== Columns =====
+.column,
+.columns {
+  padding: 0;
+  margin: {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.columns:last-child {
+  margin-bottom: initial;
+}
+
+.columns:not(:last-child) {
+  margin-bottom: initial;
+}
+
+// must be included to override bulma
+.is-narrow {
+}
+
+// must be included to override bulma
+.is-mobile {
 }

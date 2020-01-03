@@ -1,5 +1,5 @@
 @import '_variables.scss';
-@import '_helpers.scss';
+@import '_mixins.scss';
 @import '~bulma/sass/utilities/initial-variables.sass';
 @import '~bulma/sass/utilities/mixins.sass';
 
@@ -24,7 +24,7 @@
 .dropdown {
   &:hover,
   &-item:hover {
-    cursor: pointer;
+    @include is-clickable;
   }
 
   &-item {
@@ -33,5 +33,12 @@
       background-color: $shark;
       color: white;
     }
+  }
+}
+
+.section {
+  padding: {
+    left: 0;
+    right: 0;
   }
 }

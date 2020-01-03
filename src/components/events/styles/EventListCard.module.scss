@@ -1,46 +1,19 @@
 @import '_variables.scss';
+@import '_mixins.scss';
 @import '~bulma/sass/utilities/_all.sass';
-@import '_helpers.scss';
 @import '~bulma/sass/grid/columns.sass';
 
-// ===== Columns =====
-.is-multiline {
-}
-
-.is-narrow {
-}
-
-.column,
-.columns {
-  padding: 0;
-  margin: {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-}
-
-.columns:last-child {
-  margin-bottom: initial;
-}
-
-.columns:not(:last-child) {
-  margin-bottom: initial;
-}
-
-@mixin cardHover {
-  &:hover {
-    cursor: pointer;
-    box-shadow: 8px 8px 10px -5px rgba(0, 0, 0, 0.5);
-  }
-}
-
-.list-card {
+a.list-card {
   margin-top: $gap-md * 2 !important;
   border-radius: $radius-small;
   width: 100%;
-  @include cardHover;
+  color: inherit;
+  @include is-clickable;
+  @include hover-shadow;
+
+  &:hover {
+    color: initial;
+  }
 
   .event_image {
     margin-top: $gap-md * 2 !important;
@@ -70,9 +43,7 @@
   .descriptionUnderline {
     position: absolute;
     bottom: -$gap-md;
-    width: 100%;
-    height: 1px;
-    background-color: $grey-lighter;
+    @include content-divider();
   }
 
   .community {
@@ -80,7 +51,7 @@
   }
 } //end list-card
 
-.grid-card {
+a.grid-card {
   display: inline-flex;
   flex-direction: column;
   max-width: 320px;
@@ -92,8 +63,13 @@
     left: $gap-md !important;
     bottom: $gap-md !important;
   }
-  @include cardHover;
+  color: inherit;
+  @include is-clickable;
+  @include hover-shadow;
 
+  &:hover {
+    color: initial;
+  }
   .event_image {
     width: 100%;
     height: 280px;
@@ -120,6 +96,28 @@
   }
 } //end grid-card
 
-.link {
-  all: unset;
+// ===== Bulma Overrides: Columns =====
+.is-multiline {
+}
+
+.is-narrow {
+}
+
+.column,
+.columns {
+  padding: 0;
+  margin: {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.columns:last-child {
+  margin-bottom: initial;
+}
+
+.columns:not(:last-child) {
+  margin-bottom: initial;
 }

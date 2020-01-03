@@ -4,6 +4,7 @@ import ReactGA from 'react-ga'
 //components
 import EventList from '../components/events/EventList'
 import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
+import FeaturedEvents from '../components/featured/FeaturedEvents'
 
 //graphql
 import {useQuery} from 'react-apollo'
@@ -19,9 +20,8 @@ const Home = () => {
 
   return (
     <div className='page-wrapper'>
-      <section className='section'>
-        <h3 className='is-family-secondary is-size-2'>Featured</h3>
-      </section>
+      <FeaturedEvents apolloData={apolloData} />
+      <div className='content-divider-x'></div>
       <section className='section'>
         <h3 className='is-family-secondary is-size-2'>Events</h3>
         <FilterBtns />

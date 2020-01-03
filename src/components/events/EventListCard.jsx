@@ -13,9 +13,7 @@ import {
   eventDescription,
   event_details,
   event_image,
-  link,
   descriptionUnderline,
-  // community,
 } from './styles/EventListCard.module.scss'
 
 export default function EventListCard(props) {

@@ -30,16 +30,16 @@ export default function EventList({apolloData: {data, loading, error}}) {
         className={`${columns} ${isMobile}`}
         style={{justifyContent: 'flex-end'}}
       >
-        <div className={` ${column} ${isNarrow}`}>
+        <div className={` is-flex level `}>
           <div
-            className='is-inline-block is-clickable'
+            className='is-flex is-clickable'
             onClick={() => setShowListView(true)}
           >
             <ListIcon isActive={useListView} />
           </div>
-          <span className={iconDivider}>&#124;</span>
+          <span className={iconDivider}></span>
           <div
-            className='is-inline-block is-clickable'
+            className='is-flex is-clickable'
             onClick={() => setShowListView(false)}
           >
             <GridIcon isActive={!useListView} />
