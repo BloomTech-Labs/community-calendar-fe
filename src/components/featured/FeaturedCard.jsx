@@ -4,28 +4,39 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 //styles
-import {featuredCard, eventImage} from './Featured.module.scss'
+import {
+  featuredCard,
+  featuredCardContent,
+  eventImage,
+} from './Featured.module.scss'
 
 export default function FeaturedCard(props) {
   const {item} = props
 
   return (
-    <Link className={`card ${featuredCard}`} to={`events/${item.id}`}>
-      <div className='card-image'>
-        <img
-          className={eventImage}
-          src={item.event_images[0].url}
-          alt='Event image'
-        />
-      </div>
+    <Link className={`${featuredCard}`} to={`events/${item.id}`}>
+      <img
+        className={eventImage}
+        src={item.event_images[0].url}
+        alt='Event image'
+      />
 
-      <div className='card-content'>
+      <div className={featuredCardContent}>
         <p>
-          <time className='subtitle is-6' dateTime='2016-1-1'>
-            11:09 PM - 1 Jan 2016
+          <time className='subtitle is-7' dateTime='2016-1-1'>
+            January 17, 2020
           </time>
         </p>
-        <p className='title is-6'>{item.title}</p>
+        <p className='is-6 Butler has-text-weight-bold'>{item.title}</p>
+        <p>
+          <time className='subtitle is-size-7' dateTime='2016-1-1'>
+            5:00 pm - 10:00 pm
+          </time>
+        </p>
+        <p className='is-size-7 has-text-weight-bold'>
+          <span className='has-text-weight-light'>Location: </span>142 Main St.,
+          Anywhere
+        </p>
       </div>
     </Link>
   )

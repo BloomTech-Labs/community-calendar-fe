@@ -1,14 +1,5 @@
 @import '_variables.scss';
 
-// ===== Palette =====
-@mixin bg-shark {
-  background-color: $shark;
-}
-
-@mixin color-shark {
-  color: $shark;
-}
-
 // ===== Typography =====
 @mixin Poppins {
   font-family: Poppins, sans-serif;

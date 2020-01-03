@@ -14,7 +14,7 @@
       bottom: 8px;
     }
     margin-left: -$gap-xxs;
-    min-height: 400px;
+    min-height: 370px;
     &:hover {
       overflow-x: scroll;
     }
@@ -28,14 +28,26 @@
       right: $gap-xxs;
     }
     width: 250px;
-    height: 400px;
+    height: 370px;
     overflow: hidden;
+    background-color: $shark;
+    color: $white;
     border-radius: $radius;
     @include hover-shadow;
+
+    &:hover {
+      color: $white;
+    }
+
+    &-content {
+      padding: $gap-xs;
+    }
   }
 }
 
 .eventImage {
   height: 220px;
+  width: 100%;
   object-fit: cover;
+  background-color: $white;
 }

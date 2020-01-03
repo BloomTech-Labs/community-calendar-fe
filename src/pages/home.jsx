@@ -23,7 +23,9 @@ const Home = () => {
       <FeaturedEvents apolloData={apolloData} />
       <div className='content-divider-x'></div>
       <section className='section'>
-        <h3 className='is-family-secondary is-size-2'>Events</h3>
+        <h3 className='is-family-secondary is-size-2 has-text-black-bis'>
+          Events
+        </h3>
         <FilterBtns />
         <EventList apolloData={apolloData} />
       </section>

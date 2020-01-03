@@ -10,7 +10,9 @@ import {featuredWrapper} from './Featured.module.scss'
 const FeaturedEvents = ({apolloData: {data, loading, error}}) => {
   return (
     <section className='section'>
-      <h3 className='is-family-secondary is-size-2'>Featured</h3>
+      <h3 className='is-family-secondary is-size-2 has-text-black-bis'>
+        Featured
+      </h3>
       <div className={`${featuredWrapper} `}>
         {loading && <p>LOADING</p>}
         {error && <p>ERROR</p>}

@@ -21,9 +21,6 @@ import {
 export default function EventList({apolloData: {data, loading, error}}) {
   const [useListView, setShowListView] = useState(true)
 
-  if (loading) return <p>LOADING</p>
-  if (error) return <p>ERROR</p>
-
   return (
     <>
       <div
@@ -53,9 +50,16 @@ export default function EventList({apolloData: {data, loading, error}}) {
             : grid_container
         }`}
       >
-        {data.events.map(item => (
-          <EventListCard key={item.id} item={item} useListView={useListView} />
-        ))}
+        {loading && <p>LOADING</p>}
+        {error && <p>ERROR</p>}
+        {data &&
+          data.events.map(item => (
+            <EventListCard
+              key={item.id}
+              item={item}
+              useListView={useListView}
+            />
+          ))}
       </div>
     </>
   )

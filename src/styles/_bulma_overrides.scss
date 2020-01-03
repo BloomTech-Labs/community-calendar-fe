@@ -36,9 +36,16 @@
   }
 }
 
+// ===== Section =====
 .section {
   padding: {
     left: 0;
     right: 0;
   }
+}
+
+// ===== Typography Classes =====
+.subtitle,
+.title {
+  color: inherit;
 }
