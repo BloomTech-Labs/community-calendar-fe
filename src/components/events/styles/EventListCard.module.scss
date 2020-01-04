@@ -34,6 +34,7 @@ a.list-card {
     @include tablet {
       margin: {
         left: $gap;
+        right: $gap-sm;
         top: 0;
       }
       padding-bottom: 0;
@@ -79,8 +80,7 @@ a.grid-card {
   }
 
   .event_details {
-    margin-top: $gap-md;
-    height: 100px;
+    padding: $gap-sm $gap-xxs;
   }
 
   .event_description {

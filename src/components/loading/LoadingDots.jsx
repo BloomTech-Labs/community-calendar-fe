@@ -6,30 +6,17 @@ const LoadingDots = props => {
   const size = props.dimensions ? props.dimensions : '8'
   return (
     <div className={dots}>
-      <div
-        className={dot}
-        style={{
-          width: `${size}px`,
-          height: `${size}px`,
-          animationDelay: 0,
-        }}
-      ></div>
-      <div
-        className={dot}
-        style={{
-          width: `${size}px`,
-          height: `${size}px`,
-          animationDelay: '0.2s',
-        }}
-      ></div>
-      <div
-        className={dot}
-        style={{
-          width: `${size}px`,
-          height: `${size}px`,
-          animationDelay: '0.4s',
-        }}
-      ></div>
+      {[0, 0.2, 0.4].map((time, indx) => (
+        <div
+          className={dot}
+          key={'dot-' + indx}
+          style={{
+            width: `${size}px`,
+            height: `${size}px`,
+            animationDelay: `${time}s`,
+          }}
+        ></div>
+      ))}
     </div>
   )
 }
@@ -37,4 +24,5 @@ const LoadingDots = props => {
 LoadingDots.propTypes = {
   dimensions: PropTypes.number,
 }
+
 export default LoadingDots
