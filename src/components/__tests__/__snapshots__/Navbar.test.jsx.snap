@@ -37,7 +37,6 @@ Object {
             <input
               class=" input"
               placeholder="Search"
-              style="border-radius: 6px; width: 350px;"
               type="text"
             />
           </div>
@@ -119,7 +118,6 @@ Object {
           <input
             class=" input"
             placeholder="Search"
-            style="border-radius: 6px; width: 350px;"
             type="text"
           />
         </div>

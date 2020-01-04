@@ -35,7 +35,6 @@
   padding: $gap-sm;
 
   .dot {
-    margin: 0 $gap-xxs;
     background-color: $shark;
     @include is-round;
     animation: {

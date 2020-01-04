@@ -56,8 +56,8 @@ export default function EventList({apolloData: {data, loading, error}}) {
         {data &&
           data.events.map(item => (
             <EventListCard
-              key={item.id}
               item={item}
+              key={item.id}
               useListView={useListView}
             />
           ))}

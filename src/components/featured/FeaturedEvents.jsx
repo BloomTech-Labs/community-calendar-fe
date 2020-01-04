@@ -18,9 +18,9 @@ const FeaturedEvents = ({apolloData: {data, loading, error}}) => {
         {loading && <LoadingLogo dimensions={50} />}
         {error && <p>ERROR</p>}
         {data &&
-          data.events
-            .slice(0, 6)
-            .map((event, idx) => <FeaturedCard key={idx} item={event} />)}
+          data.events.map(event => (
+            <FeaturedCard key={event.id} item={event} />
+          ))}
       </div>
     </section>
   )
