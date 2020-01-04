@@ -23,19 +23,37 @@ export default function FeaturedCard(props) {
 
       <div className={featuredCardContent}>
         <p>
-          <time className='subtitle is-7' dateTime='2016-1-1'>
-            January 17, 2020
+          <time
+            className='subtitle is-7'
+            dateTime={moment(item.start).format('YYYY-MM-DD')}
+          >
+            {moment(item.start).format('MMMM DD, YYYY')}
           </time>
         </p>
-        <p className='is-6 Butler has-text-weight-bold'>{item.title}</p>
+        <p
+          className='is-6 Butler has-text-weight-bold'
+          style={{height: '48px'}}
+        >
+          {item.title}
+        </p>
         <p>
-          <time className='subtitle is-size-7' dateTime='2016-1-1'>
-            5:00 pm - 10:00 pm
+          <time
+            className='subtitle is-size-7'
+            dateTime={moment(item.start).format('HH:mm')}
+          >
+            {moment(item.start).format('h:mm a')}
+          </time>
+          &nbsp;&#8208;&nbsp;
+          <time
+            className='subtitle is-size-7'
+            dateTime={moment(item.end).format('HH:mm')}
+          >
+            {moment(item.end).format('h:mm a')}
           </time>
         </p>
         <p className='is-size-7 has-text-weight-bold'>
-          <span className='has-text-weight-light'>Location: </span>142 Main St.,
-          Anywhere
+          <span className='has-text-weight-light'>Location: </span>
+          {`${item.locations[0].street_address}, ${item.locations[0].city}`}
         </p>
       </div>
     </Link>
