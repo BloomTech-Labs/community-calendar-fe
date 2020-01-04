@@ -1,0 +1,90 @@
+@import '_variables.scss';
+@import '_animations.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/animations.sass';
+
+.wrapper {
+  margin: $gap-sm auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  position: relative;
+  animation: {
+    name: bounceUpDown;
+    duration: 1.3s;
+    iteration-count: infinite;
+    timing-function: ease-out;
+  }
+  svg {
+    animation: {
+      name: spinY;
+      duration: 2s;
+      iteration-count: infinite;
+      timing-function: linear;
+    }
+  }
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  padding: $gap-sm;
+
+  .dot {
+    margin: 0 $gap-xxs;
+    background-color: $shark;
+    @include is-round;
+    animation: {
+      name: fadeIn;
+      duration: 1.5s;
+      timing-function: ease-in-out;
+      iteration-count: infinite;
+    }
+  }
+}
+
+.wrapper_old {
+  margin: $gap-sm auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:before {
+    content: '';
+    top: -10%;
+    left: -10%;
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    border: {
+      top: $red;
+      bottom: $red;
+      left: transparent;
+      right: transparent;
+      width: 2px;
+      style: solid;
+    }
+    @include is-round;
+    animation: {
+      name: spinAround;
+      duration: 2s;
+      iteration-count: infinite;
+      timing-function: linear;
+    }
+  }
+}
+.logo {
+  svg {
+    animation: {
+      name: spinY;
+      duration: 2s;
+      iteration-count: infinite;
+      timing-function: linear;
+    }
+  }
+}

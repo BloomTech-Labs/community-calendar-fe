@@ -5,6 +5,8 @@ import ReactGA from 'react-ga'
 import EventList from '../components/events/EventList'
 import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
 import FeaturedEvents from '../components/featured/FeaturedEvents'
+import LoadingDots from '../components/loading/LoadingDots'
+import LoadingLogo from '../components/loading/LoadingLogo'
 
 //graphql
 import {useQuery} from 'react-apollo'

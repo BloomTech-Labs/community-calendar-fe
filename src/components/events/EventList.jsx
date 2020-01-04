@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import EventListCard from './EventListCard'
 import ListIcon from 'icons/ListIcon'
 import GridIcon from 'icons/GridIcon'
+import LoadingLogo from '../loading/LoadingLogo'
 
 //styles
 import {
@@ -50,7 +51,7 @@ export default function EventList({apolloData: {data, loading, error}}) {
             : grid_container
         }`}
       >
-        {loading && <p>LOADING</p>}
+        {loading && <LoadingLogo dimensions={50} />}
         {error && <p>ERROR</p>}
         {data &&
           data.events.map(item => (

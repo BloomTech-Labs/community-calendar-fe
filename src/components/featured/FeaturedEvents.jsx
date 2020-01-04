@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 //components
 import FeaturedCard from './FeaturedCard.jsx'
+import LoadingLogo from '../loading/LoadingLogo'
 
 //styles
 import {featuredWrapper} from './Featured.module.scss'
@@ -14,7 +15,7 @@ const FeaturedEvents = ({apolloData: {data, loading, error}}) => {
         Featured
       </h3>
       <div className={`${featuredWrapper} `}>
-        {loading && <p>LOADING</p>}
+        {loading && <LoadingLogo dimensions={50} />}
         {error && <p>ERROR</p>}
         {data &&
           data.events

@@ -1,5 +1,9 @@
 import React, {useEffect} from 'react'
 import {useParams} from 'react-router-dom'
+
+// components
+import LoadingLogo from '../components/loading/LoadingLogo'
+
 //graphql
 import {useQuery} from 'react-apollo'
 import {GET_EVENT_BY_ID} from '../graphql/events.query'
@@ -21,7 +25,15 @@ const EventView = () => {
   //destructure event information passed through props
   const {data, loading, error} = useQuery(GET_EVENT_BY_ID(queryParams.id))
 
-  if (loading) return <p>LOADING</p>
+  if (loading)
+    return (
+      <div
+        className='container level'
+        style={{height: '100vh', width: '100vw'}}
+      >
+        <LoadingLogo />
+      </div>
+    )
   if (error) return <p>Error</p>
 
   const {id, title, description, start, end, creator, locations, event_images} =
