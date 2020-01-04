@@ -113,6 +113,15 @@ const EventView = () => {
           </div>
           <div className={socialOptions}>
             <button className='button  is-dark '>Follow Host</button>
+            <div>
+              <p className=' is-size-5'>Tags</p>
+              <div className='tags'>
+                <span className='tag is-small is-white'>kids</span>
+                <span className='tag is-small is-white'>sports</span>
+                <span className='tag is-small is-white'>art</span>
+                <span className='tag is-small is-white'>family</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

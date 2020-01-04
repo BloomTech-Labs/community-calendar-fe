@@ -40,9 +40,20 @@
   }
 
   .description-div {
+    margin-top: $gap;
     max-width: 700px;
     p:nth-of-type(2) {
-      padding: $gap 0;
+      padding: $gap + $gap-xxs 0;
+    }
+  }
+
+  .socialOptions {
+    max-width: 174px;
+    button ~ div {
+      margin-top: $gap-lg;
+      div {
+        padding: $gap 0;
+      }
     }
   }
 }

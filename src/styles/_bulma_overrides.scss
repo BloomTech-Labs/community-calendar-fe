@@ -68,3 +68,16 @@
     font-weight: bold;
   }
 }
+
+// ===== Tag Classes =====
+.tag {
+  border: 1px solid $black-bis;
+  &:not(body) {
+    padding: {
+      left: $gap-sm;
+      right: $gap-sm;
+      top: 0;
+      bottom: 0;
+    }
+  }
+}
