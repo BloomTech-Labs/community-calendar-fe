@@ -8,13 +8,12 @@ import {months, weekDays} from '../utils/time-helpers.js'
 //styles
 import {
   banner,
-  top_div,
+  top_sec,
   middle_div,
-  bottom_div,
-  panel_left,
+  descriptionDiv,
   panel_right,
-  space_around,
-  main,
+  eventView,
+  socialOptions,
 } from './styles/EventView.module.scss'
 
 const EventView = () => {
@@ -58,15 +57,15 @@ const EventView = () => {
       : `${endHours}:${String(endMinutes).padStart(2, '0')} am`
 
   return (
-    <div className={` Butler`}>
+    <div className={eventView}>
       <img
         className={`${banner} is-block mx-auto`}
         src={event_images[0].url}
         alt='banner'
       />
-      <div className={top_div}>
-        <div className={panel_left}>
-          <h1>{title}</h1>
+      <section className={top_sec}>
+        <div>
+          <h1 className='is-family-secondary'>{title}</h1>
           <p>{`${
             months[startDate.getMonth()]
           } ${startDate.getDate()}, ${startDate.getFullYear()} ${
@@ -79,34 +78,44 @@ const EventView = () => {
           <p>
             Going:
             <br />
-            50
+            <span className='has-text-weight-bold'>50</span>
           </p>
           <p>
             Interested:
             <br />
-            100
+            <span className='has-text-weight-bold'>100</span>
           </p>
         </div>
-      </div>
-      <div className={middle_div}>
-        <div>
-          <p className='color_chalice'>Hosted by:</p>
-          {/* <p className="color_shark">{creator}</p> */}
+      </section>
+      <section className=''>
+        <div className={middle_div}>
+          <div>
+            <div className='columns'>
+              <div className='column'>
+                <p className='color_chalice'>Hosted by:</p>
+              </div>
+              {/* <p className="color_shark">{creator}</p> */}
+              <div className='column'>
+                <p className='color_chalice'>Time:</p>
+                <p className='color_shark has-text-weight-bold'>{`${eventStartTime} - ${eventEndTime}`}</p>
+              </div>
+              <div className='column'>
+                <p className='color_chalice'>Ticket type:</p>
+                <p className='has-text-danger'>Free</p>
+              </div>
+            </div>
+
+            <div className={descriptionDiv}>
+              <p className='has-text-weight-bold is-size-5'>Event Details</p>
+              <p>{description}</p>
+              <button className='button  is-dark'>Attend</button>
+            </div>
+          </div>
+          <div className={socialOptions}>
+            <button className='button  is-dark '>Follow Host</button>
+          </div>
         </div>
-        <div>
-          <p className='color_chalice'>Time:</p>
-          <p className='color_shark'>{`${eventStartTime} - ${eventEndTime}`}</p>
-        </div>
-        <div>
-          <p className='color_chalice'>Ticket type:</p>
-          <p className='color_shark'></p>
-        </div>
-        <button>Follow Host</button>
-      </div>
-      <div className={bottom_div}>
-        <div></div>
-        <div></div>
-      </div>
+      </section>
     </div>
   )
 }

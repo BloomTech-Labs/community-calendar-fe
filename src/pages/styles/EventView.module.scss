@@ -1,42 +1,48 @@
 @import '_variables.scss';
 @import '~bulma/sass/utilities/_all.sass';
 
-.banner {
-  max-height: 250px;
-}
-
-.top_div {
-  display: flex;
-  justify-content: space-between;
-  background-color: $shark;
-  color: white;
-  padding: 32px;
-
-  h1 {
-    font-size: 48px;
-    margin-bottom: 35px;
+.event-view {
+  section {
+    padding: $gap;
   }
 
-  .panel_right {
-    display: flex;
-    align-items: flex-end;
+  .banner {
+    max-height: 250px;
+  }
 
-    p {
-      padding-right: 30px;
+  .top_sec {
+    display: flex;
+    justify-content: space-between;
+    background-color: $shark;
+    color: white;
+    h1 {
+      font-size: 48px;
+      margin-bottom: $gap;
+    }
+
+    .panel_right {
+      display: flex;
+      align-items: flex-end;
+
+      p:nth-of-type(1) {
+        margin-right: $gap;
+      }
     }
   }
-}
 
-.middle_div {
-  display: flex;
-  justify-content: space-around;
-  padding: 50px 0;
-}
+  .middle_div {
+    display: flex;
+    justify-content: space-around;
+    padding: $gap 0;
+    div:nth-of-type(1) {
+      width: 100%;
+    }
+  }
 
-button {
-  border-radius: 10px;
-  padding: 14px 40px;
-  font-size: 18px;
-  background-color: $shark;
-  color: white;
+  .description-div {
+    max-width: 700px;
+    p:nth-of-type(2) {
+      padding: $gap 0;
+    }
+  }
 }

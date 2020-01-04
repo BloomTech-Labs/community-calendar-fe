@@ -9,20 +9,26 @@ $chalice: #acaaaa;
 $silver: #c0c0c0;
 $iconLight: #999999;
 $link_hover: lightGrey;
+$white: #fff;
+$dark: $shark;
 
-//============= Spacing And Layout=============
-$bodyPaddingX-hd: 2rem;
-$container-width: 1200px;
-$navbar-height: 72px;
-$navbar-padding-vertical: 10px;
-$mobile-xs: 499px;
-$gridCard-w: 320px;
+//============= Padding ,Margins , Font Size=============
 $gap-lg: 56px;
-$gap: 32px;
+$gap: 32px; // bulma default
 $gap-md: 24px;
 $gap-sm: 16px;
 $gap-xs: 12px;
 $gap-xxs: 8px;
+$bodyPaddingX-hd: $gap;
+
+//============= Media Breakpoints =============
+$mobile-xs: 499px;
+
+//============= Component Sizes =============
+$container-width: 1200px; // used for setting max-width of  content
+$navbar-height: 72px;
+$navbar-padding-vertical: $gap-xs;
+$gridCard-w: 320px;
 
 //============= Borders =============
 $radius-small: 2px;
@@ -32,13 +38,14 @@ $radius-large: 10px;
 //============ Typography ===========
 $family-primary: Poppins, sans-serif;
 $family-secondary: Butler, Georgia, 'Times New Roman', Times, serif;
-// $family-code: ;
-// $family-monospace: ;
-// $family-sans-serif: ;
 
 //============ Dropdowns ===========
 $dropdown-item-hover-color: #fff;
 $dropdown-item-hover-background-color: $shark;
+
+//============ Buttons ===========
+$button-padding-vertical: $gap-xs;
+$button-padding-horizontal: $gap + $gap-xxs;
 
 //============ Animations ===========
 $duration-short: 0.2s;

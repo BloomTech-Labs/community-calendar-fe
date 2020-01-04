@@ -49,3 +49,22 @@
 .title {
   color: inherit;
 }
+
+// ===== Button Classes =====
+
+.button {
+  border-radius: $radius-large;
+}
+
+.button.is-dark {
+  height: initial;
+  border: 2px solid $shark;
+  transition: background-color $duration-short, color $duration-short,
+    font-weight $duration-short;
+  &:hover {
+    background-color: $white;
+    color: $shark;
+    border-color: $shark;
+    font-weight: bold;
+  }
+}
