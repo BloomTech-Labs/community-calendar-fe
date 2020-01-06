@@ -11,7 +11,7 @@ import {featuredWrapper} from './Featured.module.scss'
 // Carousel
 import ReactSimpleCarousel from "react-spring-carousel";
 
-function Carousel({apolloData: {data, loading, error}}) {
+function FeatCarousel({apolloData: {data, loading, error}}) {
   return (
     <section className='section'>
       <h3 className='is-family-secondary is-size-2 has-text-black-bis'>
@@ -48,4 +48,4 @@ function Carousel({apolloData: {data, loading, error}}) {
   );
 }
 
-export default Carousel;
+export default FeatCarousel;

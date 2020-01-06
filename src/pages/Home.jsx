@@ -4,7 +4,7 @@ import ReactGA from 'react-ga'
 //components
 import EventList from '../components/events/EventList'
 import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
-import Carousel from '../components/featured/FeaturedCarousel';
+import FeatCarousel from '../components/featured/FeaturedCarousel';
 
 //graphql
 import {useQuery} from 'react-apollo'
@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <div className='page-wrapper'>
       {/* Featured Events carousel */}
-      <Carousel apolloData={apolloData} />
+      <FeatCarousel apolloData={apolloData} />
       
       <div className='content-divider-x'></div>
       {/* Events list */}
