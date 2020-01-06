@@ -1,28 +1,15 @@
 import React from 'react'
+// Testing libraries
 import {render} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import userEvent from '@testing-library/user-event'
-import EventListCard from '../events/EventListCard'
+
+// Modules used in components
 import {MemoryRouter} from 'react-router-dom'
 import moment from 'moment'
 
-jest.mock('moment', () => {
-  const moment = require.requireActual('moment')
-  // moment is both an object and function so create an actual instance of it
-  const momentInstance = moment()
-
-  // spy on methods of moment and modify them
-  jest.spyOn(momentInstance, 'format').mockImplementation(() => '')
-
-  // create a fake instance of moment
-  function fakeMoment() {
-    return momentInstance
-  }
-
-  // apply properites of moment to fakeMoment
-  Object.assign(fakeMoment, moment)
-  return fakeMoment
-})
+// Components to test
+import FeaturedCard from '../featured/FeaturedCard'
 
 const data = {
   locations: [
@@ -52,24 +39,32 @@ const data = {
   start: '2019-11-21T23:00:00.000Z',
 }
 
-describe('Tests for EventListCard', () => {
-  test('Should match the snapshot', () => {
+describe('Tests for FeaturedCards', () => {
+  beforeEach(() => {
+    // reset mock functions before each test
+    jest.clearAllMocks()
+  })
+
+  test('should match snapshot', () => {
+    jest.mock('moment', () => () => ({format: () => 'test'}))
+
     const tree = render(
       <MemoryRouter>
-        <EventListCard item={data} />
+        <FeaturedCard item={data} />
       </MemoryRouter>,
     )
     expect(tree).toMatchSnapshot()
   })
 
-  test('Should render data from props', () => {
-    const {getByText, getByTestId} = render(
+  test('Should display correct data', () => {
+    jest.mock('moment', () => () => ({format: () => 'test'}))
+    const {getByText} = render(
       <MemoryRouter>
-        <EventListCard item={data} />
+        <FeaturedCard item={data} />
       </MemoryRouter>,
     )
 
-    expect(getByTestId('event_description')).toHaveTextContent(data.description)
-    expect(getByTestId('event_title')).toHaveTextContent(data.title)
+    expect(getByText(data.title)).toBeInTheDocument()
+    expect(getByText(/8000 woodward ave, detroit/i)).toBeInTheDocument()
   })
 })

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {grid, active} from './Icons.module.scss'
 
+/* Used to select grid view */
 const GridIcon = ({dimensions, dataId, isActive}) => {
   return (
     <svg

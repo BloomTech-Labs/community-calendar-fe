@@ -2,10 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {dots, dot} from './Loading.module.scss'
 
-const LoadingDots = ({dimensions}) => {
-  const size = dimensions ? dimensions : '8'
+/* 
+Loading animation. Displays three dot in a row.
+
+'dotSize' is the width/ height of each dot in px.
+ */
+const LoadingDots = ({dotSize}) => {
+  const size = dotSize ? dotSize : '8'
   return (
     <div className={dots}>
+      {/* create three dots. The first dot begins its animation immediately.
+     The other dots start animating after a short delay. 
+      */}
       {[0, 0.2, 0.4].map((time, indx) => (
         <div
           className={dot}
@@ -23,7 +31,7 @@ const LoadingDots = ({dimensions}) => {
 }
 
 LoadingDots.propTypes = {
-  dimensions: PropTypes.number,
+  dotSize: PropTypes.number,
 }
 
 export default LoadingDots

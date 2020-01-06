@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {list, active} from './Icons.module.scss'
 
+/* Used to select list view */
 const ListIcon = ({isActive, width, height, dataId}) => {
   return (
     <svg

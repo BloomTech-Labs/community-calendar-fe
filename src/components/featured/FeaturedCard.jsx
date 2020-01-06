@@ -10,6 +10,10 @@ import {
   eventImage,
 } from './Featured.module.scss'
 
+/*
+Cards for the Featured Events carousel.
+*/
+
 export default function FeaturedCard(props) {
   const {item} = props
 

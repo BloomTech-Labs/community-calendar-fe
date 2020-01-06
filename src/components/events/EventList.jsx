@@ -19,7 +19,13 @@ import {
   iconDivider,
 } from './styles/EventList.module.scss'
 
+/*
+Shows events near a user in either a list or grid format.
+*/
 export default function EventList({apolloData: {data, loading, error}}) {
+  /* used to determine if the events cards should be 
+  displayed as list or grid
+  */
   const [useListView, setShowListView] = useState(true)
 
   return (

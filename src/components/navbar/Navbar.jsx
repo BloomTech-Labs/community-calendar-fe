@@ -77,6 +77,7 @@ outside of it close the dropdown menu
         <NavbarSearch />
         <div className='navbar-end'>
           {user ? (
+            /* user has logged in */
             <>
               <div ref={dropMenu} className={`dropdown is-right`}>
                 <div
@@ -103,6 +104,7 @@ outside of it close the dropdown menu
               </div>
             </>
           ) : (
+            /* No user */
             <>
               <button
                 onClick={handleLogin}

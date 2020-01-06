@@ -16,6 +16,11 @@ import {
   descriptionUnderline,
 } from './styles/EventListCard.module.scss'
 
+/* 
+The cards shown on the EventList component.
+Changing the class names on the Link element
+sets the style to List format or Grid format
+ */
 export default function EventListCard(props) {
   const {item} = props
 
@@ -26,7 +31,7 @@ export default function EventListCard(props) {
     >
       <img
         src={item.event_images[0].url}
-        className={`${column} ${isNarrow} ${event_image}`}
+        className={(column, isNarrow, event_image)}
       />
       <div className={`${column} ${event_details}`}>
         <p

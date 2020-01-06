@@ -10,12 +10,12 @@ We create incredible neighborhoods and community spaces through meaningful share
 
 ## Project Overview
 
- [Product Vision](https://www.notion.so/Community-Calendar-Labs-19-25c4624fa8fe46e49361d73215459050)
+[Product Vision](https://www.notion.so/Community-Calendar-Labs-19-25c4624fa8fe46e49361d73215459050)
 
- [UX Design files](https://www.figma.com/file/rMUTr0Y5UBkm7AhAVCMrfW/Community-Calendar)
+[UX Design files](https://www.figma.com/file/rMUTr0Y5UBkm7AhAVCMrfW/Community-Calendar)
 
- [Planned Releases](https://www.notion.so/06de41bdd6124a459140e0b943b648a1)
- 
+[Planned Releases](https://www.notion.so/06de41bdd6124a459140e0b943b648a1)
+
 Community Calendar is a single web application built with React and styled using SASS and the Bulma framework. Our data is stored and served by an [Apollo GraphQL server](https://github.com/Lambda-School-Labs/community-calendar-be). Mobile versions of the Community Calendar are under developments simultaneously for [Adroid](https://github.com/Lambda-School-Labs/community-calendar-android) and [iOS](https://github.com/Lambda-School-Labs/community-calendar-ios).
 
 Community Calendar uses the apollo-client library to conduct GraphQL queries and store data in local cache for state management purposes. Authentication of users is accomplished through the Auth0 API.
@@ -40,11 +40,10 @@ Community Calendar uses the apollo-client library to conduct GraphQL queries and
 | lint       | Run Eslint and report errors found by recursively searching and analyzing all javascript files in the /src directory.                                                                                                                                 |
 | test       | Run the Jest test suite once.                                                                                                                                                                                                                         |
 | test:watch | Run the Jest test suite in `watch` mode. The test suite will run when a file used in tests is updated.                                                                                                                                                |
+
 ### Environment Variables
 
-Create two files for environment variables: `.env` and `.env.development`.
-Use the .env.development file to store secrets for local development.
-Use '.env' to test the production build locally.
+Create a file for environment variables: `.env` .
 
 #### Required env variables:
 
@@ -65,9 +64,27 @@ Install the [Prettier](https://marketplace.visualstudio.com/items?itemName=esben
 }
 ```
 
+## Styling
+
+This project use Sass for stying. The Bulma library was incorporated to speed up development.
+
+`src/styles/` - contains classes, mixins, and variables that are used throughout the application.
+
+`src/styles/_variables.scss` - contains variables such as colors, padding, and border radius that can be used within classes and mixins. To override a Bulma variable add a variable with the same name to this file. To use the variables in a component module this file file must be imported.
+
+`src/styles/_mixins.scss` - styles that can be added to classes with `@include mixin_name`. To use the variables in a component module this file file must be imported.
+
+`src/styles/_helper_classes.scss` - utility classes created by the CC devs. These classes are available globally.
+
+`src/styles/_bulma_overrides.scss` - this is used to override the implementation of classes from Bulma. The class will retain any styles that are not altered in this file.
+
+`src/components/**/*.module.scss` - contains styles for a component or group of components.
+
 ## Testing
 
-🚫Document what you used for testing and why
+Jest is use for snapshot, unit, and integration tests.
+
+The Testing-Library/React library is used to help test React components. It includes many utilities that simplify setting up and testing React components. '@testing-library/jest-dom' provides additional assertion methods. '@testing-library/user-event' has utilities for simulating user events such as clicking on a button.
 
 ## Contributing
 
@@ -76,12 +93,13 @@ When contributing to this repository, please first discuss the change you wish t
 Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
 
 ### Issue/Bug Request
-   
- **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
- - Check first to see if your issue has already been reported.
- - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
- - Create a live example of the problem.
- - Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 

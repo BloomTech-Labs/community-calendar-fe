@@ -20,6 +20,9 @@ import {
   socialOptions,
 } from './styles/EventView.module.scss'
 
+/* Show all of the details and information about an event.
+Users can RSVP to an event from here.
+ */
 const EventView = () => {
   const queryParams = useParams()
   //destructure event information passed through props
@@ -70,11 +73,13 @@ const EventView = () => {
 
   return (
     <div className={eventView}>
+      {/* Banner image */}
       <img
         className={`${banner} is-block mx-auto`}
         src={event_images[0].url}
         alt='banner'
       />
+      {/* Event title, location, RSVP info */}
       <section className={top_sec}>
         <div>
           <h1 className='is-family-secondary'>{title}</h1>
@@ -102,7 +107,10 @@ const EventView = () => {
       <section className=''>
         <div className={middle_div}>
           <div>
+            {' '}
+            {/* container which separates social links/tags from event info  */}
             <div className='columns'>
+              {/* Host Name, Time, Type */}
               <div className='column'>
                 <p className='color_chalice'>Hosted by:</p>
               </div>
@@ -116,13 +124,13 @@ const EventView = () => {
                 <p className='has-text-danger'>Free</p>
               </div>
             </div>
-
             <div className={descriptionDiv}>
               <p className='has-text-weight-bold is-size-5'>Event Details</p>
               <p>{description}</p>
               <button className='button  is-dark'>Attend</button>
             </div>
           </div>
+          {/* Appears to right of event info on tablet+ */}
           <div className={socialOptions}>
             <button className='button  is-dark '>Follow Host</button>
             <div>
