@@ -59,7 +59,8 @@ export default function EventList({apolloData: {data, loading, error}}) {
       >
         {loading && <LoadingLogo dimensions={50} />}
         {error && <p>ERROR</p>}
-        {!loading && data &&
+        {!loading &&
+          data &&
           data.events.map(item => (
             <EventListCard
               item={item}
@@ -67,11 +68,11 @@ export default function EventList({apolloData: {data, loading, error}}) {
               useListView={useListView}
             />
           ))}
-           { !loading && !data.events.length && (
-             <div className='container'>
-          <h5 className='has-text-centered color_chalice'>
-            No events found for the selected date(s)
-          </h5>
+        {!loading && data && !data.events.length && (
+          <div className='container'>
+            <h5 className='has-text-centered color_chalice'>
+              No events found for the selected date(s)
+            </h5>
           </div>
         )}
       </div>
