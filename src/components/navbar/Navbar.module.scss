@@ -2,14 +2,21 @@
 @import '_animations.scss';
 @import '~bulma/sass/utilities/_all.sass';
 
-.navbar {
+.cc_navbar {
   padding: 0 $bodyPaddingX-hd;
   height: $navbar-height;
   border-bottom: 2px solid $black-bis;
   margin-top: 0 !important;
+  display: flex;
+  align-items: center;
+
+  img {
+    pointer-events: none;
+  }
 
   button {
     border: 0;
+    color: $black;
     border-radius: $radius;
     background: none;
     position: relative;
@@ -48,5 +55,15 @@
 
 .navsearch {
   padding-left: 12px;
+  display: flex;
   align-items: center !important;
+  border-radius: $radius;
+  width: 100%;
+  max-width: 100px;
+  flex-grow: 1;
+  transition: width 0.4s;
+
+  @include tablet {
+    max-width: 350px;
+  }
 }

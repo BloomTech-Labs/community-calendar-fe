@@ -25,13 +25,12 @@ export class Auth0Provider extends Component {
   }
 
   componentDidMount() {
-    console.log('auth0 context provider')
     this.initializeAuth0()
   }
 
   //initialize the auth0 library
   initializeAuth0 = async () => {
-    console.log('test', this.config)
+    console.log('context config', this.config)
     const auth0Client = await createAuth0Client(this.config)
     this.setState({auth0Client})
 
@@ -79,5 +78,5 @@ export class Auth0Provider extends Component {
 }
 
 Auth0Provider.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.array,
 }

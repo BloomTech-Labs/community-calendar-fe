@@ -1,0 +1,42 @@
+@import '_variables.scss';
+
+.active {
+  path {
+    fill: $shark !important;
+  }
+}
+
+@mixin iconFillTransition {
+  transition: fill $duration-short;
+}
+
+.heart {
+  transition: transform $duration-short;
+  fill: none;
+  path {
+    stroke: $shark;
+  }
+  &:hover {
+    transform: scale(1.1);
+  }
+  &.liked {
+    fill: $sunsetOrange;
+  }
+}
+
+.arrow {
+  path {
+    fill: $shark;
+  }
+  &.leftArrow {
+    transform: rotate(180deg);
+  }
+}
+
+.grid,
+.list {
+  path {
+    @include iconFillTransition();
+    fill: $iconLight;
+  }
+}

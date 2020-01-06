@@ -1,0 +1,60 @@
+@import '_variables.scss';
+
+// ===== Typography =====
+@mixin Poppins {
+  font-family: Poppins, sans-serif;
+}
+
+@mixin Butler {
+  font-family: Butler, Georgia, 'Times New Roman', Times, serif;
+}
+
+// ===== Postion and Box Shape =====
+@mixin is-round {
+  border-radius: 50%;
+}
+
+// horizontally center an element
+@mixin mx-auto {
+  margin: 0 auto;
+}
+
+// ===== Other =====
+@mixin is-clickable {
+  cursor: pointer;
+}
+
+/* 
+Grey line used to divide sections of content
+Default direction is horizontal . Pass 'y' for vertical divider
+*/
+@mixin content-divider($direction: x, $thickness: 1px) {
+  @if $direction == x {
+    width: 100%;
+    height: $thickness;
+  } @else if $direction == y {
+    width: $thickness;
+    height: 100%;
+  }
+  background-color: $iconLight;
+}
+
+// ===== Media Breakpoints =====
+@mixin mobile-xs-up {
+  @media screen and (min-width: $mobile-xs + 1px) {
+    @content;
+  }
+}
+
+@mixin mobile-xs-only {
+  @media screen and (max-width: $mobile-xs) {
+    @content;
+  }
+}
+
+// ===== Hover Effects =====
+@mixin hover-shadow {
+  &:hover {
+    box-shadow: 8px 8px 10px -5px rgba(0, 0, 0, 0.5);
+  }
+}

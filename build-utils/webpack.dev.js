@@ -2,8 +2,11 @@
 
 module.exports = webpack => {
   return {
-    // sets process.env.NODE_ENV = 'development'
-    mode: 'development',
+    resolve: {
+      alias: {
+        'react-dom': '@hot-loader/react-dom',
+      },
+    },
     devtool: 'inline-source-map',
     devServer: {
       contentBase: './public',

@@ -1,0 +1,47 @@
+@import '_variables.scss';
+@import '_animations.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/animations.sass';
+
+.wrapper {
+  margin: $gap-sm auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  position: relative;
+  animation: {
+    name: bounceUpDown;
+    duration: 1.3s;
+    iteration-count: infinite;
+    timing-function: ease-out;
+  }
+  svg {
+    animation: {
+      name: spinY;
+      duration: 2s;
+      iteration-count: infinite;
+      timing-function: linear;
+    }
+  }
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  padding: $gap-sm;
+
+  .dot {
+    background-color: $shark;
+    @include is-round;
+    animation: {
+      name: fadeIn;
+      duration: 1.5s;
+      timing-function: ease-in-out;
+      iteration-count: infinite;
+    }
+  }
+}

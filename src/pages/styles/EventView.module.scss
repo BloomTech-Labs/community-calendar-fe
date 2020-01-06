@@ -1,0 +1,59 @@
+@import '_variables.scss';
+@import '~bulma/sass/utilities/_all.sass';
+
+.event-view {
+  section {
+    padding: $gap;
+  }
+
+  .banner {
+    max-height: 250px;
+  }
+
+  .top_sec {
+    display: flex;
+    justify-content: space-between;
+    background-color: $shark;
+    color: white;
+    h1 {
+      font-size: 48px;
+      margin-bottom: $gap;
+    }
+
+    .panel_right {
+      display: flex;
+      align-items: flex-end;
+
+      p:nth-of-type(1) {
+        margin-right: $gap;
+      }
+    }
+  }
+
+  .middle_div {
+    display: flex;
+    justify-content: space-around;
+    padding: $gap 0;
+    div:nth-of-type(1) {
+      width: 100%;
+    }
+  }
+
+  .description-div {
+    margin-top: $gap;
+    max-width: 700px;
+    p:nth-of-type(2) {
+      padding: $gap + $gap-xxs 0;
+    }
+  }
+
+  .socialOptions {
+    max-width: 174px;
+    button ~ div {
+      margin-top: $gap-lg;
+      div {
+        padding: $gap 0;
+      }
+    }
+  }
+}

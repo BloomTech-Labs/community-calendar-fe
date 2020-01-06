@@ -1,13 +1,12 @@
 import React from 'react'
+import {navsearch} from './Navbar.module.scss'
 
+/* 
+This component appears in the NavBar.
+*/
 const NavbarSearch = () => (
-  <div className='control'>
-    <input
-      className={` input`}
-      style={{borderRadius: '6px', width: '350px'}}
-      type='text'
-      placeholder='Search'
-    />
+  <div className={`${navsearch} navbar-start control`}>
+    <input className={` input`} type='text' placeholder='Search' />
   </div>
 )
 

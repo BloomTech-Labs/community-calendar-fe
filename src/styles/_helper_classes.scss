@@ -1,0 +1,51 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+
+// ===== Palette =====
+
+.color_chalice {
+  color: $chalice;
+}
+
+.color_black {
+  color: black;
+}
+
+.color_shark {
+  color: $shark;
+}
+
+// ===== Postion and Box Shape =====
+.is-round {
+  @include is-round;
+}
+
+// horizontally center an element
+.mx-auto {
+  @include mx-auto;
+}
+
+// ===== Other =====
+
+// Change cursor when hovering a clickable element
+.is-clickable {
+  cursor: pointer;
+}
+
+// wrapper for each page
+.page-wrapper {
+  @include mx-auto;
+  max-width: $container-width;
+  padding: {
+    left: $gap-md;
+    right: $gap-md;
+  }
+}
+
+.content-divider-x {
+  @include content-divider();
+}
+
+.content-divider-y {
+  @include content-divider(y);
+}

@@ -18,29 +18,35 @@ module.exports = {
   clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
-  // collectCoverage: false,
+  // collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: null,
+  // collectCoverageFrom: [
+  //   '**/*.{js,jsx}',
+  //   '!**/__tests__/**',
+  //   '!**/node_modules/**',
+  // ],
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: 'coverage',
+  // coverageDirectory: './coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  // coveragePathIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
+  // coveragePathIgnorePatterns: ['/node_modules/'],
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
   //   "json",
-  //   "text",
-  //   "lcov",
-  //   "clover"
+  // 'text',
   // ],
 
   // An object that configures minimum threshold enforcement for coverage results
-  // coverageThreshold: null,
+  // coverageThreshold: {
+  //   '**/*.{js,jsx}': {
+  //     branches: 10,
+  //     functions: 10,
+  //     statements: 10,
+  //   },
+  // },
 
   // A path to a custom dependency extractor
   // dependencyExtractor: null,
@@ -64,12 +70,15 @@ module.exports = {
   // maxWorkers: "50%",
 
   // An array of directory names to be searched recursively up from the requiring module's location
-  // moduleDirectories: [
-  //   "node_modules"
-  // ],
+  moduleDirectories: [
+    'node_modules',
+    'src/styles',
+    'test-utils',
+    'src/components',
+  ],
 
   // An array of file extensions your modules use
-  moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node'],
+  moduleFileExtensions: ['js', 'jsx', 'json', 'node'],
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
@@ -154,7 +163,7 @@ module.exports = {
   // testRunner: "jasmine2",
 
   // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href
-  // testURL: "http://localhost",
+  testURL: 'http://localhost',
 
   // Setting this value to "fake" allows the use of fake timers for functions such as "setTimeout"
   // timers: "real",

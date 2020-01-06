@@ -1,12 +1,10 @@
 @import '_variables.scss';
-@import '~bulma/sass/utilities/_all.sass';
-
-.event_list {
-  margin: 0 auto;
-  max-width: 1120px;
-}
 
 .event_filter_buttons {
+  button:first-of-type {
+    padding-left: 0;
+  }
+
   button {
     border: none;
     background-color: white;

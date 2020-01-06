@@ -2,11 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const CCLogo = ({fill, dimensions, dataId}) => {
+  const size = dimensions ? dimensions : 35
   return (
     <svg
       data-id={dataId}
-      width={dimensions}
-      height={dimensions}
+      width={size}
+      height={size}
       viewBox='0 0 30 33'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
