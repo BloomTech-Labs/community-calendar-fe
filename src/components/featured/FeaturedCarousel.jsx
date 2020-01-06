@@ -1,5 +1,14 @@
 import React from "react";
+import PropTypes from 'prop-types'
 
+//components
+import FeaturedCard from './FeaturedCard.jsx'
+import LoadingLogo from '../loading/LoadingLogo'
+
+//styles
+import {featuredWrapper} from './Featured.module.scss'
+
+// Carousel
 import ReactSimpleCarousel from "react-spring-carousel";
 
 const Image = 'https://detroitmi.gov/sites/detroitmi.localhost/files/2018-11/Mary-Sheffield.jpg';
@@ -26,28 +35,16 @@ const slides = [
     text: "dolore proident id irure"
   }
 ];
-function Carousel() {
+function Carousel({apolloData: {data, loading, error}}) {
   return (
     <div className="App">
-      <ReactSimpleCarousel slidesToShow={5}>
-        {slides.map(({ image, text }, i) => (
-          <div key={i} className="App-slide">
-            <a href={`#${i}`} draggable="false">
-              <img src={image} alt="" />
-            </a>
-            <p
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translateX(-50%) translateY(-50%)"
-              }}
-            >
-              {text}
-            </p>
-          </div>
-        ))}
-      </ReactSimpleCarousel>
+    {!loading && data &&
+      (<ReactSimpleCarousel slidesToShow={5}>
+        {data.events.map(event => (
+            <FeaturedCard key={event.id} item={event} />
+          ))}
+      </ReactSimpleCarousel>)
+    }
     </div>
   );
 }
