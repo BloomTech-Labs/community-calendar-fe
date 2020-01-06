@@ -19,11 +19,9 @@ export const ADDRESS_DETAIL_DATA = gql`
     state
   }
 `
-
 export const GET_EVENTS = gql`
-  query {
-    #events(orderBy: start_DESC) {
-    events {
+  query EventsByRange($start: DateTime, $end: DateTime) {
+    events(where: {OR: [{AND: [{start_lte: $start}, {end_gte: $end}]}, {AND: [{start_gte: $start}, {end_lte: $end}]}, {AND: [{AND: [{start_gte: $start}, {start_lte: $end}]}, {end_gte: $end}]}, {AND: [{start_lte: $start}, {AND: [{end_lte: $end}, {end_gte: $start}]} ]}]}){
       ...EventDetail
       creator {
         id

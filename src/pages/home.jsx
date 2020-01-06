@@ -17,7 +17,7 @@ import styles from './styles/Home.module.scss'
 const Home = () => {
   ReactGA.pageview('/')
   const apolloData = useQuery(GET_EVENTS)
-  const {data, loading, error} = apolloData
+  const {data, loading, error, refetch} = apolloData
 
   return (
     <div className='page-wrapper'>
@@ -29,7 +29,7 @@ const Home = () => {
         <h3 className='is-family-secondary is-size-2 has-text-black-bis'>
           Events
         </h3>
-        <FilterBtns />
+        <FilterBtns refetch={refetch}/>
         <EventList apolloData={apolloData} />
       </section>
     </div>
