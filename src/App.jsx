@@ -1,3 +1,4 @@
+import {hot} from 'react-hot-loader/root'
 import React, {useState} from 'react'
 import {Route, Switch} from 'react-router-dom'
 
@@ -12,12 +13,12 @@ import {InMemoryCache} from 'apollo-cache-inmemory'
 import {setContext} from 'apollo-link-context'
 
 //pages
-import Events from './pages/events'
-import Home from './pages/home'
+import Events from './pages/Events'
+import EventView from './pages/EventView'
+import Home from './pages/Home'
 
 //components
 import Navbar from 'navbar/Navbar'
-import EventView from 'events/EventView'
 
 function App() {
   const {
@@ -73,11 +74,9 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route exact path='/events' component={Events} />
         <Route path='/events/:id' component={EventView} />
-
-
       </Switch>
     </ApolloProvider>
   )
 }
 
-export default App
+export default hot(App)

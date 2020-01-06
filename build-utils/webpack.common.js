@@ -2,6 +2,7 @@
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 module.exports = (isDevelopment, path, webpack, envKeys) => ({
   entry: {
@@ -160,6 +161,7 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
     // generate index.html
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      favicon: './src/assets/images/cc_favicon.ico',
     }),
     // put css in separate file from js
     new MiniCssExtractPlugin({
@@ -167,5 +169,7 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
       chunkFilename: '[id].[hash].css',
     }),
     new webpack.DefinePlugin(envKeys),
+    // only import 'en' locales
+    new MomentLocalesPlugin(),
   ],
 })

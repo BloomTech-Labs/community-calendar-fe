@@ -1,7 +1,20 @@
-html {
-  padding-top: $navbar-height;
-}
+@import '_variables.scss';
+@import '_mixins.scss';
 
 body {
+  padding-top: $navbar-height;
   @include Poppins;
+}
+
+a {
+  color: inherit;
+}
+
+/* hand cursor on clickable elements */
+label,
+input[type='button'],
+input[type='submit'],
+input[type='file'],
+button {
+  cursor: pointer;
 }

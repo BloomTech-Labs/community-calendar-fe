@@ -1,0 +1,83 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/initial-variables.sass';
+@import '~bulma/sass/utilities/mixins.sass';
+
+// ===== Navbar =====
+
+.navbar-brand,
+.navbar-start,
+.navbar-end {
+  align-items: center;
+}
+
+.navbar-menu {
+  background-color: transparent;
+  box-shadow: none;
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding: 0;
+}
+
+// ===== Dropdown =====
+.dropdown {
+  &:hover,
+  &-item:hover {
+    @include is-clickable;
+  }
+
+  &-item {
+    transition: background-color 0.3s, color 0.3s;
+    &:hover {
+      background-color: $shark;
+      color: white;
+    }
+  }
+}
+
+// ===== Section =====
+.section {
+  padding: {
+    left: 0;
+    right: 0;
+  }
+}
+
+// ===== Typography Classes =====
+.subtitle,
+.title {
+  color: inherit;
+}
+
+// ===== Button Classes =====
+
+.button {
+  border-radius: $radius-large;
+}
+
+.button.is-dark {
+  height: initial;
+  border: 2px solid $shark;
+  transition: background-color $duration-short, color $duration-short,
+    font-weight $duration-short;
+  &:hover {
+    background-color: $white;
+    color: $shark;
+    border-color: $shark;
+    font-weight: bold;
+  }
+}
+
+// ===== Tag Classes =====
+.tag {
+  border: 1px solid $black-bis;
+  &:not(body) {
+    padding: {
+      left: $gap-sm;
+      right: $gap-sm;
+      top: 0;
+      bottom: 0;
+    }
+  }
+}

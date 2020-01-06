@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for EventListCard Should match the snapshot 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <a
+        class="gridCard"
+        href="/events/ck4bul5bi001o0714armcsssy"
+      >
+        <img
+          class="event_image"
+          src="https://detroitmi.gov/themes/custom/detroitmi/logo.png"
+        />
+        <div
+          class="column event_details"
+        >
+          <p
+            class=" is-size-7 is-uppercase has-text-weight-bold color_chalice"
+            data-id="event_location"
+          >
+            North End
+          </p>
+          <p
+            class="is-size-5 has-text-weight-bold color_black"
+            data-id="event_title"
+            data-testid="event_title"
+          >
+            Councilperson Sheffield Town Hall
+          </p>
+          <p
+            class="is-size-6"
+          >
+            <span
+              class="color_chalice"
+              data-id="event_time"
+            >
+               - 
+            </span>
+             
+            <span>
+              •
+            </span>
+             
+            <span
+              class="color_chalice"
+            >
+              Free
+            </span>
+          </p>
+          <p
+            class="eventDescription is-size-7 color_black is-hidden-mobile"
+            data-id="event_description"
+            data-testid="event_description"
+          >
+            Join Council President Pro Tem Sheffield and the City Assessor for an in depth discussion on Neighborhood Enterprise Zones and what they mean to you!
+          </p>
+          <div
+            class="descriptionUnderline"
+          />
+        </div>
+      </a>
+    </div>
+  </body>,
+  "container": <div>
+    <a
+      class="gridCard"
+      href="/events/ck4bul5bi001o0714armcsssy"
+    >
+      <img
+        class="event_image"
+        src="https://detroitmi.gov/themes/custom/detroitmi/logo.png"
+      />
+      <div
+        class="column event_details"
+      >
+        <p
+          class=" is-size-7 is-uppercase has-text-weight-bold color_chalice"
+          data-id="event_location"
+        >
+          North End
+        </p>
+        <p
+          class="is-size-5 has-text-weight-bold color_black"
+          data-id="event_title"
+          data-testid="event_title"
+        >
+          Councilperson Sheffield Town Hall
+        </p>
+        <p
+          class="is-size-6"
+        >
+          <span
+            class="color_chalice"
+            data-id="event_time"
+          >
+             - 
+          </span>
+           
+          <span>
+            •
+          </span>
+           
+          <span
+            class="color_chalice"
+          >
+            Free
+          </span>
+        </p>
+        <p
+          class="eventDescription is-size-7 color_black is-hidden-mobile"
+          data-id="event_description"
+          data-testid="event_description"
+        >
+          Join Council President Pro Tem Sheffield and the City Assessor for an in depth discussion on Neighborhood Enterprise Zones and what they mean to you!
+        </p>
+        <div
+          class="descriptionUnderline"
+        />
+      </div>
+    </a>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

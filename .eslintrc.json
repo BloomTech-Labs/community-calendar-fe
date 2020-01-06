@@ -5,7 +5,7 @@
     "node": true,
     "jest": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "extends": ["eslint:recommended"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -17,15 +17,12 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react"],
   "settings": {
     "react": {
       "version": "detect"
     }
   },
   "rules": {
-    "react/prop-types": 1,
-    "react/no-unescaped-entities": 1,
     "no-unused-vars": 1,
     "no-debugger": 1
   },
