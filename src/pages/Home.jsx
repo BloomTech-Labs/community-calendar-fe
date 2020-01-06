@@ -4,7 +4,6 @@ import ReactGA from 'react-ga'
 //components
 import EventList from '../components/events/EventList'
 import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
-import FeaturedEvents from '../components/featured/FeaturedEvents'
 import Carousel from '../components/featured/FeaturedCarousel';
 
 //graphql
@@ -24,7 +23,7 @@ const Home = () => {
     <div className='page-wrapper'>
       {/* Featured Events carousel */}
       <Carousel apolloData={apolloData} />
-      <FeaturedEvents apolloData={apolloData} />
+      
       <div className='content-divider-x'></div>
       {/* Events list */}
       <section className='section'>
