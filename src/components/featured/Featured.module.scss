@@ -15,9 +15,6 @@
     }
     margin-left: -$gap-xxs;
     min-height: 370px;
-    &:hover {
-      overflow-x: scroll;
-    }
   }
 
   &-card {
@@ -28,7 +25,7 @@
       right: $gap-xxs;
     }
     width: 250px;
-    height: 370px;
+    height: 380px;
     overflow: hidden;
     background-color: $shark;
     color: $white;

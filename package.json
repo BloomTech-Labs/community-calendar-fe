@@ -71,7 +71,8 @@
     "react-dom": "^16.12.0",
     "react-ga": "^2.7.0",
     "react-hook-form": "^3.29.1",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "react-spring-carousel": "0.0.4"
   },
   "browserslist": [
     "defaults",
