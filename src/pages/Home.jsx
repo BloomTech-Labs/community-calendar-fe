@@ -25,12 +25,13 @@ const Home = () => {
       {/* Featured Events carousel */}
       {
         data && (data.events.length > 0)
-        ? <FeatCarousel apolloData={apolloData} />
+        ? <>
+            <FeatCarousel apolloData={apolloData} />
+            <div className='content-divider-x'></div>
+          </>
         : null
       }
       
-      
-      <div className='content-divider-x'></div>
       {/* Events list */}
       <section className='section'>
         <h3 className='is-family-secondary is-size-2 has-text-black-bis'>
