@@ -19,10 +19,16 @@ const Home = () => {
   const apolloData = useQuery(GET_EVENTS)
   const {data, loading, error, refetch} = apolloData
 
+
   return (
     <div className='page-wrapper'>
       {/* Featured Events carousel */}
-      <FeatCarousel apolloData={apolloData} />
+      {
+        data && (data.events.length > 0)
+        ? <FeatCarousel apolloData={apolloData} />
+        : null
+      }
+      
       
       <div className='content-divider-x'></div>
       {/* Events list */}
