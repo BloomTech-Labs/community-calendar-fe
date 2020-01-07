@@ -28,7 +28,7 @@ function FeatCarousel({apolloData: {data, loading, error}}) {
 
         {/* map over events and create cards */}
         {!loading && data &&
-          (<ReactSimpleCarousel slidesToShow={5}>
+          (<ReactSimpleCarousel slidesToShow={data.events.length}>
             {data.events.map(event => (
                 <FeaturedCard key={event.id} item={event} />
               ))}
