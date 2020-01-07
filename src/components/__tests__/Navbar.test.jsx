@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event'
 
 // Specific to current test
 import Navbar from '../navbar/Navbar'
+import navUtils from '../navbar/navbar_utils'
 import {MemoryRouter} from 'react-router-dom'
 
 // import module containing useAuth0 so it can be mocked
@@ -12,6 +13,7 @@ import {useAuth0} from '../../contexts/auth0-context.jsx'
 
 //Mocks
 jest.mock('../../contexts/auth0-context.jsx')
+// jest.mock('../navbar/navbar_utils')
 
 // fake user data
 const user = {
@@ -24,7 +26,7 @@ const user = {
 describe('Tests for Navbar.jsx', () => {
   beforeEach(() => {
     // reset mock functions before each test
-    jest.clearAllMocks()
+    // jest.clearAllMocks()
   })
 
   test('should match the snapshot', () => {
@@ -67,9 +69,8 @@ describe('Tests for Navbar.jsx', () => {
       toggle: jest.fn(),
       remove: jest.fn(),
     }
-    const useRefMock = jest
-      .spyOn(React, 'useRef')
-      .mockImplementation({current: classList})
+
+    jest.spyOn(React, 'useRef').mockImplementation({current: classList})
 
     /* create mock function outside of useAuth0 mock
     so assertions can be run on it
@@ -83,6 +84,8 @@ describe('Tests for Navbar.jsx', () => {
       loginWithRedirect,
       logout: jest.fn(),
     })
+
+    jest.spyOn(navUtils, 'handleLogin')
 
     const {getByText} = render(
       <MemoryRouter>

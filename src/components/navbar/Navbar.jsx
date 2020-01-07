@@ -3,6 +3,8 @@ import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link} from 'react-router-dom'
 import ReactGA from 'react-ga'
 
+import {handleLogin, handleLogout} from './navbar_utils'
+
 //components
 import CCLogo from '../icons/CCLogo'
 import NavbarSearch from './NavbarSearch'
@@ -43,7 +45,7 @@ outside of it close the dropdown menu
       window.removeEventListener('click', wasDropdownClicked)
     }
   }, [user])
-
+  /*
   const handleLogin = event => {
     ReactGA.event({
       category: 'User',
@@ -59,7 +61,7 @@ outside of it close the dropdown menu
     })
     logout({returnTo: window.location.origin})
   }
-
+*/
   return (
     <nav
       className={`${cc_navbar} navbar has-background-white is-fixed-top `}
@@ -96,7 +98,11 @@ outside of it close the dropdown menu
                 <div className='dropdown-menu' id='dropdown-menu' role='menu'>
                   <div className='dropdown-content'>
                     <div className='dropdown-item'>Profile</div>
-                    <div className='dropdown-item' onClick={handleLogout}>
+                    <div
+                      className='dropdown-item'
+                      //  onClick={handleLogout}>
+                      onClick={e => handleLogout(e, logout)}
+                    >
                       Log Out
                     </div>
                   </div>
@@ -107,12 +113,15 @@ outside of it close the dropdown menu
             /* No user */
             <>
               <button
-                onClick={handleLogin}
+                onClick={e => handleLogin(e, loginWithRedirect)}
                 className='button has-text-weight-bold is-size-5'
               >
                 Sign In
               </button>
-              <button onClick={handleLogin} className='button is-size-5'>
+              <button
+                onClick={e => handleLogin(e, loginWithRedirect)}
+                className='button  is-size-5'
+              >
                 Sign Up
               </button>
             </>
