@@ -12,8 +12,9 @@ import {featuredWrapper} from './Featured.module.scss'
 import ReactSimpleCarousel from "react-spring-carousel";
 
 function FeatCarousel({apolloData: {data, loading, error}}) {
+
   return (
-    <section className='section'>
+    <section style={{paddingBottom: 0}} className='section'>
       <h3 className='is-family-secondary is-size-2 has-text-black-bis'>
         Featured
       </h3>
@@ -28,7 +29,7 @@ function FeatCarousel({apolloData: {data, loading, error}}) {
 
         {/* map over events and create cards */}
         {!loading && data &&
-          (<ReactSimpleCarousel slidesToShow={5}>
+          (<ReactSimpleCarousel slidesToShow={data.events.length}>
             {data.events.map(event => (
                 <FeaturedCard key={event.id} item={event} />
               ))}
