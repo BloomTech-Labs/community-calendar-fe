@@ -8,13 +8,11 @@
     display: flex;
     flex-wrap: nowrap;
     overflow-x: hidden;
-    overflow-y: hidden;
     padding: {
       top: 8px;
       bottom: 8px;
     }
     margin-left: -$gap-xxs;
-    min-height: 370px;
   }
 
   &-card {
