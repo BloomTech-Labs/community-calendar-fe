@@ -19,7 +19,7 @@ jest.mock('moment', () => {
     return momentInstance
   }
 
-  // apply properites of moment to fakeMoment
+  // apply properties of moment to fakeMoment
   Object.assign(fakeMoment, moment)
   return fakeMoment
 })

@@ -3,7 +3,7 @@ import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link} from 'react-router-dom'
 import ReactGA from 'react-ga'
 
-import {handleLogin, handleLogout} from './navbar_utils'
+import navUtils from './navbar_utils'
 
 //components
 import CCLogo from '../icons/CCLogo'
@@ -45,23 +45,7 @@ outside of it close the dropdown menu
       window.removeEventListener('click', wasDropdownClicked)
     }
   }, [user])
-  /*
-  const handleLogin = event => {
-    ReactGA.event({
-      category: 'User',
-      action: 'Clicked Login',
-    })
-    loginWithRedirect()
-  }
 
-  const handleLogout = event => {
-    ReactGA.event({
-      category: 'User',
-      action: 'Clicked Logout',
-    })
-    logout({returnTo: window.location.origin})
-  }
-*/
   return (
     <nav
       className={`${cc_navbar} navbar has-background-white is-fixed-top `}
@@ -81,7 +65,11 @@ outside of it close the dropdown menu
           {user ? (
             /* user has logged in */
             <>
-              <div ref={dropMenu} className={`dropdown is-right`}>
+              <div
+                ref={dropMenu}
+                className={`dropdown is-right`}
+                data-testid='nav-dropdown-trigger'
+              >
                 <div
                   className='dropdown-trigger is-flex'
                   aria-haspopup='true'
@@ -100,8 +88,7 @@ outside of it close the dropdown menu
                     <div className='dropdown-item'>Profile</div>
                     <div
                       className='dropdown-item'
-                      //  onClick={handleLogout}>
-                      onClick={e => handleLogout(e, logout)}
+                      onClick={e => navUtils.handleLogout(e, logout)}
                     >
                       Log Out
                     </div>
@@ -113,13 +100,13 @@ outside of it close the dropdown menu
             /* No user */
             <>
               <button
-                onClick={e => handleLogin(e, loginWithRedirect)}
+                onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
                 className='button has-text-weight-bold is-size-5'
               >
                 Sign In
               </button>
               <button
-                onClick={e => handleLogin(e, loginWithRedirect)}
+                onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
                 className='button  is-size-5'
               >
                 Sign Up

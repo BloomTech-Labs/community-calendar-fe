@@ -32,10 +32,15 @@
 
   .middle_div {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     padding: $gap 0;
     div:nth-of-type(1) {
       width: 100%;
+    }
+
+    @include tablet {
+      flex-direction: row;
     }
   }
 
@@ -49,11 +54,15 @@
 
   .socialOptions {
     max-width: 174px;
+    margin-top: $gap;
     button ~ div {
       margin-top: $gap-lg;
       div {
         padding: $gap 0;
       }
+    }
+    @include tablet {
+      margin-top: 0;
     }
   }
 }
