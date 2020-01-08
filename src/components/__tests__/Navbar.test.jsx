@@ -89,8 +89,6 @@ describe('Tests for Navbar.jsx', () => {
       .spyOn(navUtils, 'handleLogin')
       .mockImplementation(() => loginWithRedirect())
 
-    // .mockImplementation(loginWithRedirect => loginWithRedirect)
-
     const {getByText} = render(
       <MemoryRouter>
         <Navbar />
