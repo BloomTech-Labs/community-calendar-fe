@@ -20,8 +20,10 @@ bulma or the classes will be duplicated in the output
 @import '~bulma/sass/form/_all.sass';
 @import '~bulma/sass/grid/_all.sass';
 @import '~bulma/sass/layout/_all.sass';
+@import '~react-spring-carousel/src/assets/scss/carousel.scss';
 /* 
 Customizations of Bulma classes
 MUST BE IMPORTED AFTER BULMA STYLES
  */
 @import '_bulma_overrides';
+@import '_carousel_overrides';

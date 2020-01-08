@@ -1,6 +1,7 @@
 @import '_variables.scss';
 
 .event_filter_buttons {
+  padding-top: $gap-sm;
   button:first-of-type {
     padding-left: 0;
   }
@@ -8,8 +9,8 @@
   button {
     border: none;
     background-color: white;
-    &:focus{
-      border: none;
+    &:focus {
+      outline: none;
     }
   }
 }

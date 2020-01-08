@@ -39,8 +39,17 @@ const EventView = () => {
     )
   if (error) return <p>Error</p>
 
-  const {id, title, description, start, end, creator, locations, event_images} =
-    data.events.length && data.events[0]
+  const {
+    id,
+    title,
+    description,
+    start,
+    end,
+    creator,
+    locations,
+    event_images,
+    tags,
+  } = data.events.length && data.events[0]
 
   //destructure first item in locations array
   const {
@@ -136,10 +145,12 @@ const EventView = () => {
             <div>
               <p className=' is-size-5'>Tags</p>
               <div className='tags'>
-                <span className='tag is-small is-white'>kids</span>
-                <span className='tag is-small is-white'>sports</span>
-                <span className='tag is-small is-white'>art</span>
-                <span className='tag is-small is-white'>family</span>
+                {tags &&
+                  tags.map((tag, indx) => (
+                    <span className='tag is-small is-white' key={'tag-' + indx}>
+                      {tag.title}
+                    </span>
+                  ))}
               </div>
             </div>
           </div>
