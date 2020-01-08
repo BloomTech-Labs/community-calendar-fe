@@ -21,7 +21,26 @@ export const ADDRESS_DETAIL_DATA = gql`
 `
 export const GET_EVENTS = gql`
   query EventsByRange($start: DateTime, $end: DateTime) {
-    events(where: {OR: [{AND: [{start_lte: $start}, {end_gte: $end}]}, {AND: [{start_gte: $start}, {end_lte: $end}]}, {AND: [{AND: [{start_gte: $start}, {start_lte: $end}]}, {end_gte: $end}]}, {AND: [{start_lte: $start}, {AND: [{end_lte: $end}, {end_gte: $start}]} ]}]}){
+    events(
+      where: {
+        OR: [
+          {AND: [{start_lte: $start}, {end_gte: $end}]}
+          {AND: [{start_gte: $start}, {end_lte: $end}]}
+          {
+            AND: [
+              {AND: [{start_gte: $start}, {start_lte: $end}]}
+              {end_gte: $end}
+            ]
+          }
+          {
+            AND: [
+              {start_lte: $start}
+              {AND: [{end_lte: $end}, {end_gte: $start}]}
+            ]
+          }
+        ]
+      }
+    ) {
       ...EventDetail
       creator {
         id
@@ -33,6 +52,9 @@ export const GET_EVENTS = gql`
       }
       event_images {
         url
+      }
+      tags {
+        title
       }
     }
   }
@@ -55,6 +77,9 @@ export const GET_EVENT_BY_ID = id => {
       }
       event_images {
         url
+      }
+      tags{
+        title
       }
     }
 
