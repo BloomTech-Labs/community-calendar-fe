@@ -38,7 +38,8 @@ function App() {
       console.log(err)
     }
   }
-  getAccessToken()
+
+  user && getAccessToken()
 
   const httpLink = new HttpLink({
     uri: process.env.REACT_APP_APOLLO_SERVER,
