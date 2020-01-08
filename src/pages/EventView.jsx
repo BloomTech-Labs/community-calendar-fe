@@ -129,7 +129,7 @@ const EventView = () => {
                 <p className='color_shark has-text-weight-bold'>{`${eventStartTime} - ${eventEndTime}`}</p>
               </div>
               <div className='column'>
-                <p className='color_chalice'>Ticket type:</p>
+                <p className='color_chalice'>Ticket Type:</p>
                 <p className='has-text-danger'>Free</p>
               </div>
             </div>
