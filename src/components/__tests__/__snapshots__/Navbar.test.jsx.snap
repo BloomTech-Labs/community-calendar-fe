@@ -32,15 +32,6 @@ Object {
           class="navbar-menu"
         >
           <div
-            class="navsearch navbar-start control"
-          >
-            <input
-              class=" input"
-              placeholder="Search"
-              type="text"
-            />
-          </div>
-          <div
             class="navbar-end"
           >
             <div
@@ -112,15 +103,6 @@ Object {
       <div
         class="navbar-menu"
       >
-        <div
-          class="navsearch navbar-start control"
-        >
-          <input
-            class=" input"
-            placeholder="Search"
-            type="text"
-          />
-        </div>
         <div
           class="navbar-end"
         >

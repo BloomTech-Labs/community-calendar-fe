@@ -44,7 +44,7 @@ describe('Tests for Navbar.jsx', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  test('has a search bar that says "search"', () => {
+  test.skip('has a search bar that says "search"', () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
       user,
