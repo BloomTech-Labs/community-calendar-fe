@@ -101,7 +101,7 @@ const EventView = () => {
         </div>
         <div className={panel_right}>
           {/* numbers to be replaced with event information */}
-          <p>
+          {/* <p>
             Going:
             <br />
             <span className='has-text-weight-bold'>50</span>
@@ -110,7 +110,7 @@ const EventView = () => {
             Interested:
             <br />
             <span className='has-text-weight-bold'>100</span>
-          </p>
+          </p> */}
         </div>
       </section>
       <section className=''>
@@ -136,12 +136,14 @@ const EventView = () => {
             <div className={descriptionDiv}>
               <p className='has-text-weight-bold is-size-5'>Event Details</p>
               <p>{description}</p>
-              <button className='button  is-dark'>Attend</button>
+              {/* Attend functionality not yet implemented
+              <button className='button  is-dark'>Attend</button> */}
             </div>
           </div>
           {/* Appears to right of event info on tablet+ */}
           <div className={socialOptions}>
-            <button className='button  is-dark '>Follow Host</button>
+            {/* Follow host functionality not yet implemented
+            <button className='button  is-dark '>Follow Host</button> */}
             <div>
               <p className=' is-size-5'>Tags</p>
               <div className='tags'>
