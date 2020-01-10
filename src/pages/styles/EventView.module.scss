@@ -55,6 +55,9 @@
   .socialOptions {
     max-width: 174px;
     margin-top: $gap;
+    p {
+      margin-bottom: $gap-sm;
+    }
     button ~ div {
       margin-top: $gap-lg;
       div {

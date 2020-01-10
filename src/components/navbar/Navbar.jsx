@@ -60,7 +60,7 @@ outside of it close the dropdown menu
         <CCLogo dimensions={35} />
       </Link>
       <div className='navbar-menu'>
-        <NavbarSearch />
+        {/* <NavbarSearch /> */}
         <div className='navbar-end'>
           {user ? (
             /* user has logged in */

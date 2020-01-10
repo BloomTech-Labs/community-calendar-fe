@@ -2,8 +2,6 @@ import React, {useRef} from 'react'
 import {render} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import userEvent from '@testing-library/user-event'
-// Mock Apollo context provider
-import {MockedProvider} from '@apollo/react-testing'
 
 // Modules under test
 import EventView from '../EventView'
@@ -26,8 +24,7 @@ const mocks = [
     },
     result: {
       data: {
-        // events: [{...testEvent}],
-        events: [{name: 'foo'}],
+        events: [{...testEvent}],
       },
     },
   },
