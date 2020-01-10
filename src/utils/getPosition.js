@@ -3,6 +3,8 @@ import {useState, useEffect} from 'react'
 /* 
  This function is used to read the user's geolocation coordinates. When a component utilizing this function 
  is mounted the user is prompted if the app can use their current location. 
+
+ It also returns a function that can be used 
   */
 
 export default function getGeoPosition(options) {
