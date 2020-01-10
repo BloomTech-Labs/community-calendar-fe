@@ -74,8 +74,10 @@ outside of it close the dropdown menu
         <CCLogo dimensions={35} />
       </Link>
       <div className='navbar-menu'>
-        {/* Serach functionality not yet implemented
+        <div className='navbar-start'>
+          {/* Serach functionality not yet implemented
         <NavbarSearch /> */}
+        </div>
         <div className='navbar-end'>
           {user ? (
             /* user has logged in */

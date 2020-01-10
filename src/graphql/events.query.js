@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import {gql} from '@apollo/client'
 
 export const EVENT_DETAIL_DATA = gql`
   fragment EventDetail on Event {
