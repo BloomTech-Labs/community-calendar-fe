@@ -31,7 +31,8 @@ export default function getGeoPosition(options) {
     console.warn(`getGeoPosition ERROR ${err.code}: ${err.message}`)
   }
 
-  useEffect(() => {
+  //get location
+  const getUserPosition = () => {
     if (typeof window !== undefined) {
       window.navigator.geolocation.getCurrentPosition(
         onSuccess,
@@ -39,7 +40,11 @@ export default function getGeoPosition(options) {
         options,
       )
     }
+  }
+  // get user's location when the component is mounted
+  useEffect(() => {
+    getUserPosition()
   }, [])
 
-  return [userPosition, setUserPosition]
+  return [userPosition, getUserPosition]
 }

@@ -18,6 +18,7 @@ import Home from './pages/Home'
 
 //components
 import Navbar from 'navbar/Navbar'
+import CreateEvent from 'featured/CreateEvent'
 
 function App() {
   const {
@@ -72,6 +73,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
+        <Route exact path='/create-event' component={CreateEvent} />
         <Route path='/events/:id' component={EventView} />
       </Switch>
     </ApolloProvider>

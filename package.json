@@ -20,6 +20,7 @@
     "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.4",
+    "@hot-loader/react-dom": "^16.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/react-hooks": "^3.2.1",
@@ -46,7 +47,6 @@
     "postcss-loader": "^3.0.0",
     "postcss-nested": "^4.2.1",
     "prettier": "1.19.1",
-    "react-hot-loader": "^4.12.18",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.1",
     "terser-webpack-plugin": "^2.3.0",
@@ -57,7 +57,6 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.6.0",
-    "@hot-loader/react-dom": "^16.11.0",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
     "apollo-link-context": "^1.0.19",
@@ -72,6 +71,7 @@
     "react-dom": "^16.12.0",
     "react-ga": "^2.7.0",
     "react-hook-form": "^3.29.1",
+    "react-hot-loader": "^4.12.18",
     "react-router-dom": "^5.1.2",
     "react-spring-carousel": "0.0.4"
   },
