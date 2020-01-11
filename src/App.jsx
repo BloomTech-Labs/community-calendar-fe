@@ -6,7 +6,7 @@ import {Route, Switch} from 'react-router-dom'
 import {useAuth0} from './contexts/auth0-context.jsx'
 
 //apollo
-import {ApolloProvider} from 'react-apollo'
+import {ApolloProvider} from '@apollo/react-hooks'
 import {ApolloClient} from 'apollo-client'
 import {HttpLink} from 'apollo-link-http'
 import {InMemoryCache} from 'apollo-cache-inmemory'

@@ -32,6 +32,9 @@ Object {
           class="navbar-menu"
         >
           <div
+            class="navbar-start"
+          />
+          <div
             class="navbar-end"
           >
             <div
@@ -104,6 +107,9 @@ Object {
       <div
         class="navbar-menu"
       >
+        <div
+          class="navbar-start"
+        />
         <div
           class="navbar-end"
         >
