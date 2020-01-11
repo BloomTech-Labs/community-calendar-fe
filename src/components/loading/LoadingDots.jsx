@@ -5,10 +5,10 @@ import {dots, dot} from './Loading.module.scss'
 /* 
 Loading animation. Displays three dot in a row.
 
-'dotSize' is the width/ height of each dot in px.
+'dotSize' is the diameter of each dot in px.
  */
 const LoadingDots = ({dotSize}) => {
-  const size = dotSize ? dotSize : '8'
+  const size = dotSize ? dotSize : 8
   return (
     <div className={dots}>
       {/* create three dots. The first dot begins its animation immediately.
