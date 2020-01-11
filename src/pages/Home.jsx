@@ -7,7 +7,7 @@ import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
 import FeatCarousel from '../components/featured/FeaturedCarousel'
 
 //graphql
-import {useQuery} from '@apollo/client'
+import {useQuery} from '@apollo/react-hooks'
 import {GET_EVENTS} from '../graphql/events.query'
 
 //styles

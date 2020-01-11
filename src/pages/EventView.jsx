@@ -5,7 +5,7 @@ import {useParams} from 'react-router-dom'
 import LoadingLogo from '../components/loading/LoadingLogo'
 
 //graphql
-import {useQuery} from '@apollo/client'
+import {useQuery} from '@apollo/react-hooks'
 import {GET_EVENT_BY_ID} from '../graphql/events.query'
 import {months, weekDays} from '../utils/time-helpers.js'
 
