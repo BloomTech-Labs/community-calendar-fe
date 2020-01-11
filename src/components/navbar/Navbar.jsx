@@ -71,8 +71,7 @@ outside of it close the dropdown menu
               <button className='button small-btn is-dark'>Create Event</button>
             </Link>
           )}
-          {/* Serach functionality not yet implemented
-        <NavbarSearch /> */}
+        <NavbarSearch />
         </div>{' '}
         {/*end navbar-start */}
         <div className='navbar-end'>
