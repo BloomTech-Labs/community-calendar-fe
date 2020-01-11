@@ -7,17 +7,19 @@ import {useState, useEffect, useCallback} from 'react'
  It also returns a function that can be used 
   */
 
-export default function getGeoPosition() {
+export default function getGeoPosition(config) {
   const [userPosition, setUserPosition] = useState({})
 
-  // config settings. Args overide defaults
-  const options = {
+  // default options for geolocation.getCurrentPosition
+  const defaultConfig = {
     enableHighAccuracy: true,
     // execute error function if getCurrentPosition does not resolve within 5 seconds
     timeout: 5000,
     //maximum time to cache results
     maximumAge: 0,
   }
+
+  const useConfig = config ? {...defaultConfig, ...config} : defaultConfig
 
   // function called if user's position has been obtained
   const onSuccess = pos => {
@@ -33,18 +35,20 @@ export default function getGeoPosition() {
 
   //get location
   const getUserPosition = () => {
+    let location = {}
     if (typeof window !== undefined) {
       window.navigator.geolocation.getCurrentPosition(
-        onSuccess,
+        pos => (location = pos.coords),
         onError,
-        options,
+        useConfig,
       )
     }
+    setUserPosition(location)
   }
   // get user's location when the component is mounted
   useEffect(() => {
     getUserPosition()
   }, [])
 
-  return {userPosition, getUserPosition}
+  return {userPosition, setUserPosition, getUserPosition}
 }

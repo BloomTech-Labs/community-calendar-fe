@@ -1,11 +1,12 @@
 import {renderHook, act} from '@testing-library/react-hooks'
 import getGeoPosition from '../getPosition'
 
+// create mock of navigator.geolocation
 const getCurrentPosition = jest.fn()
 //create fake window object
 window.navigator.geolocation = {}
 
-// create fake geolocation object
+// create assing mock function as method of geolocation
 Object.assign(window.navigator.geolocation, {
   getCurrentPosition,
 })
@@ -16,35 +17,34 @@ describe('Tests for getPosition', () => {
     jest.clearAllMocks(),
   )
 
-  test('Should return empty object and a function', () => {
+  test('Should return empty object and two functions', () => {
     const {result} = renderHook(() => getGeoPosition())
     expect(getCurrentPosition).toHaveBeenCalledTimes(1)
     expect(typeof result.current.userPosition).toBe('object')
+    expect(typeof result.current.setUserPosition).toBe('function')
     expect(typeof result.current.getUserPosition).toBe('function')
   })
 
   test("Should return user's latitude and longitude when getUserPosition is called", () => {
     /*
-   This test is a WIP. 
-   Need to learn how to
-    
+   Need to figure out how to update state after calling geolocation.getCurrentPosition()
     */
 
     const testData = {coords: {latitude: 40, longitude: 80}}
 
+    // initialize the hook
     const {result} = renderHook(() => getGeoPosition())
     //userPosition should be an empty object
     expect(result.current.userPosition.latitude).toBeUndefined()
-
+    // component was mounted  which fired useEffect which fires geolocation.getCurrentPosition
     expect(getCurrentPosition).toHaveBeenCalledTimes(1)
-    // call getUserPosition
+
+    // call setUserPosition
     act(() => {
-      result.current.getUserPosition()
+      result.current.setUserPosition(testData)
     })
 
-    // getCurrentPosition should have been called
-    expect(getCurrentPosition).toHaveBeenCalledTimes(2)
     //  userPosition  should now have  coordinates
-    // expect(result.current.userPosition).toBe(testData)
+    expect(result.current.userPosition).toBe(testData)
   })
 })
