@@ -19,6 +19,7 @@ import CreateEventPage from './pages/CreateEventPage'
 
 //components
 import Navbar from 'navbar/Navbar'
+import PrivateRoute from 'private-route/PrivateRoute'
 
 function App() {
   const {
@@ -73,7 +74,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route path='/create-event' component={CreateEventPage} />
+        <PrivateRoute path='/create-event' component={CreateEventPage} />
         <Route path='/events/:id' component={EventView} />
       </Switch>
     </ApolloProvider>

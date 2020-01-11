@@ -15,7 +15,7 @@
   color: $shark;
 }
 
-// ===== Postion and Box Shape =====
+// ===== Postion , Padding, Margin, Box Shape =====
 .is-round {
   @include is-round;
 }
@@ -23,6 +23,10 @@
 // horizontally center an element
 .mx-auto {
   @include mx-auto;
+}
+
+.small-btn {
+  padding: 4px 8px !important;
 }
 
 // ===== Other =====

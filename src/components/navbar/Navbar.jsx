@@ -10,7 +10,7 @@ import CCLogo from '../icons/CCLogo'
 import NavbarSearch from './NavbarSearch'
 
 //styles
-import {cc_navbar} from './Navbar.module.scss'
+import {cc_navbar, navButton} from './Navbar.module.scss'
 
 // geolocation
 import getGeoPosition from '../../utils/getPosition'
@@ -66,12 +66,21 @@ outside of it close the dropdown menu
       </Link>
       <div className='navbar-menu'>
         <div className='navbar-start'>
-          <button className='button is-outline' onClick={getUserPosition}>
+          <button
+            className='button  is-dark small-btn'
+            onClick={getUserPosition}
+          >
             Geo Test
           </button>
+          {user && (
+            <Link to='/create-event'>
+              <button className='button small-btn is-dark'>Create Event</button>
+            </Link>
+          )}
           {/* Serach functionality not yet implemented
         <NavbarSearch /> */}
-        </div>
+        </div>{' '}
+        {/*end navbar-start */}
         <div className='navbar-end'>
           {user ? (
             /* user has logged in */
@@ -112,13 +121,13 @@ outside of it close the dropdown menu
             <>
               <button
                 onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
-                className='button has-text-weight-bold is-size-5'
+                className={`${navButton} button has-text-weight-bold is-size-5`}
               >
                 Sign In
               </button>
               <button
                 onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
-                className='button  is-size-5'
+                className={`${navButton}  button  is-size-5`}
               >
                 Sign Up
               </button>
