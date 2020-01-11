@@ -66,12 +66,6 @@ outside of it close the dropdown menu
       </Link>
       <div className='navbar-menu'>
         <div className='navbar-start'>
-          <button
-            className='button  is-dark small-btn'
-            onClick={getUserPosition}
-          >
-            Geo Test
-          </button>
           {user && (
             <Link to='/create-event'>
               <button className='button small-btn is-dark'>Create Event</button>
