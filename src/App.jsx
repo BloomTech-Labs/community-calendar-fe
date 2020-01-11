@@ -15,10 +15,10 @@ import {setContext} from 'apollo-link-context'
 //pages
 import EventView from './pages/EventView'
 import Home from './pages/Home'
+import CreateEventPage from './pages/CreateEventPage'
 
 //components
 import Navbar from 'navbar/Navbar'
-import CreateEvent from 'create-event-form/CreateEvent'
 
 function App() {
   const {
@@ -73,7 +73,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route exact path='/create-event' component={CreateEvent} />
+        <Route path='/create-event' component={CreateEventPage} />
         <Route path='/events/:id' component={EventView} />
       </Switch>
     </ApolloProvider>

@@ -21,30 +21,30 @@ export default function getGeoPosition(config) {
 
   const useConfig = config ? {...defaultConfig, ...config} : defaultConfig
 
-  // function called if user's position has been obtained
-  const onSuccess = pos => {
-    console.log('User coordinates', pos.coords)
-    // set the userPosition
-    setUserPosition(pos.coords)
-  }
-
   // function called if user does not allow access or an error occurs
   const onError = err => {
     console.warn(`getGeoPosition ERROR ${err.code}: ${err.message}`)
   }
 
   //get location
-  const getUserPosition = () => {
-    let location = {}
+  const getUserPosition = async () => {
     if (typeof window !== undefined) {
-      window.navigator.geolocation.getCurrentPosition(
-        pos => (location = pos.coords),
+      await window.navigator.geolocation.getCurrentPosition(
+        pos => {
+          const {latitude, longitude} = pos.coords
+          if (
+            latitude !== userPosition.latitude &&
+            longitude !== userPosition.longitude
+          ) {
+            setUserPosition({latitude, longitude})
+          }
+        },
         onError,
         useConfig,
       )
     }
-    setUserPosition(location)
   }
+
   // get user's location when the component is mounted
   useEffect(() => {
     getUserPosition()

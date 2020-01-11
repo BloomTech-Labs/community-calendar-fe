@@ -1,7 +1,7 @@
 import React from 'react'
 import {useForm} from 'react-hook-form'
 
-export default function EventsFormMobile() {
+export default function CreatEventForm() {
   const {register, handleSubmit, errors} = useForm()
 
   const onSubmit = data => console.log(data)

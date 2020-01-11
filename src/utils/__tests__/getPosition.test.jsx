@@ -26,10 +26,6 @@ describe('Tests for getPosition', () => {
   })
 
   test("Should return user's latitude and longitude when getUserPosition is called", () => {
-    /*
-   Need to figure out how to update state after calling geolocation.getCurrentPosition()
-    */
-
     const testData = {coords: {latitude: 40, longitude: 80}}
 
     // initialize the hook
@@ -39,11 +35,16 @@ describe('Tests for getPosition', () => {
     // component was mounted  which fired useEffect which fires geolocation.getCurrentPosition
     expect(getCurrentPosition).toHaveBeenCalledTimes(1)
 
+    getCurrentPosition.mockImplementation(() =>
+      result.current.setUserPosition(testData),
+    )
     // call setUserPosition
     act(() => {
-      result.current.setUserPosition(testData)
+      result.current.getUserPosition(testData)
     })
 
+    // should have called geolocation.getCurrentPosition
+    expect(getCurrentPosition).toHaveBeenCalledTimes(2)
     //  userPosition  should now have  coordinates
     expect(result.current.userPosition).toBe(testData)
   })

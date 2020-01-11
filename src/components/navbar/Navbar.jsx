@@ -12,8 +12,13 @@ import NavbarSearch from './NavbarSearch'
 //styles
 import {cc_navbar} from './Navbar.module.scss'
 
+// geolocation
+import getGeoPosition from '../../utils/getPosition'
+
 export default function Navbar() {
   const {user, loginWithRedirect, logout} = useAuth0()
+  const {userPosition, setUserPosition, getUserPosition} = getGeoPosition()
+  console.log('userPosition', userPosition)
 
   // used to show/hide the dropdown menu
   const dropMenu = useRef(null)
@@ -61,6 +66,9 @@ outside of it close the dropdown menu
       </Link>
       <div className='navbar-menu'>
         <div className='navbar-start'>
+          <button className='button is-outline' onClick={getUserPosition}>
+            Geo Test
+          </button>
           {/* Serach functionality not yet implemented
         <NavbarSearch /> */}
         </div>
