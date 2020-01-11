@@ -39,6 +39,7 @@ Object {
           >
             <div
               class="dropdown is-right"
+              data-testid="nav-dropdown-trigger"
             >
               <div
                 aria-controls="dropdown-menu2"
@@ -114,6 +115,7 @@ Object {
         >
           <div
             class="dropdown is-right"
+            data-testid="nav-dropdown-trigger"
           >
             <div
               aria-controls="dropdown-menu2"

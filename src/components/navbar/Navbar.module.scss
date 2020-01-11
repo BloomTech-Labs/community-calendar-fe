@@ -1,5 +1,6 @@
 @import '_variables.scss';
 @import '_animations.scss';
+@import '_mixins.scss';
 @import '~bulma/sass/utilities/_all.sass';
 
 .cc_navbar {
@@ -14,33 +15,17 @@
     pointer-events: none;
   }
 
-  button {
+  .navButton {
     border: 0;
     color: $black;
-    border-radius: $radius;
+    border-radius: $radius-large;
     background: none;
     position: relative;
     transition: color 0.4s ease-in-out 0.1s;
     &:hover {
       color: #fff;
     }
-    &:before {
-      content: '';
-      z-index: -100;
-      position: absolute;
-      border-radius: $radius;
-      background: none;
-      width: 100%;
-      height: 100%;
-      left: 50%;
-      margin-left: -50%;
-      background-color: $black-bis;
-      transform: scale(0);
-      transition: all 0.3s ease-in-out 0s;
-    }
-    &:hover:before {
-      transform: scale(1);
-    }
+    @include expanding-box($radius-large, $black-bis);
   }
 }
 

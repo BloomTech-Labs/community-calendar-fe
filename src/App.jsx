@@ -15,9 +15,11 @@ import {setContext} from 'apollo-link-context'
 //pages
 import EventView from './pages/EventView'
 import Home from './pages/Home'
+import CreateEventPage from './pages/CreateEventPage'
 
 //components
 import Navbar from 'navbar/Navbar'
+import PrivateRoute from 'private-route/PrivateRoute'
 
 function App() {
   const {
@@ -37,7 +39,8 @@ function App() {
       console.log(err)
     }
   }
-  getAccessToken()
+
+  user && getAccessToken()
 
   const httpLink = new HttpLink({
     uri: process.env.REACT_APP_APOLLO_SERVER,
@@ -71,6 +74,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
+        <PrivateRoute path='/create-event' component={CreateEventPage} />
         <Route path='/events/:id' component={EventView} />
       </Switch>
     </ApolloProvider>

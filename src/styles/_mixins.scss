@@ -9,7 +9,7 @@
   font-family: Butler, Georgia, 'Times New Roman', Times, serif;
 }
 
-// ===== Postion and Box Shape =====
+// ===== Position and Box Shape =====
 @mixin is-round {
   border-radius: 50%;
 }
@@ -56,5 +56,25 @@ Default direction is horizontal . Pass 'y' for vertical divider
 @mixin hover-shadow {
   &:hover {
     box-shadow: 8px 8px 10px -5px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@mixin expanding-box($borderRadius, $bgColor) {
+  &:before {
+    content: '';
+    z-index: -100;
+    position: absolute;
+    border-radius: $borderRadius;
+    background: none;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    margin-left: -50%;
+    background-color: $bgColor;
+    transform: scale(0);
+    transition: all 0.3s ease-in-out 0s;
+  }
+  &:hover:before {
+    transform: scale(1);
   }
 }

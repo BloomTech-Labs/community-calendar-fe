@@ -3,15 +3,22 @@ import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link} from 'react-router-dom'
 import ReactGA from 'react-ga'
 
+import navUtils from './navbar_utils'
+
 //components
 import CCLogo from '../icons/CCLogo'
 import NavbarSearch from './NavbarSearch'
 
 //styles
-import {cc_navbar} from './Navbar.module.scss'
+import {cc_navbar, navButton} from './Navbar.module.scss'
+
+// geolocation
+import getGeoPosition from '../../utils/getPosition'
 
 export default function Navbar() {
   const {user, loginWithRedirect, logout} = useAuth0()
+  const {userPosition, setUserPosition, getUserPosition} = getGeoPosition()
+  console.log('userPosition', userPosition)
 
   // used to show/hide the dropdown menu
   const dropMenu = useRef(null)
@@ -44,22 +51,6 @@ outside of it close the dropdown menu
     }
   }, [user])
 
-  const handleLogin = event => {
-    ReactGA.event({
-      category: 'User',
-      action: 'Clicked Login',
-    })
-    loginWithRedirect()
-  }
-
-  const handleLogout = event => {
-    ReactGA.event({
-      category: 'User',
-      action: 'Clicked Logout',
-    })
-    logout({returnTo: window.location.origin})
-  }
-
   return (
     <nav
       className={`${cc_navbar} navbar has-background-white is-fixed-top `}
@@ -75,14 +66,30 @@ outside of it close the dropdown menu
       </Link>
       <div className='navbar-menu'>
         <div className='navbar-start'>
+          <button
+            className='button  is-dark small-btn'
+            onClick={getUserPosition}
+          >
+            Geo Test
+          </button>
+          {user && (
+            <Link to='/create-event'>
+              <button className='button small-btn is-dark'>Create Event</button>
+            </Link>
+          )}
           {/* Serach functionality not yet implemented
         <NavbarSearch /> */}
-        </div>
+        </div>{' '}
+        {/*end navbar-start */}
         <div className='navbar-end'>
           {user ? (
             /* user has logged in */
             <>
-              <div ref={dropMenu} className={`dropdown is-right`}>
+              <div
+                ref={dropMenu}
+                className={`dropdown is-right`}
+                data-testid='nav-dropdown-trigger'
+              >
                 <div
                   className='dropdown-trigger is-flex'
                   aria-haspopup='true'
@@ -99,7 +106,10 @@ outside of it close the dropdown menu
                 <div className='dropdown-menu' id='dropdown-menu' role='menu'>
                   <div className='dropdown-content'>
                     <div className='dropdown-item'>Profile</div>
-                    <div className='dropdown-item' onClick={handleLogout}>
+                    <div
+                      className='dropdown-item'
+                      onClick={e => navUtils.handleLogout(e, logout)}
+                    >
                       Log Out
                     </div>
                   </div>
@@ -110,12 +120,15 @@ outside of it close the dropdown menu
             /* No user */
             <>
               <button
-                onClick={handleLogin}
-                className='button has-text-weight-bold is-size-5'
+                onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
+                className={`${navButton} button has-text-weight-bold is-size-5`}
               >
                 Sign In
               </button>
-              <button onClick={handleLogin} className='button is-size-5'>
+              <button
+                onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
+                className={`${navButton}  button  is-size-5`}
+              >
                 Sign Up
               </button>
             </>

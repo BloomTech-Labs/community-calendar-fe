@@ -4,6 +4,8 @@
 @import '~bulma/sass/grid/columns.sass';
 
 a.list-card {
+  display: flex;
+  flex-direction: column;
   margin-top: $gap-md * 2 !important;
   border-radius: $radius-small;
   width: 100%;
@@ -15,8 +17,11 @@ a.list-card {
     color: initial;
   }
 
+  @include tablet {
+    flex-direction: row;
+  }
+
   .event_image {
-    margin-top: $gap-md * 2 !important;
     width: 194px;
     height: 194px;
     object-fit: cover;

@@ -1,6 +1,14 @@
 @import '_variables.scss';
 
 .react-spring-carousel {
-    overflow: visible;
-    height: 450px;
+  overflow: visible;
+  height: 450px;
+  &__controls__arrow {
+    &--right {
+      border-radius: $radius 0 0 $radius;
+    }
+    &--left {
+      border-radius: 0 $radius $radius 0;
+    }
+  }
 }

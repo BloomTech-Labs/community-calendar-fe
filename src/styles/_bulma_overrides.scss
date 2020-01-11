@@ -20,6 +20,12 @@
   padding: 0;
 }
 
+.navbar-start {
+  button {
+    margin-left: $gap-sm;
+  }
+}
+
 // ===== Dropdown =====
 .dropdown {
   &:hover,
