@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 
 /* 
  This function is used to read the user's geolocation coordinates. When a component utilizing this function 
@@ -7,18 +7,16 @@ import {useState, useEffect} from 'react'
  It also returns a function that can be used 
   */
 
-export default function getGeoPosition(options) {
+export default function getGeoPosition() {
   const [userPosition, setUserPosition] = useState({})
 
   // config settings. Args overide defaults
-  options = {
-    enableHighAccuracy: !options.enableHighAccuracy
-      ? options.enableHighAccuracy
-      : true,
+  const options = {
+    enableHighAccuracy: true,
     // execute error function if getCurrentPosition does not resolve within 5 seconds
-    timeout: options.timeout || 5000,
+    timeout: 5000,
     //maximum time to cache results
-    maximumAge: options.maximumAge || 0,
+    maximumAge: 0,
   }
 
   // function called if user's position has been obtained
@@ -48,5 +46,5 @@ export default function getGeoPosition(options) {
     getUserPosition()
   }, [])
 
-  return [userPosition, getUserPosition]
+  return {userPosition, getUserPosition}
 }

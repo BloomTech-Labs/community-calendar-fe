@@ -18,7 +18,7 @@ import Home from './pages/Home'
 
 //components
 import Navbar from 'navbar/Navbar'
-import CreateEvent from 'featured/CreateEvent'
+import CreateEvent from 'create-event-form/CreateEvent'
 
 function App() {
   const {
