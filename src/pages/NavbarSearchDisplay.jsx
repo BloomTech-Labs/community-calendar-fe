@@ -29,7 +29,8 @@ const NavbarSearchDisplay = props => {
                         : null
                     })
             }
-            {!(loading || (data && data.events.length)) && <p>No events matching search query</p>}
+            {/* {!loading && data && !data.events.length && <p>No events matching search query</p>} */}
+            {!(loading || error) && <p>No events matching search query</p>}
         </div>
     )
 };
