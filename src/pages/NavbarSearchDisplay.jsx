@@ -11,7 +11,7 @@ const NavbarSearchDisplay = props => {
     const {loading, error, data} = useQuery(GET_EVENTS);
     const searchString = props.match.params.query;
 
-    data && console.log(data.events);
+    console.log("helo word");
     
     return (
         <div className="navbarSearchDisplay">
@@ -19,12 +19,14 @@ const NavbarSearchDisplay = props => {
             {error && <p>Error!</p>}
             {
                 data && data.events.map(event => {
-                        return <EventListCard
-                                    item={event}
-                                    key={event.id}
-                                    // useListView={useListView}
-                                    useListView={true}
-                                />
+                        return new RegExp(searchString, "i").test(event.title) 
+                        ?   <EventListCard
+                                item={event}
+                                key={event.id}
+                                // useListView={useListView}
+                                useListView={true}
+                            />
+                        : null
                     })
             }
             {!(loading || (data && data.events.length)) && <p>No events matching search query</p>}
