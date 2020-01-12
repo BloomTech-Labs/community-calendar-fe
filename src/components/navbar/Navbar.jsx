@@ -60,7 +60,7 @@ outside of it close the dropdown menu
       <Link
         className='navbar-brand'
         to='/'
-        title='Go to CommunityCalendar.netlify.com'
+        title='Go to Community Calendar home page'
       >
         <CCLogo dimensions={35} />
       </Link>

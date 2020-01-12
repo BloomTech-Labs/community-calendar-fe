@@ -1,10 +1,7 @@
 import {renderHook, act} from '@testing-library/react-hooks'
 import getGeoPosition from '../getPosition'
-
 // create mock of navigator.geolocation
 const getCurrentPosition = jest.fn()
-//create fake window object
-window.navigator.geolocation = {}
 
 // create assing mock function as method of geolocation
 Object.assign(window.navigator.geolocation, {
