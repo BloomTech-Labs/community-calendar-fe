@@ -73,7 +73,8 @@ function App() {
   // initialize apollo client to resolve queries to server and local state 
   const client = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: cache,
+    //client cache
+    cache,
     // add typedefs and resolvers for local state
     typeDefs,
     // resolvers

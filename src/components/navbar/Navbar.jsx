@@ -2,7 +2,7 @@ import React, {useRef, useEffect} from 'react'
 import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link} from 'react-router-dom'
 import ReactGA from 'react-ga'
-
+import gql from 'graphql-tag'
 import navUtils from './navbar_utils'
 
 //components
@@ -14,14 +14,15 @@ import {cc_navbar, navButton} from './Navbar.module.scss'
 
 // geolocation
 import getGeoPosition from '../../utils/getPosition'
-import { useQuery } from '@apollo/react-hooks';
-import { USER_LOCATION } from '../../graphql/userLocation.query';
+// import { useQuery } from '@apollo/react-hooks';
+// import  USER_LOCATION  from '../../graphql/userLocation.query';
+
 
 export default function Navbar() {
 
   // test for user location in local cache
-  const { data } = useQuery(USER_LOCATION);
-  console.log(data, "data from local cache");
+  // const locationData = useQuery(USER_LOCATION);
+  // console.log(locationData.data, "data from local cache");
 
 
   const {user, loginWithRedirect, logout} = useAuth0()

@@ -8,4 +8,4 @@ const USER_LOCATION = gql`
   }
 `
 
-export default USER_LOCATION
+export default USER_LOCATION;
