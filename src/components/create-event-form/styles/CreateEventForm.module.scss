@@ -11,12 +11,22 @@
     box-shadow: none;
     text-align: left;
     padding: 0;
-    margin: $gap-sm 0;
+    background-color: white;
+}
+
+label {
+    // margin: $gap-sm 0;
+    font-weight: bold;
+}
+
+.vSpacing {
+    margin: 2rem 1rem 2rem 1rem;
+
 }
 
 .textarea {
     border: 2px solid black;
-    border-radius: 0;
+    border-radius: 4px;
     resize: none;
 }
 
@@ -33,9 +43,24 @@
 }
 
 .createEventForm {
-    width: 50%;
+    width: 60%;
+    height: 100%;
     margin: 0 auto;
     * {
         width: 100%;
     }
+
+    .shark {
+        background-color: $shark;
+    }
+}
+
+.imageUploader {
+    padding: 100px 0;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.littleTopMargin {
+    margin-top: $gap-sm;
 }

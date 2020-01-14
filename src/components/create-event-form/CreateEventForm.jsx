@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useState} from 'react'
 import Dropzone from 'react-dropzone'
 import {useForm} from 'react-hook-form'
 import {states, statesAbbreviated} from './states'
 import UploadIcon from '../icons/UploadIcon'
+import moment from 'moment';
 
 import {
   flexcolumn,
@@ -11,34 +12,24 @@ import {
   select,
   flexrow,
   textarea,
+  imageUploader,
+  shark,
+  vSpacing,
+  littleTopMargin
 } from './styles/CreateEventForm.module.scss'
 
 const CreateEventForm = () => {
   const {register, handleSubmit, errors} = useForm()
+  const [images, setImages] = useState(null);
 
   const onSubmit = data => console.log(data)
 
   console.log('errors', errors)
 
-  const onDrop = acceptedFiles => {
-    acceptedFiles.forEach(file => {
-      const reader = new FileReader()
-
-      reader.onabort = () => console.log('file reading was aborted')
-      reader.onerror = () => console.log('file reading has failed')
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const binaryStr = reader.result
-        console.log(binaryStr)
-      }
-      reader.readAsArrayBuffer(file)
-    })
-  }
-
   return (
     <div className={`${createEventForm}`}>
       <form onSubmit={handleSubmit(onSubmit)} className={`${flexcolumn}`}>
-        <div>
+        <div className={`${vSpacing}`}>
           <label>
             Event Title
             <input
@@ -52,7 +43,7 @@ const CreateEventForm = () => {
         <div>
           <label>
             Location
-            <div>
+            <div className={`${vSpacing}`}>
               <label>
                 Place Name
                 <input
@@ -64,7 +55,7 @@ const CreateEventForm = () => {
                 />
               </label>
               <div className={`${flexrow}`}>
-                <div>
+                <div className={`${vSpacing}`}>
                   <label>
                     Street Address
                     <input
@@ -75,7 +66,7 @@ const CreateEventForm = () => {
                     />
                   </label>
                 </div>
-                <div>
+                <div className={`${vSpacing}`}>
                   <label>
                     Street Address 2
                     <input
@@ -88,7 +79,7 @@ const CreateEventForm = () => {
                 </div>
               </div>
               <div className={`${flexrow}`}>
-                <div>
+                <div className={`${vSpacing}`}>
                   <label>
                     City
                     <input
@@ -99,7 +90,7 @@ const CreateEventForm = () => {
                     />
                   </label>
                 </div>
-                <div>
+                <div className={`${vSpacing}`}>
                   <label>
                     State
                     <select
@@ -108,16 +99,16 @@ const CreateEventForm = () => {
                       className={`${select}`}
                       style={{display: 'block'}}
                     >
-                      <option disabled selected value></option>
+                      <option selected value></option>
                       {states.map((stateName, i) => (
-                        <option value={`${statesAbbreviated[i]}`}>
+                        <option key={stateName} value={`${statesAbbreviated[i]}`}>
                           {stateName}
                         </option>
                       ))}
                     </select>
                   </label>
                 </div>
-                <div>
+                <div className={`${vSpacing}`}>
                   <label>
                     Zip Code
                     <input
@@ -137,7 +128,7 @@ const CreateEventForm = () => {
         <div className={`${flexrow}`}>
           <label>
             Starts
-            <div className={`${flexrow}`}>
+            <div className={`${flexrow} ${vSpacing}`}>
               <input
                 className={`${select}`}
                 type='date'
@@ -156,7 +147,7 @@ const CreateEventForm = () => {
           </label>
           <label>
             Ends
-            <div className={`${flexrow}`}>
+            <div className={`${flexrow} ${vSpacing}`}>
               <input
                 className={`${select}`}
                 type='date'
@@ -167,14 +158,13 @@ const CreateEventForm = () => {
               <input
                 className={`${select}`}
                 type='time'
-                placeholder='End Time'
                 name='End Time'
                 ref={register}
               />
             </div>
           </label>
         </div>
-
+        <div >
         <label>
           Event Description
           <textarea
@@ -183,6 +173,8 @@ const CreateEventForm = () => {
             ref={register}
           />
         </label>
+        </div>
+        <div>
         <label>
           Type of ticket
           <select
@@ -195,6 +187,8 @@ const CreateEventForm = () => {
             <option value='Paid'>Paid</option>
           </select>
         </label>
+        </div>
+        <div>
         <label>
           Tags
           <input
@@ -205,21 +199,27 @@ const CreateEventForm = () => {
             ref={register}
           />
         </label>
-        <label>
-          Event image
-          <Dropzone onDrop={onDrop}>
-            {({getRootProps, getInputProps}) => (
-              <section>
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  {/* <p>Drag 'n' drop some files here, or click to select files</p> */}
-                  <UploadIcon />
-                </div>
-              </section>
-            )}
-          </Dropzone>
-        </label>
-        <input type='submit' />
+        </div>
+        <div className={`${vSpacing}`}>
+        <label style={{pointerEvents: "none"}}>
+            Event image
+            <div>
+            <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+              {({getRootProps, getInputProps}) => (
+                <section class={imageUploader}>
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    {/* <p>Drag 'n' drop some files here, or click to select files</p> */}
+                    <UploadIcon />
+                  </div>
+                </section>
+              )}
+            </Dropzone>
+            </div>
+            </label>
+        </div>
+        <button className='button is-medium'>Preview</button>
+        <input className={`button is-medium ${shark} has-text-white ${littleTopMargin}`} type='submit' value="Create Event"/>
       </form>
     </div>
   )
