@@ -62,6 +62,12 @@ export const GET_EVENTS = gql`
   ${ADDRESS_DETAIL_DATA}
 `
 
+export const GET_ALL_TAGS = gql`
+  tags {
+    title
+  }
+}
+
 export const GET_EVENT_BY_ID = id => {
   const QUERY = gql`
     query{

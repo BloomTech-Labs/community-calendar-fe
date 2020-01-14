@@ -3,6 +3,7 @@
 @import '~bulma/sass/utilities/_all.sass';
 @import '~bulma/sass/grid/columns.sass';
 @import '~bulma/sass/form/_all.sass';
+@import "~@yaireo/tagify/src/tagify";
 
 .input, .select {
     border: none;
