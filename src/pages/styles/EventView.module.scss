@@ -53,10 +53,10 @@
   }
 
   .socialOptions {
-    max-width: 174px;
     margin-top: $gap;
     p {
-      margin-bottom: $gap-sm;
+      margin-bottom: $gap-xs;
+      margin-right: $gap-sm;
     }
     button ~ div {
       margin-top: $gap-lg;

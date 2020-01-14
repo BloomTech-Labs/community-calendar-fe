@@ -139,24 +139,26 @@ const EventView = () => {
               {/* Attend functionality not yet implemented
               <button className='button  is-dark'>Attend</button> */}
             </div>
+
           </div>
           {/* Appears to right of event info on tablet+ */}
-          <div className={socialOptions}>
-            {/* Follow host functionality not yet implemented
-            <button className='button  is-dark '>Follow Host</button> */}
-            <div>
-              <p className=' is-size-5'>Tags</p>
-              <div className='tags'>
-                {tags &&
-                  tags.map((tag, indx) => (
-                    <span className='tag is-small is-white' key={'tag-' + indx}>
-                      {tag.title}
-                    </span>
-                  ))}
-              </div>
+        </div>
+        <div className={socialOptions}>
+          {/* Follow host functionality not yet implemented
+          <button className='button  is-dark '>Follow Host</button> */}
+          <div>
+            <div className='tags'>
+              <p className='has-text-weight-bold is-size-5'>Tags</p>
+              {tags &&
+                tags.map((tag, indx) => (
+                  <span className='tag is-small is-white' key={'tag-' + indx}>
+                    {tag.title}
+                  </span>
+                ))}
             </div>
           </div>
         </div>
+
       </section>
     </div>
   )
