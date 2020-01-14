@@ -100,17 +100,24 @@ const EventView = () => {
           <p>{`${street_address}, ${name}`}</p>
         </div>
         <div className={panel_right}>
+          {/* Manage Buton, only displays if logged-in user is the event creator  */}
+          <div>
+            <button className="manage-button button">Manage</button>
+          </div>
+
           {/* numbers to be replaced with event information */}
-          {/* <p>
-            Going:
-            <br />
-            <span className='has-text-weight-bold'>50</span>
-          </p>
-          <p>
-            Interested:
-            <br />
-            <span className='has-text-weight-bold'>100</span>
-          </p> */}
+          {/* <div>
+            <p>
+              Going:
+              <br />
+              <span className='has-text-weight-bold'>50</span>
+            </p>
+            <p>
+              Interested:
+              <br />
+              <span className='has-text-weight-bold'>100</span>
+            </p>
+          </div> */}
         </div>
       </section>
       <section className=''>
