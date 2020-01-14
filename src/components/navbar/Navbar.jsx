@@ -14,11 +14,19 @@ import {cc_navbar, navButton} from './Navbar.module.scss'
 
 // geolocation
 import getGeoPosition from '../../utils/getPosition'
+import { useQuery } from '@apollo/react-hooks';
+import { USER_LOCATION } from '../../graphql/userLocation.query';
 
 export default function Navbar() {
+
+  // test for user location in local cache
+  const { data } = useQuery(USER_LOCATION);
+  console.log(data, "data from local cache");
+
+
   const {user, loginWithRedirect, logout} = useAuth0()
-  const {userPosition, setUserPosition, getUserPosition} = getGeoPosition()
-  console.log('userPosition', userPosition)
+  // const {userPosition, setUserPosition, getUserPosition} = getGeoPosition()
+  // console.log('userPosition', userPosition)
 
   // used to show/hide the dropdown menu
   const dropMenu = useRef(null)

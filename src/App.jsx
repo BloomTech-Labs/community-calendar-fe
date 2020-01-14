@@ -9,8 +9,11 @@ import {useAuth0} from './contexts/auth0-context.jsx'
 import {ApolloProvider} from '@apollo/react-hooks'
 import {ApolloClient} from 'apollo-client'
 import {HttpLink} from 'apollo-link-http'
-import {InMemoryCache} from 'apollo-cache-inmemory'
 import {setContext} from 'apollo-link-context'
+import {InMemoryCache} from 'apollo-cache-inmemory'
+// import { typeDefs, resolvers } from './graphql/localState';
+import { typeDefs } from './graphql/localState';
+
 
 //pages
 import EventView from './pages/EventView'
@@ -64,10 +67,27 @@ function App() {
     }
   })
 
+  // initialize cache that will be used for state from server queries and local state
+  const cache = new InMemoryCache();
+
+  // initialize apollo client to resolve queries to server and local state 
   const client = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
+    cache: cache,
+    // add typedefs and resolvers for local state
+    typeDefs,
+    // resolvers
+  });
+
+  // initialize apollo client in-memory cache of local state
+  cache.writeData({
+    data: {
+      locationPermission: true,
+      userLatitude: -83.050443,
+      userLongitude: 42.334056
+    }
   })
+
 
   return (
     <ApolloProvider client={client}>
