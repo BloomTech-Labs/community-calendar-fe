@@ -35,7 +35,7 @@ const Home = () => {
           Events
         </h3>
         <FilterBtns refetch={refetch} />
-        <EventList apolloData={apolloData} />
+        <EventList apolloData={{data, loading, error}} />
       </section>
     </div>
   )
