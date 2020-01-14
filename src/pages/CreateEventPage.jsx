@@ -11,7 +11,7 @@ export default function CreateEventPage() {
   return (
     <section className='section'>
       <h3 className='is-family-secondary is-size-2 has-text-black-bis'>
-        Create Event
+        Event Details
       </h3>
       <CreateEventForm />
     </section>
