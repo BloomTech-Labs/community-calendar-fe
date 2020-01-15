@@ -52,6 +52,17 @@
     left: $gap-md;
     right: $gap-md;
   }
+
+  @include tablet-up {
+    padding: {
+      left: 2 * $gap-sm;
+      right: 2 * $gap-sm;
+    }
+  }
+}
+
+.no-pointer-events {
+  pointer-events: none;
 }
 
 .content-divider-x {

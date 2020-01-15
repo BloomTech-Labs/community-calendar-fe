@@ -52,6 +52,12 @@ Default direction is horizontal . Pass 'y' for vertical divider
   }
 }
 
+@mixin tablet-up {
+  @media screen and (min-width: $tablet) {
+    @content;
+  }
+}
+
 // ===== Hover Effects and Animations =====
 @mixin hover-shadow {
   &:hover {
@@ -79,16 +85,18 @@ Default direction is horizontal . Pass 'y' for vertical divider
   }
 }
 
-@mixin slideDownHide($duration: $duration-short) {
+@mixin willSlideDown($duration: $duration-short) {
   transform-origin: top;
   transition: transform $duration, opacity $duration;
   display: block;
   opacity: 0;
   transform: scaleY(0);
+  pointer-events: none;
 }
 
 @mixin slideDownShow {
   transform-origin: top;
   transform: scaleY(1);
   opacity: 1;
+  pointer-events: all;
 }
