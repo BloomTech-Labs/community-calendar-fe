@@ -1,15 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {dropdownArrow, hideArrow, flip} from './Icons.module.scss'
+import {dropdown} from './Icons.module.scss'
 
-const DropdownIcon = ({hideDropdown, dimensions, dataId}) => {
+const DropdownIcon = ({showDropdown, dimensions, dataId}) => {
   return (
     <svg
       data-id={dataId}
       width={dimensions ? dimensions : 13}
       height={dimensions ? dimensions : 7}
       viewBox='0 0 13 7'
-      className={`${dropdownArrow} ${hideDropdown ? flip : ''} `}
+      className={dropdown}
+      // className={`${dropdown} ${showDropdown ? 'flip' : ''} `}
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
       style={{pointerEvents: 'none'}}
@@ -20,7 +21,7 @@ const DropdownIcon = ({hideDropdown, dimensions, dataId}) => {
 }
 
 DropdownIcon.propTypes = {
-  hideDropdown: PropTypes.bool,
+  showDropdown: PropTypes.bool,
   dimensions: PropTypes.number,
   dataId: PropTypes.string,
 }

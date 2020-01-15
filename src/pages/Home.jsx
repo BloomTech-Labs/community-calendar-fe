@@ -21,6 +21,7 @@ const Home = () => {
 
   // used for distance select dropdown menu
   const distanceSelect = useRef(null)
+  const dropdownArrow = useRef(null)
   const {data: localCache} = useQuery(GET_CACHE)
 
   // local cache data
@@ -47,9 +48,11 @@ outside of it close the dropdown menu
     const distanceDropdown = e => {
       if (e.target.getAttribute('data-id') === 'distance-trigger') {
         distanceSelect.current.classList.toggle('is-active')
+        dropdownArrow.current.classList.toggle('flip')
         // if user clicks outside of dropdown menu close menu
       } else if (!/(dropdown-(trigger|content))/g.test(e.target.className)) {
         distanceSelect.current.classList.remove('is-active')
+        dropdownArrow.current.classList.remove('flip')
       }
     } // end wasDropdownClicked
 
@@ -93,9 +96,7 @@ outside of it close the dropdown menu
           </h3>
           {userLatitude && userLongitude && (
             <div
-              className={`dropdown is-right ccDropdown small-btn ${
-                showDistances ? 'is-active' : ''
-              }`}
+              className={`dropdown is-right ccDropdown small-btn `}
               ref={distanceSelect}
               data-testid='distanceSelectDiv'
             >
@@ -109,8 +110,12 @@ outside of it close the dropdown menu
                 <span className='no-pointer-events'>
                   {selectedDistance ? selectedDistance : 'Distance'}
                 </span>
-                <span className='icon  no-pointer-events' aria-hidden='true'>
-                  <DropdownIcon hideDropdown={!showDistances} />
+                <span
+                  className={`icon  no-pointer-events `}
+                  ref={dropdownArrow}
+                  aria-hidden='true'
+                >
+                  <DropdownIcon />
                 </span>
               </div>
               <div className='dropdown-menu drop-center' role='menu'>
