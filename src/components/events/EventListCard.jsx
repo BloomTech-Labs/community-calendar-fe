@@ -58,14 +58,15 @@ export default function EventListCard(props) {
           &nbsp;
           <span className='color_chalice'>Free</span>
           &nbsp;
-          {item.locations[0].distanceFromUser && (
-            <span className='color_shark'>
-              {`Distance: ${item.locations[0].distanceFromUser.toFixed(2)} ${
-                item.locations[0].distanceUnit === 'miles' ? 'mi' : 'km'
-              }`}
-            </span>
-          )}
         </p>
+        {item.locations[0].distanceFromUser && (
+          <p className='color_shark'>
+            {`Distance: ${item.locations[0].distanceFromUser.toFixed(2)} ${
+              item.locations[0].distanceUnit === 'miles' ? 'mi' : 'km'
+            }`}
+          </p>
+        )}
+
         <p
           data-id='event_description'
           data-testid='event_description'
