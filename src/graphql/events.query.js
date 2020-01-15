@@ -63,10 +63,12 @@ export const GET_EVENTS = gql`
 `
 
 export const GET_ALL_TAGS = gql`
-  tags {
-    title
+  query {
+    tags {
+      title
+    }
   }
-}
+`
 
 export const GET_EVENT_BY_ID = id => {
   const QUERY = gql`

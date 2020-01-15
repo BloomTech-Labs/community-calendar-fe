@@ -4,6 +4,7 @@ import {useForm} from 'react-hook-form'
 import {states, statesAbbreviated} from './states'
 import UploadIcon from '../icons/UploadIcon'
 import moment from 'moment';
+import TagInput from "./TagInput";
 
 import {
   flexcolumn,
@@ -188,17 +189,18 @@ const CreateEventForm = () => {
           </select>
         </label>
         </div>
-        <div>
-        <label>
-          Tags
-          <input
+        <div> 
+          <label>
+          Tags 
+           <TagInput/> 
+          {/* <input
             className={`${input}`}
             type='text'
             placeholder='Select tags of event'
             name='Event Tags'
             ref={register}
-          />
-        </label>
+          /> */}
+          </label>
         </div>
         <div className={`${vSpacing}`}>
         <label style={{pointerEvents: "none"}}>
