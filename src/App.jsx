@@ -85,6 +85,7 @@ function App() {
       locationPermission: true,
       userLatitude: null,
       userLongitude: null,
+      maxDistance: null,
     },
   })
 

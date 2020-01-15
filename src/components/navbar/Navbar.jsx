@@ -15,12 +15,13 @@ import {cc_navbar, navButton} from './Navbar.module.scss'
 // geolocation
 import getGeoPosition from '../../utils/getPosition'
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import USER_LOCATION from '../../graphql/userLocation.query'
+import {GET_CACHE} from '../../graphql'
 
 export default function Navbar() {
   const client = useApolloClient()
   // read  local cache
-  const {data: locationData} = useQuery(USER_LOCATION)
+  const {data: cacheData} = useQuery(GET_CACHE)
+  console.log('cacheData', cacheData)
 
   const {user, loginWithRedirect, logout} = useAuth0()
   // get user's position
@@ -28,13 +29,13 @@ export default function Navbar() {
 
   // set user's position in local cache
   if (
-    userPosition.latitude !== locationData.latitude ||
-    userPosition.longitude !== locationData.longitude
+    userPosition.latitude !== cacheData.latitude ||
+    userPosition.longitude !== cacheData.longitude
   ) {
     client.writeData({
       data: {
-        userLatitude: userPosition.longitude,
-        userLongitude: userPosition.latitude,
+        userLatitude: userPosition.latitude,
+        userLongitude: userPosition.longitude,
       },
     })
   }

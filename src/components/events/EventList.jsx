@@ -22,11 +22,30 @@ import {
 /*
 Shows events near a user in either a list or grid format.
 */
-export default function EventList({apolloData: {data, loading, error}}) {
+export default function EventList({
+  apolloData: {data, loading, error},
+  maxDistance,
+}) {
   /* used to determine if the events cards should be 
   displayed as list or grid
   */
   const [useListView, setShowListView] = useState(true)
+
+  let eventsToDisplay = []
+
+  const filterByDistance = distance => {
+    return data.events.filter(event => {
+      return event.locations[0].distanceFromUser <= distance
+    })
+  }
+
+  if (!loading && !error) {
+    if (maxDistance && data.events) {
+      eventsToDisplay = filterByDistance(maxDistance)
+    } else {
+      eventsToDisplay = [...data.events]
+    }
+  }
 
   return (
     <>
@@ -61,14 +80,14 @@ export default function EventList({apolloData: {data, loading, error}}) {
         {error && <p>ERROR</p>}
         {!loading &&
           data &&
-          data.events.map(item => (
+          eventsToDisplay.map(item => (
             <EventListCard
               item={item}
               key={item.id}
               useListView={useListView}
             />
           ))}
-        {!loading && data && !data.events.length && (
+        {!loading && data && !eventsToDisplay.length && (
           <div className='container'>
             <h5 className='has-text-centered color_chalice'>
               No events found for the selected date(s)
@@ -82,4 +101,5 @@ export default function EventList({apolloData: {data, loading, error}}) {
 
 EventList.propTypes = {
   apolloData: PropTypes.object,
+  maxDistance: PropTypes.number,
 }
