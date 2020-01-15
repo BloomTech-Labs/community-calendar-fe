@@ -62,7 +62,12 @@ export const GET_EVENTS = gql`
   ${ADDRESS_DETAIL_DATA}
 `
 export const GET_EVENTS_WITH_DISTANCE = gql`
-  query EventsByRange($start: DateTime, $end: DateTime, $userLatitude: Float, $userLongitude: Float) {
+  query EventsByRange(
+    $start: DateTime
+    $end: DateTime
+    $userLatitude: Float
+    $userLongitude: Float
+  ) {
     events(
       where: {
         OR: [
@@ -135,17 +140,3 @@ export const GET_EVENT_BY_ID = id => {
   `
   return QUERY
 }
-
-// export const GET_EVENT_BY_DAYS = (start, end) => {
-//   return gql`
-//     query{
-//       events(where: {id: ${id}}){
-//         ...EventDetail
-//         event_images{
-//           url
-//         }
-//       }
-//     }
-//     ${EVENT_DETAIL_DATA}
-//   `
-// }

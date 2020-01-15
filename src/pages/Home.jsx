@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react'
 import ReactGA from 'react-ga'
 
 //components
@@ -10,7 +10,7 @@ import FeatCarousel from '../components/featured/FeaturedCarousel'
 import {useQuery} from '@apollo/react-hooks'
 import {GET_EVENTS, GET_EVENTS_WITH_DISTANCE} from '../graphql/events.query'
 // import { GET_EVENTS } from '../graphql/events.query'
-import  USER_LOCATION  from '../graphql/userLocation.query';
+import USER_LOCATION from '../graphql/userLocation.query'
 
 //styles
 import styles from './styles/Home.module.scss'
@@ -19,17 +19,19 @@ import styles from './styles/Home.module.scss'
 const Home = () => {
   ReactGA.pageview('/')
 
-  const locationData = useQuery(USER_LOCATION);
-  const { userLatitude, userLongitude } = locationData.data;
-  console.log("userLatitude, userLongitude", userLatitude, userLongitude)
+  const locationData = useQuery(USER_LOCATION)
+  const {userLatitude, userLongitude} = locationData.data
 
-  // const  apolloData = useQuery(GET_EVENTS)
-  const  apolloData = useQuery(GET_EVENTS_WITH_DISTANCE, { variables: {userLatitude: userLatitude, userLongitude: userLongitude}})
+  const apolloData = useQuery(GET_EVENTS_WITH_DISTANCE, {
+    variables: {userLatitude: userLatitude, userLongitude: userLongitude},
+  })
+
   const {data, loading, error, refetch} = apolloData
-  console.log('apolloData before useEffect', apolloData)
+
+  // find distance from user and update events with results if user location changes
   useEffect(() => {
-    refetch({userLatitude, userLongitude}) 
-  }, [userLatitude, userLongitude]);
+    refetch({userLatitude, userLongitude})
+  }, [userLatitude, userLongitude])
 
   return (
     <div className='page-wrapper'>
@@ -50,7 +52,7 @@ const Home = () => {
         <EventList apolloData={apolloData} />
       </section>
     </div>
-    )
+  )
 }
 
 export default Home

@@ -38,7 +38,7 @@ export default function EventListCard(props) {
           data-id='event_location'
           className=' is-size-7 is-uppercase has-text-weight-bold color_chalice'
         >
-          {(item.locations && item.locations.neighborhood) || 'North End'}
+          {(item.locations && item.locations[0].neighborhood) || 'North End'}
         </p>
         <p
           data-id='event_title'
@@ -57,6 +57,15 @@ export default function EventListCard(props) {
           <span>&#8226;</span>
           &nbsp;
           <span className='color_chalice'>Free</span>
+          &nbsp;
+          {item.locations[0].distanceFromUser && (
+            <span className='color_shark'>
+              {' '}
+              {`Distance: ${item.locations[0].distanceFromUser.toFixed(2)} ${
+                item.locations[0].distanceUnit
+              }`}
+            </span>
+          )}
         </p>
         <p
           data-id='event_description'
