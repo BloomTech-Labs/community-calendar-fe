@@ -7,7 +7,7 @@ import navUtils from './navbar_utils'
 
 //components
 import CCLogo from '../icons/CCLogo'
-import NavbarSearch from './NavbarSearch'
+import NavbarSearchBox from './NavbarSearchBox'
 
 //styles
 import {cc_navbar, navButton} from './Navbar.module.scss'
@@ -71,8 +71,7 @@ outside of it close the dropdown menu
               <button className='button small-btn is-dark'>Create Event</button>
             </Link>
           )}
-          {/* Serach functionality not yet implemented
-        <NavbarSearch /> */}
+        <NavbarSearchBox />
         </div>{' '}
         {/*end navbar-start */}
         <div className='navbar-end'>
