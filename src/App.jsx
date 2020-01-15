@@ -17,6 +17,7 @@ import {InMemoryCache} from 'apollo-cache-inmemory'
 import EventView from './pages/EventView'
 import Home from './pages/Home'
 import CreateEventPage from './pages/CreateEventPage'
+import SearchResults from './pages/SearchResults'
 
 //components
 import Navbar from 'navbar/Navbar'
@@ -98,6 +99,7 @@ function App() {
         <Route exact path='/' component={Home} />
         <PrivateRoute path='/create-event' component={CreateEventPage} />
         <Route path='/events/:id' component={EventView} />
+        <Route path='/search/:searchText' component={SearchResults} />
       </Switch>
     </ApolloProvider>
   )
