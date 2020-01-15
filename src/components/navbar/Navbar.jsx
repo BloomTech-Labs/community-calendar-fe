@@ -49,7 +49,6 @@ if the dropdown menu is open and the user clicks
 outside of it close the dropdown menu
  */
     const wasDropdownClicked = e => {
-      console.log('navbar target', e.target)
       // if user clicks div.dropdown-trigger toggle the menu&&
       if (e.target.getAttribute('data-id') === 'navbar-profile-dropdown') {
         dropMenu.current.classList.toggle('is-active')
