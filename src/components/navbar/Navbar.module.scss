@@ -4,7 +4,7 @@
 @import '~bulma/sass/utilities/_all.sass';
 
 .cc_navbar {
-  padding: 0 $bodyPaddingX-hd;
+  padding: 0 $gap-sm;
   height: $navbar-height;
   border-bottom: 2px solid $black-bis;
   margin-top: 0 !important;
@@ -13,6 +13,10 @@
 
   img {
     pointer-events: none;
+  }
+
+  @include tablet-up {
+    padding: 0 $bodyPaddingX-hd;
   }
 
   .navButton {

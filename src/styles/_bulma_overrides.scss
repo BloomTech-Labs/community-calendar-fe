@@ -40,8 +40,29 @@
       color: white;
     }
   }
+  &-content {
+    background-color: $offwhite;
+  }
+
+  &-menu {
+    @include willSlideDown;
+  }
+  &.is-active &-menu {
+    @include slideDownShow;
+  }
 }
 
+.dropdown .dropdown-menu.drop-center {
+  @include willSlideDown(0.4s);
+  min-width: unset;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%) !important;
+}
+
+.dropdown.is-active .dropdown-menu.drop-center {
+  @include slideDownShow;
+}
 // ===== Section =====
 .section {
   padding: {
@@ -85,5 +106,21 @@
       top: 0;
       bottom: 0;
     }
+  }
+}
+
+// ===== Level =====
+.level {
+  &:not(:last-child) {
+    margin-bottom: 0;
+  }
+}
+
+// ===== Select =====
+div.select.is-rounded select {
+  border-radius: $radius-large;
+
+  option {
+    text-align: center;
   }
 }

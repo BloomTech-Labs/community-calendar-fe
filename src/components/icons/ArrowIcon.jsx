@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {arrow, leftArrow} from './Icons.module.scss'
+import {arrow} from './Icons.module.scss'
 
 const ArrowIcon = ({pointLeft, dimensions, dataId}) => {
   return (
@@ -9,7 +9,7 @@ const ArrowIcon = ({pointLeft, dimensions, dataId}) => {
       width={dimensions ? dimensions : 14}
       height={dimensions ? dimensions : 14}
       viewBox='0 0 14 14'
-      className={`${arrow} ${pointLeft ? leftArrow : ''}`}
+      className={`${arrow} ${pointLeft ? 'flip' : ''}`}
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >

@@ -18,11 +18,13 @@ const SearchResults = () => {
   //create regex
   let regex = new RegExp(searchText, 'ig')
   // filter results using searchString
-  const filtered = data.events.filter(event => {
-    return regex.test(event.title) || regex.test(event.description)
-  })
-  // apply filtered events to data.events
-  data.events = [...filtered]
+  if (!loading && data.events) {
+    const filtered = data.events.filter(event => {
+      return regex.test(event.title) || regex.test(event.description)
+    })
+    // apply filtered events to data.events
+    data.events = [...filtered]
+  }
 
   console.log('filtered data', data.events)
   /*
