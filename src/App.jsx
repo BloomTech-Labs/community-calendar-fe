@@ -11,8 +11,7 @@ import {ApolloClient} from 'apollo-client'
 import {HttpLink} from 'apollo-link-http'
 import {setContext} from 'apollo-link-context'
 import {InMemoryCache} from 'apollo-cache-inmemory'
-// import { typeDefs, resolvers } from './graphql/localState';
-import {typeDefs} from './graphql/localState'
+// import { typeDefs, resolvers } from './graphql';
 
 //pages
 import EventView from './pages/EventView'
@@ -22,6 +21,8 @@ import CreateEventPage from './pages/CreateEventPage'
 //components
 import Navbar from 'navbar/Navbar'
 import PrivateRoute from 'private-route/PrivateRoute'
+import GetUserPosition from './utils/GetUserPosition'
+
 
 function App() {
   const {
@@ -75,7 +76,7 @@ function App() {
     //client cache
     cache,
     // add typedefs and resolvers for local state
-    typeDefs,
+    // typeDefs,
     // resolvers
   })
 
@@ -91,6 +92,7 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
+      <GetUserPosition />
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />

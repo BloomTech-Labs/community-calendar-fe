@@ -18,27 +18,31 @@ import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_CACHE} from '../../graphql'
 
 export default function Navbar() {
-  const client = useApolloClient()
-  // read  local cache
-  const {data: cacheData} = useQuery(GET_CACHE)
-  console.log('cacheData', cacheData)
-
   const {user, loginWithRedirect, logout} = useAuth0()
-  // get user's position
-  const {userPosition, setUserPosition, getUserPosition} = getGeoPosition()
 
-  // set user's position in local cache
-  if (
-    userPosition.latitude !== cacheData.latitude ||
-    userPosition.longitude !== cacheData.longitude
-  ) {
-    client.writeData({
-      data: {
-        userLatitude: userPosition.latitude,
-        userLongitude: userPosition.longitude,
-      },
-    })
-  }
+  
+  // START
+  // read  local cache
+  // const client = useApolloClient()
+  // const {data: cacheData} = useQuery(GET_CACHE)
+  // console.log('cacheData', cacheData)
+
+  // // get user's position
+  // const {userPosition, setUserPosition, getUserPosition} = getGeoPosition()
+
+  // // set user's position in local cache
+  // if (
+  //   userPosition.latitude !== cacheData.latitude ||
+  //   userPosition.longitude !== cacheData.longitude
+  // ) {
+  //   client.writeData({
+  //     data: {
+  //       userLatitude: userPosition.latitude,
+  //       userLongitude: userPosition.longitude,
+  //     },
+  //   })
+  // }
+  // END
 
   // used to show/hide the dropdown menu
   const dropMenu = useRef(null)
