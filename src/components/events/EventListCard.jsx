@@ -22,11 +22,12 @@ Changing the class names on the Link element
 sets the style to List format or Grid format
  */
 export default function EventListCard(props) {
-  const {item} = props
+  const {item, useListView} = props
 
   return (
+    //  Use `listCard` or `gridCard` style based on `useListView` bool from parent
     <Link
-      className={props.useListView ? `${listCard}  ${columns}` : gridCard}
+      className={useListView ? `${listCard}  ${columns}` : gridCard}
       to={`events/${item.id}`}
     >
       <img
