@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import ReactGA from 'react-ga'
 
 //components
@@ -21,6 +21,7 @@ const Home = () => {
 
   // used for distance select dropdown menu
   const distanceSelect = useRef(null)
+  const dropdownArrow = useRef(null)
   const {data: localCache} = useQuery(GET_CACHE)
 
   // local cache data
@@ -38,18 +39,20 @@ const Home = () => {
   }, [userLatitude, userLongitude])
 
   //event listener for distance dropdown
+  const [showDistances, setShowDistances] = useState(false)
   useEffect(() => {
     /* 
 if the dropdown menu is open and the user clicks 
 outside of it close the dropdown menu
  */
     const distanceDropdown = e => {
-      // if user clicks div.dropdown-trigger toggle the menu
-      if (/dropdown-trigger/g.test(e.target.className)) {
+      if (e.target.getAttribute('data-id') === 'distance-trigger') {
         distanceSelect.current.classList.toggle('is-active')
+        dropdownArrow.current.classList.toggle('flip')
         // if user clicks outside of dropdown menu close menu
       } else if (!/(dropdown-(trigger|content))/g.test(e.target.className)) {
         distanceSelect.current.classList.remove('is-active')
+        dropdownArrow.current.classList.remove('flip')
       }
     } // end wasDropdownClicked
 
@@ -72,6 +75,9 @@ outside of it close the dropdown menu
     }
   }
 
+  //text shown on dropdown
+  let [selectedDistance, setSelectedDistance] = useState(null)
+
   return (
     <div className='page-wrapper'>
       {/* Featured Events carousel */}
@@ -90,19 +96,25 @@ outside of it close the dropdown menu
           </h3>
           {userLatitude && userLongitude && (
             <div
-              className='dropdown is-right ccDropdown small-btn'
+              className={`dropdown is-right ccDropdown small-btn `}
               ref={distanceSelect}
               data-testid='distanceSelectDiv'
             >
               <div
-                className='dropdown-trigger'
+                className='dropdown-trigger has-text-centered'
+                style={{width: '100px'}}
                 aria-haspopup='true'
                 aria-controls='dropdown-menu2'
+                data-id='distance-trigger'
               >
-                <span className='dropdown-trigger'>
-                  {maxDistance ? maxDistance + ' mi' : 'Distance'}
+                <span className='no-pointer-events'>
+                  {selectedDistance ? selectedDistance : 'Distance'}
                 </span>
-                <span className='icon dropdown-trigger' aria-hidden='true'>
+                <span
+                  className={`icon  no-pointer-events `}
+                  ref={dropdownArrow}
+                  aria-hidden='true'
+                >
                   <DropdownIcon />
                 </span>
               </div>
@@ -110,25 +122,37 @@ outside of it close the dropdown menu
                 <div className='dropdown-content'>
                   <div
                     className='dropdown-item has-text-centered'
-                    onClick={() => setMaxDistance(5)}
+                    onClick={() => {
+                      setMaxDistance(5)
+                      setSelectedDistance('Nearby')
+                    }}
                   >
                     Nearby
                   </div>
                   <div
                     className='dropdown-item has-text-centered'
-                    onClick={() => setMaxDistance(10)}
+                    onClick={() => {
+                      setMaxDistance(10)
+                      setSelectedDistance('10 mi')
+                    }}
                   >
                     10 mi
                   </div>
                   <div
                     className='dropdown-item has-text-centered'
-                    onClick={() => setMaxDistance(20)}
+                    onClick={() => {
+                      setMaxDistance(20)
+                      setSelectedDistance('20 mi')
+                    }}
                   >
                     20 mi
                   </div>
                   <div
                     className='dropdown-item has-text-centered'
-                    onClick={() => setMaxDistance(null)}
+                    onClick={() => {
+                      setMaxDistance(null)
+                      setSelectedDistance('30+ mi')
+                    }}
                   >
                     30+ mi
                   </div>

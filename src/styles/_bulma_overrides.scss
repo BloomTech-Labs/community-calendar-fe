@@ -45,7 +45,7 @@
   }
 
   &-menu {
-    @include slideDownHide;
+    @include willSlideDown;
   }
   &.is-active &-menu {
     @include slideDownShow;
@@ -53,7 +53,7 @@
 }
 
 .dropdown .dropdown-menu.drop-center {
-  @include slideDownHide(0.5s);
+  @include willSlideDown(0.4s);
   min-width: unset;
   width: 90%;
   left: 50%;
