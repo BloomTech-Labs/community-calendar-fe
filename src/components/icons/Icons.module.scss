@@ -24,7 +24,7 @@
   }
 }
 
-.arrow {
+.darkFill {
   path {
     fill: $shark;
   }
@@ -32,9 +32,6 @@
 
 .dropdown {
   transition: all $duration-short;
-  path {
-    fill: $shark;
-  }
 }
 
 .grid,
