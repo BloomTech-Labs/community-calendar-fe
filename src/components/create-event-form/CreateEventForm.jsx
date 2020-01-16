@@ -3,7 +3,8 @@ import Dropzone from 'react-dropzone'
 import {useForm} from 'react-hook-form'
 import {states, statesAbbreviated} from './states'
 import UploadIcon from '../icons/UploadIcon'
-import moment from 'moment';
+import gql from 'graphql-tag'
+import {useMutation} from '@apollo/react-hooks';
 
 import {
   flexcolumn,
@@ -22,9 +23,70 @@ const CreateEventForm = () => {
   const {register, handleSubmit, errors} = useForm()
   const [images, setImages] = useState(null);
 
-  const onSubmit = data => console.log(data)
+  
+const CREATE_EVENT = gql`
+mutation CreateEvent(
+  $title: String!,
+  $description: String!,
+  $start: DateTime!
+  $end: DateTime!,
+  $event_images: [EventCreateImageInput!],
+  $locationName: String!,
+  $streetAddress1: String!,
+  $streetAddress2: String = null,
+  $city: String!,
+  $state: String!,
+  $zipcode: String!,
+  $latitude: String = null,
+  $longitude: String = null,
+  $tags: [EventCreateTagInput!],
+  $images: [Upload!]
+){
+  createEvent(
+    data: {
+      title: $title
+      description: $description
+      start: $start
+      end: $end
+      event_images: $event_images
+      locations: {
+        create: [
+          {
+            name: $locationName
+            street_address: $streetAddress1
+            street_address2: $streetAddress2
+            city: $city
+            zipcode: $zipcode
+            state: $state
+            latitude: $latitude
+            longitude: $longitude
+          }
+        ]
+      }
+      tags: $tags
+    },
+    images: $images
+  ) {
+    id
+  }
+}
+`;
 
-  console.log('errors', errors)
+const [createEvent, {data, error}] = useMutation(CREATE_EVENT);
+
+  const onSubmit = dataValues => {
+    // createEvent({variables: {images}});
+    console.log(dataValues);
+
+    if(error){
+      console.log(error);
+    }
+  }
+
+  if(errors.length > 0){
+    console.log('errors', errors)
+  }
+  
 
   return (
     <div className={`${createEventForm}`}>
@@ -49,7 +111,7 @@ const CreateEventForm = () => {
                 <input
                   className={`${input}`}
                   type='text'
-                  placeholder='Enter place name is applicable'
+                  placeholder='Enter place name if applicable'
                   name='Place Name'
                   ref={register}
                 />
@@ -98,8 +160,9 @@ const CreateEventForm = () => {
                       ref={register}
                       className={`${select}`}
                       style={{display: 'block'}}
+                      defaultValue={null}
                     >
-                      <option selected value></option>
+                      <option value={null}>Select state</option>
                       {states.map((stateName, i) => (
                         <option key={stateName} value={`${statesAbbreviated[i]}`}>
                           {stateName}
@@ -204,9 +267,9 @@ const CreateEventForm = () => {
         <label style={{pointerEvents: "none"}}>
             Event image
             <div>
-            <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+            <Dropzone onDrop={acceptedFiles => {setImages(acceptedFiles)}}>
               {({getRootProps, getInputProps}) => (
-                <section class={imageUploader}>
+                <section className={imageUploader}>
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
                     {/* <p>Drag 'n' drop some files here, or click to select files</p> */}

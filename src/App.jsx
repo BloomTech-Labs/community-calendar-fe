@@ -8,9 +8,11 @@ import {useAuth0} from './contexts/auth0-context.jsx'
 //apollo
 import {ApolloProvider} from '@apollo/react-hooks'
 import {ApolloClient} from 'apollo-client'
-import {HttpLink} from 'apollo-link-http'
+// import {HttpLink} from 'apollo-link-http'
 import {setContext} from 'apollo-link-context'
 import {InMemoryCache} from 'apollo-cache-inmemory'
+import {createUploadLink} from 'apollo-upload-client'
+import {typeDefs} from './graphql/localState';
 // import { typeDefs, resolvers } from './graphql';
 
 //pages
@@ -46,8 +48,11 @@ function App() {
 
   user && getAccessToken()
 
-  const httpLink = new HttpLink({
+  const httpLink = new createUploadLink({
     uri: process.env.REACT_APP_APOLLO_SERVER,
+    headers: {
+      'keep-alive': 'true'
+    }
   })
 
   const authLink = setContext((_, {headers}) => {
@@ -56,7 +61,7 @@ function App() {
       return {
         headers: {
           ...headers,
-          authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`
         },
       }
     } else {
@@ -77,7 +82,7 @@ function App() {
     //client cache
     cache,
     // add typedefs and resolvers for local state
-    // typeDefs,
+    typeDefs,
     // resolvers
   })
 
