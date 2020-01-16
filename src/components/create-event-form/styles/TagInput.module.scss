@@ -1,5 +1,9 @@
-.tagInput {
+.tagDisplayClass {
     border-bottom: 2px solid black;
+    // height: 2.8rem;
+    // margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .tagList {
@@ -10,4 +14,16 @@
     z-index: 1;
     // overflow-x: hidden;
     overflow-y: scroll;
+}
+
+.tagClass {
+    padding: 0.5rem 1rem;
+    margin: 0 10px;
+    text-align: center;
+    background-color: green;
+    width: unset;
+    
+    span {
+        margin-left: 0.4rem;
+    }
 }
