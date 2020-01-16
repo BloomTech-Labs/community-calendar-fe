@@ -22,6 +22,7 @@ import {
 const CreateEventForm = () => {
   const {register, handleSubmit, errors} = useForm()
   const [images, setImages] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const onSubmit = data => console.log(data)
 
@@ -192,7 +193,7 @@ const CreateEventForm = () => {
         <div> 
           <label>
           Tags 
-           <TagInput/> 
+           <TagInput selectedTags={selectedTags} setSelectedTags={setSelectedTags}/> 
           {/* <input
             className={`${input}`}
             type='text'

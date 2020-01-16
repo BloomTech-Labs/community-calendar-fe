@@ -1,0 +1,13 @@
+.tagInput {
+    border-bottom: 2px solid black;
+}
+
+.tagList {
+    width: 48%;
+    height: 15vh;
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+    // overflow-x: hidden;
+    overflow-y: scroll;
+}

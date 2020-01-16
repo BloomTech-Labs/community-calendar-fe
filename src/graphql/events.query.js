@@ -65,6 +65,7 @@ export const GET_EVENTS = gql`
 export const GET_ALL_TAGS = gql`
   query {
     tags {
+      id
       title
     }
   }
