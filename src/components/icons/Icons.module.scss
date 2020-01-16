@@ -28,8 +28,12 @@
   path {
     fill: $shark;
   }
-  &.leftArrow {
-    transform: rotate(180deg);
+}
+
+.dropdown {
+  transition: all $duration-short;
+  path {
+    fill: $shark;
   }
 }
 

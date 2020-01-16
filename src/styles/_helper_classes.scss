@@ -29,6 +29,14 @@
   padding: 4px 8px !important;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
+.flip {
+  transform: rotate(180deg);
+}
+
 // ===== Other =====
 
 // Change cursor when hovering a clickable element
@@ -44,6 +52,17 @@
     left: $gap-md;
     right: $gap-md;
   }
+
+  @include tablet-up {
+    padding: {
+      left: 2 * $gap-sm;
+      right: 2 * $gap-sm;
+    }
+  }
+}
+
+.no-pointer-events {
+  pointer-events: none;
 }
 
 .content-divider-x {
@@ -52,4 +71,10 @@
 
 .content-divider-y {
   @include content-divider(y);
+}
+
+// ===== Custom Dropdown =====
+.ccDropdown {
+  border: 1px solid $shark;
+  border-radius: $radius-large;
 }

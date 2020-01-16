@@ -22,11 +22,12 @@ Changing the class names on the Link element
 sets the style to List format or Grid format
  */
 export default function EventListCard(props) {
-  const {item} = props
+  const {item, useListView} = props
 
   return (
+    //  Use `listCard` or `gridCard` style based on `useListView` bool from parent
     <Link
-      className={props.useListView ? `${listCard}  ${columns}` : gridCard}
+      className={useListView ? `${listCard}  ${columns}` : gridCard}
       to={`events/${item.id}`}
     >
       <img
@@ -38,7 +39,7 @@ export default function EventListCard(props) {
           data-id='event_location'
           className=' is-size-7 is-uppercase has-text-weight-bold color_chalice'
         >
-          {(item.locations && item.locations.neighborhood) || 'North End'}
+          {(item.locations && item.locations[0].neighborhood) || 'North End'}
         </p>
         <p
           data-id='event_title'
@@ -57,7 +58,16 @@ export default function EventListCard(props) {
           <span>&#8226;</span>
           &nbsp;
           <span className='color_chalice'>Free</span>
+          &nbsp;
         </p>
+        {item.locations[0].distanceFromUser && (
+          <p className='color_shark'>
+            {`Distance: ${item.locations[0].distanceFromUser.toFixed(2)} ${
+              item.locations[0].distanceUnit === 'miles' ? 'mi' : 'km'
+            }`}
+          </p>
+        )}
+
         <p
           data-id='event_description'
           data-testid='event_description'

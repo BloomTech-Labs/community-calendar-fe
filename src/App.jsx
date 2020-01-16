@@ -9,17 +9,21 @@ import {useAuth0} from './contexts/auth0-context.jsx'
 import {ApolloProvider} from '@apollo/react-hooks'
 import {ApolloClient} from 'apollo-client'
 import {HttpLink} from 'apollo-link-http'
-import {InMemoryCache} from 'apollo-cache-inmemory'
 import {setContext} from 'apollo-link-context'
+import {InMemoryCache} from 'apollo-cache-inmemory'
+// import { typeDefs, resolvers } from './graphql';
 
 //pages
 import EventView from './pages/EventView'
 import Home from './pages/Home'
 import CreateEventPage from './pages/CreateEventPage'
+import SearchResults from './pages/SearchResults'
 
 //components
 import Navbar from 'navbar/Navbar'
 import PrivateRoute from 'private-route/PrivateRoute'
+import GetUserPosition from './utils/GetUserPosition'
+
 
 function App() {
   const {
@@ -64,18 +68,38 @@ function App() {
     }
   })
 
+  // initialize cache that will be used for state from server queries and local state
+  const cache = new InMemoryCache()
+
+  // initialize apollo client to resolve queries to server and local state
   const client = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
+    //client cache
+    cache,
+    // add typedefs and resolvers for local state
+    // typeDefs,
+    // resolvers
+  })
+
+  // initialize apollo client in-memory cache of local state
+  cache.writeData({
+    data: {
+      locationPermission: true,
+      userLatitude: null,
+      userLongitude: null,
+      maxDistance: null,
+    },
   })
 
   return (
     <ApolloProvider client={client}>
+      <GetUserPosition />
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
         <PrivateRoute path='/create-event' component={CreateEventPage} />
         <Route path='/events/:id' component={EventView} />
+        <Route path='/search/:searchText' component={SearchResults} />
       </Switch>
     </ApolloProvider>
   )

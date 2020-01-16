@@ -2,23 +2,47 @@ import React, {useRef, useEffect} from 'react'
 import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link} from 'react-router-dom'
 import ReactGA from 'react-ga'
-
+import gql from 'graphql-tag'
 import navUtils from './navbar_utils'
 
 //components
 import CCLogo from '../icons/CCLogo'
-import NavbarSearch from './NavbarSearch'
+import NavbarSearchBox from './NavbarSearchBox'
 
 //styles
 import {cc_navbar, navButton} from './Navbar.module.scss'
 
 // geolocation
 import getGeoPosition from '../../utils/getPosition'
+import {useQuery, useApolloClient} from '@apollo/react-hooks'
+import {GET_CACHE} from '../../graphql'
 
 export default function Navbar() {
   const {user, loginWithRedirect, logout} = useAuth0()
-  const {userPosition, setUserPosition, getUserPosition} = getGeoPosition()
-  console.log('userPosition', userPosition)
+
+  
+  // START
+  // read  local cache
+  // const client = useApolloClient()
+  // const {data: cacheData} = useQuery(GET_CACHE)
+  // console.log('cacheData', cacheData)
+
+  // // get user's position
+  // const {userPosition, setUserPosition, getUserPosition} = getGeoPosition()
+
+  // // set user's position in local cache
+  // if (
+  //   userPosition.latitude !== cacheData.latitude ||
+  //   userPosition.longitude !== cacheData.longitude
+  // ) {
+  //   client.writeData({
+  //     data: {
+  //       userLatitude: userPosition.latitude,
+  //       userLongitude: userPosition.longitude,
+  //     },
+  //   })
+  // }
+  // END
 
   // used to show/hide the dropdown menu
   const dropMenu = useRef(null)
@@ -29,8 +53,8 @@ if the dropdown menu is open and the user clicks
 outside of it close the dropdown menu
  */
     const wasDropdownClicked = e => {
-      // if user clicks div.dropdown-trigger toggle the menu
-      if (/dropdown-trigger/g.test(e.target.className)) {
+      // if user clicks div.dropdown-trigger toggle the menu&&
+      if (e.target.getAttribute('data-id') === 'navbar-profile-dropdown') {
         dropMenu.current.classList.toggle('is-active')
         // if user clicks outside of dropdown menu close menu
       } else if (!/(dropdown-(trigger|content))/g.test(e.target.className)) {
@@ -71,23 +95,20 @@ outside of it close the dropdown menu
               <button className='button small-btn is-dark'>Create Event</button>
             </Link>
           )}
-          {/* Serach functionality not yet implemented
-        <NavbarSearch /> */}
+        <NavbarSearchBox />
         </div>{' '}
         {/*end navbar-start */}
         <div className='navbar-end'>
           {user ? (
             /* user has logged in */
             <>
-              <div
-                ref={dropMenu}
-                className={`dropdown is-right`}
-                data-testid='nav-dropdown-trigger'
-              >
+              <div ref={dropMenu} className={`dropdown is-right`}>
                 <div
                   className='dropdown-trigger is-flex'
                   aria-haspopup='true'
                   aria-controls='dropdown-menu2'
+                  data-testid='nav-dropdown-trigger'
+                  data-id='navbar-profile-dropdown'
                 >
                   <img
                     src={`${user.picture}`}
