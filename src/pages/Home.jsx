@@ -89,9 +89,9 @@ outside of it close the dropdown menu
       ) : null}
 
       {/* Events list */}
-      <section className='section'>
+      <section className='section mobile-section'>
         <div className='is-flex level justify-between is-dark '>
-          <h3 className='is-family-secondary is-size-2 has-text-black-bis'>
+          <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
             Events
           </h3>
           {userLatitude && userLongitude && (
