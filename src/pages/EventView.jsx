@@ -16,7 +16,9 @@ import {
   date_display,
   space_letters,
   middle_div,
+  horizontalBar,
   descriptionDiv,
+  descriptionText,
   panel_right,
   eventView,
   socialOptions,
@@ -46,7 +48,7 @@ const EventView = () => {
   if (loading)
     return (
       <div
-        className='container level'
+        className='container level is-flex'
         style={{height: '100vh', width: '100vw'}}
       >
         <LoadingLogo />
@@ -159,24 +161,24 @@ const EventView = () => {
           <div>
             {' '}
             {/* container which separates social links/tags from event info  */}
-            <div className='columns is-mobile'>
+            <div className={`columns is-mobile ${horizontalBar}`}>
               {/* Host Name, Time, Type */}
-              <div className='column'>
+              <div className='column has-text-centered-mobile'>
                 <p className='color_chalice is-size-6half-mobile'>Hosted by:</p>
               </div>
               {/* <p className="color_shark">{creator}</p> */}
-              <div className='column'>
+              <div className='column has-text-centered-mobile'>
                 <p className='color_chalice is-size-6half-mobile'>Time:</p>
                 <p className='color_shark is-size-6half-mobile has-text-weight-bold'>{`${eventStartTime} - ${eventEndTime}`}</p>
               </div>
-              <div className='column'>
+              <div className='column has-text-centered-mobile'>
                 <p className='color_chalice is-size-6half-mobile'>Ticket Type:</p>
                 <p className='has-text-danger is-size-6half-mobile'>Free</p>
               </div>
             </div>
             <div className={descriptionDiv}>
-              <p className='has-text-weight-bold is-size-5'>Event Details</p>
-              <p>{description}</p>
+              <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>Event Details</p>
+              <p className={`${descriptionText} is-size-7-mobile`}>{description}</p>
               {/* Attend functionality not yet implemented
               <button className='button  is-dark'>Attend</button> */}
             </div>
@@ -189,7 +191,7 @@ const EventView = () => {
           <button className='button  is-dark '>Follow Host</button> */}
           <div>
             <div className='tags'>
-              <p className='has-text-weight-bold is-size-5'>Tags</p>
+              <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>Tags</p>
               {tags &&
                 tags.map((tag, indx) => (
                   <span className='tag is-small is-white' key={'tag-' + indx}>
