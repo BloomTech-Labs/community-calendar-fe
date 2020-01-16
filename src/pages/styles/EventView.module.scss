@@ -3,11 +3,20 @@
 
 .event-view {
   section {
-    padding: $gap;
+    padding: $gap-xxs;
+    @include tablet {
+      padding: $gap;
+    }
   }
 
   .banner {
-    max-height: 250px;
+    object-fit: cover;
+    max-height: 125px;
+    width: 100%;
+
+    @include tablet {
+      max-height: 250px;
+    }
   }
 
   .top_sec {
@@ -15,9 +24,21 @@
     justify-content: space-between;
     background-color: $shark;
     color: white;
+
     h1 {
-      font-size: 48px;
-      margin-bottom: $gap;
+      margin-bottom: $gap-xs;
+
+      @include tablet {
+        margin-bottom: $gap;
+      }
+    }
+
+    .space_letters {
+      letter-spacing: 2px;
+    }
+
+    .date_display {
+      margin-bottom: $gap-xs
     }
 
     .panel_right {

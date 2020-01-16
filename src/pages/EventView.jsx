@@ -6,13 +6,15 @@ import LoadingLogo from '../components/loading/LoadingLogo'
 
 //graphql
 import {useQuery} from '@apollo/react-hooks'
-import {GET_EVENT_BY_ID} from '../graphql/events.query'
+import {GET_EVENT_BY_ID_WITH_DISTANCE, GET_CACHE} from '../graphql'
 import {months, weekDays} from '../utils/time-helpers.js'
 
 //styles
 import {
   banner,
   top_sec,
+  date_display,
+  space_letters,
   middle_div,
   descriptionDiv,
   panel_right,
@@ -25,8 +27,21 @@ Users can RSVP to an event from here.
  */
 const EventView = () => {
   const queryParams = useParams()
-  //destructure event information passed through props
-  const {data, loading, error} = useQuery(GET_EVENT_BY_ID(queryParams.id))
+
+  const {data: localCache} = useQuery(GET_CACHE)
+  const {userLatitude, userLongitude} = localCache
+  console.log("coords", userLongitude, userLatitude)
+
+  // destructure event information passed through props
+  const apolloData = useQuery(GET_EVENT_BY_ID_WITH_DISTANCE, {
+    variables: {id: queryParams.id, userLatitude: userLatitude, userLongitude: userLongitude},
+  })
+  const {data, loading, error, refetch} = apolloData
+
+  // find distance from user and update events with results if user location changes
+  useEffect(() => {
+    refetch({userLatitude, userLongitude})
+  }, [userLatitude, userLongitude])
 
   if (loading)
     return (
@@ -55,10 +70,12 @@ const EventView = () => {
   const {
     name,
     street_address,
-    // street_address_2,
-    // city,
-    // zipcode,
-    // state,
+    street_address_2,
+    city,
+    zipcode,
+    state,
+    distanceFromUser,
+    distanceUnit
   } = locations[0]
 
   //convert start date to Date object
@@ -85,25 +102,42 @@ const EventView = () => {
       {/* Banner image */}
       <img
         className={`${banner} is-block mx-auto`}
+        // className='mx-auto'
         src={event_images[0].url}
         alt='banner'
       />
       {/* Event title, location, RSVP info */}
       <section className={top_sec}>
         <div>
-          <h1 className='is-family-secondary'>{title}</h1>
-          <p>{`${
-            months[startDate.getMonth()]
-          } ${startDate.getDate()}, ${startDate.getFullYear()} ${
-            weekDays[startDate.getDay()]
-          }`}</p>
-          <p>{`${street_address}, ${name}`}</p>
-        </div>
+          <h1 className='is-family-secondary is-size-1 is-size-4-mobile'>{title}</h1>
+          <p className={`has-text-weight-bold is-size-6-mobile ${date_display}`}>
+            {`
+            ${months[startDate.getMonth()]} ${startDate.getDate()},
+             ${startDate.getFullYear()} ${weekDays[startDate.getDay()]}
+            `}
+          </p>
+          <p className='has-text-weight-bold is-size-6-mobile'>
+            {name}
+            {/* Display distance from user if user's position was provided to server */}
+            {(distanceFromUser && distanceUnit && (
+              <span className='is-size-7-mobile'>
+                &nbsp; &#8226; &nbsp; 
+                <span className={space_letters}>{`${distanceFromUser.toFixed(1)}`}</span>
+                &nbsp;
+                {`${distanceUnit === 'miles' ? 'mi' : 'km'} away`}
+              </span>
+            ))}
+          </p>
+          <p className='is-size-7-mobile'>
+              {`${street_address}, ${street_address_2 ? `${street_address_2}, ` : ''}
+              ${city}, ${state}, ${zipcode}`}
+          </p>
+        </div> 
         <div className={panel_right}>
           {/* Manage Buton, only displays if logged-in user is the event creator  */}
-          <div>
-            <button className="manage-button button">Manage</button>
-          </div>
+          {/* <div>
+            <button className="manage-button butto n">Manage</button>
+          </div> */}
 
           {/* numbers to be replaced with event information */}
           {/* <div>

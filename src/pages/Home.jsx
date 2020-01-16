@@ -16,15 +16,15 @@ import styles from './styles/Home.module.scss'
 
 /* The first page user's see when opening the app */
 const Home = () => {
-  const client = useApolloClient()
   ReactGA.pageview('/')
 
   // used for distance select dropdown menu
   const distanceSelect = useRef(null)
   const dropdownArrow = useRef(null)
-  const {data: localCache} = useQuery(GET_CACHE)
 
   // local cache data
+  const client = useApolloClient()
+  const {data: localCache} = useQuery(GET_CACHE)
   const {userLatitude, userLongitude, maxDistance} = localCache
 
   const apolloData = useQuery(GET_EVENTS_WITH_DISTANCE, {
