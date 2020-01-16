@@ -59,7 +59,7 @@ const EventView = () => {
     // city,
     // zipcode,
     // state,
-  } = locations[0]
+  } = locations.length > 0 && locations[0]
 
   //convert start date to Date object
   const startDate = new Date(start)
@@ -83,11 +83,11 @@ const EventView = () => {
   return (
     <div className={eventView}>
       {/* Banner image */}
-      <img
+      {event_images.length > 0 && <img
         className={`${banner} is-block mx-auto`}
         src={event_images[0].url}
         alt='banner'
-      />
+      />}
       {/* Event title, location, RSVP info */}
       <section className={top_sec}>
         <div>

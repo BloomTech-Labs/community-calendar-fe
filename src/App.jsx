@@ -97,7 +97,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
-        <PrivateRoute path='/create-event' component={CreateEventPage} />
+        <Route path='/create-event' component={CreateEventPage} />
         <Route path='/events/:id' component={EventView} />
         <Route path='/search/:searchText' component={SearchResults} />
       </Switch>
