@@ -7,7 +7,10 @@ body {
 }
 
 a {
-  color: inherit;
+  color: #000;
+  &:hover {
+    color: #000;
+  }
 }
 
 /* hand cursor on clickable elements */
