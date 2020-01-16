@@ -13,7 +13,6 @@ import {GET_ALL_TAGS} from '../../graphql/events.query'
 const TagInput = ({selectedTags, setSelectedTags}) => {
     const {data, loading, error} = useQuery(GET_ALL_TAGS);
 
-    // const [newTags, setNewTags] = useState();
     const [hasFocus, setHasFocus] = useState();
     const tagDisplay = useRef(null);
 
@@ -60,6 +59,12 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
         return <div>Error loading tags</div>
     }
 
+    console.log(data.tags)
+    data.tags = data.tags.sort((last, cur) => last.title - cur.title);
+    console.log(data.tags)
+
+
+
      return (
         <div>
             <div className={tagDisplayClass} ref={tagDisplay}>
@@ -67,7 +72,7 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
                     selectedTags.length === 0 
                     ?   <p>select tags </p>
                     :   selectedTags.map(tag => (
-                                <span key={tag.id} className={tagClass}>
+                                <span key={tag.id} className={`${tagClass} is-family-primary`}>
                                     {tag.title}
                                     <span onClick={() => removeSelectedTag(tag.id)}>&#x274C;</span>
                                 </span>

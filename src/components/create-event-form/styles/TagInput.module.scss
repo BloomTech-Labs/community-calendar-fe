@@ -3,11 +3,11 @@
     // height: 2.8rem;
     // margin-top: 1rem;
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .tagList {
-    width: 48%;
+    width: 48% !important;
     height: 15vh;
     position: absolute;
     background-color: white;
@@ -18,12 +18,16 @@
 
 .tagClass {
     padding: 0.5rem 1rem;
-    margin: 0 10px;
-    text-align: center;
-    background-color: green;
+    // margin: 0 10px;
+    // text-align: center;
     width: unset;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
     
     span {
+        width: unset;
         margin-left: 0.4rem;
     }
 }
