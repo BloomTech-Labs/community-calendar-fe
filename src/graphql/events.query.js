@@ -113,6 +113,15 @@ export const GET_EVENTS_WITH_DISTANCE = gql`
   ${ADDRESS_DETAIL_DATA}
 `
 
+export const GET_ALL_TAGS = gql`
+  query {
+    tags {
+      id
+      title
+    }
+  }
+`
+
 export const GET_EVENT_BY_ID = id => {
   const QUERY = gql`
     query{

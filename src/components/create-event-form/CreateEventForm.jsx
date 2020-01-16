@@ -5,6 +5,8 @@ import {states, statesAbbreviated} from './states'
 import UploadIcon from '../icons/UploadIcon'
 import gql from 'graphql-tag'
 import {useMutation} from '@apollo/react-hooks';
+import moment from 'moment';
+import TagInput from "./TagInput";
 
 import {
   flexcolumn,
@@ -22,6 +24,7 @@ import {
 const CreateEventForm = () => {
   const {register, handleSubmit, errors} = useForm()
   const [images, setImages] = useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
 
   
 const CREATE_EVENT = gql`
@@ -251,17 +254,18 @@ const [createEvent, {data, error}] = useMutation(CREATE_EVENT);
           </select>
         </label>
         </div>
-        <div>
-        <label>
-          Tags
-          <input
+        <div> 
+          <label>
+          Tags 
+           <TagInput selectedTags={selectedTags} setSelectedTags={setSelectedTags}/> 
+          {/* <input
             className={`${input}`}
             type='text'
             placeholder='Select tags of event'
             name='Event Tags'
             ref={register}
-          />
-        </label>
+          /> */}
+          </label>
         </div>
         <div className={`${vSpacing}`}>
         <label style={{pointerEvents: "none"}}>
