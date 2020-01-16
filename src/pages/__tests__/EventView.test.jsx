@@ -11,7 +11,7 @@ import {MemoryRouter} from 'react-router-dom'
 import {GET_EVENT_BY_ID} from '../../graphql/events.query'
 
 //mock data
-import testEvent from 'mock_data/test_event'
+import { TEST_FULL } from 'mock_data/test_event'
 
 //Apollo mock
 const mocks = [
@@ -19,12 +19,12 @@ const mocks = [
     request: {
       query: GET_EVENT_BY_ID,
       variables: {
-        id: testEvent.id,
+        id: TEST_FULL.id,
       },
     },
     result: {
       data: {
-        events: [{...testEvent}],
+        events: [{...TEST_FULL}],
       },
     },
   },
@@ -33,7 +33,7 @@ const mocks = [
 describe.skip('Tests for EventView', () => {
   test('Should match the snapshot', () => {
     // mock useParams
-    const useParams = jest.fn(() => testEvent.id)
+    const useParams = jest.fn(() => TEST_FULL.id)
 
     const tree = render(
       <MemoryRouter>
