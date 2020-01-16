@@ -10,6 +10,17 @@ import {
 import {useQuery} from '@apollo/react-hooks'
 import {GET_ALL_TAGS} from '../../graphql/events.query'
 
+const tagSorter = (str1, str2) => {
+    const shorterStrLen = str1.length < str2.length ? str1.length : str2.length;
+  
+    for(let i = 0; i < shorterStrLen; i++) {
+      if(str1[i] !== str2[i]) {
+        return str1[i] < str2[i] ? 1 : -1
+      }
+    }
+    return 0;
+  }
+
 const TagInput = ({selectedTags, setSelectedTags}) => {
     const {data, loading, error} = useQuery(GET_ALL_TAGS);
 
@@ -59,11 +70,7 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
         return <div>Error loading tags</div>
     }
 
-    console.log(data.tags)
-    data.tags = data.tags.sort((last, cur) => last.title - cur.title);
-    console.log(data.tags)
-
-
+    data.tags = data.tags.sort(tagSorter);
 
      return (
         <div>

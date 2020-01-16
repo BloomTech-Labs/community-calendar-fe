@@ -1,7 +1,5 @@
 .tagDisplayClass {
     border-bottom: 2px solid black;
-    // height: 2.8rem;
-    // margin-top: 1rem;
     display: flex;
     flex-wrap: wrap;
 }
@@ -12,19 +10,16 @@
     position: absolute;
     background-color: white;
     z-index: 1;
-    // overflow-x: hidden;
     overflow-y: scroll;
 }
 
 .tagClass {
     padding: 0.5rem 1rem;
-    // margin: 0 10px;
-    // text-align: center;
-    width: unset;
     border: 1px solid black;
     border-radius: 10px;
     margin-left: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
+    width: unset;
     
     span {
         width: unset;
