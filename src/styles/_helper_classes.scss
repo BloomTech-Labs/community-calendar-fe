@@ -15,9 +15,42 @@
   color: $shark;
 }
 
+// ===== Palette =====
+
+// is-size-5 resolves to 20px, is-size-6 resolves to 16px, is-size-7 resolves to 12px
+
+// is-size-5half resolves to 18px
+.is-size-5half {
+  font-size: 1.125rem !important;
+}
+
+.is-size-5half-mobile {
+  @include mobile {
+    font-size: 1.125rem !important;
+  }
+}
+
+// is-size-6half resolves to 14px
+.is-size-6half {
+  font-size: 0.875rem !important;
+}
+
+.is-size-6half-mobile {
+  @include mobile {
+    font-size: 0.875rem !important;
+  }
+}
+
 // ===== Postion , Padding, Margin, Box Shape =====
 .is-round {
   @include is-round;
+}
+
+.mobile-section {
+  @include mobile {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
 }
 
 // horizontally center an element

@@ -1,16 +1,42 @@
 @import '_variables.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/_all.sass';
+
 
 .event_filter_buttons {
-  padding-top: $gap-sm;
+  display: flex;
+  justify-content: space-between;
+  margin: {
+    top: $gap-sm;
+    bottom: $gap-sm;
+  }
+
   button:first-of-type {
     padding-left: 0;
   }
 
+    @include mobile-xs-to-tablet{
+      display:block;
+    }
+
+    @include tablet{
+      display:block;
+    }
   button {
+    padding: 0;
+    font-size: 11px;
     border: none;
     background-color: white;
     &:focus {
       outline: none;
+    }
+    @include mobile-xs-to-tablet{
+    padding-left: 6px;
+      font-size: $size-6;
+    }
+    @include tablet{
+    padding-left: 12px;
+      font-size: $size-4;
     }
   }
 }

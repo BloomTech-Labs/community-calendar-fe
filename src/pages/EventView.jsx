@@ -6,15 +6,19 @@ import LoadingLogo from '../components/loading/LoadingLogo'
 
 //graphql
 import {useQuery} from '@apollo/react-hooks'
-import {GET_EVENT_BY_ID} from '../graphql/events.query'
+import {GET_EVENT_BY_ID_WITH_DISTANCE, GET_CACHE} from '../graphql'
 import {months, weekDays} from '../utils/time-helpers.js'
 
 //styles
 import {
   banner,
   top_sec,
+  date_display,
+  space_letters,
   middle_div,
+  horizontalBar,
   descriptionDiv,
+  descriptionText,
   panel_right,
   eventView,
   socialOptions,
@@ -25,13 +29,26 @@ Users can RSVP to an event from here.
  */
 const EventView = () => {
   const queryParams = useParams()
-  //destructure event information passed through props
-  const {data, loading, error} = useQuery(GET_EVENT_BY_ID(queryParams.id))
+
+  const {data: localCache} = useQuery(GET_CACHE)
+  const {userLatitude, userLongitude} = localCache
+  console.log("coords", userLongitude, userLatitude)
+
+  // destructure event information passed through props
+  const apolloData = useQuery(GET_EVENT_BY_ID_WITH_DISTANCE, {
+    variables: {id: queryParams.id, userLatitude: userLatitude, userLongitude: userLongitude},
+  })
+  const {data, loading, error, refetch} = apolloData
+
+  // find distance from user and update events with results if user location changes
+  useEffect(() => {
+    refetch({userLatitude, userLongitude})
+  }, [userLatitude, userLongitude])
 
   if (loading)
     return (
       <div
-        className='container level'
+        className='container level is-flex'
         style={{height: '100vh', width: '100vw'}}
       >
         <LoadingLogo />
@@ -55,10 +72,12 @@ const EventView = () => {
   const {
     name,
     street_address,
-    // street_address_2,
-    // city,
-    // zipcode,
-    // state,
+    street_address_2,
+    city,
+    zipcode,
+    state,
+    distanceFromUser,
+    distanceUnit
   } = locations[0]
 
   //convert start date to Date object
@@ -85,32 +104,56 @@ const EventView = () => {
       {/* Banner image */}
       <img
         className={`${banner} is-block mx-auto`}
+        // className='mx-auto'
         src={event_images[0].url}
         alt='banner'
       />
       {/* Event title, location, RSVP info */}
       <section className={top_sec}>
         <div>
-          <h1 className='is-family-secondary'>{title}</h1>
-          <p>{`${
-            months[startDate.getMonth()]
-          } ${startDate.getDate()}, ${startDate.getFullYear()} ${
-            weekDays[startDate.getDay()]
-          }`}</p>
-          <p>{`${street_address}, ${name}`}</p>
-        </div>
-        <div className={panel_right}>
-          {/* numbers to be replaced with event information */}
-          {/* <p>
-            Going:
-            <br />
-            <span className='has-text-weight-bold'>50</span>
+          <h1 className='is-family-secondary is-size-1 is-size-4-mobile'>{title}</h1>
+          <p className={`has-text-weight-bold is-size-6-mobile ${date_display}`}>
+            {`
+            ${months[startDate.getMonth()]} ${startDate.getDate()},
+             ${startDate.getFullYear()} ${weekDays[startDate.getDay()]}
+            `}
           </p>
-          <p>
-            Interested:
-            <br />
-            <span className='has-text-weight-bold'>100</span>
-          </p> */}
+          <p className='has-text-weight-bold is-size-6-mobile'>
+            {name}
+            {/* Display distance from user if user's position was provided to server */}
+            {(distanceFromUser && distanceUnit && (
+              <span className='is-size-7-mobile'>
+                &nbsp; &#8226; &nbsp; 
+                <span className={space_letters}>{`${distanceFromUser.toFixed(1)}`}</span>
+                &nbsp;
+                {`${distanceUnit === 'miles' ? 'mi' : 'km'} away`}
+              </span>
+            ))}
+          </p>
+          <p className='is-size-7-mobile'>
+              {`${street_address}, ${street_address_2 ? `${street_address_2}, ` : ''}
+              ${city}, ${state}, ${zipcode}`}
+          </p>
+        </div> 
+        <div className={panel_right}>
+          {/* Manage Buton, only displays if logged-in user is the event creator  */}
+          {/* <div>
+            <button className="manage-button butto n">Manage</button>
+          </div> */}
+
+          {/* numbers to be replaced with event information */}
+          {/* <div>
+            <p>
+              Going:
+              <br />
+              <span className='has-text-weight-bold'>50</span>
+            </p>
+            <p>
+              Interested:
+              <br />
+              <span className='has-text-weight-bold'>100</span>
+            </p>
+          </div> */}
         </div>
       </section>
       <section className=''>
@@ -118,45 +161,47 @@ const EventView = () => {
           <div>
             {' '}
             {/* container which separates social links/tags from event info  */}
-            <div className='columns'>
+            <div className={`columns is-mobile ${horizontalBar}`}>
               {/* Host Name, Time, Type */}
-              <div className='column'>
-                <p className='color_chalice'>Hosted by:</p>
+              <div className='column has-text-centered-mobile'>
+                <p className='color_chalice is-size-6half-mobile'>Hosted by:</p>
               </div>
               {/* <p className="color_shark">{creator}</p> */}
-              <div className='column'>
-                <p className='color_chalice'>Time:</p>
-                <p className='color_shark has-text-weight-bold'>{`${eventStartTime} - ${eventEndTime}`}</p>
+              <div className='column has-text-centered-mobile'>
+                <p className='color_chalice is-size-6half-mobile'>Time:</p>
+                <p className='color_shark is-size-6half-mobile has-text-weight-bold'>{`${eventStartTime} - ${eventEndTime}`}</p>
               </div>
-              <div className='column'>
-                <p className='color_chalice'>Ticket Type:</p>
-                <p className='has-text-danger'>Free</p>
+              <div className='column has-text-centered-mobile'>
+                <p className='color_chalice is-size-6half-mobile'>Ticket Type:</p>
+                <p className='has-text-danger is-size-6half-mobile'>Free</p>
               </div>
             </div>
             <div className={descriptionDiv}>
-              <p className='has-text-weight-bold is-size-5'>Event Details</p>
-              <p>{description}</p>
+              <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>Event Details</p>
+              <p className={`${descriptionText} is-size-7-mobile`}>{description}</p>
               {/* Attend functionality not yet implemented
               <button className='button  is-dark'>Attend</button> */}
             </div>
+
           </div>
           {/* Appears to right of event info on tablet+ */}
-          <div className={socialOptions}>
-            {/* Follow host functionality not yet implemented
-            <button className='button  is-dark '>Follow Host</button> */}
-            <div>
-              <p className=' is-size-5'>Tags</p>
-              <div className='tags'>
-                {tags &&
-                  tags.map((tag, indx) => (
-                    <span className='tag is-small is-white' key={'tag-' + indx}>
-                      {tag.title}
-                    </span>
-                  ))}
-              </div>
+        </div>
+        <div className={socialOptions}>
+          {/* Follow host functionality not yet implemented
+          <button className='button  is-dark '>Follow Host</button> */}
+          <div>
+            <div className='tags'>
+              <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>Tags</p>
+              {tags &&
+                tags.map((tag, indx) => (
+                  <span className='tag is-small is-white' key={'tag-' + indx}>
+                    {tag.title}
+                  </span>
+                ))}
             </div>
           </div>
         </div>
+
       </section>
     </div>
   )

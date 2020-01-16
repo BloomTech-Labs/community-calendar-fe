@@ -14,8 +14,8 @@ import ReactSimpleCarousel from "react-spring-carousel";
 function FeatCarousel({apolloData: {data, loading, error}}) {
 
   return (
-    <section style={{paddingBottom: 0}} className='section'>
-      <h3 className='is-family-secondary is-size-2 has-text-black-bis'>
+    <section style={{paddingBottom: 0}} className='section mobile-section'>
+      <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
         Featured
       </h3>
       

@@ -46,6 +46,12 @@ Default direction is horizontal . Pass 'y' for vertical divider
   }
 }
 
+@mixin mobile-xs-to-tablet {
+  @media screen and (min-width: $mobile-xs + 1px) and ( max-width: $tablet - 1px) {
+    @content;
+  }
+}
+
 @mixin mobile-xs-only {
   @media screen and (max-width: $mobile-xs) {
     @content;
