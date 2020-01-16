@@ -159,19 +159,19 @@ const EventView = () => {
           <div>
             {' '}
             {/* container which separates social links/tags from event info  */}
-            <div className='columns'>
+            <div className='columns is-mobile'>
               {/* Host Name, Time, Type */}
               <div className='column'>
-                <p className='color_chalice'>Hosted by:</p>
+                <p className='color_chalice is-size-6half-mobile'>Hosted by:</p>
               </div>
               {/* <p className="color_shark">{creator}</p> */}
               <div className='column'>
-                <p className='color_chalice'>Time:</p>
-                <p className='color_shark has-text-weight-bold'>{`${eventStartTime} - ${eventEndTime}`}</p>
+                <p className='color_chalice is-size-6half-mobile'>Time:</p>
+                <p className='color_shark is-size-6half-mobile has-text-weight-bold'>{`${eventStartTime} - ${eventEndTime}`}</p>
               </div>
               <div className='column'>
-                <p className='color_chalice'>Ticket Type:</p>
-                <p className='has-text-danger'>Free</p>
+                <p className='color_chalice is-size-6half-mobile'>Ticket Type:</p>
+                <p className='has-text-danger is-size-6half-mobile'>Free</p>
               </div>
             </div>
             <div className={descriptionDiv}>

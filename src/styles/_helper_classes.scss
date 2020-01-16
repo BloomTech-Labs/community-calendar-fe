@@ -15,6 +15,19 @@
   color: $shark;
 }
 
+// ===== Palette =====
+
+// is-size-6 resolves to 16px, is-size-7 resolves to 12px
+.is-size-6half {
+  font-size: 0.875rem;
+}
+
+.is-size-6half-mobile {
+  @include mobile {
+    font-size: 0.875rem;
+  }
+}
+
 // ===== Postion , Padding, Margin, Box Shape =====
 .is-round {
   @include is-round;
