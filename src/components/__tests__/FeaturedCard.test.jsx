@@ -11,8 +11,8 @@ import moment from 'moment'
 // Components to test
 import FeaturedCard from '../featured/FeaturedCard'
 
-//mock testEvent
-import testEvent from 'mock_data/test_event'
+//mock TEST_FULL
+import { TEST_FULL } from 'mock_data/test_event'
 
 describe('Tests for FeaturedCards', () => {
   beforeEach(() => {
@@ -25,21 +25,21 @@ describe('Tests for FeaturedCards', () => {
 
     const tree = render(
       <MemoryRouter>
-        <FeaturedCard item={testEvent} />
+        <FeaturedCard item={TEST_FULL} />
       </MemoryRouter>,
     )
     expect(tree).toMatchSnapshot()
   })
 
-  test('Should display correct testEvent', () => {
+  test('Should display correct TEST_FULL', () => {
     jest.mock('moment', () => () => ({format: () => 'test'}))
     const {getByText} = render(
       <MemoryRouter>
-        <FeaturedCard item={testEvent} />
+        <FeaturedCard item={TEST_FULL} />
       </MemoryRouter>,
     )
 
-    expect(getByText(testEvent.title)).toBeInTheDocument()
-    expect(getByText(/8000 woodward ave, detroit/i)).toBeInTheDocument()
+    expect(getByText(TEST_FULL.title)).toBeInTheDocument()
+    expect(getByText(/600 woodward avenue, detroit/i)).toBeInTheDocument()
   })
 })
