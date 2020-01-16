@@ -46,6 +46,10 @@ a.list-card {
     }
   }
 
+  .space_letters {
+    letter-spacing: 2px;
+  }
+
   .descriptionUnderline {
     position: absolute;
     bottom: -$gap-md;
@@ -86,6 +90,10 @@ a.grid-card {
 
   .event_details {
     padding: $gap-sm $gap-xxs;
+  }
+
+  .space_letters {
+    letter-spacing: 2px;
   }
 
   .event_description {
