@@ -33,6 +33,10 @@
   justify-content: space-between;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 .flip {
   transform: rotate(180deg);
 }
@@ -77,4 +81,14 @@
 .ccDropdown {
   border: 1px solid $shark;
   border-radius: $radius-large;
+}
+
+// ===== Borders =====
+.no-border {
+  border: none !important;
+}
+
+// ===== Animations =====
+.hover-underline {
+  @include underline;
 }

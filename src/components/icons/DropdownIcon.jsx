@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {dropdown} from './Icons.module.scss'
+import {dropdown, darkFill} from './Icons.module.scss'
 
 const DropdownIcon = ({showDropdown, dimensions, dataId}) => {
   return (
@@ -9,8 +9,7 @@ const DropdownIcon = ({showDropdown, dimensions, dataId}) => {
       width={dimensions ? dimensions : 13}
       height={dimensions ? dimensions : 7}
       viewBox='0 0 13 7'
-      className={dropdown}
-      // className={`${dropdown} ${showDropdown ? 'flip' : ''} `}
+      className={(dropdown, darkFill)}
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
       style={{pointerEvents: 'none'}}
