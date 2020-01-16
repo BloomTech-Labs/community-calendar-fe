@@ -5,6 +5,7 @@ import {
   GET_EVENTS,
   GET_EVENTS_WITH_DISTANCE,
   GET_EVENT_BY_ID,
+  GET_EVENT_BY_ID_WITH_DISTANCE
 } from './events.query.js'
 import USERS from './users.query.js'
 
@@ -24,6 +25,7 @@ export {
   GET_EVENTS,
   GET_EVENTS_WITH_DISTANCE,
   GET_EVENT_BY_ID,
+  GET_EVENT_BY_ID_WITH_DISTANCE,
   USER_LOCATION,
   USERS,
   GET_CACHE,
