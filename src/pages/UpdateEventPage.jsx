@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateEvent from '../components/event_forms/CreateEvent'
+import UpdateEvent from '../components/event_forms/UpdateEvent'
 
 // styles
 import {
