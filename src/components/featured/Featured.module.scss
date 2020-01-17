@@ -13,6 +13,10 @@
       bottom: 8px;
     }
     margin-left: -$gap-xxs;
+
+    @include mobile {
+      margin-top: $gap-xxs;
+    }
   }
 
   &-card {

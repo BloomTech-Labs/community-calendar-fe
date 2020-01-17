@@ -5,24 +5,123 @@
 
 // ===== Navbar =====
 
-.navbar-brand,
-.navbar-start,
-.navbar-end {
-  align-items: center;
-}
-
-.navbar-menu {
-  background-color: transparent;
-  box-shadow: none;
+.navbar {
   display: flex;
-  justify-content: space-between;
-  flex-grow: 1;
-  padding: 0;
-}
+  flex-direction: column;
+  padding: 0 $gap-sm;
+  border-bottom: 2px solid $black-bis;
+  margin-top: 0 !important;
 
-.navbar-start {
-  button {
-    margin-left: $gap-sm;
+  img {
+    pointer-events: none;
+  }
+
+  @include tablet-up {
+    padding: 0 $bodyPaddingX-hd;
+    flex-direction: row;
+    height: 72px;
+  }
+
+  &-start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+      margin-left: $gap-sm;
+    }
+  }
+
+  &-end {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: {
+      bottom: $gap-sm;
+    }
+    & > a,
+    > div,
+    > button {
+      margin: {
+        top: $gap-sm;
+      }
+    }
+    @include tablet {
+      flex-direction: row;
+      margin: {
+        bottom: 0;
+      }
+      & > a,
+      div,
+      button {
+        margin: {
+          left: $gap-xxs;
+          top: 0;
+        }
+      }
+    }
+  }
+
+  &-brand {
+    align-items: center;
+    width: 100%;
+    @include tablet {
+      width: max-content;
+    }
+  }
+
+  &-item {
+    margin: 0 $gap-xxs;
+  }
+
+  &-menu {
+    background-color: transparent;
+    box-shadow: none;
+    flex-grow: 1;
+    padding: 0;
+    flex-direction: column;
+    overflow: visible !important;
+
+    @include tablet {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+    }
+
+    &.is-active {
+      display: flex;
+    }
+  }
+
+  &-burger {
+    width: 16px;
+    margin-right: $gap-xxs;
+    &:hover {
+      color: initial;
+      background-color: initial;
+    }
+
+    span {
+      pointer-events: none;
+    }
+  }
+
+  &-search {
+    padding-left: 12px;
+    display: flex;
+    align-items: center !important;
+    border-radius: $radius;
+    width: 300px;
+    transition: width 0.4s;
+
+    @include tablet {
+      max-width: 350px;
+      flex-grow: 1;
+    }
+
+    &-input {
+      width: initial;
+    }
   }
 }
 
@@ -40,8 +139,29 @@
       color: white;
     }
   }
+  &-content {
+    background-color: $offwhite;
+  }
+
+  &-menu {
+    @include willSlideDown;
+  }
+  &.is-active &-menu {
+    @include slideDownShow;
+  }
 }
 
+.dropdown .dropdown-menu.drop-center {
+  @include willSlideDown(0.4s);
+  min-width: unset;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%) !important;
+}
+
+.dropdown.is-active .dropdown-menu.drop-center {
+  @include slideDownShow;
+}
 // ===== Section =====
 .section {
   padding: {
@@ -60,6 +180,10 @@
 
 .button {
   border-radius: $radius-large;
+
+  &:hover {
+    color: inherit;
+  }
 }
 
 .button.is-dark {
@@ -85,5 +209,21 @@
       top: 0;
       bottom: 0;
     }
+  }
+}
+
+// ===== Level =====
+.level {
+  &:not(:last-child) {
+    margin-bottom: 0;
+  }
+}
+
+// ===== Select =====
+div.select.is-rounded select {
+  border-radius: $radius-large;
+
+  option {
+    text-align: center;
   }
 }

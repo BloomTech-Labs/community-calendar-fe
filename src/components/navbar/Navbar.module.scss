@@ -3,30 +3,17 @@
 @import '_mixins.scss';
 @import '~bulma/sass/utilities/_all.sass';
 
-.cc_navbar {
-  padding: 0 $bodyPaddingX-hd;
-  height: $navbar-height;
-  border-bottom: 2px solid $black-bis;
-  margin-top: 0 !important;
-  display: flex;
-  align-items: center;
-
-  img {
-    pointer-events: none;
+.navButton {
+  border: 0;
+  color: $black;
+  border-radius: $radius-large;
+  background: none;
+  position: relative;
+  transition: color 0.4s ease-in-out 0.1s;
+  &:hover {
+    color: $shark;
   }
-
-  .navButton {
-    border: 0;
-    color: $black;
-    border-radius: $radius-large;
-    background: none;
-    position: relative;
-    transition: color 0.4s ease-in-out 0.1s;
-    &:hover {
-      color: #fff;
-    }
-    @include expanding-box($radius-large, $black-bis);
-  }
+  @include underline;
 }
 
 .profileButton {
@@ -35,20 +22,5 @@
   img {
     width: 35px;
     height: 35px;
-  }
-}
-
-.navsearch {
-  padding-left: 12px;
-  display: flex;
-  align-items: center !important;
-  border-radius: $radius;
-  width: 100%;
-  max-width: 100px;
-  flex-grow: 1;
-  transition: width 0.4s;
-
-  @include tablet {
-    max-width: 350px;
   }
 }

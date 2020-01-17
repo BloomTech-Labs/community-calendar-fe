@@ -3,6 +3,7 @@
 @import '~bulma/sass/base/minireset.sass';
 @import '_typography.scss';
 @import '_variables.scss';
+@import '~bulma/sass/utilities/_all.sass';
 @import '_mixins.scss';
 @import '_global.scss';
 @import '_animations.scss';
@@ -12,7 +13,6 @@ declare/import  bulma variable modifications and custom classes before
 bulma or the classes will be duplicated in the output
 */
 
-@import '~bulma/sass/utilities/_all.sass';
 @import '~bulma/sass/base/generic.sass';
 @import '~bulma/sass/base/helpers.sass';
 @import '~bulma/sass/elements/_all.sass';
