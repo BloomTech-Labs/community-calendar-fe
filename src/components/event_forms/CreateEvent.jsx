@@ -8,6 +8,10 @@ export default function CreateEvent() {
   const [addEvent, {data, error}] = useMutation(ADD_EVENT);
 
   return (
-    <EventForm mutation={addEvent} data={data} error={error} />
+    <EventForm 
+      formType="add"
+      mutation={addEvent} 
+      mutationData={data} 
+      mutationError={error} />
   )
 }

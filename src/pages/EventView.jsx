@@ -45,6 +45,7 @@ const EventView = () => {
     refetch({userLatitude, userLongitude})
   }, [userLatitude, userLongitude])
 
+  // render loading spinner or error message if fetch fails
   if (loading)
     return (
       <div
@@ -56,6 +57,8 @@ const EventView = () => {
     )
   if (error) return <p>Error</p>
 
+
+  // destructure and render event properties when fetch successful
   const {
     id,
     title,

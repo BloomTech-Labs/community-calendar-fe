@@ -30,8 +30,14 @@ const EventForm = (props) => {
   const [images, setImages] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
 
-  // destructure mutation function, data, and error from props. useMutation defined in parent
-  const {mutation, data, error: mutationError} = props;
+  // destructure formType, mutation function, data, and error from props.
+  // formType is "add" or "update"
+  // item is result of GET_EVENT_BY_IS query only passed down for an EditForm
+  // mutation is AddEvent or UpdateEvent as defined in parent useMutation
+  // mutationData and mutationError could possibly be removed and handled in parent
+  const {formType, item, mutation, mutationData, mutationError} = props;
+
+  console.log("formType and item props in EventForm", formType, item);
 
   const onSubmit = formValues => {
     const {
@@ -74,8 +80,8 @@ const EventForm = (props) => {
     }
   }
 
-  if(data){
-    console.log(data);
+  if(mutationData){
+    console.log(mutationData);
   }
 
   if(formErrors.length > 0){
