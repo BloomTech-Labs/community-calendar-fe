@@ -157,25 +157,26 @@ export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
     $userLatitude: Float
     $userLongitude: Float
   ) {
-    events(where: {id: $id}){
-    ...EventDetail
-    creator {
-      id
-    }
-    locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
-      id
-      name
-      latitude
-      longitude
-      distanceFromUser
-      distanceUnit
-      ...AddressDetail
-    }
-    eventImages {
-      url
-    }
-    tags{
-      title
+    events(where: {id: $id}) {
+      ...EventDetail
+      creator {
+        id
+      }
+      locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
+        id
+        name
+        latitude
+        longitude
+        distanceFromUser
+        distanceUnit
+        ...AddressDetail
+      }
+      eventImages {
+        url
+      }
+      tags {
+        title
+      }
     }
   }
   ${EVENT_DETAIL_DATA}
