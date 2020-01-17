@@ -4,13 +4,17 @@
     flex-wrap: wrap;
 }
 
-.tagList {
+.suggestedTags {
     width: 48% !important;
     max-height: 15vh;
     position: absolute;
     background-color: white;
     z-index: 1;
     overflow-y: scroll;
+
+    p:hover {
+        background-color: blue;
+    }
 }
 
 .tagClass {
