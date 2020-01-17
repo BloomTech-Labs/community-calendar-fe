@@ -19,9 +19,9 @@ import {
   shark,
   vSpacing,
   littleTopMargin
-} from './styles/CreateEventForm.module.scss'
+} from './styles/EventForm.module.scss'
 
-const CreateEventForm = () => {
+const EventForm = () => {
   const {register, handleSubmit, errors} = useForm()
   const [images, setImages] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -321,4 +321,4 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
   )
 }
 
-export default CreateEventForm
+export default EventForm

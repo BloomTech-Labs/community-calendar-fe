@@ -2,7 +2,7 @@ import React from 'react'
 
 // components
 import LoadingLogo from '../components/loading/LoadingLogo'
-import CreateEventForm from 'create-event-form/CreateEventForm'
+import CreateEvent from '../components/event_forms/CreateEvent'
 
 import {
   createEventsContainer,
@@ -21,7 +21,7 @@ export default function CreateEventPage() {
           Event Details
         </h3>
       </section>
-      <CreateEventForm />
+      <CreateEvent />
     </section>
     </div>
   )
