@@ -297,9 +297,9 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
           </label>
         </div>
         <div className={`${vSpacing}`}>
-        <label style={{pointerEvents: "none"}}>
+        <label>
             Event image
-            <div>
+            <div style={{pointerEvents: "none"}}>
             <Dropzone onDrop={acceptedFiles => {setImages(acceptedFiles)}}>
               {({getRootProps, getInputProps}) => (
                 <section className={imageUploader}>

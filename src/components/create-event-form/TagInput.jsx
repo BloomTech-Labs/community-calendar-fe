@@ -28,11 +28,11 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
         setTagInput(event.target.value);
     }
 
-    const filterTags = tagName => {
+    const filterTags = tag => {
         if(tagInput.length === 0)
             return true;
 
-        return new RegExp(`\\b${tagInput}`, "i").test(tagName);
+        return new RegExp(`\\b${tagInput}`, "i").test(tag.title);
     };
 
     const findSelectedTagIndex = newTagName => {
