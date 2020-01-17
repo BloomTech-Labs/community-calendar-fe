@@ -42,22 +42,22 @@ const CreateEventForm = () => {
             </div>
           </label>
         </div>
-        <div>
+        <div className="field">
           <label className="label">
             Location
-            <div className={`${vSpacing}`}>
+            <div className="field">
               <label className="label">
                 Place Name
                 <input
                   className={`${input}`}
                   type='text'
-                  placeholder='Enter place name is applicable'
+                  placeholder='Enter place name if applicable'
                   name='Place Name'
                   ref={register}
                 />
               </label>
               <div className={`${flexrow}`}>
-                <div className={`${vSpacing}`}>
+                <div className="field">
                   <label className="label">
                     Street Address
                     <input
@@ -68,7 +68,7 @@ const CreateEventForm = () => {
                     />
                   </label>
                 </div>
-                <div className={`${vSpacing}`}>
+                <div className="field">
                   <label className="label">
                     Street Address 2
                     <input
@@ -81,7 +81,7 @@ const CreateEventForm = () => {
                 </div>
               </div>
               <div className={`${flexrow}`}>
-                <div className={`${vSpacing}`}>
+                <div className="field">
                   <label className="label">
                     City
                     <input
@@ -92,7 +92,7 @@ const CreateEventForm = () => {
                     />
                   </label>
                 </div>
-                <div className={`${vSpacing}`}>
+                <div className="field">
                   <label className="label">
                     State
                     <select
@@ -110,7 +110,7 @@ const CreateEventForm = () => {
                     </select>
                   </label>
                 </div>
-                <div className={`${vSpacing}`}>
+                <div className="field">
                   <label className="label">
                     Zip Code
                     <input
@@ -127,7 +127,7 @@ const CreateEventForm = () => {
         </div>
 
         {/* event dates */}
-        <div className={`${flexrow}`}>
+        <div className={`${flexrow} field `}>
           <label className="label">
             Starts
             <div className={`${flexrow} ${vSpacing}`}>
@@ -147,26 +147,28 @@ const CreateEventForm = () => {
               />
             </div>
           </label>
-          <label className="label">
-            Ends
-            <div className={`${flexrow} ${vSpacing}`}>
-              <input
-                className={`${select}`}
-                type='date'
-                placeholder='End Date'
-                name='End Date'
-                ref={register}
-              />
-              <input
-                className={`${select}`}
-                type='time'
-                name='End Time'
-                ref={register}
-              />
-            </div>
-          </label>
+          <div className="field">
+            <label className="label">
+              Ends
+              <div className={`${flexrow} ${vSpacing}`}>
+                <input
+                  className={`${select}`}
+                  type='date'
+                  placeholder='End Date'
+                  name='End Date'
+                  ref={register}
+                />
+                <input
+                  className={`${select}`}
+                  type='time'
+                  name='End Time'
+                  ref={register}
+                />
+              </div>
+            </label>
+          </div>
         </div>
-        <div >
+        <div className="field">
         <label className="label">
           Event Description
           <textarea
@@ -176,7 +178,7 @@ const CreateEventForm = () => {
           />
         </label>
         </div>
-        <div>
+        <div className="field">
         <label className="label">
           Type of ticket
           <select
@@ -190,7 +192,7 @@ const CreateEventForm = () => {
           </select>
         </label>
         </div>
-        <div>
+        <div className="field">
         <label className="label">
           Tags
           <input
@@ -202,7 +204,7 @@ const CreateEventForm = () => {
           />
         </label>
         </div>
-        <div className={`${vSpacing}`}>
+        <div className="field">
           <label className="label" style={{pointerEvents: "none"}}>
               Event image
             <div>
