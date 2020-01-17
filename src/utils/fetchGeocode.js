@@ -15,7 +15,12 @@ export default async function fetchGeocode({
   'searchWords' can be a words or numbers used to make up an address
   Can also return results if passed a latitude and longitude.
    */
-  params = {access_token: process.env.MAPBOX, ...params}
+  params = {
+    access_token: process.env.MAPBOX,
+    types: 'address,postcode,place,neighborhood,region,district,locality',
+    country: 'us',
+    ...params,
+  }
 
   let searchTerm = lat && long ? `${long},${lat}` : searchWords
   // escape special characters in input string
