@@ -22,4 +22,16 @@ describe('Tests for buildQueryParams', () => {
     const actual = buildQueryParams(paramWithCharacters)
     expect(actual).toMatch(expected)
   })
+
+  test('Should return empty string if no arguments are included', () => {
+    const expected = ''
+    const actual = buildQueryParams()
+    expect(actual).toMatch(expected)
+  })
+
+  test('Should return empty string if argument is an empty object', () => {
+    const expected = ''
+    const actual = buildQueryParams({})
+    expect(actual).toMatch(expected)
+  })
 })
