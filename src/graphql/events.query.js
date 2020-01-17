@@ -12,8 +12,8 @@ export const EVENT_DETAIL_DATA = gql`
 
 export const ADDRESS_DETAIL_DATA = gql`
   fragment AddressDetail on Location {
-    street_address
-    street_address_2
+    streetAddress
+    streetAddress2
     city
     zipcode
     state
@@ -50,7 +50,7 @@ export const GET_EVENTS = gql`
         name
         ...AddressDetail
       }
-      event_images {
+      eventImages {
         url
       }
       tags {
@@ -101,7 +101,7 @@ export const GET_EVENTS_WITH_DISTANCE = gql`
         distanceUnit
         ...AddressDetail
       }
-      event_images {
+      eventImages {
         url
       }
       tags {
@@ -113,7 +113,6 @@ export const GET_EVENTS_WITH_DISTANCE = gql`
   ${ADDRESS_DETAIL_DATA}
 `
 
-<<<<<<< HEAD
 export const GET_ALL_TAGS = gql`
   query {
     tags {
@@ -136,28 +135,12 @@ export const GET_EVENT_BY_ID = id => {
         name
         ...AddressDetail
       }
-      event_images {
+      eventImages {
         url
       }
       tags{
         title
       }
-=======
-export const GET_EVENT_BY_ID = gql`
-  query EventById($id: ID) {
-    events(where: {id: $id}){
-    ...EventDetail
-    creator {
-      id
-    }
-    locations {
-      id
-      name
-      ...AddressDetail
-    }
-    event_images {
-      url
->>>>>>> 2ac14ca31ea252cbc3c17139e1ce011e96c3d7e1
     }
     tags{
       title
@@ -168,6 +151,8 @@ export const GET_EVENT_BY_ID = gql`
   ${EVENT_DETAIL_DATA}
   ${ADDRESS_DETAIL_DATA}
 `
+}
+
 export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
   query EventByIdWithDistance(
       $id: ID
@@ -188,7 +173,7 @@ export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
       distanceUnit
       ...AddressDetail
     }
-    event_images {
+    eventImages {
       url
     }
     tags{

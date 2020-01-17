@@ -64,29 +64,21 @@ const EventView = () => {
     end,
     creator,
     locations,
-    event_images,
+    eventImages,
     tags,
   } = data.events.length && data.events[0]
 
   //destructure first item in locations array
   const {
     name,
-    street_address,
-<<<<<<< HEAD
-    // street_address_2,
-    // city,
-    // zipcode,
-    // state,
-  } = locations.length > 0 && locations[0]
-=======
-    street_address_2,
+    streetAddress,
+    streetAddress2,
     city,
     zipcode,
     state,
     distanceFromUser,
     distanceUnit
   } = locations[0]
->>>>>>> 2ac14ca31ea252cbc3c17139e1ce011e96c3d7e1
 
   //convert start date to Date object
   const startDate = new Date(start)
@@ -110,10 +102,10 @@ const EventView = () => {
   return (
     <div className={eventView}>
       {/* Banner image */}
-      {event_images.length > 0 && <img
+      {eventImages.length > 0 && <img
         className={`${banner} is-block mx-auto`}
         // className='mx-auto'
-        src={event_images[0].url}
+        src={eventImages[0].url}
         alt='banner'
       />}
       {/* Event title, location, RSVP info */}
@@ -132,14 +124,14 @@ const EventView = () => {
             {(distanceFromUser && distanceUnit && (
               <span className='is-size-7-mobile'>
                 &nbsp; &#8226; &nbsp; 
-                <span className={space_letters}>{`${distanceFromUser.toFixed(1)}`}</span>
+                { distanceFromUser && <span className={space_letters}>{`${distanceFromUser.toFixed(1)}`}</span>}
                 &nbsp;
-                {`${distanceUnit === 'miles' ? 'mi' : 'km'} away`}
+                { distanceFromUser && `${distanceUnit === 'miles' ? 'mi' : 'km'} away`}
               </span>
             ))}
           </p>
           <p className='is-size-7-mobile'>
-              {`${street_address}, ${street_address_2 ? `${street_address_2}, ` : ''}
+              {`${streetAddress}, ${streetAddress2 ? `${streetAddress2}, ` : ''}
               ${city}, ${state}, ${zipcode}`}
           </p>
         </div> 

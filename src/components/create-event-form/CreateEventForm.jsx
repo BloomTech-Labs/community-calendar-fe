@@ -33,7 +33,7 @@ mutation AddEvent(
   $description: String!,
   $start: DateTime!
   $end: DateTime!,
-  $event_images: [EventCreateImageInput!],
+  $eventImages: [EventCreateImageInput!],
   $placeName: String!,
   $streetAddress1: String!,
   $streetAddress2: String = null,
@@ -52,13 +52,13 @@ mutation AddEvent(
       description: $description
       start: $start
       end: $end
-      event_images: $event_images
+      eventImages: $eventImages
       locations: {
         create: [
           {
             name: $placeName
-            street_address: $streetAddress1
-            street_address_2: $streetAddress2
+            streetAddress: $streetAddress1
+            streetAddress2: $streetAddress2
             city: $city
             zipcode: $zipCode
             state: $state

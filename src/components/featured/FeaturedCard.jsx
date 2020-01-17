@@ -20,9 +20,9 @@ export default function FeaturedCard(props) {
 
   return (
     <Link className={`${featuredCard}`} to={`events/${item.id}`}>
-      {item.event_images.length > 0 && <img
+      {item.eventImages.length > 0 && <img
         className={eventImage}
-        src={item.event_images[0].url}
+        src={item.eventImages[0].url}
         alt='Event image'
       />}
 
@@ -59,7 +59,7 @@ export default function FeaturedCard(props) {
         {item.locations.length > 0 && 
         <p className='is-size-7 has-text-weight-bold'>
           <span className='has-text-weight-light'>Location: </span>
-          {`${item.locations[0].street_address}, ${item.locations[0].city}`}
+          {`${item.locations[0].streetAddress}, ${item.locations[0].city}`}
         </p>}
       </div>
     </Link>

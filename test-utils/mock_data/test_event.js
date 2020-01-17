@@ -10,7 +10,7 @@ export const TEST_FULL = {
     first_name: "Detroit Experience Factory",
     last_name: null
   },
-  event_images: [
+  eventImages: [
     {
       url: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F69917729%2F89373299245%2F1%2Foriginal.jpg?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C693%2C4000%2C2000&s=94184073d91c25306d22d1b0401cfea9"
     }
@@ -20,8 +20,8 @@ export const TEST_FULL = {
       id: "ck5flbeks0023073011ty7weo",
       neighborhood: "Downtown",
       name: "Roasting Plant",
-      street_address: "600 Woodward Avenue",
-      street_address_2: null,
+      streetAddress: "600 Woodward Avenue",
+      streetAddress2: null,
       city: "Detroit",
       zipcode: 48202,
       state: "MI",
@@ -45,7 +45,7 @@ export const TEST_NO_NEIGHBORHOOD = {
     first_name: "Detroit Experience Factory",
     last_name: null
   },
-  event_images: [
+  eventImages: [
     {
       url: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F69917729%2F89373299245%2F1%2Foriginal.jpg?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C693%2C4000%2C2000&s=94184073d91c25306d22d1b0401cfea9"
     }
@@ -54,8 +54,8 @@ export const TEST_NO_NEIGHBORHOOD = {
     {
       id: "ck5flbeks0023073011ty7weo",
       name: "Roasting Plant",
-      street_address: "600 Woodward Avenue",
-      street_address_2: null,
+      streetAddress: "600 Woodward Avenue",
+      streetAddress2: null,
       city: "Detroit",
       zipcode: 48202,
       state: "MI",
@@ -79,7 +79,7 @@ export const TEST_NO_DISTANCE = {
     first_name: "Detroit Experience Factory",
     last_name: null
   },
-  event_images: [
+  eventImages: [
     {
       url: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F69917729%2F89373299245%2F1%2Foriginal.jpg?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C693%2C4000%2C2000&s=94184073d91c25306d22d1b0401cfea9"
     }
@@ -88,8 +88,8 @@ export const TEST_NO_DISTANCE = {
     {
       id: "ck5flbeks0023073011ty7weo",
       name: "Roasting Plant",
-      street_address: "600 Woodward Avenue",
-      street_address_2: null,
+      streetAddress: "600 Woodward Avenue",
+      streetAddress2: null,
       city: "Detroit",
       zipcode: 48202,
       state: "MI",
