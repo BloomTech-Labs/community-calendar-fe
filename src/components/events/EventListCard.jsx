@@ -12,6 +12,7 @@ import {
   gridCard,
   eventDescription,
   event_details,
+  space_letters,
   event_image,
   descriptionUnderline,
 } from './styles/EventListCard.module.scss'
@@ -37,9 +38,20 @@ export default function EventListCard(props) {
       <div className={`${column} ${event_details}`}>
         <p
           data-id='event_location'
-          className=' is-size-7 is-uppercase has-text-weight-bold color_chalice'
+          data-testid='event_location'
+          className='has-text-weight-bold color_chalice'
         >
-          {(item.locations && item.locations[0].neighborhood) || 'North End'}
+          {/* display neighborhood if defined, otherwise city */}
+          <span className="is-size-6 is-uppercase">{item.locations && item.locations[0].neighborhood ?  item.locations[0].neighborhood : item.locations[0].city}</span>
+          {/* display distanceFromUser if defined */}
+          {(item.locations && item.locations[0].distanceFromUser && (
+            <span className={`is-size-7`}>
+              &nbsp; &#8226; &nbsp; 
+              <span className={space_letters}>{`${item.locations[0].distanceFromUser.toFixed(1)}`}</span>
+              &nbsp;
+              {`${item.locations[0].distanceUnit === 'miles' ? 'mi' : 'km'} away`}
+            </span>
+          ))}
         </p>
         <p
           data-id='event_title'
@@ -58,7 +70,8 @@ export default function EventListCard(props) {
           <span>&#8226;</span>
           &nbsp;
           <span className='color_chalice'>Free</span>
-          &nbsp;
+        </p>
+          {/* &nbsp;
         </p>
         {item.locations[0].distanceFromUser && (
           <p className='color_shark'>
@@ -66,7 +79,7 @@ export default function EventListCard(props) {
               item.locations[0].distanceUnit === 'miles' ? 'mi' : 'km'
             }`}
           </p>
-        )}
+        )} */}
 
         <p
           data-id='event_description'

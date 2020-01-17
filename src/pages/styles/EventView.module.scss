@@ -3,11 +3,20 @@
 
 .event-view {
   section {
-    padding: $gap;
+    padding: $gap-xxs;
+    @include tablet {
+      padding: $gap;
+    }
   }
 
   .banner {
-    max-height: 250px;
+    object-fit: cover;
+    max-height: 125px;
+    width: 100%;
+
+    @include tablet {
+      max-height: 250px;
+    }
   }
 
   .top_sec {
@@ -15,18 +24,52 @@
     justify-content: space-between;
     background-color: $shark;
     color: white;
+
     h1 {
-      font-size: 48px;
-      margin-bottom: $gap;
+      margin-bottom: $gap-xs;
+
+      @include tablet {
+        margin-bottom: $gap;
+      }
+    }
+
+    .space_letters {
+      letter-spacing: 2px;
+    }
+
+    .date_display {
+      margin-bottom: $gap-xs
     }
 
     .panel_right {
       display: flex;
       align-items: flex-end;
+      flex-direction: column;
+      justify-content: flex-start;
 
       p:nth-of-type(1) {
         margin-right: $gap;
       }
+      button {
+        height: 55px;
+        color: white;
+        border: 0;
+        background-color: #ff0000;
+        &:hover {
+          background-color: $bittersweet;
+        }
+      }
+      // .navButton {
+      //   border: 0;
+      //   color: $black;
+      //   border-radius: $radius-large;
+      //   background: none;
+      //   position: relative;
+      //   transition: color 0.4s ease-in-out 0.1s;
+      //   &:hover {
+      //     color: #fff;
+      //   }
+      // }
     }
   }
 
@@ -34,29 +77,43 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: $gap 0;
-    div:nth-of-type(1) {
-      width: 100%;
-    }
 
     @include tablet {
       flex-direction: row;
+      padding: $gap-sm 0;
+      div:nth-of-type(1) {
+        width: 100%;
+      }
     }
+
+    .horizontal-bar {
+      margin: 0;
+    }
+
   }
 
   .description-div {
-    margin-top: $gap;
-    max-width: 700px;
+    margin-top: $gap-xxs;
+
     p:nth-of-type(2) {
-      padding: $gap + $gap-xxs 0;
+      margin-top: $gap-xxs;
+    }
+    
+    @include tablet {
+      margin-top: $gap-sm;
+      max-width: 700px;
+      p:nth-of-type(2) {
+      margin-top: 0;
+        padding: $gap + $gap-xxs 0;
+      }
     }
   }
 
   .socialOptions {
-    max-width: 174px;
-    margin-top: $gap;
+    margin-top: $gap-sm;
     p {
-      margin-bottom: $gap-sm;
+      margin-bottom: $gap-xs;
+      margin-right: $gap-sm;
     }
     button ~ div {
       margin-top: $gap-lg;

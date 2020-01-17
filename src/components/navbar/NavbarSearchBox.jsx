@@ -20,15 +20,19 @@ const NavbarSearchBox = props => {
   }
 
   return (
-    <div className={`${navsearch} navbar-start control`}>
+    <div className={` navbar-search control justify-center`}>
       <input
-        className={` input`}
+        className={` input navbar-search-input`}
         type='text'
         placeholder='Search'
         onChange={e => handleChange(e)}
         value={searchText}
+        onKeyDown={e => {
+          if (e.keyCode === 13) {
+            handleSearchClick()
+          }
+        }}
       />
-      <button onClick={handleSearchClick}>Go</button>
     </div>
   )
 }

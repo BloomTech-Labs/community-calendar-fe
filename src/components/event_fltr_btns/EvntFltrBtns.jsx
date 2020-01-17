@@ -22,7 +22,7 @@ const FilterBtns = ({refetch}) => {
           }}
           className={`${
             eventRange === 'today' ? 'color_black' : 'color_chalice'
-          } is-size-4`}
+          } `}
         >
           Today
         </button>
@@ -43,7 +43,7 @@ const FilterBtns = ({refetch}) => {
           }}
           className={`${
             eventRange === 'tomorrow' ? 'color_black' : 'color_chalice'
-          } is-size-4`}
+          } `}
         >
           Tomorrow
         </button>
@@ -64,7 +64,7 @@ const FilterBtns = ({refetch}) => {
           }}
           className={`${
             eventRange === 'this weekend' ? 'color_black' : 'color_chalice'
-          } is-size-4`}
+          } `}
         >
           This Weekend
         </button>
@@ -76,7 +76,7 @@ const FilterBtns = ({refetch}) => {
           }}
           className={`${
             eventRange === 'ALL' ? 'color_black' : 'color_chalice'
-          } is-size-4`}
+          } `}
         >
           All Upcoming
         </button>

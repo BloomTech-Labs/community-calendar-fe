@@ -7,12 +7,12 @@ Object {
     <div>
       <a
         class="featuredCard"
-        href="/events/ck4bul5bi001o0714armcsssy"
+        href="/events/ck5flbejv00200730x34y4le6"
       >
         <img
           alt="Event image"
           class="eventImage"
-          src="https://detroitmi.gov/themes/custom/detroitmi/logo.png"
+          src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F69917729%2F89373299245%2F1%2Foriginal.jpg?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C693%2C4000%2C2000&s=94184073d91c25306d22d1b0401cfea9"
         />
         <div
           class="featuredCardContent"
@@ -20,30 +20,30 @@ Object {
           <p>
             <time
               class="subtitle is-7"
-              datetime="2019-11-21"
+              datetime="2020-01-22"
             >
-              November 21, 2019
+              January 22, 2020
             </time>
           </p>
           <p
             class="is-6 Butler has-text-weight-bold"
             style="height: 48px;"
           >
-            Councilperson Sheffield Town Hall
+            Art & Architecture - Downtown Walking Tour
           </p>
           <p>
             <time
               class="subtitle is-size-7"
-              datetime="18:00"
+              datetime="12:00"
             >
-              6:00 pm
+              12:00 pm
             </time>
              ‐ 
             <time
               class="subtitle is-size-7"
-              datetime="20:00"
+              datetime="14:30"
             >
-              8:00 pm
+              2:30 pm
             </time>
           </p>
           <p
@@ -54,7 +54,7 @@ Object {
             >
               Location: 
             </span>
-            8000 Woodward Ave, Detroit
+            600 Woodward Avenue, Detroit
           </p>
         </div>
       </a>
@@ -63,12 +63,12 @@ Object {
   "container": <div>
     <a
       class="featuredCard"
-      href="/events/ck4bul5bi001o0714armcsssy"
+      href="/events/ck5flbejv00200730x34y4le6"
     >
       <img
         alt="Event image"
         class="eventImage"
-        src="https://detroitmi.gov/themes/custom/detroitmi/logo.png"
+        src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F69917729%2F89373299245%2F1%2Foriginal.jpg?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C693%2C4000%2C2000&s=94184073d91c25306d22d1b0401cfea9"
       />
       <div
         class="featuredCardContent"
@@ -76,30 +76,30 @@ Object {
         <p>
           <time
             class="subtitle is-7"
-            datetime="2019-11-21"
+            datetime="2020-01-22"
           >
-            November 21, 2019
+            January 22, 2020
           </time>
         </p>
         <p
           class="is-6 Butler has-text-weight-bold"
           style="height: 48px;"
         >
-          Councilperson Sheffield Town Hall
+          Art & Architecture - Downtown Walking Tour
         </p>
         <p>
           <time
             class="subtitle is-size-7"
-            datetime="18:00"
+            datetime="12:00"
           >
-            6:00 pm
+            12:00 pm
           </time>
            ‐ 
           <time
             class="subtitle is-size-7"
-            datetime="20:00"
+            datetime="14:30"
           >
-            8:00 pm
+            2:30 pm
           </time>
         </p>
         <p
@@ -110,7 +110,7 @@ Object {
           >
             Location: 
           </span>
-          8000 Woodward Ave, Detroit
+          600 Woodward Avenue, Detroit
         </p>
       </div>
     </a>

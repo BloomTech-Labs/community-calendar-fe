@@ -59,11 +59,7 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
         return <div>Error loading tags</div>
     }
 
-    console.log(data.tags)
     data.tags = data.tags.sort((last, cur) => last.title - cur.title);
-    console.log(data.tags)
-
-
 
      return (
         <div>

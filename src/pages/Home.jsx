@@ -16,15 +16,15 @@ import styles from './styles/Home.module.scss'
 
 /* The first page user's see when opening the app */
 const Home = () => {
-  const client = useApolloClient()
   ReactGA.pageview('/')
 
   // used for distance select dropdown menu
   const distanceSelect = useRef(null)
   const dropdownArrow = useRef(null)
-  const {data: localCache} = useQuery(GET_CACHE)
 
   // local cache data
+  const client = useApolloClient()
+  const {data: localCache} = useQuery(GET_CACHE)
   const {userLatitude, userLongitude, maxDistance} = localCache
 
   const apolloData = useQuery(GET_EVENTS_WITH_DISTANCE, {
@@ -89,9 +89,9 @@ outside of it close the dropdown menu
       ) : null}
 
       {/* Events list */}
-      <section className='section'>
+      <section className='section mobile-section'>
         <div className='is-flex level justify-between is-dark '>
-          <h3 className='is-family-secondary is-size-2 has-text-black-bis'>
+          <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
             Events
           </h3>
           {userLatitude && userLongitude && (
