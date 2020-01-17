@@ -1,0 +1,66 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/_all.sass';
+@import '~bulma/sass/grid/columns.sass';
+@import '~bulma/sass/form/_all.sass';
+
+.input, .select {
+    border: none;
+    border-bottom: 2px solid black;
+    border-radius: 0px;
+    box-shadow: none;
+    text-align: left;
+    padding: 0;
+    background-color: white;
+}
+
+label {
+    // margin: $gap-sm 0;
+    font-weight: bold;
+}
+
+.vSpacing {
+    margin: 2rem 1rem 2rem 1rem;
+
+}
+
+.textarea {
+    border: 2px solid black;
+    border-radius: 4px;
+    resize: none;
+}
+
+// .has-fixed-size {}
+
+.flexcolumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flexrow {
+    display: flex;
+}
+
+.createEventForm {
+    width: 60%;
+    height: 100%;
+    margin: 0 auto;
+    * {
+        width: 100%;
+    }
+
+    .shark {
+        background-color: $shark;
+    }
+}
+
+.imageUploader {
+    padding: 100px 0;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.littleTopMargin {
+    margin-top: $gap-sm;
+}

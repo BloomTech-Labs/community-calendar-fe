@@ -20,11 +20,11 @@ export default function FeaturedCard(props) {
 
   return (
     <Link className={`${featuredCard}`} to={`events/${item.id}`}>
-      <img
+      {item.eventImages.length > 0 && <img
         className={eventImage}
-        src={item.event_images[0].url}
+        src={item.eventImages[0].url}
         alt='Event image'
-      />
+      />}
 
       <div className={featuredCardContent}>
         <p>
@@ -56,10 +56,11 @@ export default function FeaturedCard(props) {
             {moment(item.end).format('h:mm a')}
           </time>
         </p>
+        {item.locations.length > 0 && 
         <p className='is-size-7 has-text-weight-bold'>
           <span className='has-text-weight-light'>Location: </span>
-          {`${item.locations[0].street_address}, ${item.locations[0].city}`}
-        </p>
+          {`${item.locations[0].streetAddress}, ${item.locations[0].city}`}
+        </p>}
       </div>
     </Link>
   )

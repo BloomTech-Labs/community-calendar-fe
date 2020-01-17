@@ -64,15 +64,15 @@ const EventView = () => {
     end,
     creator,
     locations,
-    event_images,
+    eventImages,
     tags,
   } = data.events.length && data.events[0]
 
   //destructure first item in locations array
   const {
     name,
-    street_address,
-    street_address_2,
+    streetAddress,
+    streetAddress2,
     city,
     zipcode,
     state,
@@ -102,12 +102,12 @@ const EventView = () => {
   return (
     <div className={eventView}>
       {/* Banner image */}
-      <img
+      {eventImages.length > 0 && <img
         className={`${banner} is-block mx-auto`}
         // className='mx-auto'
-        src={event_images[0].url}
+        src={eventImages[0].url}
         alt='banner'
-      />
+      />}
       {/* Event title, location, RSVP info */}
       <section className={top_sec}>
         <div>
@@ -124,14 +124,14 @@ const EventView = () => {
             {(distanceFromUser && distanceUnit && (
               <span className='is-size-7-mobile'>
                 &nbsp; &#8226; &nbsp; 
-                <span className={space_letters}>{`${distanceFromUser.toFixed(1)}`}</span>
+                { distanceFromUser && <span className={space_letters}>{`${distanceFromUser.toFixed(1)}`}</span>}
                 &nbsp;
-                {`${distanceUnit === 'miles' ? 'mi' : 'km'} away`}
+                { distanceFromUser && `${distanceUnit === 'miles' ? 'mi' : 'km'} away`}
               </span>
             ))}
           </p>
           <p className='is-size-7-mobile'>
-              {`${street_address}, ${street_address_2 ? `${street_address_2}, ` : ''}
+              {`${streetAddress}, ${streetAddress2 ? `${streetAddress2}, ` : ''}
               ${city}, ${state}, ${zipcode}`}
           </p>
         </div> 
