@@ -151,6 +151,17 @@
   }
 }
 
+// ==== Input ====
+.input {
+  border: none;
+  border-bottom: 2px solid black;
+  border-radius: 0px;
+  box-shadow: none;
+  text-align: left;
+  padding: 0;
+  background-color: white;
+}
+
 .dropdown .dropdown-menu.drop-center {
   @include willSlideDown(0.4s);
   min-width: unset;
@@ -226,4 +237,10 @@ div.select.is-rounded select {
   option {
     text-align: center;
   }
+}
+
+
+// ==== Spacing for <select> ====
+.left-margin {
+  margin-left: $gap-sm;
 }
