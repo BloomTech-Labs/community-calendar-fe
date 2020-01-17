@@ -14,11 +14,15 @@ import {
   input,
   select,
   flexrow,
+  responsiveflexrow,
   textarea,
   imageUploader,
   shark,
   vSpacing,
-  littleTopMargin
+  littleTopMargin,
+  location,
+  placeName,
+  endfield
 } from './styles/CreateEventForm.module.scss'
 
 const CreateEventForm = () => {
@@ -143,10 +147,10 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
             </div>
           </label>
         </div>
-        <div className="field">
+        <div className={` field ${location}`}>
           <label className="label">
             Location
-            <div className="field">
+            <div className={` field ${placeName}`}>
               <label className="label">
                 Place Name
                 <input
@@ -228,7 +232,7 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
         </div>
 
         {/* event dates */}
-        <div className={`${flexrow}`}>
+        <div className={`${responsiveflexrow}`}>
           <div className="field start-field">
             <label className="label">
               Starts
@@ -236,28 +240,25 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
                 <input
                   className={`${select} date-select `}
                   type='date'
-                  placeholder='Start Date'
                   name='startDate'
                   ref={register}
                 />
                 <input
                   className={`${select} time-select left-margin `}
                   type='time'
-                  placeholder='Start Time'
                   name='startTime'
                   ref={register}
                 />
               </div>
             </label>
           </div>
-          <div className="field end-field  left-margin">
+          <div className={`field ${endfield}`}>
             <label className="label">
               Ends
               <div className={`${flexrow}`}>
                 <input
                   className={`${select} date-select `}
                   type='date'
-                  placeholder='End Date'
                   name='End Date'
                   ref={register}
                 />

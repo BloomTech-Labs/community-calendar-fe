@@ -48,7 +48,16 @@ label {
     display: flex;
 }
 
+.responsiveflexrow {
+    display: flex;
+    flex-direction: column;
+    @include tablet-up {
+        flex-direction: row;
+    }
+}
+
 .createEventForm {
+    padding-top: 5vh;
     width: 60%;
     height: 100%;
     margin: 0 auto;
@@ -69,4 +78,19 @@ label {
 
 .littleTopMargin {
     margin-top: $gap-sm;
+}
+
+.location {
+    padding-top: 3vh;
+}
+
+.placeName {
+    padding-top: 2vh;
+}
+
+.endfield {
+    margin-left: 0;
+    @include tablet-up {
+        margin-left: $gap-sm;
+    }
 }
