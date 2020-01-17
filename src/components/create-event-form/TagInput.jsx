@@ -26,7 +26,7 @@ import {GET_ALL_TAGS} from '../../graphql/events.query'
 const TagInput = React.forwardRef((props, tagDisplay) => {
 
     const {
-            // filterTags,
+            filterTags,
             handleKeyDown,
             handleClick,
             removeSelectedTag,
@@ -35,6 +35,8 @@ const TagInput = React.forwardRef((props, tagDisplay) => {
             tagSorter,
             selectedTags,
             hasFocus,
+            tagSearch,
+            setTagSearch
         } = props
 
     const {data, loading, error} = useQuery(GET_ALL_TAGS);
@@ -61,6 +63,11 @@ const TagInput = React.forwardRef((props, tagDisplay) => {
 
     // data.tags = data.tags.sort(tagSorter);
 
+    //clear tag search when component loses focus
+    !hasFocus && tagSearch.length && setTagSearch("");
+
+    // console.log(data.tags.filter(filterTags));
+
      return (
         <div onKeyDown={handleKeyDown} tabIndex="0">
             <div className={tagDisplayClass} ref={tagDisplay}>
@@ -81,9 +88,10 @@ const TagInput = React.forwardRef((props, tagDisplay) => {
                 (
                     <div className={tagList}>
                         {
-                            data.tags//.filter(filterTags)
+                            data.tags
+                            .filter(filterTags)
                             .sort(tagSorter)
-                            .map((tag, idx) => (
+                            .map((tag) => (
                                     <p 
                                         key={tag.id} 
                                         tag_id={tag.id}
@@ -125,7 +133,7 @@ const TagInputHelpers = ({selectedTags, setSelectedTags}) => {
 
     //filter tags based on what user types
     //clear tagSearch when user clicks off TagInput
-    const [tagSearch, setTagSearch] = useState();
+    const [tagSearch, setTagSearch] = useState("");
 
     const tagDisplay = useRef(null);
     
@@ -159,7 +167,8 @@ const TagInputHelpers = ({selectedTags, setSelectedTags}) => {
         if(tagSearch.length === 0)
             return true;
 
-        return tag.title.toLowerCase().contains(tagSearch.toLowerCase());
+        return new RegExp(`\\b${tagSearch}`, "i").test(tag.title);
+        // return tag.title.toLowerCase().includes(tagSearch.toLowerCase());
     };
     
     return (
@@ -172,10 +181,12 @@ const TagInputHelpers = ({selectedTags, setSelectedTags}) => {
             findSelectedTagIndex={findSelectedTagIndex}
             tagSorter={tagSorter}
             tagSearch={tagSearch}
+            setTagSearch={setTagSearch}
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}
             hasFocus={hasFocus}
             ref={tagDisplay}
+            filterTags={filterTags}
         />
     )
 }

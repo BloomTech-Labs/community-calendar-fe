@@ -6,7 +6,7 @@
 
 .tagList {
     width: 48% !important;
-    height: 15vh;
+    max-height: 15vh;
     position: absolute;
     background-color: white;
     z-index: 1;
@@ -17,12 +17,11 @@
     padding: 0.5rem 1rem;
     border: 1px solid black;
     border-radius: 10px;
-    margin-left: 1rem;
+    margin-right: 1rem;
     margin-top: 1rem;
-    width: unset;
+    width: unset !important;
     
     span {
-        width: unset;
         margin-left: 0.4rem;
     }
 }

@@ -28,6 +28,8 @@ export default function EventList({apolloData: {data, loading, error}}) {
   */
   const [useListView, setShowListView] = useState(true)
 
+  console.log(error);
+
   return (
     <>
       <div
