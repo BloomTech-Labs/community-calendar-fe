@@ -2,21 +2,19 @@ import buildQueryParams from './buildQueryParams'
 
 const baseURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
 
-const queryParams = {}
-
 export default async function fetchGeocode({
-  searchWords = null,
+  searchWords = '',
   lat = null,
   long = null,
-  params,
-}) {
+  params = {},
+} = {}) {
   /* 
   Returns an array of locations that match the input. 
   'searchWords' can be a words or numbers used to make up an address
   Can also return results if passed a latitude and longitude.
    */
   params = {
-    access_token: process.env.MAPBOX,
+    access_token: process.env.REACT_APP_MAPBOX,
     types: 'address,postcode,place,neighborhood,region,district,locality',
     country: 'us',
     ...params,
@@ -27,7 +25,6 @@ export default async function fetchGeocode({
   const uri = `${baseURL}${encodeURI(searchTerm)}.json/${buildQueryParams(
     params,
   )}`
-  console.log('fetchGeocode', uri)
   // query mapbox
   try {
     const data = await fetch(uri, {

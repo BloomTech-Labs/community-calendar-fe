@@ -118,7 +118,7 @@ function App() {
         <Route path='/create-event' component={CreateEventPage} />
         <Route path='/events/:id' component={EventView} />
         <Route path='/search/:searchText' component={SearchResults} />
-        <Route path='/test-route' component={Geocoder} />
+        <Route path='/test-page' component={Geocoder} />
       </Switch>
     </ApolloProvider>
   )
