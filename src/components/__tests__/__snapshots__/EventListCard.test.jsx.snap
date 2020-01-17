@@ -1,33 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tests for EventListCard Should match the snapshot 1`] = `
+exports[`Tests for EventListCard TEST_FULL render should match the snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
       <a
         class="gridCard"
-        href="/events/ck4bul5bi001o0714armcsssy"
+        href="/events/ck5flbejv00200730x34y4le6"
       >
         <img
           class="event_image"
-          src="https://detroitmi.gov/themes/custom/detroitmi/logo.png"
+          src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F69917729%2F89373299245%2F1%2Foriginal.jpg?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C693%2C4000%2C2000&s=94184073d91c25306d22d1b0401cfea9"
         />
         <div
           class="column event_details"
         >
           <p
-            class=" is-size-7 is-uppercase has-text-weight-bold color_chalice"
+            class="has-text-weight-bold color_chalice"
             data-id="event_location"
+            data-testid="event_location"
           >
-            North End
+            <span
+              class="is-size-6 is-uppercase"
+            >
+              Downtown
+            </span>
+            <span
+              class="is-size-7"
+            >
+                •  
+              <span
+                class="space_letters"
+              >
+                9402.3
+              </span>
+               
+              mi away
+            </span>
           </p>
           <p
             class="is-size-5 has-text-weight-bold color_black"
             data-id="event_title"
             data-testid="event_title"
           >
-            Councilperson Sheffield Town Hall
+            Art & Architecture - Downtown Walking Tour
           </p>
           <p
             class="is-size-6"
@@ -54,7 +71,7 @@ Object {
             data-id="event_description"
             data-testid="event_description"
           >
-            Join Council President Pro Tem Sheffield and the City Assessor for an in depth discussion on Neighborhood Enterprise Zones and what they mean to you!
+            Detroit is a city rich in history, grand buildings, and vibrant art surrounding public spaces. Walk with Detroit Experience Factory through the downtown area as we explore some of the great contributions of both prolific architects and emerging artists.
           </p>
           <div
             class="descriptionUnderline"
@@ -66,27 +83,44 @@ Object {
   "container": <div>
     <a
       class="gridCard"
-      href="/events/ck4bul5bi001o0714armcsssy"
+      href="/events/ck5flbejv00200730x34y4le6"
     >
       <img
         class="event_image"
-        src="https://detroitmi.gov/themes/custom/detroitmi/logo.png"
+        src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F69917729%2F89373299245%2F1%2Foriginal.jpg?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C693%2C4000%2C2000&s=94184073d91c25306d22d1b0401cfea9"
       />
       <div
         class="column event_details"
       >
         <p
-          class=" is-size-7 is-uppercase has-text-weight-bold color_chalice"
+          class="has-text-weight-bold color_chalice"
           data-id="event_location"
+          data-testid="event_location"
         >
-          North End
+          <span
+            class="is-size-6 is-uppercase"
+          >
+            Downtown
+          </span>
+          <span
+            class="is-size-7"
+          >
+              •  
+            <span
+              class="space_letters"
+            >
+              9402.3
+            </span>
+             
+            mi away
+          </span>
         </p>
         <p
           class="is-size-5 has-text-weight-bold color_black"
           data-id="event_title"
           data-testid="event_title"
         >
-          Councilperson Sheffield Town Hall
+          Art & Architecture - Downtown Walking Tour
         </p>
         <p
           class="is-size-6"
@@ -113,7 +147,7 @@ Object {
           data-id="event_description"
           data-testid="event_description"
         >
-          Join Council President Pro Tem Sheffield and the City Assessor for an in depth discussion on Neighborhood Enterprise Zones and what they mean to you!
+          Detroit is a city rich in history, grand buildings, and vibrant art surrounding public spaces. Walk with Detroit Experience Factory through the downtown area as we explore some of the great contributions of both prolific architects and emerging artists.
         </p>
         <div
           class="descriptionUnderline"

@@ -12,6 +12,7 @@ import {
   gridCard,
   eventDescription,
   event_details,
+  space_letters,
   event_image,
   descriptionUnderline,
 } from './styles/EventListCard.module.scss'
@@ -22,23 +23,35 @@ Changing the class names on the Link element
 sets the style to List format or Grid format
  */
 export default function EventListCard(props) {
-  const {item} = props
+  const {item, useListView} = props
 
   return (
+    //  Use `listCard` or `gridCard` style based on `useListView` bool from parent
     <Link
-      className={props.useListView ? `${listCard}  ${columns}` : gridCard}
+      className={useListView ? `${listCard}  ${columns}` : gridCard}
       to={`events/${item.id}`}
     >
-      {item.event_images.length > 0 && <img
-        src={item.event_images[0].url}
+      {item.eventImages.length > 0 && <img
+        src={item.eventImages[0].url}
         className={(column, isNarrow, event_image)}
       />}
       <div className={`${column} ${event_details}`}>
         <p
           data-id='event_location'
-          className=' is-size-7 is-uppercase has-text-weight-bold color_chalice'
+          data-testid='event_location'
+          className='has-text-weight-bold color_chalice'
         >
-          {(item.locations && item.locations.neighborhood) || 'North End'}
+          {/* display neighborhood if defined, otherwise city */}
+          <span className="is-size-6 is-uppercase">{item.locations && item.locations[0].neighborhood ?  item.locations[0].neighborhood : item.locations[0].city}</span>
+          {/* display distanceFromUser if defined */}
+          {(item.locations && item.locations[0].distanceFromUser && (
+            <span className={`is-size-7`}>
+              &nbsp; &#8226; &nbsp; 
+              <span className={space_letters}>{`${item.locations[0].distanceFromUser.toFixed(1)}`}</span>
+              &nbsp;
+              {`${item.locations[0].distanceUnit === 'miles' ? 'mi' : 'km'} away`}
+            </span>
+          ))}
         </p>
         <p
           data-id='event_title'
@@ -58,6 +71,16 @@ export default function EventListCard(props) {
           &nbsp;
           <span className='color_chalice'>Free</span>
         </p>
+          {/* &nbsp;
+        </p>
+        {item.locations[0].distanceFromUser && (
+          <p className='color_shark'>
+            {`Distance: ${item.locations[0].distanceFromUser.toFixed(2)} ${
+              item.locations[0].distanceUnit === 'miles' ? 'mi' : 'km'
+            }`}
+          </p>
+        )} */}
+
         <p
           data-id='event_description'
           data-testid='event_description'

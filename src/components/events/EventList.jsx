@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 
 // Components
@@ -20,16 +20,41 @@ import {
 } from './styles/EventList.module.scss'
 
 /*
-Shows events near a user in either a list or grid format.
+EventList shows events passed in on the apolloData prop to the user 
+-The component can be displayed in either a list or grid format.
+-Filtering by time range happens server side through parent component's useQuery
+-Filtering by distance happens when parent component passes `maxDistance` prop
 */
-export default function EventList({apolloData: {data, loading, error}}) {
-  /* used to determine if the events cards should be 
-  displayed as list or grid
-  */
+
+export default function EventList({
+  apolloData: {data, loading, error},
+  maxDistance,
+}) {
+  // useListView determines if the cards should be displayed as list or grid
   const [useListView, setShowListView] = useState(true)
+
+  // Filter by distance radius
+  let eventsToDisplay = []
+
+  const filterByDistance = distance => {
+    return data.events.filter(event => {
+      return event.locations[0].distanceFromUser <= distance
+    })
+  }
+
+  // If maxDistance filter passed in, filter out events that are too far away
+  // If no maxDistance filter passed in, render all events on `data.events`
+  if (!loading && !error) {
+    if (maxDistance && data.events) {
+      eventsToDisplay = filterByDistance(maxDistance)
+    } else {
+      eventsToDisplay = [...data.events]
+    }
+  }
 
   return (
     <>
+      {/* List and Grid view toggle buttons */}
       <div
         className={`${columns} ${isMobile}`}
         style={{justifyContent: 'flex-end'}}
@@ -50,6 +75,8 @@ export default function EventList({apolloData: {data, loading, error}}) {
           </div>
         </div>
       </div>
+
+      {/* List of events */}
       <div
         className={` ${
           useListView
@@ -57,18 +84,24 @@ export default function EventList({apolloData: {data, loading, error}}) {
             : grid_container
         }`}
       >
+
+        {/* Render loading spinner during fetch or error message on error */}
         {loading && <LoadingLogo dimensions={50} />}
         {error && <p>ERROR</p>}
+
+        {/* Render EventListCards for each item in `eventsToDisplay` array */}
         {!loading &&
           data &&
-          data.events.map(item => (
+          eventsToDisplay.map(item => (
             <EventListCard
               item={item}
               key={item.id}
               useListView={useListView}
             />
           ))}
-        {!loading && data && !data.events.length && (
+
+        {/* Inform user if query/filtering resolves to empty array with no error */}
+        {!loading && data && !eventsToDisplay.length && (
           <div className='container'>
             <h5 className='has-text-centered color_chalice'>
               No events found for the selected date(s)
@@ -82,4 +115,5 @@ export default function EventList({apolloData: {data, loading, error}}) {
 
 EventList.propTypes = {
   apolloData: PropTypes.object,
+  maxDistance: PropTypes.number,
 }

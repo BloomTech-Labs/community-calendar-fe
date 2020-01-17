@@ -46,13 +46,25 @@ Default direction is horizontal . Pass 'y' for vertical divider
   }
 }
 
+@mixin mobile-xs-to-tablet {
+  @media screen and (min-width: $mobile-xs + 1px) and ( max-width: $tablet - 1px) {
+    @content;
+  }
+}
+
 @mixin mobile-xs-only {
   @media screen and (max-width: $mobile-xs) {
     @content;
   }
 }
 
-// ===== Hover Effects =====
+@mixin tablet-up {
+  @media screen and (min-width: $tablet) {
+    @content;
+  }
+}
+
+// ===== Hover Effects and Animations =====
 @mixin hover-shadow {
   &:hover {
     box-shadow: 8px 8px 10px -5px rgba(0, 0, 0, 0.5);
@@ -77,4 +89,39 @@ Default direction is horizontal . Pass 'y' for vertical divider
   &:hover:before {
     transform: scale(1);
   }
+}
+
+@mixin underline($bgColor: $shark) {
+  &:before {
+    content: '';
+    z-index: -100;
+    position: absolute;
+    width: 90%;
+    height: 3px;
+    left: 5%;
+    bottom: -3px;
+    background-color: $bgColor;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0s;
+    transform-origin: center;
+  }
+  &:hover:before {
+    transform: scaleX(1);
+  }
+}
+
+@mixin willSlideDown($duration: $duration-short, $display: block) {
+  transform-origin: top;
+  transition: transform $duration, opacity $duration;
+  display: $display;
+  opacity: 0;
+  transform: scaleY(0);
+  pointer-events: none;
+}
+
+@mixin slideDownShow {
+  transform-origin: top;
+  transform: scaleY(1);
+  opacity: 1;
+  pointer-events: all;
 }
