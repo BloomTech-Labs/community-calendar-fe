@@ -1,21 +1,33 @@
+import buildURL from './buildURL'
+
 const mapboxKey = process.env.MAPBOX
+const baseURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
+
+const queryParams = {}
 
 export default async function fetchGeocode({
-  searchString = null,
+  searchWords = null,
   lat = null,
   long = null,
 }) {
   /* 
   Returns an array of locations that match the input. 
-  'searchString' can be a words or numbers used to make up an address
+  'searchWords' can be a words or numbers used to make up an address
   Can also return results if passed a latitude and longitude.
    */
-  let results
-  let uri = lat && long ? `${long},${lat}` : searchString
+  let searchTerm = lat && long ? `${long},${lat}` : searchWords
   // escape special characters in input string
-  const encoded = encodeURI(uri)
+  const uri = `${baseURL}${encodeURI(searchTerm)}.json/`
+  console.log('fetchGeocode', uri)
   // query mapbox
-
-  // return array of results
-  //return empty array if error
+  try {
+    const response = await fetch(uri, {
+      method: 'GET',
+    })
+    // return array of results
+  } catch (err) {
+    console.log('fetchGeocode Error', err)
+    //return empty array if error
+    return []
+  }
 }

@@ -31,10 +31,10 @@ export default function EventListCard(props) {
       className={useListView ? `${listCard}  ${columns}` : gridCard}
       to={`events/${item.id}`}
     >
-      <img
-        src={item.event_images[0].url}
+      {item.eventImages.length > 0 && <img
+        src={item.eventImages[0].url}
         className={(column, isNarrow, event_image)}
-      />
+      />}
       <div className={`${column} ${event_details}`}>
         <p
           data-id='event_location'

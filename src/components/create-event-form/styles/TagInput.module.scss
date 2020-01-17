@@ -1,0 +1,31 @@
+.tagDisplayClass {
+    border-bottom: 2px solid black;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.suggestedTags {
+    width: 48% !important;
+    max-height: 15vh;
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+    overflow-y: scroll;
+
+    p:hover {
+        background-color: blue;
+    }
+}
+
+.tagClass {
+    padding: 0.5rem 1rem;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    width: unset !important;
+    
+    span {
+        margin-left: 0.4rem;
+    }
+}
