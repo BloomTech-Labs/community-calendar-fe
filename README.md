@@ -51,6 +51,7 @@ Create a file for environment variables: `.env` .
 - REACT_APP_AUTH0_CLIENT_ID
 - REACT_APP_AUTH0_API_AUDIENCE
 - REACT_APP_APOLLO_SERVER
+- REACT_APP_MAPBOX
 
 ### For developing in VS Code
 
