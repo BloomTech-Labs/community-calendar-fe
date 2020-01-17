@@ -161,7 +161,7 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
                   ref={register}
                 />
               </label>
-              <div className={`${flexrow}`}>
+              <div className={`${responsiveflexrow}`}>
                 <div className="field">
                   <label className="label">
                     Street Address
@@ -173,7 +173,7 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
                     />
                   </label>
                 </div>
-                <div className="field left-margin">
+                <div className={`field ${endfield}`}>
                   <label className="label">
                     Street Address 2
                     <input
@@ -185,7 +185,7 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
                   </label>
                 </div>
               </div>
-              <div className={`${flexrow}`}>
+              <div className={`${responsiveflexrow}`}>
                 <div className="field">
                   <label className="label">
                     City
@@ -197,7 +197,7 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
                     />
                   </label>
                 </div>
-                <div className="field left-margin">
+                <div className={`field ${endfield}`}>
                   <label className="label">
                     State
                     <select
@@ -215,7 +215,7 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
                     </select>
                   </label>
                 </div>
-                <div className="field left-margin">
+                <div className={`field ${endfield}`}>
                   <label className="label">
                     Zip Code
                     <input
