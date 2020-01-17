@@ -16,7 +16,7 @@ export default function CreateEventPage() {
           Event Details
         </h3>
       </section>
-      <CreateEvent />
+      <UpdateEvent />
     </section>
     </div>
   )

@@ -18,8 +18,9 @@ import {onError} from 'apollo-link-error';
 // import { typeDefs, resolvers } from './graphql';
 
 //pages
-import EventView from './pages/EventView'
 import Home from './pages/Home'
+import EventView from './pages/EventView'
+import UpdateEventPage from './pages/UpdateEventPage'
 import CreateEventPage from './pages/CreateEventPage'
 import SearchResults from './pages/SearchResults'
 
@@ -117,7 +118,8 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/create-event' component={CreateEventPage} />
-        <Route path='/events/:id' component={EventView} />
+        <Route exact path='/events/:id' component={EventView} />
+        <Route path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search/:searchText' component={SearchResults} />
       </Switch>
     </ApolloProvider>
