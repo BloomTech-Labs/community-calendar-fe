@@ -169,7 +169,7 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
                     />
                   </label>
                 </div>
-                <div className="field">
+                <div className="field left-margin">
                   <label className="label">
                     Street Address 2
                     <input
@@ -193,7 +193,7 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
                     />
                   </label>
                 </div>
-                <div className="field">
+                <div className="field left-margin">
                   <label className="label">
                     State
                     <select
@@ -212,7 +212,7 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
                     </select>
                   </label>
                 </div>
-                <div className="field">
+                <div className="field left-margin">
                   <label className="label">
                     Zip Code
                     <input
@@ -232,7 +232,7 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
         <div className={`${flexrow} field `}>
           <label className="label">
             Starts
-            <div className={`${flexrow} ${vSpacing}`}>
+            <div className={`${flexrow}`}>
               <input
                 className={`${select}`}
                 type='date'
@@ -252,7 +252,7 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
           <div className="field">
             <label className="label">
               Ends
-              <div className={`${flexrow} ${vSpacing}`}>
+              <div className={`${flexrow}`}>
                 <input
                   className={`${select}`}
                   type='date'

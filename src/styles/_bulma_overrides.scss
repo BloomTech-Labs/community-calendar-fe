@@ -238,3 +238,9 @@ div.select.is-rounded select {
     text-align: center;
   }
 }
+
+
+// ==== Spacing for <select> ====
+.left-margin {
+  margin-left: $gap-sm;
+}
