@@ -200,7 +200,6 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
                       name='state'
                       ref={register}
                       className={`${select}`}
-                      style={{display: 'block'}}
                       defaultValue={null}
                     >
                       <option value={null}>Select state</option>
@@ -229,39 +228,41 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
         </div>
 
         {/* event dates */}
-        <div className={`${flexrow} field `}>
-          <label className="label">
-            Starts
-            <div className={`${flexrow}`}>
-              <input
-                className={`${select}`}
-                type='date'
-                placeholder='Start Date'
-                name='startDate'
-                ref={register}
-              />
-              <input
-                className={`${select}`}
-                type='time'
-                placeholder='Start Time'
-                name='startTime'
-                ref={register}
-              />
-            </div>
-          </label>
-          <div className="field">
+        <div className={`${flexrow}`}>
+          <div className="field start-field">
+            <label className="label">
+              Starts
+              <div className={`${flexrow}`}>
+                <input
+                  className={`${select} date-select `}
+                  type='date'
+                  placeholder='Start Date'
+                  name='startDate'
+                  ref={register}
+                />
+                <input
+                  className={`${select} time-select left-margin `}
+                  type='time'
+                  placeholder='Start Time'
+                  name='startTime'
+                  ref={register}
+                />
+              </div>
+            </label>
+          </div>
+          <div className="field end-field  left-margin">
             <label className="label">
               Ends
               <div className={`${flexrow}`}>
                 <input
-                  className={`${select}`}
+                  className={`${select} date-select `}
                   type='date'
                   placeholder='End Date'
                   name='End Date'
                   ref={register}
                 />
                 <input
-                  className={`${select}`}
+                  className={`${select} time-select left-margin `}
                   type='time'
                   name='End Time'
                   ref={register}
