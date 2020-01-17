@@ -36,7 +36,7 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
     };
 
     const findSelectedTagIndex = newTagName => {
-        return selectedTags.findIndex(tagName => (new RegExp(tagName, "i")).test(newTagName));
+        return selectedTags.findIndex(tagName => (new RegExp(`^${tagName}$`, "i")).test(newTagName));
     }
 
     const addSelectedTag = newTagName => {
@@ -68,6 +68,11 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
             hideTags();
         } 
     };
+
+    const handleKeyDown = event => {
+        if(event.key === "Enter") 
+            addSelectedTag(tagInput)
+    }
 
     useEffect(() => {
         
@@ -105,7 +110,13 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
                 }
             </div>
             {/* where tags are searched for */}
-            <input onChange={handleTagInputChange} ref={tagInputRef} value={tagInput} placeholder="Enter tags"/>
+            <input 
+                onChange={handleTagInputChange} 
+                ref={tagInputRef} 
+                value={tagInput} 
+                placeholder="Enter tags"
+                onKeyDown={handleKeyDown}
+            />
             {/* where suggested tags are displayed */}
             <div className={suggestedTags} ref={suggestedTagsRef}>
                 {
