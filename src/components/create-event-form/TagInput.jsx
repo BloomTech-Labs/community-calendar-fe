@@ -1,7 +1,4 @@
 /**
- * Enter should add first tag in list to the selected tags
- * down/up arrow should select last/next item in selectable tags
- * keydown handler should ignore weird keystrokes?
  */
 import React, {useState, useRef, useEffect} from "react";
 
@@ -15,11 +12,9 @@ import {
 import {useQuery} from '@apollo/react-hooks'
 import {GET_ALL_TAGS} from '../../graphql/events.query'
 
-const TagInput = React.forwardRef((props, tagDisplay) => {
+const TagInput = ({selectedTags, setSelectedTags}) => {
 
     const {data, loading, error} = useQuery(GET_ALL_TAGS);
-
-    const [selectedTags, setSelectedTags] = useState([]);
 
     //input field for searching tags
     const [tagInput, setTagInput] = useState("");
@@ -93,18 +88,6 @@ const TagInput = React.forwardRef((props, tagDisplay) => {
         } 
     };
 
-    
-    
-    
-
-    // const handleKeyDown = event => {
-    //     if(hasFocus) {
-    //         setTagSearch(tagSearch + event.key);
-    //         console.log(tagSearch);
-    //     }
-    // };
-
-
     useEffect(() => {
         
         //componentDidMount
@@ -124,10 +107,6 @@ const TagInput = React.forwardRef((props, tagDisplay) => {
     if(error) {
         return <div>Error loading tags</div>
     }
-
-
-    //clear tag search when component loses focus
-    // !hasFocus && tagSearch.length && setTagSearch("");
 
 
     return (
@@ -168,47 +147,6 @@ const TagInput = React.forwardRef((props, tagDisplay) => {
             </div>
         </div>
     );
-
-    /*
-     return (
-        <div onKeyDown={handleKeyDown} tabIndex="0">
-            <div className={tagDisplayClass} ref={tagDisplay}>
-                {                    
-                    selectedTags.length === 0 
-                    ?   <p>select tags </p>
-                    :   selectedTags.map(tag => (
-                                <span key={tag.id} className={`${tagClass} is-family-primary`}>
-                                    {tag.title}
-                                    <span onClick={() => removeSelectedTag(tag.id)}>&#x274C;</span>
-                                </span>
-                            )
-                        )
-                }
-            </div>
-            {                
-                hasFocus && 
-                (
-                    <div className={tagList}>
-                        {
-                            data.tags
-                            .filter(filterTags)
-                            .sort(tagSorter)
-                            .map((tag) => (
-                                    <p 
-                                        key={tag.id} 
-                                        tag_id={tag.id}
-                                        tag_title={tag.title}
-                                        onClick={e => addSelectedTag(e)}>
-                                        {tag.title}
-                                    </p>
-                                )
-                            )
-                        }
-                    </div>
-                )
-            }
-        </div>
-    );*/
-});
+};
 
 export default TagInput;
