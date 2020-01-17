@@ -23,7 +23,7 @@ import SearchResults from './pages/SearchResults'
 import Navbar from 'navbar/Navbar'
 import PrivateRoute from 'private-route/PrivateRoute'
 import GetUserPosition from './utils/GetUserPosition'
-
+import Geocoder from 'geocoder/Geocoder'
 
 function App() {
   const {
@@ -76,9 +76,6 @@ function App() {
     link: authLink.concat(httpLink),
     //client cache
     cache,
-    // add typedefs and resolvers for local state
-    // typeDefs,
-    // resolvers
   })
 
   // initialize apollo client in-memory cache of local state
@@ -95,6 +92,7 @@ function App() {
     <ApolloProvider client={client}>
       <GetUserPosition />
       <Navbar />
+      <Geocoder />
       <Switch>
         <Route exact path='/' component={Home} />
         <PrivateRoute path='/create-event' component={CreateEventPage} />
