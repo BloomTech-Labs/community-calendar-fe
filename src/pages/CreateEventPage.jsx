@@ -6,7 +6,8 @@ import CreateEventForm from 'create-event-form/CreateEventForm'
 
 import {
   createEventsContainer,
-  outerContainer
+  outerContainer,
+  banner
 } from './styles/CreateEventPage.module.scss'
 
 //graphql
@@ -16,8 +17,8 @@ export default function CreateEventPage() {
   return (
     <div className={`${outerContainer}`}>
     <section className={`section ${createEventsContainer}`}>
-      <section className='section'>
-        <h3 className='is-family-secondary is-size-2 has-text-black-bis has-text-centered'>
+      <section className={` section ${banner}`}>
+        <h3 className='is-family-secondary is-size-2 has-text-centered'>
           Event Details
         </h3>
       </section>
