@@ -1,5 +1,3 @@
-/**
- */
 import React, {useState, useRef, useEffect} from "react";
 
 import {
@@ -29,49 +27,32 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
     const handleTagInputChange = event => {
         setTagInput(event.target.value);
     }
-    console.log(tagInput);
 
-    const filterTags = tag => {
+    const filterTags = tagName => {
         if(tagInput.length === 0)
             return true;
 
-        return new RegExp(`\\b${tagInput}`, "i").test(tag.title);
+        return new RegExp(`\\b${tagInput}`, "i").test(tagName);
     };
 
-    const tagSorter = (tag1, tag2) => {
-        const str1 = tag1.title.toLowerCase();
-        const str2 = tag2.title.toLowerCase();
-        const shorterStrLen = str1.length < str2.length ? str1.length : str2.length;
-      
-        for(let i = 0; i < shorterStrLen; i++) {
-          if(str1[i] !== str2[i]) {
-            return str1[i] < str2[i] ? -1 : 1
-          }
-        }
-        return str1.length < str2.length ? -1 : 1;
+    const findSelectedTagIndex = newTagName => {
+        return selectedTags.findIndex(tagName => (new RegExp(tagName, "i")).test(newTagName));
     }
 
-    const findSelectedTagIndex = tagId => {
-        return selectedTags.findIndex(selectedTag => {
-            return tagId === selectedTag.id;
-        });
-    }
-
-    const addSelectedTag = tag => {
-        // const newTag = {title: e.target.getAttribute("tag_title"), id: e.target.getAttribute("tag_id")};
-        console.log(tag);
-        
+    const addSelectedTag = newTagName => {
         //tag has not already been selected
-        if(findSelectedTagIndex(tag.id) === -1) 
-            setSelectedTags([...selectedTags, tag]);
+        if(findSelectedTagIndex(newTagName) === -1) 
+            setSelectedTags([...selectedTags, newTagName]);
     }
 
-    const removeSelectedTag = tagId => {
-        const index = findSelectedTagIndex(tagId);
-        setSelectedTags([...selectedTags.slice(0, index), ...selectedTags.slice(index + 1)]);
+    const removeSelectedTag = tagName => {
+        const index = findSelectedTagIndex(tagName);
+
+        if(index >= 0)
+            setSelectedTags([...selectedTags.slice(0, index), ...selectedTags.slice(index + 1)]);
     }
 
-    const hideTags = e => {
+    const hideTags = () => {
         suggestedTagsRef.current.style.visibility = "hidden";
     }
     
@@ -114,10 +95,10 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
             {/* where selected tags are displayed */}
             <div className={tagDisplayClass}>
                 {
-                    selectedTags.map(tag => (
-                            <span key={tag.id} className={`${tagClass} is-family-primary`}>
-                                {tag.title}
-                                <span onClick={() => removeSelectedTag(tag.id)}>&#x274C;</span>
+                    selectedTags.map((tagName, idx) => (
+                            <span key={idx} className={`${tagClass} is-family-primary`}>
+                                {tagName}
+                                <span onClick={() => removeSelectedTag(tagName)}>&#x274C;</span>
                             </span>
                         )
                     )
@@ -131,13 +112,11 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
 
                     data.tags
                     .filter(filterTags)
-                    .sort(tagSorter)
-                    .map((tag) => (
+                    .sort()
+                    .map((tag, idx) => (
                             <p 
-                                key={tag.id} 
-                                tag_id={tag.id}
-                                tag_title={tag.title}
-                                onClick={() => addSelectedTag(tag)}
+                                key={idx} 
+                                onClick={() => addSelectedTag(tag.title)}
                             >
                                 {tag.title}
                             </p>
