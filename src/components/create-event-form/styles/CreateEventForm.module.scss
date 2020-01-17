@@ -4,6 +4,11 @@
 @import '~bulma/sass/grid/columns.sass';
 @import '~bulma/sass/form/_all.sass';
 
+select {
+    appearance: none;
+    border-radius: 0px;
+}
+
 .input, .select {
     border: none;
     border-bottom: 2px solid black;
