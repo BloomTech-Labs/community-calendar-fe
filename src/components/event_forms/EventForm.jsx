@@ -1,10 +1,8 @@
-import React, {useCallback, useState} from 'react'
+import React, {useState} from 'react'
 import Dropzone from 'react-dropzone'
 import {useForm} from 'react-hook-form'
 import {states, statesAbbreviated} from './states'
 import UploadIcon from '../icons/UploadIcon'
-import gql from 'graphql-tag'
-import {useMutation} from '@apollo/react-hooks';
 import moment from 'moment';
 import TagInput from "./TagInput";
 
@@ -21,65 +19,21 @@ import {
   littleTopMargin
 } from './styles/EventForm.module.scss'
 
-const EventForm = () => {
-  const {register, handleSubmit, errors} = useForm()
+const EventForm = (props) => {
+  //
+
+  // destructure react-hook-form validation scheme, submit handler, and error handler
+  // react-hook-form manages state for all values for user inputted text, location, and time
+  const {register, handleSubmit, errors: formErrors} = useForm()
+
+  // create additional image and tag state to be used in backend mutation request
   const [images, setImages] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
 
-  
-const ADD_EVENT = gql`
-mutation AddEvent(
-  $title: String!,
-  $description: String!,
-  $start: DateTime!
-  $end: DateTime!,
-  $eventImages: [EventCreateImageInput!],
-  $placeName: String!,
-  $streetAddress1: String!,
-  $streetAddress2: String = null,
-  $city: String!,
-  $state: String!,
-  $zipCode: Int!,
-  $latitude: Float = null,
-  $longitude: Float = null,
-  $tags: [EventCreateTagInput!],
-  $ticketType: TicketType!
-  $images: [Upload!]
-){
-  addEvent(
-    data: {
-      title: $title
-      description: $description
-      start: $start
-      end: $end
-      eventImages: $eventImages
-      locations: {
-        create: [
-          {
-            name: $placeName
-            streetAddress: $streetAddress1
-            streetAddress2: $streetAddress2
-            city: $city
-            zipcode: $zipCode
-            state: $state
-            latitude: $latitude
-            longitude: $longitude
-          }
-        ]
-      }
-      tags: $tags
-      ticketType: $ticketType
-    },
-    images: $images
-  ) {
-    id
-  }
-}
-`;
+  // destructure mutation function, data, and error from props. useMutation defined in parent
+  const {mutation, data, error: mutationError} = props;
 
-const [addEvent, {data, error}] = useMutation(ADD_EVENT);
-
-  const onSubmit = dataValues => {
+  const onSubmit = formValues => {
     const {
       title,
       placeName,
@@ -94,9 +48,11 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
       endTime,
       description,
       ticketType
-    } = dataValues;
+    } = formValues;
 
-    addEvent({variables: {
+    console.log("selected tags", selectedTags)
+
+    mutation({variables: {
         title,
         description,
         start: moment(startDate + startTime, 'YYYY-MM-DDhh:mm').toISOString(),
@@ -107,14 +63,14 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
         city,
         state,
         zipCode: parseInt(zipCode),
-        tags: selectedTags.length ? selectedTags.map(tag => ({title: tag.title})) : null,
+        tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : null,
         ticketType,
         images
       }
     });
 
-    if(error){
-      console.log(error);
+    if(mutationError){
+      console.log(mutationError);
     }
   }
 
@@ -122,8 +78,8 @@ const [addEvent, {data, error}] = useMutation(ADD_EVENT);
     console.log(data);
   }
 
-  if(errors.length > 0){
-    console.log('errors', errors)
+  if(formErrors.length > 0){
+    console.log('form errors', formErrors)
   }
   
 
