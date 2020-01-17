@@ -10,4 +10,16 @@ describe('Tests for buildQueryParams', () => {
     const actual = buildQueryParams(singleParam)
     expect(actual).toMatch(expected)
   })
+
+  test('Should  place an ampersand between values', () => {
+    const expected = '?foo=34&bar=whale'
+    const actual = buildQueryParams(multipleParam)
+    expect(actual).toMatch(expected)
+  })
+
+  test('Should  replace special characters with char codes', () => {
+    const expected = '?foo=beep%20boop&bar=is%3Fit%23'
+    const actual = buildQueryParams(paramWithCharacters)
+    expect(actual).toMatch(expected)
+  })
 })

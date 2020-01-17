@@ -31,7 +31,6 @@ if the dropdown menu is open and the user clicks
 outside of it close the dropdown menu
  */
     const navMenuTrigger = e => {
-      console.log('nav target', e.target)
       if (e.target.getAttribute('data-id') === 'hamburger-icon') {
         navMenu.current.classList.toggle('is-active')
         e.target.classList.toggle('is-active')

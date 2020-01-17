@@ -68,6 +68,7 @@
     "apollo-link-http": "^1.5.16",
     "apollo-upload-client": "^12.1.0",
     "bulma": "^0.8.0",
+    "downshift": "^4.0.7",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "moment": "^2.24.0",
