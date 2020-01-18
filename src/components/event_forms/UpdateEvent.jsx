@@ -13,7 +13,6 @@ import LoadingLogo from '../loading/LoadingLogo'
 export default function UpdateEvent() {
   // get event id out of url for query
   const queryParams = useParams()
-  console.log(queryParams, "query params")
 
   // query event information
   const {data, loading, error} = useQuery(GET_EVENT_BY_ID, {

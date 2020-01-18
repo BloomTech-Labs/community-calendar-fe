@@ -19,7 +19,7 @@ export default function GetUserPosition() {
   const client = useApolloClient()
   const {data: cacheData} = useQuery(GET_CACHE)
   // const {getUserPosition} = usePosition()
-  const {userPosition, setUserPosition, getUserPosition} = getGeoPosition()
+  const {userPosition, getUserPosition} = getGeoPosition()
 
 
   if (
@@ -34,11 +34,8 @@ export default function GetUserPosition() {
     })
   }
 
-
-  console.log("GetUserPosition component mounted")
   useEffect(() => {
     getUserPosition();
-    console.log("GetUserPosition useEffect running")
   }, []);
 
   return null;

@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback} from 'react'
+import {useState, useEffect} from 'react'
 
 /* 
  This function is used to read the user's geolocation coordinates. When a component utilizing this function 

@@ -7,7 +7,7 @@ import {
   outerContainer
 } from './styles/EventFormPage.module.scss'
 
-export default function CreateEventPage() {
+export default function UpdateEventPage() {
   return (
     <div className={`${outerContainer}`}>
     <section className={`section ${createEventsContainer}`}>
