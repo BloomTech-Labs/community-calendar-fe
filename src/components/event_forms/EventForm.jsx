@@ -12,11 +12,15 @@ import {
   input,
   select,
   flexrow,
+  responsiveflexrow,
   textarea,
   imageUploader,
   shark,
   vSpacing,
-  littleTopMargin
+  littleTopMargin,
+  location,
+  placeName,
+  endfield
 } from './styles/EventForm.module.scss'
 
 const EventForm = (props) => {
@@ -92,22 +96,24 @@ const EventForm = (props) => {
   return (
     <div className={`${createEventForm}`}>
       <form onSubmit={handleSubmit(onSubmit)} className={`${flexcolumn}`}>
-        <div className={`${vSpacing}`}>
-          <label>
+        <div className="field">
+          <label className="label">
             Event Title
-            <input
-              className={`${input}`}
-              type='text'
-              name='title'
-              ref={register}
-            />
+            <div className="control">
+              <input
+                className={`${input} input `}
+                type='text'
+                name='Event Title'
+                ref={register}
+              />
+            </div>
           </label>
         </div>
-        <div>
-          <label>
+        <div className={` field ${location}`}>
+          <label className="label">
             Location
-            <div className={`${vSpacing}`}>
-              <label>
+            <div className={` field ${placeName}`}>
+              <label className="label">
                 Place Name
                 <input
                   className={`${input}`}
@@ -117,9 +123,9 @@ const EventForm = (props) => {
                   ref={register}
                 />
               </label>
-              <div className={`${flexrow}`}>
-                <div className={`${vSpacing}`}>
-                  <label>
+              <div className={`${responsiveflexrow}`}>
+                <div className="field">
+                  <label className="label">
                     Street Address
                     <input
                       className={`${input}`}
@@ -129,8 +135,8 @@ const EventForm = (props) => {
                     />
                   </label>
                 </div>
-                <div className={`${vSpacing}`}>
-                  <label>
+                <div className={`field ${endfield}`}>
+                  <label className="label">
                     Street Address 2
                     <input
                       className={`${input}`}
@@ -141,9 +147,9 @@ const EventForm = (props) => {
                   </label>
                 </div>
               </div>
-              <div className={`${flexrow}`}>
-                <div className={`${vSpacing}`}>
-                  <label>
+              <div className={`${responsiveflexrow}`}>
+                <div className="field">
+                  <label className="label">
                     City
                     <input
                       className={`${input}`}
@@ -153,14 +159,13 @@ const EventForm = (props) => {
                     />
                   </label>
                 </div>
-                <div className={`${vSpacing}`}>
-                  <label>
+                <div className={`field ${endfield}`}>
+                  <label className="label">
                     State
                     <select
                       name='state'
                       ref={register}
                       className={`${select}`}
-                      style={{display: 'block'}}
                       defaultValue={null}
                     >
                       <option value={null}>Select state</option>
@@ -172,8 +177,8 @@ const EventForm = (props) => {
                     </select>
                   </label>
                 </div>
-                <div className={`${vSpacing}`}>
-                  <label>
+                <div className={`field ${endfield}`}>
+                  <label className="label">
                     Zip Code
                     <input
                       className={`${input}`}
@@ -189,47 +194,48 @@ const EventForm = (props) => {
         </div>
 
         {/* event dates */}
-        <div className={`${flexrow}`}>
-          <label>
-            Starts
-            <div className={`${flexrow} ${vSpacing}`}>
-              <input
-                className={`${select}`}
-                type='date'
-                placeholder='Start Date'
-                name='startDate'
-                ref={register}
-              />
-              <input
-                className={`${select}`}
-                type='time'
-                placeholder='Start Time'
-                name='startTime'
-                ref={register}
-              />
-            </div>
-          </label>
-          <label>
-            Ends
-            <div className={`${flexrow} ${vSpacing}`}>
-              <input
-                className={`${select}`}
-                type='date'
-                placeholder='End Date'
-                name='endDate'
-                ref={register}
-              />
-              <input
-                className={`${select}`}
-                type='time'
-                name='endTime'
-                ref={register}
-              />
-            </div>
-          </label>
+        <div className={`${responsiveflexrow}`}>
+          <div className="field start-field">
+            <label className="label">
+              Starts
+              <div className={`${flexrow}`}>
+                <input
+                  className={`${select} date-select `}
+                  type='date'
+                  name='startDate'
+                  ref={register}
+                />
+                <input
+                  className={`${select} time-select left-margin `}
+                  type='time'
+                  name='startTime'
+                  ref={register}
+                />
+              </div>
+            </label>
+          </div>
+          <div className={`field ${endfield}`}>
+            <label className="label">
+              Ends
+              <div className={`${flexrow}`}>
+                <input
+                  className={`${select} date-select `}
+                  type='date'
+                  name='End Date'
+                  ref={register}
+                />
+                <input
+                  className={`${select} time-select left-margin `}
+                  type='time'
+                  name='End Time'
+                  ref={register}
+                />
+              </div>
+            </label>
+          </div>
         </div>
-        <div >
-        <label>
+        <div className="field">
+        <label className="label">
           Event Description
           <textarea
             className={`${textarea} has-fixed-size`}
@@ -238,8 +244,8 @@ const EventForm = (props) => {
           />
         </label>
         </div>
-        <div>
-        <label>
+        <div className="field">
+        <label className="label">
           Type of ticket
           <select
             name='ticketType'
@@ -258,10 +264,10 @@ const EventForm = (props) => {
            <TagInput selectedTags={selectedTags} setSelectedTags={setSelectedTags}/> 
           </label>
         </div>
-        <div className={`${vSpacing}`}>
-        <label style={{pointerEvents: "none"}}>
-            Event image
-            <div>
+        <div className="field">
+          <label className="label">
+              Event image
+            <div style={{pointerEvents: "none"}}>
             <Dropzone onDrop={acceptedFiles => {setImages(acceptedFiles)}}>
               {({getRootProps, getInputProps}) => (
                 <section className={imageUploader}>
@@ -274,7 +280,7 @@ const EventForm = (props) => {
               )}
             </Dropzone>
             </div>
-            </label>
+          </label>
         </div>
         <button className='button is-medium'>Preview</button>
         <input className={`button is-medium ${shark} has-text-white ${littleTopMargin}`} type='submit' value="Create Event"/>
