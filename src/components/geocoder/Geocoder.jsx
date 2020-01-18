@@ -6,8 +6,10 @@ export default function Geocoder() {
   const [searchTerm, setSearchTerm] = useState('')
   const [mbResults, setMbResults] = useState([])
   let options = []
+  let selected = null
 
   const {
+    selectedItem,
     isOpen,
     getToggleButtonProps,
     getLabelProps,
@@ -16,45 +18,58 @@ export default function Geocoder() {
     getComboboxProps,
     highlightedIndex,
     getItemProps,
+    reset,
   } = useCombobox({
+    circularNavigation: true,
     items: mbResults,
-    // update list of options
+    /* update list of options
+    function that runs everytime input field changes
+    */
     onInputValueChange: async ({inputValue}) => {
       console.log('inputValue', inputValue)
       // fetch data from api
       const data = await fetchGeocode({searchWords: inputValue})
-      console.log('data', data.features)
-      setMbResults(data.features.map(event => event.place_name))
       // set options to array of strings
-      // options = mbResults.map(event => event.place_name)
+      data && setMbResults(data.features)
     },
+    /* runs everytime the selected item changes*/
+    onSelectedItemChange: changes =>
+      console.log('onSelectItemChange fired', changes),
+    /* called each time an item is selected. 
+      determines which field of the selected object is displayed in the input field. 
+      */
+    itemToString: item => (item ? item.place_name : ''),
   })
+
+  console.log('selected Item', selectedItem)
 
   return (
     <>
-      <label {...getLabelProps()}>Enter A Location</label>
-      <div {...getComboboxProps()}>
-        <input {...getInputProps()} />
+      <label {...getLabelProps({className: 'is-family-secondary'})}>
+        Enter A Location
+      </label>
+      <div {...getComboboxProps({className: 'has-text-danger is-flex'})}>
+        <input {...getInputProps({className: 'has-text-success'})} />
+        <button onClick={() => reset()}>X</button>
       </div>
-      <ul {...getMenuProps()}>
+      <ul {...getMenuProps({className: 'has-text-danger'})}>
         {isOpen &&
-          mbResults.map((place, indx) => (
+          mbResults.map((item, index) => (
             <li
+              className='is-clickable'
               style={
-                highlightedIndex === indx ? {backgroundColor: 'yellow'} : {}
+                highlightedIndex === index ? {backgroundColor: 'yellow'} : {}
               }
-              key={'place-' + indx}
-              // {...getItemProps({place, indx})}
+              key={item.place_name + '-' + index}
+              {...getItemProps({
+                item,
+                index,
+              })}
             >
-              {place}
+              {item.place_name}
             </li>
           ))}
       </ul>
     </>
   )
 }
-
-// <>
-// <input type='text' onChange={handleChange} />
-// <button onClick={getData}>submit</button>
-// </>

@@ -8,6 +8,7 @@ export default async function fetchGeocode({
   long = null,
   params = {},
 } = {}) {
+  if (!searchWords && !lat && !long) return null
   /* 
   Returns an array of locations that match the input. 
   'searchWords' can be a words or numbers used to make up an address
