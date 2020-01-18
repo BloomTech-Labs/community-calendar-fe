@@ -9,13 +9,11 @@ import {useAuth0} from './contexts/auth0-context.jsx'
 import {ApolloProvider} from '@apollo/react-hooks'
 import {ApolloClient} from 'apollo-client'
 import {ApolloLink} from 'apollo-link'
-// import {HttpLink} from 'apollo-link-http'
 import {setContext} from 'apollo-link-context'
 import {InMemoryCache} from 'apollo-cache-inmemory'
 import {createUploadLink} from 'apollo-upload-client'
 import {typeDefs} from './graphql/localState'
 import {onError} from 'apollo-link-error'
-// import { typeDefs, resolvers } from './graphql';
 
 //pages
 import EventView from './pages/EventView'
