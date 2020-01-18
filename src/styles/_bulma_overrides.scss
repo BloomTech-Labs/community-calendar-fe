@@ -48,6 +48,7 @@
     @include tablet {
       flex-direction: row;
       margin: {
+        left: auto; // because not using .navbar-start
         bottom: 0;
       }
       & > a,
@@ -62,6 +63,7 @@
   }
 
   &-brand {
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     @include tablet {
@@ -96,6 +98,7 @@
   &-burger {
     width: 16px;
     margin-right: $gap-xxs;
+    margin-left: initial;
     &:hover {
       color: initial;
       background-color: initial;

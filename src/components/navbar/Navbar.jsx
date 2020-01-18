@@ -6,7 +6,7 @@ import gql from 'graphql-tag'
 import navUtils from './navbar_utils'
 
 //components
-import CCLogo from '../icons/CCLogo'
+import {CCLogo, MapMarkerCircle} from 'icons'
 import NavbarSearchBox from './NavbarSearchBox'
 
 //styles
@@ -100,20 +100,26 @@ outside of it close the dropdown menu
         data-id='navbar-menu'
         ref={navMenu}
       >
-        <div className='navbar-start'>{/* <NavbarSearchBox /> */}</div>{' '}
-        {/*end navbar-start */}
         <div className='navbar-end'>
+          {/*           
+WORK IN PROGRESS
+<div role='button' className={`navbar-item has-dropdown `}>
+            <button className={`${navButton} is-size-5-tablet`}>
+              Location
+            </button>
+          </div>
+ */}
+          <Link
+            to='/'
+            role='button'
+            className={`has-text-centered is-size-5-tablet ${navButton}`}
+          >
+            Events
+          </Link>
+
           {user ? (
             /* user has logged in */
             <>
-              <Link
-                to='/'
-                role='button'
-                className={`has-text-centered is-size-5-tablet ${navButton}`}
-              >
-                Events
-              </Link>
-
               <Link to='/create-event' className={`   color_shark`}>
                 <button className={`${navButton} is-size-5-tablet  no-border`}>
                   Create Event
@@ -168,14 +174,6 @@ outside of it close the dropdown menu
           ) : (
             /* No user */
             <>
-              <Link
-                to='/'
-                role='button'
-                className={`has-text-centered is-size-5-tablet ${navButton}`}
-              >
-                Events
-              </Link>
-
               <button
                 onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
                 className={`${navButton} has-text-weight-bold is-size-5-tablet `}
