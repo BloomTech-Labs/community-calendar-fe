@@ -118,7 +118,11 @@ outside of it close the dropdown menu
                   <DropdownIcon />
                 </span>
               </div>
-              <div className='dropdown-menu drop-center' role='menu'>
+              <div
+                className='dropdown-menu drop-center'
+                role='menu'
+                style={{width: '90%'}}
+              >
                 <div className='dropdown-content'>
                   <div
                     className='dropdown-item has-text-centered'

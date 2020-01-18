@@ -121,6 +121,10 @@
   border: none !important;
 }
 
+.no-outline-focus:focus {
+  outline: none;
+}
+
 // ===== Animations =====
 .hover-underline {
   @include underline;

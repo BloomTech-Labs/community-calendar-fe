@@ -6,7 +6,8 @@ const TestPage = () => {
     <div>
       <Geocoder
         labelText='It is raining today'
-        onSelectedItemChangeCb={changes =>
+        placeholder='Find A Place'
+        onSelectedItemChange={changes =>
           console.log('selected item updated', changes)
         }
       />

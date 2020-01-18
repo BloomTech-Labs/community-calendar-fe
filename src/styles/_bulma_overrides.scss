@@ -149,9 +149,10 @@
 
   &-menu {
     @include willSlideDown;
-  }
-  &.is-active &-menu {
-    @include slideDownShow;
+
+    &.is-active {
+      @include slideDownShow;
+    }
   }
 }
 
@@ -169,7 +170,6 @@
 .dropdown .dropdown-menu.drop-center {
   @include willSlideDown(0.4s);
   min-width: unset;
-  width: 90%;
   left: 50%;
   transform: translateX(-50%) !important;
 }

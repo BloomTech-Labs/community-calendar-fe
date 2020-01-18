@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 import {useCombobox} from 'downshift'
 import {fetchGeocode} from '../../utils'
+import PropTypes from 'prop-types'
 
-export default function Geocoder({labelText, onSelectedItemChangeCb}) {
-  const [searchTerm, setSearchTerm] = useState('')
+export default function Geocoder({
+  labelText,
+  onSelectedItemChange,
+  placeholder,
+}) {
   const [mbResults, setMbResults] = useState([])
-  let options = []
-  let selected = null
 
   const {
     selectedItem,
@@ -33,7 +35,7 @@ export default function Geocoder({labelText, onSelectedItemChangeCb}) {
       data && setMbResults(data.features)
     },
     /* runs everytime the selected item changes*/
-    onSelectedItemChange: onSelectedItemChangeCb,
+    onSelectedItemChange,
     /* called each time an item is selected. 
       determines which field of the selected object is displayed in the input field. 
       */
@@ -44,11 +46,18 @@ export default function Geocoder({labelText, onSelectedItemChangeCb}) {
 
   return (
     <>
-      <label {...getLabelProps({className: 'is-family-secondary'})}>
-        {labelText}
-      </label>
+      {labelText && (
+        <label {...getLabelProps({className: 'is-family-secondary'})}>
+          {labelText}
+        </label>
+      )}
       <div {...getComboboxProps({className: 'has-text-danger is-flex'})}>
-        <input {...getInputProps({className: 'has-text-success'})} />
+        <input
+          {...getInputProps({
+            className: 'color_shark input',
+            placeholder,
+          })}
+        />
         <button onClick={() => reset()}>X</button>
       </div>
       <ul {...getMenuProps({className: 'has-text-danger'})}>
@@ -57,7 +66,9 @@ export default function Geocoder({labelText, onSelectedItemChangeCb}) {
             <li
               className='is-clickable'
               style={
-                highlightedIndex === index ? {backgroundColor: 'yellow'} : {}
+                highlightedIndex === index
+                  ? {backgroundColor: 'black', color: 'white'}
+                  : {}
               }
               key={item.place_name + '-' + index}
               {...getItemProps({
@@ -71,4 +82,9 @@ export default function Geocoder({labelText, onSelectedItemChangeCb}) {
       </ul>
     </>
   )
+}
+
+Geocoder.propTypes = {
+  labelText: PropTypes.string,
+  placeholder: PropTypes.string,
 }

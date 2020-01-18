@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link} from 'react-router-dom'
 import ReactGA from 'react-ga'
@@ -24,6 +24,8 @@ export default function Navbar() {
   const dropMenu = useRef(null)
   const hamburgerIcon = useRef(null)
   const navMenu = useRef(null)
+
+  const [locationIsOpen, setLocationIsOpen] = useState(false)
 
   useEffect(() => {
     /* 
@@ -108,16 +110,47 @@ outside of it close the dropdown menu
           </div>
         </div>
         <div className='navbar-end'>
-          <div role='button' className={`navbar-item has-dropdown `}>
-            <button className={`${navButton} is-size-5-tablet`}>
-              Location
-            </button>
+          <div className={`dropdown  ${locationIsOpen ? 'is-active' : ''}`}>
+            <div
+              className='dropdown-trigger is-flex is-clickable'
+              aria-haspopup='true'
+              aria-controls='dropdown-menu2'
+              data-testid='location-dropdown-trigger'
+              data-id='location-dropdown'
+              onClick={() => setLocationIsOpen(!locationIsOpen)}
+            >
+              {/* <div role='button' className={`navbar-item has-dropdown `}> */}
+              <button
+                className={`${navButton} is-size-5-tablet no-outline-focus`}
+              >
+                Location
+              </button>
+              {/* </div> */}
+            </div>
+            <div
+              className={` dropdown-menu drop-center`}
+              id='location-dropdown-menu '
+              role='menu'
+            >
+              <div className='dropdown-content '>
+                <div className=''>
+                  <Geocoder
+                    labelText='Enter Location'
+                    onSelectedItemChange={changes =>
+                      console.log('selected item updated', changes)
+                    }
+                  />
+                </div>
+              </div>
+              {/* end dropdown-content*/}
+            </div>
+            {/* end dropdown-menu*/}
           </div>
 
           <Link
             to='/'
             role='button'
-            className={`has-text-centered is-size-5-tablet ${navButton}`}
+            className={`has-text-centered is-size-5-tablet ${navButton} no-outline-focus`}
           >
             Events
           </Link>
@@ -126,20 +159,22 @@ outside of it close the dropdown menu
             /* user has logged in */
             <>
               <Link to='/create-event' className={`   color_shark`}>
-                <button className={`${navButton} is-size-5-tablet  no-border`}>
+                <button
+                  className={`${navButton} is-size-5-tablet  no-border no-outline-focus`}
+                >
                   Create Event
                 </button>
               </Link>
               <Link
                 to='#'
                 role='button'
-                className={` is-hidden-tablet  is-flex has-text-centered ${navButton}`}
+                className={` is-hidden-tablet  is-flex has-text-centered ${navButton} no-outline-focus`}
               >
                 Profile
               </Link>
               <div
                 role='button'
-                className={` is-hidden-tablet  is-flex has-text-centered ${navButton} is-clickable`}
+                className={` is-hidden-tablet  is-flex has-text-centered ${navButton} is-clickable no-outline-focus`}
                 onClick={e => navUtils.handleLogout(e, logout)}
               >
                 Log Out
@@ -181,13 +216,13 @@ outside of it close the dropdown menu
             <>
               <button
                 onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
-                className={`${navButton} has-text-weight-bold is-size-5-tablet `}
+                className={`${navButton} has-text-weight-bold is-size-5-tablet no-outline-focus `}
               >
                 Sign In
               </button>
               <button
                 onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
-                className={`${navButton}  is-size-5-tablet `}
+                className={`${navButton}  is-size-5-tablet no-outline-focus `}
               >
                 Sign Up
               </button>

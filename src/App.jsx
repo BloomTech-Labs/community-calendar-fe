@@ -103,6 +103,7 @@ function App() {
       locationPermission: true,
       userLatitude: null,
       userLongitude: null,
+      userAddress: null,
       maxDistance: null,
     },
   })
