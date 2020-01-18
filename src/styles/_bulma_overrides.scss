@@ -111,7 +111,7 @@
     display: flex;
     align-items: center !important;
     border-radius: $radius;
-    width: 300px;
+    max-width: 300px;
     transition: width 0.4s;
 
     @include tablet {
@@ -238,7 +238,6 @@ div.select.is-rounded select {
     text-align: center;
   }
 }
-
 
 // ==== Spacing for <select> ====
 .left-margin {

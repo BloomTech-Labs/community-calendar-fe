@@ -78,6 +78,7 @@ outside of it close the dropdown menu
           <CCLogo dimensions={35} />
         </Link>
 
+        <NavbarSearchBox />
         <a
           role='button'
           className='navbar-burger burger is-hidden-tablet'
@@ -99,9 +100,7 @@ outside of it close the dropdown menu
         data-id='navbar-menu'
         ref={navMenu}
       >
-        <div className='navbar-start'>
-          <NavbarSearchBox />
-        </div>{' '}
+        <div className='navbar-start'>{/* <NavbarSearchBox /> */}</div>{' '}
         {/*end navbar-start */}
         <div className='navbar-end'>
           {user ? (
