@@ -1,11 +1,16 @@
 import React, {useState} from 'react'
-import Dropzone from 'react-dropzone'
-import {useForm} from 'react-hook-form'
-import {states, statesAbbreviated} from './states'
-import UploadIcon from '../icons/UploadIcon'
 import moment from 'moment';
+
+// form components
+import {useForm} from 'react-hook-form'
+import Dropzone from 'react-dropzone'
 import TagInput from "./TagInput";
 
+// form data
+import {states, statesAbbreviated} from './states'
+
+// styles
+import UploadIcon from '../icons/UploadIcon'
 import {
   flexcolumn,
   createEventForm,
@@ -24,22 +29,42 @@ import {
 } from './styles/EventForm.module.scss'
 
 const EventForm = (props) => {
-  //
 
-  // destructure react-hook-form validation scheme, submit handler, and error handler
+  // destructure formType, item, a mutation function, mutationData, and mutationError from props
+  // formType is "add" or "update"
+  // item is result of GET_EVENT_BY_ID query which is only passed down for an EditForm
+  // mutation is AddEvent or UpdateEvent as defined in parent useMutation
+  // mutationData and mutationError could possibly be removed and handled in parent
+  const {formType, item, mutation, mutationData, mutationError} = props;
+
   // react-hook-form manages state for all values for user inputted text, location, and time
-  const {register, handleSubmit, errors: formErrors} = useForm()
+  // destructure the `register` value handler, submit handler, and error handler
+  // Ternary maps values passed in on `item` prop as default values for `update` forms, 
+  const {register, handleSubmit, errors: formErrors} = (formType === "update" && item) ?
+    useForm({
+        defaultValues: {
+          title: item.title || null,
+          placeName: item.locations[0].name || null,
+          streetAddress: item.locations[0].streetAddress || null,
+          streetAddress2: item.locations[0].streetAddress2 || null,
+          city: item.locations[0].city || null,
+          state: item.locations[0].state || null,
+          zipcode: item.locations[0].zipcode || null,
+          //startDate
+          //startTime
+          //endDate
+          //endTime
+          description: item.description || null,
+          ticketType: item.ticketType || null
+        }
+      }) :
+    useForm();
+    
 
   // create additional image and tag state to be used in backend mutation request
   const [images, setImages] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
 
-  // destructure formType, mutation function, data, and error from props.
-  // formType is "add" or "update"
-  // item is result of GET_EVENT_BY_IS query only passed down for an EditForm
-  // mutation is AddEvent or UpdateEvent as defined in parent useMutation
-  // mutationData and mutationError could possibly be removed and handled in parent
-  const {formType, item, mutation, mutationData, mutationError} = props;
 
   console.log("formType and item props in EventForm", formType, item);
 
@@ -47,11 +72,11 @@ const EventForm = (props) => {
     const {
       title,
       placeName,
-      streetAddress1,
+      streetAddress,
       streetAddress2,
       city,
       state,
-      zipCode,
+      zipcode,
       startDate,
       startTime,
       endDate,
@@ -68,11 +93,11 @@ const EventForm = (props) => {
         start: moment(startDate + startTime, 'YYYY-MM-DDhh:mm').toISOString(),
         end: moment(endDate + endTime, 'YYYY-MM-DDhh:mm').toISOString(),
         placeName,
-        streetAddress1,
+        streetAddress,
         streetAddress2,
         city,
         state,
-        zipCode: parseInt(zipCode),
+        zipcode: parseInt(zipcode),
         tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : null,
         ticketType,
         images
@@ -103,7 +128,7 @@ const EventForm = (props) => {
               <input
                 className={`${input} input `}
                 type='text'
-                name='Event Title'
+                name='title'
                 ref={register}
               />
             </div>
@@ -130,7 +155,7 @@ const EventForm = (props) => {
                     <input
                       className={`${input}`}
                       type='text'
-                      name='streetAddress1'
+                      name='streetAddress'
                       ref={register}
                     />
                   </label>
@@ -183,7 +208,7 @@ const EventForm = (props) => {
                     <input
                       className={`${input}`}
                       type='text'
-                      name='zipCode'
+                      name='zipcode'
                       ref={register}
                     />
                   </label>
