@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useCombobox} from 'downshift'
 import {fetchGeocode} from '../../utils'
 
-export default function Geocoder() {
+export default function Geocoder({labelText, onSelectedItemChangeCb}) {
   const [searchTerm, setSearchTerm] = useState('')
   const [mbResults, setMbResults] = useState([])
   let options = []
@@ -33,8 +33,7 @@ export default function Geocoder() {
       data && setMbResults(data.features)
     },
     /* runs everytime the selected item changes*/
-    onSelectedItemChange: changes =>
-      console.log('onSelectItemChange fired', changes),
+    onSelectedItemChange: onSelectedItemChangeCb,
     /* called each time an item is selected. 
       determines which field of the selected object is displayed in the input field. 
       */
@@ -46,7 +45,7 @@ export default function Geocoder() {
   return (
     <>
       <label {...getLabelProps({className: 'is-family-secondary'})}>
-        Enter A Location
+        {labelText}
       </label>
       <div {...getComboboxProps({className: 'has-text-danger is-flex'})}>
         <input {...getInputProps({className: 'has-text-success'})} />

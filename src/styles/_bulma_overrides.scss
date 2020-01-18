@@ -48,7 +48,6 @@
     @include tablet {
       flex-direction: row;
       margin: {
-        left: auto; // because not using .navbar-start
         bottom: 0;
       }
       & > a,
@@ -110,7 +109,8 @@
   }
 
   &-search {
-    padding-left: 12px;
+    margin-left: $gap-xs;
+    margin-right: $gap-xs;
     display: flex;
     align-items: center !important;
     border-radius: $radius;
@@ -118,6 +118,7 @@
     transition: width 0.4s;
 
     @include tablet {
+      margin-left: $gap-md;
       max-width: 350px;
       flex-grow: 1;
     }

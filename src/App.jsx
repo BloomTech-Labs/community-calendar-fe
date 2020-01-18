@@ -20,12 +20,12 @@ import EventView from './pages/EventView'
 import Home from './pages/Home'
 import CreateEventPage from './pages/CreateEventPage'
 import SearchResults from './pages/SearchResults'
+import TestPage from './pages/TestPage'
 
 //components
 import Navbar from 'navbar/Navbar'
 import PrivateRoute from 'private-route/PrivateRoute'
 import GetUserPosition from './utils/GetUserPosition'
-import Geocoder from 'geocoder/Geocoder'
 
 function App() {
   const {
@@ -116,7 +116,7 @@ function App() {
         <Route path='/create-event' component={CreateEventPage} />
         <Route path='/events/:id' component={EventView} />
         <Route path='/search/:searchText' component={SearchResults} />
-        <Route path='/test-page' component={Geocoder} />
+        <Route path='/test-page' component={TestPage} />
       </Switch>
     </ApolloProvider>
   )

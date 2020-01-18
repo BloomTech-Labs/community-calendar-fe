@@ -8,12 +8,12 @@ import navUtils from './navbar_utils'
 //components
 import {CCLogo, MapMarkerCircle} from 'icons'
 import NavbarSearchBox from './NavbarSearchBox'
+import Geocoder from 'geocoder/Geocoder'
 
 //styles
 import {navButton} from './Navbar.module.scss'
 
-// geolocation
-import getGeoPosition from '../../utils/getPosition'
+// Apollo
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_CACHE} from '../../graphql'
 
@@ -77,8 +77,9 @@ outside of it close the dropdown menu
         <Link to='/' title='Go to Community Calendar home page'>
           <CCLogo dimensions={35} />
         </Link>
-
-        <NavbarSearchBox />
+        <div className='is-hidden-tablet'>
+          <NavbarSearchBox />
+        </div>
         <a
           role='button'
           className='navbar-burger burger is-hidden-tablet'
@@ -100,15 +101,19 @@ outside of it close the dropdown menu
         data-id='navbar-menu'
         ref={navMenu}
       >
+        <div className='navbar-start '>
+          <div className='is-hidden-mobile'>
+            {' '}
+            <NavbarSearchBox />
+          </div>
+        </div>
         <div className='navbar-end'>
-          {/*           
-WORK IN PROGRESS
-<div role='button' className={`navbar-item has-dropdown `}>
+          <div role='button' className={`navbar-item has-dropdown `}>
             <button className={`${navButton} is-size-5-tablet`}>
               Location
             </button>
           </div>
- */}
+
           <Link
             to='/'
             role='button'
