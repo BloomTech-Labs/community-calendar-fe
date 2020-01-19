@@ -57,12 +57,14 @@ outside of it close the dropdown menu
     } // end wasDropdownClicked
 
     // add event listener
-    window.addEventListener('click', distanceDropdown)
+    userLatitude && userLongitude
+      ? window.addEventListener('click', distanceDropdown)
+      : window.removeEventListener('click', distanceDropdown)
 
     return () => {
       window.removeEventListener('click', distanceDropdown)
     }
-  }, [])
+  }, [userLatitude, userLongitude])
 
   // set distance filter
   const setMaxDistance = distance => {
@@ -112,13 +114,18 @@ outside of it close the dropdown menu
                 </span>
                 <span
                   className={`icon  no-pointer-events `}
+                  style={{transition: 'transform 0.2s'}}
                   ref={dropdownArrow}
                   aria-hidden='true'
                 >
                   <DropdownIcon />
                 </span>
               </div>
-              <div className='dropdown-menu drop-center' role='menu'>
+              <div
+                className='dropdown-menu drop-center'
+                role='menu'
+                style={{width: '90%'}}
+              >
                 <div className='dropdown-content'>
                   <div
                     className='dropdown-item has-text-centered'

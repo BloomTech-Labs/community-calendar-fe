@@ -42,6 +42,11 @@
 }
 
 // ===== Postion , Padding, Margin, Box Shape =====
+
+.d-none {
+  display: none;
+}
+
 .is-round {
   @include is-round;
 }
@@ -71,6 +76,7 @@
 }
 
 .flip {
+  transition: transform $duration-short;
   transform: rotate(180deg);
 }
 
@@ -119,6 +125,10 @@
 // ===== Borders =====
 .no-border {
   border: none !important;
+}
+
+.no-outline-focus:focus {
+  outline: none;
 }
 
 // ===== Animations =====

@@ -5,7 +5,7 @@ import {
   GET_EVENTS,
   GET_EVENTS_WITH_DISTANCE,
   GET_EVENT_BY_ID,
-  GET_EVENT_BY_ID_WITH_DISTANCE
+  GET_EVENT_BY_ID_WITH_DISTANCE,
 } from './events.query.js'
 import USERS from './users.query.js'
 
@@ -14,7 +14,6 @@ import USERS from './users.query.js'
 // local state - client GraphQL API typeDefs, resolvers, and queries
 import {typeDefs} from './localState'
 import USER_LOCATION from './userLocation.query.js'
-import GET_LOCAL_STATE from './getLocalState.query.js'
 import GET_CACHE from './getCache.query.js'
 
 // re-export as modules
@@ -29,5 +28,4 @@ export {
   USER_LOCATION,
   USERS,
   GET_CACHE,
-  GET_LOCAL_STATE,
 }

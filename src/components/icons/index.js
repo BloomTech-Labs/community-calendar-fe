@@ -6,6 +6,8 @@ import HeartIcon from './HeartIcon'
 import ListIcon from './ListIcon'
 import ShareIcon from './ShareIcon'
 import SearchIcon from './SearchIcon'
+import MapMarkerCircle from './MapMarkerCircle'
+import UploadIcon from './UploadIcon'
 
 export {
   ArrowIcon,
@@ -16,4 +18,6 @@ export {
   ShareIcon,
   HeartIcon,
   DropdownIcon,
+  MapMarkerCircle,
+  UploadIcon,
 }

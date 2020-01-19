@@ -5,6 +5,7 @@ const GET_CACHE = gql`
     locationPermission @client
     userLatitude @client
     userLongitude @client
+    userAddress @client
     maxDistance @client
   }
 `

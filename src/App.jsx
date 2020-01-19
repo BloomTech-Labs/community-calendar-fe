@@ -1,5 +1,5 @@
 import {hot} from 'react-hot-loader/root'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
 
 //auth0
@@ -8,26 +8,24 @@ import {useAuth0} from './contexts/auth0-context.jsx'
 //apollo
 import {ApolloProvider} from '@apollo/react-hooks'
 import {ApolloClient} from 'apollo-client'
-import {ApolloLink} from 'apollo-link';
-// import {HttpLink} from 'apollo-link-http'
+import {ApolloLink} from 'apollo-link'
 import {setContext} from 'apollo-link-context'
 import {InMemoryCache} from 'apollo-cache-inmemory'
 import {createUploadLink} from 'apollo-upload-client'
-import {typeDefs} from './graphql/localState';
-import {onError} from 'apollo-link-error';
-// import { typeDefs, resolvers } from './graphql';
+import {typeDefs} from './graphql/localState'
+import {onError} from 'apollo-link-error'
 
 //pages
 import EventView from './pages/EventView'
 import Home from './pages/Home'
 import CreateEventPage from './pages/CreateEventPage'
 import SearchResults from './pages/SearchResults'
+import TestPage from './pages/TestPage'
 
 //components
 import Navbar from 'navbar/Navbar'
 import PrivateRoute from 'private-route/PrivateRoute'
-import GetUserPosition from './utils/GetUserPosition'
-
+import {GetUserPosition} from './utils'
 
 function App() {
   const {
@@ -50,22 +48,22 @@ function App() {
 
   user && getAccessToken()
 
-  const errorLink = new onError(({ graphQLErrors, networkError }) => {
+  const errorLink = new onError(({graphQLErrors, networkError}) => {
     if (graphQLErrors)
-      graphQLErrors.map(({ message, locations, path }) =>
+      graphQLErrors.map(({message, locations, path}) =>
         console.log(
           `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
         ),
-      );
-  
-    if (networkError) console.log(`[Network error]: ${networkError}`);
-  });
+      )
+
+    if (networkError) console.log(`[Network error]: ${networkError}`)
+  })
 
   const httpLink = new createUploadLink({
     uri: process.env.REACT_APP_APOLLO_SERVER,
     headers: {
-      'keep-alive': 'true'
-    }
+      'keep-alive': 'true',
+    },
   })
 
   const authLink = setContext((_, {headers}) => {
@@ -74,7 +72,7 @@ function App() {
       return {
         headers: {
           ...headers,
-          authorization: `Bearer ${token}`
+          authorization: `Bearer ${token}`,
         },
       }
     } else {
@@ -97,7 +95,6 @@ function App() {
     cache,
     // add typedefs and resolvers for local state
     typeDefs,
-    // resolvers
   })
 
   // initialize apollo client in-memory cache of local state
@@ -106,6 +103,7 @@ function App() {
       locationPermission: true,
       userLatitude: null,
       userLongitude: null,
+      userAddress: null,
       maxDistance: null,
     },
   })
@@ -119,6 +117,7 @@ function App() {
         <Route path='/create-event' component={CreateEventPage} />
         <Route path='/events/:id' component={EventView} />
         <Route path='/search/:searchText' component={SearchResults} />
+        <Route path='/test-page' component={TestPage} />
       </Switch>
     </ApolloProvider>
   )

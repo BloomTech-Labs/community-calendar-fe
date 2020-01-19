@@ -19,5 +19,6 @@ export const typeDefs = gql`
     locationPermission: Boolean!
     userLatitude: Float
     userLongitude: Float
+    userAddress: String
   }
 `
