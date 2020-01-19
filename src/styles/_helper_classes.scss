@@ -42,6 +42,11 @@
 }
 
 // ===== Postion , Padding, Margin, Box Shape =====
+
+.d-none {
+  display: none;
+}
+
 .is-round {
   @include is-round;
 }

@@ -12,6 +12,7 @@
   }
 
   &-reset {
+    color: $shark !important;
     top: 20% !important;
     transition: text-shadow $duration-short, opacity $duration-short;
     pointer-events: all !important;

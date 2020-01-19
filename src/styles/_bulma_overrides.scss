@@ -16,12 +16,12 @@
     pointer-events: none;
   }
 
-  &.is-active:before {
-    content: '';
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
+  @include mobile {
+    &.is-active {
+      height: 100vh;
+    }
   }
+
   @include tablet-up {
     padding: 0 $bodyPaddingX-hd;
     flex-direction: row;
@@ -82,12 +82,14 @@
   }
 
   &-menu {
+    position: relative;
     background-color: transparent;
     box-shadow: none;
     flex-grow: 1;
     padding: 0;
     flex-direction: column;
     overflow: visible !important;
+    z-index: 1000;
 
     @include tablet {
       display: flex;
@@ -98,6 +100,18 @@
 
     &.is-active {
       display: flex;
+      /* 
+      &:after {
+        content: '';
+        width: 150%;
+        height: 100vh;
+        position: absolute;
+        bottom: -100vh;
+        z-index: 0;
+        margin-left: -15%;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+ */
     }
   }
 
@@ -161,6 +175,78 @@
       @include slideDownShow;
     }
   }
+
+  // styles for dropdown menus in navbar. different on mobile
+  &.navDropdown {
+    margin-bottom: -4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .dropdown-menu.drop-center {
+      display: none;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+
+    &.is-active {
+      .dropdown-menu.drop-center {
+        display: block;
+      }
+    }
+    @include tablet {
+      display: inline-flex;
+      flex-direction: row;
+      margin-bottom: 0;
+
+      .dropdown-menu.drop-center {
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+      }
+
+      &.is-active {
+        .dropdown-menu.drop-center {
+          display: block;
+        }
+      }
+    } // styles for tablet up
+    /*
+    &.is-active {
+      margin-bottom: 0;
+      .dropdown-menu.drop-center {
+        display: block;
+      }
+
+      @include tablet {
+        display: inline-flex;
+        flex-direction: row;
+        .dropdown-menu.drop-center {
+          position: absolute;
+          top: 100%;
+          left: 50%;
+        }
+      }
+    }
+    */
+  }
+
+  // center-aligned dropdown menus NOT in navbar.
+  & .dropdown-menu.drop-center {
+    @include willSlideDown(0.4s);
+    min-width: unset;
+
+    @include tablet {
+      left: 50%;
+      transform: translateX(-50%) !important;
+    }
+  }
+
+  &.is-active .dropdown-menu.drop-center {
+    @include slideDownShow;
+  }
 }
 
 // ==== Input ====
@@ -174,16 +260,6 @@
   background-color: white;
 }
 
-.dropdown .dropdown-menu.drop-center {
-  @include willSlideDown(0.4s);
-  min-width: unset;
-  left: 50%;
-  transform: translateX(-50%) !important;
-}
-
-.dropdown.is-active .dropdown-menu.drop-center {
-  @include slideDownShow;
-}
 // ===== Section =====
 .section {
   padding: {

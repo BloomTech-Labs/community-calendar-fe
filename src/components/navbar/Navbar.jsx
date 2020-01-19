@@ -26,11 +26,13 @@ export default function Navbar() {
 
   // used to show/hide the dropdown menu
   const dropMenu = useRef(null)
-  const hamburgerIcon = useRef(null)
-  const navMenu = useRef(null)
+  const locationMenu = useRef()
 
+  // drop down menu state
+  const [navMenuIsOpen, setNavMenuIsOpen] = useState(false)
   const [locationIsOpen, setLocationIsOpen] = useState(false)
 
+  // used by geocoder to update local cache
   function setUserLocation(changes) {
     console.log('Geocoder changes in Navbar', changes)
     if (changes.selectedItem) {
@@ -48,21 +50,6 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    /* 
-if the dropdown menu is open and the user clicks 
-outside of it close the dropdown menu
- */
-    const navMenuTrigger = e => {
-      if (e.target.getAttribute('data-id') === 'hamburger-icon') {
-        navMenu.current.classList.toggle('is-active')
-        e.target.classList.toggle('is-active')
-        // if user clicks outside of dropdown menu close menu
-      } else if (!/(navbar*)/gi.test(e.target.className)) {
-        hamburgerIcon.current.classList.remove('is-active')
-        navMenu.current.classList.remove('is-active')
-      }
-    } // end profileDropdownTrigger
-
     const profileDropdownTrigger = e => {
       // if user clicks div.dropdown-trigger toggle the menu&&
       if (e.target.getAttribute('data-id') === 'navbar-profile-dropdown') {
@@ -72,8 +59,6 @@ outside of it close the dropdown menu
         dropMenu.current.classList.remove('is-active')
       }
     } // end profileDropdownTrigger
-
-    window.addEventListener('click', navMenuTrigger)
 
     // add event listener if user object exists
     if (user) {
@@ -85,12 +70,14 @@ outside of it close the dropdown menu
     }
     return () => {
       window.removeEventListener('click', profileDropdownTrigger)
-      window.removeEventListener('click', navMenuTrigger)
     }
   }, [user])
+
   return (
     <nav
-      className={` navbar has-background-white is-fixed-top `}
+      className={`${
+        navMenuIsOpen ? 'is-active' : ''
+      } navbar has-background-white is-fixed-top `}
       role='navigation'
       aria-label='main navigation'
       data-id='navbar'
@@ -104,12 +91,14 @@ outside of it close the dropdown menu
         </div>
         <a
           role='button'
-          className='navbar-burger burger is-hidden-tablet'
+          className={`navbar-burger burger is-hidden-tablet ${
+            navMenuIsOpen ? 'is-active' : ''
+          }`}
           aria-label='menu'
           aria-expanded='false'
           data-target='navbarMenu'
           data-id='hamburger-icon'
-          ref={hamburgerIcon}
+          onClick={() => setNavMenuIsOpen(!navMenuIsOpen)}
         >
           <span aria-hidden='true'></span>
           <span aria-hidden='true'></span>
@@ -118,10 +107,9 @@ outside of it close the dropdown menu
       </div>{' '}
       {/* end navbar-brand */}
       <div
-        className='navbar-menu'
+        className={`navbar-menu ${navMenuIsOpen ? 'is-active' : ''}`}
         id='navbarMenu'
         data-id='navbar-menu'
-        ref={navMenu}
       >
         <div className='navbar-start '>
           <div className='is-hidden-mobile'>
@@ -130,7 +118,11 @@ outside of it close the dropdown menu
           </div>
         </div>
         <div className='navbar-end'>
-          <div className={`dropdown  ${locationIsOpen ? 'is-active' : ''}`}>
+          <div
+            className={`dropdown  navDropdown ${
+              locationIsOpen ? 'is-active' : ''
+            }`}
+          >
             <div
               role='button'
               className='dropdown-trigger level is-clickable'
@@ -155,20 +147,13 @@ outside of it close the dropdown menu
               </span>
             </div>
             <div
-              className={` dropdown-menu drop-center`}
+              className={` dropdown-menu drop-center `}
               id='location-dropdown-menu '
               role='menu'
+              ref={locationMenu}
             >
               <div className='dropdown-content '>
                 <div className={locationContent}>
-                  <div
-                    role='button'
-                    aria-label='close location input dropdown'
-                    className={`${closeButton}  is-clickable`}
-                    onClick={() => setLocationIsOpen(false)}
-                  >
-                    &#127335;
-                  </div>
                   {localCache.userAddress && (
                     <p data-id='address-box'>
                       <span>
