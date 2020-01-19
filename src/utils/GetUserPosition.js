@@ -3,7 +3,6 @@ import {useEffect} from 'react'
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_CACHE} from '../graphql'
 
-// import usePosition from './usePosition';
 import getGeoPosition from './getPosition'
 
 /*
@@ -17,13 +16,9 @@ import getGeoPosition from './getPosition'
 export default function GetUserPosition() {
   const client = useApolloClient()
   const {data: cacheData} = useQuery(GET_CACHE)
-  // const {getUserPosition} = usePosition()
-  const {userPosition, setUserPosition, getUserPosition} = getGeoPosition()
+  const userPosition = getGeoPosition()
 
-  if (
-    userPosition.latitude !== cacheData.latitude ||
-    userPosition.longitude !== cacheData.longitude
-  ) {
+  if (!cacheData.userLatitude && !cacheData.userLongitude) {
     client.writeData({
       data: {
         userLatitude: userPosition.latitude,
@@ -31,10 +26,6 @@ export default function GetUserPosition() {
       },
     })
   }
-
-  useEffect(() => {
-    getUserPosition()
-  }, [])
 
   return null
 }

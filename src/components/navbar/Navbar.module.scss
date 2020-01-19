@@ -28,4 +28,23 @@
 .locationContent {
   padding: $gap-xxs;
   margin-left: 0 !important;
+  p[data-id='address-box'] {
+    display: flex;
+    margin: $gap-xs 0;
+    span:nth-of-type(2) {
+      padding-left: $gap-xxs;
+    }
+  }
+}
+
+.closeButton {
+  position: absolute;
+  right: $gap-xxs;
+  top: 0;
+  font-size: large;
+  color: $shark;
+  transition: text-shadow $duration-short;
+  &:hover {
+    text-shadow: $danger 0 0 4px;
+  }
 }

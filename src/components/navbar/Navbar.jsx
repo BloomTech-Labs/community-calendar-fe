@@ -11,7 +11,7 @@ import NavbarSearchBox from './NavbarSearchBox'
 import Geocoder from 'geocoder/Geocoder'
 
 //styles
-import {navButton, locationContent} from './Navbar.module.scss'
+import {navButton, locationContent, closeButton} from './Navbar.module.scss'
 
 // Apollo
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
@@ -20,7 +20,7 @@ import {GET_CACHE} from '../../graphql'
 export default function Navbar() {
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
-  console.log('cache in navbar', localCache)
+  console.log('localCache', localCache)
 
   const {user, loginWithRedirect, logout} = useAuth0()
 
@@ -30,6 +30,22 @@ export default function Navbar() {
   const navMenu = useRef(null)
 
   const [locationIsOpen, setLocationIsOpen] = useState(false)
+
+  function setUserLocation(changes) {
+    console.log('Geocoder changes in Navbar', changes)
+    if (changes.selectedItem) {
+      const place = {...changes.selectedItem}
+      console.log(' selected place', place)
+      //update user data in local cache
+      client.writeData({
+        data: {
+          userAddress: place.place_name.replace(/united states$/i, 'US'),
+          userLatitude: place.geometry.coordinates[1],
+          userLongitude: place.geometry.coordinates[0],
+        },
+      })
+    }
+  }
 
   useEffect(() => {
     /* 
@@ -145,11 +161,25 @@ outside of it close the dropdown menu
             >
               <div className='dropdown-content '>
                 <div className={locationContent}>
+                  <div
+                    role='button'
+                    aria-label='close location input dropdown'
+                    className={`${closeButton}  is-clickable`}
+                    onClick={() => setLocationIsOpen(false)}
+                  >
+                    &#127335;
+                  </div>
+                  {localCache.userAddress && (
+                    <p data-id='address-box'>
+                      <span>
+                        <MapMarkerCircle />
+                      </span>
+                      <span>{localCache.userAddress}</span>
+                    </p>
+                  )}
                   <Geocoder
-                    labelText='Enter Location'
-                    onSelectedItemChange={changes =>
-                      console.log('selected item updated', changes)
-                    }
+                    labelText='Enter Location:'
+                    onSelectedItemChange={setUserLocation}
                   />
                 </div>
               </div>

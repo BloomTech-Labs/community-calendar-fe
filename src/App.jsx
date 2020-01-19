@@ -1,5 +1,5 @@
 import {hot} from 'react-hot-loader/root'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
 
 //auth0
@@ -25,7 +25,7 @@ import TestPage from './pages/TestPage'
 //components
 import Navbar from 'navbar/Navbar'
 import PrivateRoute from 'private-route/PrivateRoute'
-import GetUserPosition from './utils/GetUserPosition'
+import {GetUserPosition} from './utils'
 
 function App() {
   const {

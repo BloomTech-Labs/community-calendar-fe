@@ -57,12 +57,14 @@ outside of it close the dropdown menu
     } // end wasDropdownClicked
 
     // add event listener
-    window.addEventListener('click', distanceDropdown)
+    userLatitude && userLongitude
+      ? window.addEventListener('click', distanceDropdown)
+      : window.removeEventListener('click', distanceDropdown)
 
     return () => {
       window.removeEventListener('click', distanceDropdown)
     }
-  }, [])
+  }, [userLatitude, userLongitude])
 
   // set distance filter
   const setMaxDistance = distance => {

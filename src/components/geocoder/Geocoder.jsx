@@ -14,7 +14,6 @@ export default function Geocoder({
   const {
     selectedItem,
     isOpen,
-    getToggleButtonProps,
     getLabelProps,
     getInputProps,
     getMenuProps,
@@ -45,7 +44,9 @@ export default function Geocoder({
     itemToString: item => (item ? item.place_name : ''),
   })
 
-  console.log('Geocoder selected Item', selectedItem)
+  // console.log('Geocoder selected Item', selectedItem)
+
+  // reset the geocoder when the dropdown is closed
 
   return (
     <>

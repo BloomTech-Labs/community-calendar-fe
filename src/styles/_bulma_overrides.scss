@@ -16,6 +16,12 @@
     pointer-events: none;
   }
 
+  &.is-active:before {
+    content: '';
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
   @include tablet-up {
     padding: 0 $bodyPaddingX-hd;
     flex-direction: row;
@@ -51,12 +57,13 @@
         bottom: 0;
       }
       & > a,
-      div,
-      button {
+      > div,
+      > button {
         margin: {
           left: $gap-xxs;
           top: 0;
         }
+        padding: 0 $gap-xxs;
       }
     }
   }
