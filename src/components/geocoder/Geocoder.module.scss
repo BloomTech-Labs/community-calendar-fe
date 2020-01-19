@@ -1,0 +1,28 @@
+@import '_variables';
+@import '_mixins';
+
+.geocoder {
+  margin-left: 0 !important;
+
+  input {
+    margin-top: $gap-xs;
+    min-width: 250px;
+    border-radius: $radius $radius 0 0;
+    padding-left: $gap-xxs / 2;
+  }
+
+  &-reset {
+    top: 20% !important;
+    transition: text-shadow $duration-short, opacity $duration-short;
+    pointer-events: all !important;
+    &:hover,
+    &:focus {
+      text-shadow: $danger 0 0 3px;
+    }
+
+    &.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+}

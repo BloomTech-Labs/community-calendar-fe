@@ -112,6 +112,7 @@ outside of it close the dropdown menu
                 </span>
                 <span
                   className={`icon  no-pointer-events `}
+                  style={{transition: 'transform 0.2s'}}
                   ref={dropdownArrow}
                   aria-hidden='true'
                 >

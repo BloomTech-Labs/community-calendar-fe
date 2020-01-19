@@ -6,18 +6,22 @@ import gql from 'graphql-tag'
 import navUtils from './navbar_utils'
 
 //components
-import {CCLogo, MapMarkerCircle} from 'icons'
+import {CCLogo, MapMarkerCircle, DropdownIcon} from 'icons'
 import NavbarSearchBox from './NavbarSearchBox'
 import Geocoder from 'geocoder/Geocoder'
 
 //styles
-import {navButton} from './Navbar.module.scss'
+import {navButton, locationContent} from './Navbar.module.scss'
 
 // Apollo
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_CACHE} from '../../graphql'
 
 export default function Navbar() {
+  const client = useApolloClient()
+  const {data: localCache} = useQuery(GET_CACHE)
+  console.log('cache in navbar', localCache)
+
   const {user, loginWithRedirect, logout} = useAuth0()
 
   // used to show/hide the dropdown menu
@@ -112,20 +116,27 @@ outside of it close the dropdown menu
         <div className='navbar-end'>
           <div className={`dropdown  ${locationIsOpen ? 'is-active' : ''}`}>
             <div
-              className='dropdown-trigger is-flex is-clickable'
+              role='button'
+              className='dropdown-trigger level is-clickable'
               aria-haspopup='true'
               aria-controls='dropdown-menu2'
               data-testid='location-dropdown-trigger'
               data-id='location-dropdown'
               onClick={() => setLocationIsOpen(!locationIsOpen)}
             >
-              {/* <div role='button' className={`navbar-item has-dropdown `}> */}
-              <button
-                className={`${navButton} is-size-5-tablet no-outline-focus`}
+              <span
+                className={` is-size-5-tablet no-outline-focus no-pointer-events`}
               >
                 Location
-              </button>
-              {/* </div> */}
+              </span>
+              <span
+                className={`${
+                  locationIsOpen ? 'flip' : ''
+                } no-pointer-events icon`}
+                style={{transition: 'transform 0.2s'}}
+              >
+                <DropdownIcon />
+              </span>
             </div>
             <div
               className={` dropdown-menu drop-center`}
@@ -133,7 +144,7 @@ outside of it close the dropdown menu
               role='menu'
             >
               <div className='dropdown-content '>
-                <div className=''>
+                <div className={locationContent}>
                   <Geocoder
                     labelText='Enter Location'
                     onSelectedItemChange={changes =>

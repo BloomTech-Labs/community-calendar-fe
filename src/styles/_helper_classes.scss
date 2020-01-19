@@ -71,6 +71,7 @@
 }
 
 .flip {
+  transition: transform $duration-short;
   transform: rotate(180deg);
 }
 

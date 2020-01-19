@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {useCombobox} from 'downshift'
 import {fetchGeocode} from '../../utils'
+import {geocoder, geocoderReset, hide} from './Geocoder.module'
 import PropTypes from 'prop-types'
 
 export default function Geocoder({
@@ -19,6 +20,7 @@ export default function Geocoder({
     getMenuProps,
     getComboboxProps,
     highlightedIndex,
+    inputValue, // current input value
     getItemProps,
     reset,
   } = useCombobox({
@@ -28,11 +30,12 @@ export default function Geocoder({
     function that runs everytime input field changes
     */
     onInputValueChange: async ({inputValue}) => {
-      console.log('inputValue', inputValue)
-      // fetch data from api
-      const data = await fetchGeocode({searchWords: inputValue})
-      // set options to array of strings
-      data && setMbResults(data.features)
+      if (inputValue.length > 2) {
+        // fetch data from api
+        const data = await fetchGeocode({searchWords: inputValue})
+        // set options to array of strings
+        data && setMbResults(data.features)
+      }
     },
     /* runs everytime the selected item changes*/
     onSelectedItemChange,
@@ -42,25 +45,38 @@ export default function Geocoder({
     itemToString: item => (item ? item.place_name : ''),
   })
 
-  console.log('selected Item', selectedItem)
+  console.log('Geocoder selected Item', selectedItem)
 
   return (
     <>
       {labelText && (
-        <label {...getLabelProps({className: 'is-family-secondary'})}>
+        <label
+          {...getLabelProps({className: 'is-family-secondary color_shark'})}
+        >
           {labelText}
         </label>
       )}
-      <div {...getComboboxProps({className: 'has-text-danger is-flex'})}>
+      <div
+        {...getComboboxProps({
+          className: ` is-flex control has-icons-right ${geocoder}`,
+        })}
+      >
         <input
           {...getInputProps({
-            className: 'color_shark input',
+            className: `input`,
             placeholder,
           })}
         />
-        <button onClick={() => reset()}>X</button>
+        <span
+          className={`${geocoderReset} ${
+            inputValue.length > 2 ? '' : hide
+          } icon is-small is-right`}
+          onClick={() => reset()}
+        >
+          &#127335;
+        </span>
       </div>
-      <ul {...getMenuProps({className: 'has-text-danger'})}>
+      <ul {...getMenuProps({className: 'is-size-6'})}>
         {isOpen &&
           mbResults.map((item, index) => (
             <li
