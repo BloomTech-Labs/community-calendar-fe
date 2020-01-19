@@ -213,24 +213,6 @@
         }
       }
     } // styles for tablet up
-    /*
-    &.is-active {
-      margin-bottom: 0;
-      .dropdown-menu.drop-center {
-        display: block;
-      }
-
-      @include tablet {
-        display: inline-flex;
-        flex-direction: row;
-        .dropdown-menu.drop-center {
-          position: absolute;
-          top: 100%;
-          left: 50%;
-        }
-      }
-    }
-    */
   }
 
   // center-aligned dropdown menus NOT in navbar.

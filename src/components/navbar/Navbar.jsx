@@ -26,7 +26,7 @@ export default function Navbar() {
 
   // used to show/hide the dropdown menu
   const dropMenu = useRef(null)
-  const locationMenu = useRef()
+  const locationMenu = useRef(null)
 
   // drop down menu state
   const [navMenuIsOpen, setNavMenuIsOpen] = useState(false)
@@ -206,7 +206,6 @@ export default function Navbar() {
                 Log Out
               </div>
               <div
-                ref={dropMenu}
                 className={`dropdown is-right is-hidden-mobile is-clickable`}
               >
                 <div
@@ -224,7 +223,12 @@ export default function Navbar() {
                     alt=''
                   />
                 </div>
-                <div className='dropdown-menu' id='dropdown-menu' role='menu'>
+                <div
+                  className='dropdown-menu'
+                  id='dropdown-menu'
+                  role='menu'
+                  ref={dropMenu}
+                >
                   <div className='dropdown-content'>
                     <div className='dropdown-item'>Profile</div>
                     <div
