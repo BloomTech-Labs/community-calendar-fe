@@ -123,8 +123,7 @@ const EventForm = (props) => {
       description,
       ticketType
     } = formValues;
-    console.log('startdatetime', startDatetime);
-    console.log('enddatetime', endDatetime);
+    
     const mutationValues = {
       title,
       description,
