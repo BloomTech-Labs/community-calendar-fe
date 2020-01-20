@@ -117,7 +117,7 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route path='/create-event' component={CreateEventPage} />
         <Route path='/events/:id' component={EventView} />
-        <Route path='/events/:id/update' component={UpdateEventPage} />
+        <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />
         <Route path='/test-page' component={TestPage} />
       </Switch>
