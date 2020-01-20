@@ -123,7 +123,7 @@ const EventForm = (props) => {
       description,
       ticketType
     } = formValues;
-
+    
     const mutationValues = {
       title,
       description,
@@ -138,6 +138,7 @@ const EventForm = (props) => {
       tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : null,
       ticketType,
       images,
+      eventImages: images && images.length ? [] : undefined
     }
 
     console.log(mutationValues, "mutation values");
