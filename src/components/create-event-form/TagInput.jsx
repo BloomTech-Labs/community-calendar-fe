@@ -41,7 +41,7 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
 
     const addSelectedTag = newTagName => {
         //tag has not already been selected
-        if(findSelectedTagIndex(newTagName) === -1) 
+        if(newTagName.length > 0 && findSelectedTagIndex(newTagName) === -1) 
             setSelectedTags([...selectedTags, newTagName]);
     }
 
@@ -59,8 +59,11 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
     const showTags = () => {
         suggestedTagsRef.current.style.visibility = "visible";
     }
+
+    //event handlers
         
     const handleClick = event => {
+        console.log("lol")
         if(tagInputRef.current.contains(event.target)) {
             showTags()
         } else {
@@ -70,8 +73,34 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
     };
 
     const handleKeyDown = event => {
-        if(event.key === "Enter") 
-            addSelectedTag(tagInput)
+        switch(event.key) {
+            case "Enter":
+                addSelectedTag(document.activeElement === tagInputRef.current ? tagInput : document.activeElement.innerHTML);
+                event.preventDefault();
+                break;
+            case "ArrowDown":
+            case "ArrowRight":
+                if(document.activeElement === tagInputRef.current)
+                    suggestedTagsRef.current.firstChild.focus()
+                else if(document.activeElement === suggestedTagsRef.current.lastChild)
+                    tagInputRef.current.focus();
+                else 
+                    document.activeElement.nextSibling.focus();
+                
+                event.preventDefault();
+                break;
+            case "ArrowUp":
+            case "ArrowLeft":
+                if(document.activeElement === tagInputRef.current)
+                    suggestedTagsRef.current.lastChild.focus()
+                else if(document.activeElement === suggestedTagsRef.current.firstChild)
+                    tagInputRef.current.focus();
+                else 
+                    document.activeElement.previousSibling.focus();
+                
+                event.preventDefault();
+                break;
+        }
     }
 
     useEffect(() => {
@@ -96,7 +125,7 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
 
 
     return (
-        <div>
+        <div onFocus={showTags} onKeyDown={handleKeyDown}>
             {/* where selected tags are displayed */}
             <div className={tagDisplayClass}>
                 {
@@ -115,7 +144,6 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
                 ref={tagInputRef} 
                 value={tagInput} 
                 placeholder="Enter tags"
-                onKeyDown={handleKeyDown}
             />
             {/* where suggested tags are displayed */}
             <div className={suggestedTags} ref={suggestedTagsRef}>
@@ -128,6 +156,7 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
                             <p 
                                 key={idx} 
                                 onClick={() => addSelectedTag(tag.title)}
+                                tabIndex="0"
                             >
                                 {tag.title}
                             </p>
