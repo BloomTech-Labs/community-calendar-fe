@@ -21,6 +21,7 @@ const Home = () => {
 
   // local cache data
   const client = useApolloClient()
+  console.log('client', client)
   const {data: localCache} = useQuery(GET_CACHE)
   const {userLatitude, userLongitude, maxDistance} = localCache
 

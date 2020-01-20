@@ -218,7 +218,7 @@ const EventView = () => {
               {tags &&
                 tags.map((tag, indx) => (
                   <Link
-                    to={`/search/${buildQS({searchTerm: tag.title})}`}
+                    to={`/search/${buildQS({searchText: tag.title})}`}
                     className='tag is-small is-white color_shark tag-hover'
                     key={tag.title}
                   >

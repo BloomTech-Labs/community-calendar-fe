@@ -3,15 +3,12 @@ import {useLocation} from 'react-router-dom'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {
-  GET_EVENTS,
-  GET_EVENTS_WITH_DISTANCE,
-  GET_CACHE,
-} from '../graphql/events.query'
+import {GET_EVENTS_WITH_DISTANCE, GET_CACHE} from '../graphql'
 
-//event cards
-import EventList from '../components/events/EventList'
-import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
+// Components
+import EventList from 'events/EventList'
+import FilterBtns from 'event_fltr_btns/EvntFltrBtns'
+import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
 
 import {filterByDistance} from '../utils'
 
@@ -22,7 +19,12 @@ const SearchResults = () => {
   const {userLatitude, userLongitude, maxDistance} = localCache
 
   // gql
-  const {loading, error, data: apolloData, refetch} = useQuery(GET_EVENTS)
+  const {loading, error, data: apolloData, refetch} = useQuery(
+    GET_EVENTS_WITH_DISTANCE,
+    {
+      variables: {userLatitude: userLatitude, userLongitude: userLongitude},
+    },
+  )
 
   // set up filter
   let location = useLocation()
@@ -53,10 +55,20 @@ useEffect - make query based on params in url on page load?
 */
   return (
     <div className='page-wrapper'>
-      <section className='section'>
-        <h3 className='is-family-secondary is-size-2 has-text-black-bis'>
-          Search Results
-        </h3>
+      <section className='section mobile-section'>
+        <div className='is-flex level justify-between is-dark '>
+          <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
+            Search Results
+          </h3>
+          {userLatitude && userLongitude && (
+            <DistanceDropdown
+              client={client}
+              userLat={userLatitude}
+              userLong={userLongitude}
+              maxDistance={maxDistance}
+            />
+          )}
+        </div>
         <FilterBtns refetch={refetch} />
         <EventList apolloData={{loading, error, data}} />
       </section>

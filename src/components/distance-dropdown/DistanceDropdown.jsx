@@ -6,12 +6,13 @@ import {DropdownIcon} from 'icons'
 import {useDropdown} from '../../utils'
 
 const DistanceDropdown = (client, userLat, userLong, maxDistance) => {
+  //apollo client
+  const localCache = client.client
   // show/hide distance dropdown
   const [showDistances, setShowDistances] = useDropdown(
     closeDistanceDropdown,
     false,
   )
-
   //text shown on dropdown
   let [selectedDistance, setSelectedDistance] = useState(null)
 
@@ -23,9 +24,9 @@ const DistanceDropdown = (client, userLat, userLong, maxDistance) => {
   } // end closeDistanceDropdown
 
   // set distance filter
-  const setMaxDistance = distance => {
+  const setMaxDistance = (distance, lc) => {
     if (maxDistance !== distance) {
-      client.writeData({
+      lc.writeData({
         data: {
           maxDistance: distance,
         },
@@ -68,7 +69,7 @@ const DistanceDropdown = (client, userLat, userLong, maxDistance) => {
           <div
             className='dropdown-item has-text-centered'
             onClick={() => {
-              setMaxDistance(5)
+              setMaxDistance(5, localCache)
               setSelectedDistance('Nearby')
             }}
           >
@@ -77,7 +78,7 @@ const DistanceDropdown = (client, userLat, userLong, maxDistance) => {
           <div
             className='dropdown-item has-text-centered'
             onClick={() => {
-              setMaxDistance(10)
+              setMaxDistance(10, localCache)
               setSelectedDistance('10 mi')
             }}
           >
@@ -86,7 +87,7 @@ const DistanceDropdown = (client, userLat, userLong, maxDistance) => {
           <div
             className='dropdown-item has-text-centered'
             onClick={() => {
-              setMaxDistance(20)
+              setMaxDistance(20, localCache)
               setSelectedDistance('20 mi')
             }}
           >
@@ -95,7 +96,7 @@ const DistanceDropdown = (client, userLat, userLong, maxDistance) => {
           <div
             className='dropdown-item has-text-centered'
             onClick={() => {
-              setMaxDistance(null)
+              setMaxDistance(null, localCache)
               setSelectedDistance('30+ mi')
             }}
           >
