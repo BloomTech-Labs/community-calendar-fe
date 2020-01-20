@@ -135,7 +135,7 @@ const EventForm = (props) => {
       city,
       state,
       zipcode: parseInt(zipcode),
-      tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : null,
+      tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : [],
       ticketType,
       images,
       eventImages: images && images.length ? [] : undefined
