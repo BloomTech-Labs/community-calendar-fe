@@ -49,10 +49,11 @@ const SearchResults = () => {
     data.events = [...filtered]
   }
 
-  console.log('filtered data', data.events)
-  /*
-useEffect - make query based on params in url on page load?
-*/
+  // find distance from user and update events with results if user location changes
+  useEffect(() => {
+    refetch({userLatitude, userLongitude})
+  }, [userLatitude, userLongitude])
+
   return (
     <div className='page-wrapper'>
       <section className='section mobile-section'>
@@ -70,7 +71,10 @@ useEffect - make query based on params in url on page load?
           )}
         </div>
         <FilterBtns refetch={refetch} />
-        <EventList apolloData={{loading, error, data}} />
+        <EventList
+          apolloData={{loading, error, data}}
+          maxDistance={maxDistance}
+        />
       </section>
     </div>
   )
