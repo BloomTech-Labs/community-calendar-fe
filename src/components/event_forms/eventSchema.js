@@ -6,7 +6,7 @@ import * as yup from 'yup';
 export const eventSchema = yup.object().shape({
   title: yup.string()
     .required("Please give your event a title")
-    .max(5, "Event title is too long"),
+    .max(128, "Event title is too long"),
   placeName: yup.string()
     .required("Place name is required")
     .max(128, "Place name is too long"),
