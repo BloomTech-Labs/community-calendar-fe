@@ -74,7 +74,9 @@
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
+    "react-date-picker": "^7.10.0",
     "react-datepicker": "^2.11.0",
+    "react-datetime-picker": "^2.9.0",
     "react-dom": "^16.12.0",
     "react-dropzone": "^10.2.1",
     "react-ga": "^2.7.0",
@@ -82,6 +84,7 @@
     "react-hot-loader": "^4.12.18",
     "react-router-dom": "^5.1.2",
     "react-spring-carousel": "0.0.4",
+    "react-time-picker": "^3.9.0",
     "yup": "^0.28.0"
   },
   "browserslist": [
