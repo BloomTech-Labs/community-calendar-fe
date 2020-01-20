@@ -43,7 +43,7 @@ const EventForm = (props) => {
   // Ternary maps values passed in on `item` prop as default values for `update` forms, 
   const {register, handleSubmit, errors: formErrors} = (formType === "update" && item) ?
     useForm({
-      validationSchema: {eventSchema},
+      // validationSchema: {eventSchema},
       defaultValues: {
         title: item.title || null,
         placeName: item.locations[0].name || null,
@@ -60,7 +60,7 @@ const EventForm = (props) => {
         ticketType: item.ticketType || null
       }
     }) :
-    useForm({validationSchema: {eventSchema}});
+    useForm();
     
 
   // create tag state to be used in backend mutation request
@@ -93,22 +93,25 @@ const EventForm = (props) => {
 
     console.log("selected tags", selectedTags)
 
-    mutation({variables: {
-        title,
-        description,
-        start: moment(startDate + startTime, 'YYYY-MM-DDhh:mm').toISOString(),
-        end: moment(endDate + endTime, 'YYYY-MM-DDhh:mm').toISOString(),
-        placeName,
-        streetAddress,
-        streetAddress2,
-        city,
-        state,
-        zipcode: parseInt(zipcode),
-        tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : null,
-        ticketType,
-        images,
-      },
-    })
+    const mutationValues = {
+      title,
+      description,
+      start: moment(startDate + startTime, 'YYYY-MM-DDhh:mm').toISOString(),
+      end: moment(endDate + endTime, 'YYYY-MM-DDhh:mm').toISOString(),
+      placeName,
+      streetAddress,
+      streetAddress2,
+      city,
+      state,
+      zipcode: parseInt(zipcode),
+      tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : null,
+      ticketType,
+      images,
+    }
+
+    console.log(mutationValues, "mutation values");
+
+    mutation({variables: mutationValues});
 
     if(mutationError){
       console.log(mutationError);
@@ -125,6 +128,7 @@ const EventForm = (props) => {
 
   return (
     <div className={`${createEventForm}`}>
+      {/* {formErrors && `Errors: ${formErrors.toString()}`} */}
       <form onSubmit={handleSubmit(onSubmit)} className={`${flexcolumn}`}>
         <div className='field'>
           <label className='label'>
@@ -254,13 +258,13 @@ const EventForm = (props) => {
                 <input
                   className={`${select} date-select `}
                   type='date'
-                  name='End Date'
+                  name='endDate'
                   ref={register}
                 />
                 <input
                   className={`${select} time-select left-margin `}
                   type='time'
-                  name='End Time'
+                  name='endTime'
                   ref={register}
                 />
               </div>

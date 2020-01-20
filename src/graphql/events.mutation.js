@@ -8,11 +8,11 @@ export const ADD_EVENT = gql`
       $end: DateTime!,
       $eventImages: [EventCreateImageInput!],
       $placeName: String!,
-      $streetAddress1: String!,
+      $streetAddress: String!,
       $streetAddress2: String = null,
       $city: String!,
       $state: String!,
-      $zipCode: Int!,
+      $zipcode: Int!,
       $latitude: Float = null,
       $longitude: Float = null,
       $tags: [EventCreateTagInput!],
@@ -30,10 +30,10 @@ export const ADD_EVENT = gql`
             create: [
               {
                 name: $placeName
-                streetAddress: $streetAddress1
+                streetAddress: $streetAddress
                 streetAddress2: $streetAddress2
                 city: $city
-                zipcode: $zipCode
+                zipcode: $zipcode
                 state: $state
                 latitude: $latitude
                 longitude: $longitude
@@ -61,11 +61,11 @@ export const UPDATE_EVENT = gql`
       $end: DateTime!,
       $eventImages: [EventCreateImageInput!],
       $placeName: String!,
-      $streetAddress1: String!,
+      $streetAddress: String!,
       $streetAddress2: String = null,
       $city: String!,
       $state: String!,
-      $zipCode: Int!,
+      $zipcode: Int!,
       $latitude: Float = null,
       $longitude: Float = null,
       $tags: [EventCreateTagInput!],
@@ -84,10 +84,10 @@ export const UPDATE_EVENT = gql`
             create: [
               {
                 name: $placeName
-                streetAddress: $streetAddress1
+                streetAddress: $streetAddress
                 streetAddress2: $streetAddress2
                 city: $city
-                zipcode: $zipCode
+                zipcode: $zipcode
                 state: $state
                 latitude: $latitude
                 longitude: $longitude

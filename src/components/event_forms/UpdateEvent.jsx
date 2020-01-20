@@ -21,6 +21,12 @@ export default function UpdateEvent() {
 
   const [updateEvent, {data: mutationData, error: mutationError}] = useMutation(UPDATE_EVENT);
 
+  const updateEventHandler = (data) => {
+    const {variables} = data
+    updateEvent({variables: { id: queryParams.id, ...variables}})
+
+  }
+
   // render loading spinner or error message if fetch fails
   if (loading)
     return (
@@ -40,7 +46,7 @@ export default function UpdateEvent() {
     <EventForm 
       formType="update"
       item={item}
-      mutation={updateEvent} 
+      mutation={updateEventHandler} 
       mutationData={mutationData} 
       mutationError={mutationError} />
   )
