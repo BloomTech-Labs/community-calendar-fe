@@ -1,23 +1,22 @@
 import React from 'react'
-import CreateEvent from '../components/event_forms/CreateEvent'
+import UpdateEvent from '../components/event_forms/UpdateEvent'
 
 // styles
 import {
   createEventsContainer,
-  outerContainer,
-  banner
+  outerContainer
 } from './styles/EventFormPage.module.scss'
 
-export default function CreateEventPage() {
+export default function UpdateEventPage() {
   return (
     <div className={`${outerContainer}`}>
     <section className={`section ${createEventsContainer}`}>
-      <section className={` section ${banner}`}>
-        <h3 className='is-family-secondary is-size-2 has-text-centered'>
+      <section className='section'>
+        <h3 className='is-family-secondary is-size-2 has-text-black-bis has-text-centered'>
           Event Details
         </h3>
       </section>
-      <CreateEvent />
+      <UpdateEvent />
     </section>
     </div>
   )

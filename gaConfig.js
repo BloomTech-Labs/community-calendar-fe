@@ -1,13 +1,13 @@
 module.exports = {
   development: {
-    debug: true,
+    debug: false,
     gaOptions: {
       //userId: insertAuth0IdHere,
       siteSpeedSampleRate: 100
     },
   },
   staging: {
-    debug: true,
+    debug: false,
     gaOptions: {
       //userId: insertAuth0IdHere,
       siteSpeedSampleRate: 100

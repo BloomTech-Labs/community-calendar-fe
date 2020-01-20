@@ -7,6 +7,7 @@ export const EVENT_DETAIL_DATA = gql`
     description
     start
     end
+    ticketType
   }
 `
 
@@ -122,10 +123,9 @@ export const GET_ALL_TAGS = gql`
   }
 `
 
-export const GET_EVENT_BY_ID = id => {
-  const QUERY = gql`
-    query{
-      events(where: {id: "${id}"}){
+export const GET_EVENT_BY_ID = gql`
+  query EventById($id: ID) {
+    events(where: {id: $id}){
       ...EventDetail
       creator {
         id
@@ -149,7 +149,6 @@ export const GET_EVENT_BY_ID = id => {
   ${EVENT_DETAIL_DATA}
   ${ADDRESS_DETAIL_DATA}
 `
-}
 
 export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
   query EventByIdWithDistance(

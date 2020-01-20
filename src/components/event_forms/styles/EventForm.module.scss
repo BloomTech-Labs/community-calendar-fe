@@ -1,0 +1,126 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/_all.sass';
+@import '~bulma/sass/grid/columns.sass';
+@import '~bulma/sass/form/_all.sass';
+
+
+.createEventForm {
+    padding-top: 5vh;
+    width: 60%;
+    height: 100%;
+    margin: 0 auto;
+
+    div, label, input {
+        width: 100%;
+    }
+
+    select {
+        appearance: none;
+        border-radius: 0px;
+    }
+    
+    label {
+        // margin: $gap-sm 0;
+        font-weight: bold;
+    }
+    
+    .input, .select {
+        border: none;
+        border-bottom: 2px solid black;
+        border-radius: 0px;
+        box-shadow: none;
+        text-align: left;
+        padding: 0;
+        background-color: white;
+        font-size: $gap-xs;
+        width: 100%;
+    }
+}
+
+.shark {
+    background-color: $shark;
+}
+
+.vSpacing {
+    margin: 2rem 1rem 2rem 1rem;
+
+}
+
+.littleTopMargin {
+    margin-top: $gap-sm;
+}
+
+.littleTopPadding {
+    padding-top: 2vh;
+}
+
+.location {
+    padding-top: 3vh;
+}
+
+.picker {
+    border: 2px solid black;
+    border-radius: 4px;
+    resize: none;
+    text-align: center;
+}
+
+.textarea {
+    border: 2px solid black;
+    border-radius: 4px;
+    resize: none;
+}
+
+.imageUploader {
+    padding: 100px 0;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.uploadContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.flexcolumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flexrow {
+    display: flex;
+}
+
+.tabletFlexrow {
+    display: flex;
+    flex-direction: column;
+    @include tablet {
+        flex-direction: row;
+    }
+}
+
+.tabletEndfield {
+    margin-left: 0;
+    @include tablet {
+        margin-left: $gap-sm;
+    }
+}
+
+.desktopFlexrow {
+    display: flex;
+    flex-direction: column;
+    @include desktop {
+        flex-direction: row;
+    }
+}
+
+.desktopEndfield {
+    margin-left: 0;
+    @include desktop {
+        margin-left: $gap-sm;
+    }
+}
