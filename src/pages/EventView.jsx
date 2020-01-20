@@ -1,11 +1,5 @@
 import React, {useEffect} from 'react'
-<<<<<<< HEAD
 import {useParams, Link} from 'react-router-dom'
-=======
-import {useParams} from 'react-router-dom'
-import {Link} from 'react-router-dom'
-
->>>>>>> master
 
 // components
 import LoadingLogo from '../components/loading/LoadingLogo'
@@ -67,7 +61,6 @@ const EventView = () => {
       </div>
     )
   if (error) return <p>Error</p>
-
 
   // destructure and render event properties when fetch successful
   const {
@@ -204,8 +197,12 @@ const EventView = () => {
               </div>
             </div>
             <div className={descriptionDiv}>
-              <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>Event Details</p>
-              <p className={`${descriptionText} is-size-7-mobile`}>{description}</p>
+              <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>
+                Event Details
+              </p>
+              <p className={`${descriptionText} is-size-7-mobile`}>
+                {description}
+              </p>
               {/* Attend functionality not yet implemented */}
               <Link to={`${id}/update`}>
                 <button className='button  is-dark'>Update</button>
