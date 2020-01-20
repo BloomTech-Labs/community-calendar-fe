@@ -1,7 +1,5 @@
 import React, {useEffect} from 'react'
-import {useParams} from 'react-router-dom'
-import {Link} from 'react-router-dom'
-
+import {useParams, Link} from 'react-router-dom'
 
 // components
 import LoadingLogo from '../components/loading/LoadingLogo'
@@ -9,7 +7,8 @@ import LoadingLogo from '../components/loading/LoadingLogo'
 //graphql
 import {useQuery} from '@apollo/react-hooks'
 import {GET_EVENT_BY_ID_WITH_DISTANCE, GET_CACHE} from '../graphql'
-import {months, weekDays} from '../utils/time-helpers.js'
+
+import {months, weekDays, buildQS} from '../utils'
 
 //styles
 import {
@@ -34,11 +33,15 @@ const EventView = () => {
 
   const {data: localCache} = useQuery(GET_CACHE)
   const {userLatitude, userLongitude} = localCache
-  console.log("coords", userLongitude, userLatitude)
+  console.log('coords', userLongitude, userLatitude)
 
   // destructure event information passed through props
   const apolloData = useQuery(GET_EVENT_BY_ID_WITH_DISTANCE, {
-    variables: {id: queryParams.id, userLatitude: userLatitude, userLongitude: userLongitude},
+    variables: {
+      id: queryParams.id,
+      userLatitude: userLatitude,
+      userLongitude: userLongitude,
+    },
   })
   const {data, loading, error, refetch} = apolloData
 
@@ -58,7 +61,6 @@ const EventView = () => {
       </div>
     )
   if (error) return <p>Error</p>
-
 
   // destructure and render event properties when fetch successful
   const {
@@ -82,7 +84,7 @@ const EventView = () => {
     zipcode,
     state,
     distanceFromUser,
-    distanceUnit
+    distanceUnit,
   } = locations[0]
 
   //convert start date to Date object
@@ -107,17 +109,23 @@ const EventView = () => {
   return (
     <div className={eventView}>
       {/* Banner image */}
-      {eventImages.length > 0 && <img
-        className={`${banner} is-block mx-auto`}
-        // className='mx-auto'
-        src={eventImages[0].url}
-        alt='banner'
-      />}
+      {eventImages.length > 0 && (
+        <img
+          className={`${banner} is-block mx-auto`}
+          // className='mx-auto'
+          src={eventImages[0].url}
+          alt='banner'
+        />
+      )}
       {/* Event title, location, RSVP info */}
       <section className={top_sec}>
         <div>
-          <h1 className='is-family-secondary is-size-1 is-size-4-mobile'>{title}</h1>
-          <p className={`has-text-weight-bold is-size-6-mobile ${date_display}`}>
+          <h1 className='is-family-secondary is-size-1 is-size-4-mobile'>
+            {title}
+          </h1>
+          <p
+            className={`has-text-weight-bold is-size-6-mobile ${date_display}`}
+          >
             {`
             ${months[startDate.getMonth()]} ${startDate.getDate()},
              ${startDate.getFullYear()} ${weekDays[startDate.getDay()]}
@@ -126,20 +134,25 @@ const EventView = () => {
           <p className='has-text-weight-bold is-size-6-mobile'>
             {name}
             {/* Display distance from user if user's position was provided to server */}
-            {(distanceFromUser && distanceUnit && (
+            {distanceFromUser && distanceUnit && (
               <span className='is-size-7-mobile'>
-                &nbsp; &#8226; &nbsp; 
-                { distanceFromUser && <span className={space_letters}>{`${distanceFromUser.toFixed(1)}`}</span>}
+                &nbsp; &#8226; &nbsp;
+                {distanceFromUser && (
+                  <span className={space_letters}>{`${distanceFromUser.toFixed(
+                    1,
+                  )}`}</span>
+                )}
                 &nbsp;
-                { distanceFromUser && `${distanceUnit === 'miles' ? 'mi' : 'km'} away`}
+                {distanceFromUser &&
+                  `${distanceUnit === 'miles' ? 'mi' : 'km'} away`}
               </span>
-            ))}
+            )}
           </p>
           <p className='is-size-7-mobile'>
-              {`${streetAddress}, ${streetAddress2 ? `${streetAddress2}, ` : ''}
+            {`${streetAddress}, ${streetAddress2 ? `${streetAddress2}, ` : ''}
               ${city}, ${state}, ${zipcode}`}
           </p>
-        </div> 
+        </div>
         <div className={panel_right}>
           {/* Manage Buton, only displays if logged-in user is the event creator  */}
           {/* <div>
@@ -177,19 +190,24 @@ const EventView = () => {
                 <p className='color_shark is-size-6half-mobile has-text-weight-bold'>{`${eventStartTime} - ${eventEndTime}`}</p>
               </div>
               <div className='column has-text-centered-mobile'>
-                <p className='color_chalice is-size-6half-mobile'>Ticket Type:</p>
+                <p className='color_chalice is-size-6half-mobile'>
+                  Ticket Type:
+                </p>
                 <p className='has-text-danger is-size-6half-mobile'>Free</p>
               </div>
             </div>
             <div className={descriptionDiv}>
-              <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>Event Details</p>
-              <p className={`${descriptionText} is-size-7-mobile`}>{description}</p>
+              <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>
+                Event Details
+              </p>
+              <p className={`${descriptionText} is-size-7-mobile`}>
+                {description}
+              </p>
               {/* Attend functionality not yet implemented */}
               <Link to={`${id}/update`}>
                 <button className='button  is-dark'>Update</button>
               </Link>
             </div>
-
           </div>
           {/* Appears to right of event info on tablet+ */}
         </div>
@@ -198,17 +216,22 @@ const EventView = () => {
           <button className='button  is-dark '>Follow Host</button> */}
           <div>
             <div className='tags'>
-              <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>Tags</p>
+              <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>
+                Tags
+              </p>
               {tags &&
                 tags.map((tag, indx) => (
-                  <span className='tag is-small is-white' key={'tag-' + indx}>
+                  <Link
+                    to={`/search/${buildQS({searchText: tag.title})}`}
+                    className='tag is-small is-white color_shark tag-hover'
+                    key={tag.title}
+                  >
                     {tag.title}
-                  </span>
+                  </Link>
                 ))}
             </div>
           </div>
         </div>
-
       </section>
     </div>
   )

@@ -116,9 +116,9 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/create-event' component={CreateEventPage} />
-        <Route exact path='/events/:id' component={EventView} />
-        <Route path='/events/:id/update' component={UpdateEventPage} />
-        <Route path='/search/:searchText' component={SearchResults} />
+        <Route path='/events/:id' component={EventView} />
+        <Route exact path='/events/:id/update' component={UpdateEventPage} />
+        <Route path='/search' component={SearchResults} />
         <Route path='/test-page' component={TestPage} />
       </Switch>
     </ApolloProvider>

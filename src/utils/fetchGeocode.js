@@ -1,4 +1,4 @@
-import buildQueryParams from './buildQueryParams'
+import buildQS from './buildQS'
 
 const baseURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
 
@@ -23,9 +23,7 @@ export default async function fetchGeocode({
 
   let searchTerm = lat && long ? `${long},${lat}` : searchWords
   // escape special characters in input string
-  const uri = `${baseURL}${encodeURI(searchTerm)}.json/${buildQueryParams(
-    params,
-  )}`
+  const uri = `${baseURL}${encodeURI(searchTerm)}.json/${buildQS(params)}`
   // query mapbox
   try {
     const data = await fetch(uri, {

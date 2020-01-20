@@ -1,4 +1,4 @@
-export default function buildQueryParams(params) {
+export default function buildQS(params) {
   let qp = ''
   if (params) {
     for (let k in params) {

@@ -6,6 +6,7 @@ import EventList from '../components/events/EventList'
 import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
 import FeatCarousel from '../components/featured/FeaturedCarousel'
 import {DropdownIcon} from 'icons'
+import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
@@ -18,12 +19,9 @@ import styles from './styles/Home.module.scss'
 const Home = () => {
   ReactGA.pageview('/')
 
-  // used for distance select dropdown menu
-  const distanceSelect = useRef(null)
-  const dropdownArrow = useRef(null)
-
   // local cache data
   const client = useApolloClient()
+  console.log('client', client)
   const {data: localCache} = useQuery(GET_CACHE)
   const {userLatitude, userLongitude, maxDistance} = localCache
 
@@ -37,48 +35,6 @@ const Home = () => {
   useEffect(() => {
     refetch({userLatitude, userLongitude})
   }, [userLatitude, userLongitude])
-
-  //event listener for distance dropdown
-  const [showDistances, setShowDistances] = useState(false)
-  useEffect(() => {
-    /* 
-if the dropdown menu is open and the user clicks 
-outside of it close the dropdown menu
- */
-    const distanceDropdown = e => {
-      if (e.target.getAttribute('data-id') === 'distance-trigger') {
-        distanceSelect.current.classList.toggle('is-active')
-        dropdownArrow.current.classList.toggle('flip')
-        // if user clicks outside of dropdown menu close menu
-      } else if (!/(dropdown-(trigger|content))/g.test(e.target.className)) {
-        distanceSelect.current.classList.remove('is-active')
-        dropdownArrow.current.classList.remove('flip')
-      }
-    } // end wasDropdownClicked
-
-    // add event listener
-    userLatitude && userLongitude
-      ? window.addEventListener('click', distanceDropdown)
-      : window.removeEventListener('click', distanceDropdown)
-
-    return () => {
-      window.removeEventListener('click', distanceDropdown)
-    }
-  }, [userLatitude, userLongitude])
-
-  // set distance filter
-  const setMaxDistance = distance => {
-    if (maxDistance !== distance) {
-      client.writeData({
-        data: {
-          maxDistance: distance,
-        },
-      })
-    }
-  }
-
-  //text shown on dropdown
-  let [selectedDistance, setSelectedDistance] = useState(null)
 
   return (
     <div className='page-wrapper'>
@@ -97,77 +53,13 @@ outside of it close the dropdown menu
             Events
           </h3>
           {userLatitude && userLongitude && (
-            <div
-              className={`dropdown is-right ccDropdown small-btn `}
-              ref={distanceSelect}
-              data-testid='distanceSelectDiv'
-            >
-              <div
-                className='dropdown-trigger has-text-centered'
-                style={{width: '100px'}}
-                aria-haspopup='true'
-                aria-controls='dropdown-menu2'
-                data-id='distance-trigger'
-              >
-                <span className='no-pointer-events'>
-                  {selectedDistance ? selectedDistance : 'Distance'}
-                </span>
-                <span
-                  className={`icon  no-pointer-events `}
-                  style={{transition: 'transform 0.2s'}}
-                  ref={dropdownArrow}
-                  aria-hidden='true'
-                >
-                  <DropdownIcon />
-                </span>
-              </div>
-              <div
-                className='dropdown-menu drop-center'
-                role='menu'
-                style={{width: '90%'}}
-              >
-                <div className='dropdown-content'>
-                  <div
-                    className='dropdown-item has-text-centered'
-                    onClick={() => {
-                      setMaxDistance(5)
-                      setSelectedDistance('Nearby')
-                    }}
-                  >
-                    Nearby
-                  </div>
-                  <div
-                    className='dropdown-item has-text-centered'
-                    onClick={() => {
-                      setMaxDistance(10)
-                      setSelectedDistance('10 mi')
-                    }}
-                  >
-                    10 mi
-                  </div>
-                  <div
-                    className='dropdown-item has-text-centered'
-                    onClick={() => {
-                      setMaxDistance(20)
-                      setSelectedDistance('20 mi')
-                    }}
-                  >
-                    20 mi
-                  </div>
-                  <div
-                    className='dropdown-item has-text-centered'
-                    onClick={() => {
-                      setMaxDistance(null)
-                      setSelectedDistance('30+ mi')
-                    }}
-                  >
-                    30+ mi
-                  </div>
-                </div>
-              </div>
-            </div>
+            <DistanceDropdown
+              client={client}
+              userLat={userLatitude}
+              userLong={userLongitude}
+              maxDistance={maxDistance}
+            />
           )}
-          {/* end distance dropdown */}
         </div>
         <FilterBtns refetch={refetch} />
         <EventList

@@ -135,3 +135,17 @@
 .hover-underline {
   @include underline;
 }
+
+.hover-shadow {
+  @include hover-shadow;
+}
+
+a.tag.tag-hover,
+.tag.tag-hover {
+  transition: transform $duration-short, background-color $duration-short;
+  &:hover {
+    transform: scale(1.05);
+    background-color: $offwhite;
+    text-decoration: none;
+  }
+}

@@ -1,16 +1,20 @@
-import getGeoPosition from './getPosition'
+import useGeo from './useGeo'
 import GetUserPosition from './GetUserPosition'
 import ScrollToTop from './ScrollToTop'
 import {months, weekDays} from './time-helpers'
-import buildQueryParams from './buildQueryParams'
+import buildQS from './buildQS'
+import filterByDistance from './filterByDistance'
 import fetchGeocode from './fetchGeocode'
+import useDropdown from './useDropdown'
 
 export {
-  getGeoPosition,
+  useGeo,
   GetUserPosition,
   ScrollToTop,
   months,
-  buildQueryParams,
+  buildQS,
   fetchGeocode,
   weekDays,
+  filterByDistance,
+  useDropdown,
 }
