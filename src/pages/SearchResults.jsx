@@ -17,7 +17,7 @@ const SearchResults = () => {
   //make request using query params
   const data = {...apolloData}
   //create regex
-  let regex = new RegExp(urlQS.get('searchTerm'), 'ig')
+  let regex = new RegExp(urlQS.get('searchText'), 'ig')
   // filter results using searchString
   if (!loading && data.events) {
     const filtered = data.events.filter(event => {
