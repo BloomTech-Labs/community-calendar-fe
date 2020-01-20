@@ -121,12 +121,13 @@ const EventForm = (props) => {
       description,
       ticketType
     } = formValues;
-
+    console.log('startdatetime', startDatetime);
+    console.log('enddatetime', endDatetime);
     const mutationValues = {
       title,
       description,
-      start: startDatetime.toISOString(),
-      end: endDatetime.toISOString(),
+      start: startDatetime,
+      end: endDatetime,
       placeName,
       streetAddress,
       streetAddress2,
@@ -136,6 +137,7 @@ const EventForm = (props) => {
       tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : null,
       ticketType,
       images,
+      eventImages: images && images.length ? [] : undefined
     }
 
     console.log(mutationValues, "mutation values");
