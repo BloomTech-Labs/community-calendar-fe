@@ -81,7 +81,8 @@
     "react-hook-form": "^4.4.8",
     "react-hot-loader": "^4.12.18",
     "react-router-dom": "^5.1.2",
-    "react-spring-carousel": "0.0.4"
+    "react-spring-carousel": "0.0.4",
+    "yup": "^0.28.0"
   },
   "browserslist": [
     "defaults",

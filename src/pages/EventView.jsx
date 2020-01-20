@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react'
 import {useParams} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+
 
 // components
 import LoadingLogo from '../components/loading/LoadingLogo'
@@ -45,6 +47,7 @@ const EventView = () => {
     refetch({userLatitude, userLongitude})
   }, [userLatitude, userLongitude])
 
+  // render loading spinner or error message if fetch fails
   if (loading)
     return (
       <div
@@ -56,6 +59,8 @@ const EventView = () => {
     )
   if (error) return <p>Error</p>
 
+
+  // destructure and render event properties when fetch successful
   const {
     id,
     title,
@@ -179,8 +184,10 @@ const EventView = () => {
             <div className={descriptionDiv}>
               <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>Event Details</p>
               <p className={`${descriptionText} is-size-7-mobile`}>{description}</p>
-              {/* Attend functionality not yet implemented
-              <button className='button  is-dark'>Attend</button> */}
+              {/* Attend functionality not yet implemented */}
+              <Link to={`${id}/update`}>
+                <button className='button  is-dark'>Update</button>
+              </Link>
             </div>
 
           </div>
