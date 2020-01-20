@@ -3,12 +3,13 @@ import {useParams, Link} from 'react-router-dom'
 
 // components
 import LoadingLogo from '../components/loading/LoadingLogo'
+import {DropdownIcon} from 'icons'
 
 //graphql
 import {useQuery} from '@apollo/react-hooks'
 import {GET_EVENT_BY_ID_WITH_DISTANCE, GET_CACHE} from '../graphql'
 
-import {months, weekDays, buildQS} from '../utils'
+import {months, weekDays, buildQS, useDropdown} from '../utils'
 
 //styles
 import {
@@ -33,7 +34,6 @@ const EventView = () => {
 
   const {data: localCache} = useQuery(GET_CACHE)
   const {userLatitude, userLongitude} = localCache
-  console.log('coords', userLongitude, userLatitude)
 
   // destructure event information passed through props
   const apolloData = useQuery(GET_EVENT_BY_ID_WITH_DISTANCE, {
@@ -44,6 +44,16 @@ const EventView = () => {
     },
   })
   const {data, loading, error, refetch} = apolloData
+
+  // event management dropdown
+  const [manageIsOpen, setManageOpen] = useDropdown(closeManage, false)
+
+  function closeManage(e) {
+    console.log('calling close manage', e.target)
+    if (e.target.getAttribute('data-id') !== 'manage-dropdown') {
+      setManageOpen(false)
+    }
+  }
 
   // find distance from user and update events with results if user location changes
   useEffect(() => {
@@ -155,10 +165,41 @@ const EventView = () => {
         </div>
         <div className={panel_right}>
           {/* Manage Buton, only displays if logged-in user is the event creator  */}
-          {/* <div>
-            <button className="manage-button butto n">Manage</button>
-          </div> */}
-
+          <div
+            className={`dropdown  has-background-danger button ${
+              manageIsOpen ? 'is-active' : ''
+            }  no-border`}
+            onClick={() => setManageOpen(!manageIsOpen)}
+            data-id='manage-dropdown'
+          >
+            <div
+              className='dropdown-trigger has-text-centered no-pointer-events'
+              style={{width: '100px'}}
+              aria-haspopup='true'
+              aria-controls='dropdown-menu2'
+              data-id='manage-trigger'
+            >
+              <span className='no-pointer-events has-text-white'>Manage</span>
+              <span
+                className={`icon  no-pointer-events  ${
+                  manageIsOpen ? 'flip' : ''
+                }`}
+                style={{transition: 'transform 0.2s'}}
+                aria-hidden='true'
+              >
+                <DropdownIcon isLight />
+              </span>
+            </div>
+            <div className='dropdown-menu drop-center w-100' role='menu'>
+              <div className='dropdown-content'>
+                <div className='dropdown-item has-text-centered'>Edit</div>
+                <div className='dropdown-item has-text-centered has-text-danger'>
+                  Delete
+                </div>
+              </div>
+            </div>
+          </div>{' '}
+          {/* end manage dropdown */}
           {/* numbers to be replaced with event information */}
           {/* <div>
             <p>
