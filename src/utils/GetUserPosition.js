@@ -3,7 +3,7 @@ import {useEffect} from 'react'
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_CACHE} from '../graphql'
 
-import getGeoPosition from './getPosition'
+import useGeo from './useGeo'
 
 /*
   When a component utilizing this function is mounted the user is prompted 
@@ -16,7 +16,7 @@ import getGeoPosition from './getPosition'
 export default function GetUserPosition() {
   const client = useApolloClient()
   const {data: cacheData} = useQuery(GET_CACHE)
-  const userPosition = getGeoPosition()
+  const userPosition = useGeo()
 
   if (!cacheData.userLatitude && !cacheData.userLongitude) {
     client.writeData({

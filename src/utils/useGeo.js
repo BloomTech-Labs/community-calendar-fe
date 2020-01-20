@@ -6,7 +6,7 @@ import {useState, useEffect} from 'react'
 
   */
 
-export default function getGeoPosition(config) {
+export default function useGeo(config) {
   const [userPosition, setUserPosition] = useState({})
 
   // default options for geolocation.getCurrentPosition

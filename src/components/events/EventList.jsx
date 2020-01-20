@@ -7,6 +7,9 @@ import ListIcon from 'icons/ListIcon'
 import GridIcon from 'icons/GridIcon'
 import LoadingLogo from '../loading/LoadingLogo'
 
+//utils
+import {filterByDistance} from '../../utils'
+
 //styles
 import {
   column,
@@ -36,17 +39,11 @@ export default function EventList({
   // Filter by distance radius
   let eventsToDisplay = []
 
-  const filterByDistance = distance => {
-    return data.events.filter(event => {
-      return event.locations[0].distanceFromUser <= distance
-    })
-  }
-
   // If maxDistance filter passed in, filter out events that are too far away
   // If no maxDistance filter passed in, render all events on `data.events`
   if (!loading && !error) {
     if (maxDistance && data.events) {
-      eventsToDisplay = filterByDistance(maxDistance)
+      eventsToDisplay = filterByDistance(maxDistance, data.events)
     } else {
       eventsToDisplay = [...data.events]
     }
@@ -84,7 +81,6 @@ export default function EventList({
             : grid_container
         }`}
       >
-
         {/* Render loading spinner during fetch or error message on error */}
         {loading && <LoadingLogo dimensions={50} />}
         {error && <p>ERROR</p>}

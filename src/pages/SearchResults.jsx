@@ -1,16 +1,30 @@
 import React, {useState, useEffect} from 'react'
-import {useParams, useLocation} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 
 //graphql
-import {useQuery} from '@apollo/react-hooks'
-import {GET_EVENTS} from '../graphql/events.query'
+import {useQuery, useApolloClient} from '@apollo/react-hooks'
+import {
+  GET_EVENTS,
+  GET_EVENTS_WITH_DISTANCE,
+  GET_CACHE,
+} from '../graphql/events.query'
 
 //event cards
 import EventList from '../components/events/EventList'
 import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
 
+import {filterByDistance} from '../utils'
+
 const SearchResults = () => {
+  // local cache data
+  const client = useApolloClient()
+  const {data: localCache} = useQuery(GET_CACHE)
+  const {userLatitude, userLongitude, maxDistance} = localCache
+
+  // gql
   const {loading, error, data: apolloData, refetch} = useQuery(GET_EVENTS)
+
+  // set up filter
   let location = useLocation()
   // get search values from  uri
   const urlQS = new URLSearchParams(location.search)
