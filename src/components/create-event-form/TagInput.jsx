@@ -52,6 +52,19 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
             setSelectedTags([...selectedTags.slice(0, index), ...selectedTags.slice(index + 1)]);
     }
 
+    //when user clicks or hits enter on a suggested tag
+    const toggleSelectedTag = event => {
+        if(event.target.hasAttribute("is_selected")) {
+            event.target.removeAttribute("is_selected", "false")
+            event.target.style.color = "unset";
+            removeSelectedTag(event.target.innerHTML);
+        } else {
+            event.target.setAttribute("is_selected", "");
+            event.target.style.color = "blue";
+            addSelectedTag(event.target.innerHTML);
+        }
+    }
+
     const hideTags = () => {
         suggestedTagsRef.current.style.visibility = "hidden";
     }
@@ -63,7 +76,6 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
     //event handlers
         
     const handleClick = event => {
-        console.log("lol")
         if(tagInputRef.current.contains(event.target)) {
             showTags()
         } else {
@@ -75,7 +87,17 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
     const handleKeyDown = event => {
         switch(event.key) {
             case "Enter":
-                addSelectedTag(document.activeElement === tagInputRef.current ? tagInput : document.activeElement.innerHTML);
+                if(document.activeElement === tagInputRef.current)
+                    addSelectedTag(tagInput);
+                else
+                    toggleSelectedTag(event);
+
+                event.preventDefault();
+                break;
+            case " ":
+                if(suggestedTagsRef.current.contains(event.target))
+                    toggleSelectedTag(event);
+
                 event.preventDefault();
                 break;
             case "ArrowDown":
@@ -132,7 +154,7 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
                     selectedTags.map((tagName, idx) => (
                             <span key={idx} className={`${tagClass} is-family-primary`}>
                                 {tagName}
-                                <span onClick={() => removeSelectedTag(tagName)}>&#x274C;</span>
+                                <span onClick={event => removeSelectedTag(tagName, event)}>&#x274C;</span>
                             </span>
                         )
                     )
@@ -155,7 +177,7 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
                     .map((tag, idx) => (
                             <p 
                                 key={idx} 
-                                onClick={() => addSelectedTag(tag.title)}
+                                onClick={toggleSelectedTag}
                                 tabIndex="0"
                             >
                                 {tag.title}
