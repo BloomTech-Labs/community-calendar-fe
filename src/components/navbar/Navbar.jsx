@@ -125,7 +125,7 @@ export default function Navbar() {
           >
             <div
               role='button'
-              className='dropdown-trigger level is-clickable'
+              className='dropdown-trigger level is-clickable hover-underline'
               aria-haspopup='true'
               aria-controls='dropdown-menu2'
               data-testid='location-dropdown-trigger'

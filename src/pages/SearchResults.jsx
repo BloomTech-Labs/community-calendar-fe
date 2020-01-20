@@ -11,14 +11,13 @@ import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
 
 const SearchResults = () => {
   const {loading, error, data: apolloData, refetch} = useQuery(GET_EVENTS)
-  // get search values from  useParams
-  // const {searchText} = useParams()
   let location = useLocation()
+  // get search values from  uri
   const urlQS = new URLSearchParams(location.search)
   //make request using query params
   const data = {...apolloData}
   //create regex
-  let regex = new RegExp(urlQS.get('searchText'), 'ig')
+  let regex = new RegExp(urlQS.get('searchTerm'), 'ig')
   // filter results using searchString
   if (!loading && data.events) {
     const filtered = data.events.filter(event => {
