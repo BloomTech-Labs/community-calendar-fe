@@ -146,18 +146,17 @@ export const GET_EVENT_BY_ID = gql`
       title
     }
   }
-
   ${EVENT_DETAIL_DATA}
   ${ADDRESS_DETAIL_DATA}
 `
 
 export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
   query EventByIdWithDistance(
-      $id: ID
-      $userLatitude: Float 
-      $userLongitude: Float
+    $id: ID
+    $userLatitude: Float
+    $userLongitude: Float
   ) {
-    events(where: {id: $id}){
+    events(where: {id: $id}) {
       ...EventDetail
       creator {
         id
@@ -174,7 +173,7 @@ export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
       eventImages {
         url
       }
-      tags{
+      tags {
         title
       }
     }

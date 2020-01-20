@@ -106,9 +106,9 @@ const EventForm = (props) => {
         zipcode: parseInt(zipcode),
         tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : null,
         ticketType,
-        images
-      }
-    });
+        images,
+      },
+    })
 
     if(mutationError){
       console.log(mutationError);
@@ -122,15 +122,14 @@ const EventForm = (props) => {
   if(formErrors.length > 0){
     console.log('form errors', formErrors)
   }
-  
 
   return (
     <div className={`${createEventForm}`}>
       <form onSubmit={handleSubmit(onSubmit)} className={`${flexcolumn}`}>
-        <div className="field">
-          <label className="label">
+        <div className='field'>
+          <label className='label'>
             Event Title
-            <div className="control">
+            <div className='control'>
               <input
                 className={`${input} input `}
                 type='text'
@@ -141,10 +140,10 @@ const EventForm = (props) => {
           </label>
         </div>
         <div className={` field ${location}`}>
-          <label className="label">
+          <label className='label'>
             Location
             <div className={` field ${placeName}`}>
-              <label className="label">
+              <label className='label'>
                 Place Name
                 <input
                   className={`${input}`}
@@ -155,8 +154,8 @@ const EventForm = (props) => {
                 />
               </label>
               <div className={`${responsiveflexrow}`}>
-                <div className="field">
-                  <label className="label">
+                <div className='field'>
+                  <label className='label'>
                     Street Address
                     <input
                       className={`${input}`}
@@ -167,7 +166,7 @@ const EventForm = (props) => {
                   </label>
                 </div>
                 <div className={`field ${endfield}`}>
-                  <label className="label">
+                  <label className='label'>
                     Street Address 2
                     <input
                       className={`${input}`}
@@ -179,8 +178,8 @@ const EventForm = (props) => {
                 </div>
               </div>
               <div className={`${responsiveflexrow}`}>
-                <div className="field">
-                  <label className="label">
+                <div className='field'>
+                  <label className='label'>
                     City
                     <input
                       className={`${input}`}
@@ -191,7 +190,7 @@ const EventForm = (props) => {
                   </label>
                 </div>
                 <div className={`field ${endfield}`}>
-                  <label className="label">
+                  <label className='label'>
                     State
                     <select
                       name='state'
@@ -201,7 +200,10 @@ const EventForm = (props) => {
                     >
                       <option value={null}>Select state</option>
                       {states.map((stateName, i) => (
-                        <option key={stateName} value={`${statesAbbreviated[i]}`}>
+                        <option
+                          key={stateName}
+                          value={`${statesAbbreviated[i]}`}
+                        >
                           {stateName}
                         </option>
                       ))}
@@ -209,7 +211,7 @@ const EventForm = (props) => {
                   </label>
                 </div>
                 <div className={`field ${endfield}`}>
-                  <label className="label">
+                  <label className='label'>
                     Zip Code
                     <input
                       className={`${input}`}
@@ -226,8 +228,8 @@ const EventForm = (props) => {
 
         {/* event dates */}
         <div className={`${responsiveflexrow}`}>
-          <div className="field start-field">
-            <label className="label">
+          <div className='field start-field'>
+            <label className='label'>
               Starts
               <div className={`${flexrow}`}>
                 <input
@@ -246,7 +248,7 @@ const EventForm = (props) => {
             </label>
           </div>
           <div className={`field ${endfield}`}>
-            <label className="label">
+            <label className='label'>
               Ends
               <div className={`${flexrow}`}>
                 <input
@@ -265,56 +267,67 @@ const EventForm = (props) => {
             </label>
           </div>
         </div>
-        <div className="field">
-        <label className="label">
-          Event Description
-          <textarea
-            className={`${textarea} has-fixed-size`}
-            name='description'
-            ref={register}
-          />
-        </label>
-        </div>
-        <div className="field">
-        <label className="label">
-          Type of ticket
-          <select
-            name='ticketType'
-            ref={register}
-            className={`${select}`}
-            style={{display: 'block'}}
-          >
-            <option value='FREE'>Free</option>
-            <option value='PAID'>Paid</option>
-          </select>
-        </label>
-        </div>
-        <div> 
-          <label>
-          Tags 
-           <TagInput selectedTags={selectedTags} setSelectedTags={setSelectedTags}/> 
+        <div className='field'>
+          <label className='label'>
+            Event Description
+            <textarea
+              className={`${textarea} has-fixed-size`}
+              name='description'
+              ref={register}
+            />
           </label>
         </div>
-        <div className="field">
-          <label className="label">
-              Event image
-            <div style={{pointerEvents: "none"}}>
-            <Dropzone onDrop={acceptedFiles => {setImages(acceptedFiles)}}>
-              {({getRootProps, getInputProps}) => (
-                <section className={imageUploader}>
-                  <div {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    {/* <p>Drag 'n' drop some files here, or click to select files</p> */}
-                    <UploadIcon />
-                  </div>
-                </section>
-              )}
-            </Dropzone>
+        <div className='field'>
+          <label className='label'>
+            Type of ticket
+            <select
+              name='ticketType'
+              ref={register}
+              className={`${select}`}
+              style={{display: 'block'}}
+            >
+              <option value='FREE'>Free</option>
+              <option value='PAID'>Paid</option>
+            </select>
+          </label>
+        </div>
+        <div>
+          <label>
+            Tags
+            <TagInput
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+            />
+          </label>
+        </div>
+        <div className='field'>
+          <label className='label'>
+            Event image
+            <div style={{pointerEvents: 'none'}}>
+              <Dropzone
+                onDrop={acceptedFiles => {
+                  setImages(acceptedFiles)
+                }}
+              >
+                {({getRootProps, getInputProps}) => (
+                  <section className={imageUploader}>
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      {/* <p>Drag 'n' drop some files here, or click to select files</p> */}
+                      <UploadIcon />
+                    </div>
+                  </section>
+                )}
+              </Dropzone>
             </div>
           </label>
         </div>
         <button className='button is-medium'>Preview</button>
-        <input className={`button is-medium ${shark} has-text-white ${littleTopMargin}`} type='submit' value="Create Event"/>
+        <input
+          className={`button is-medium ${shark} has-text-white ${littleTopMargin}`}
+          type='submit'
+          value='Create Event'
+        />
       </form>
     </div>
   )
