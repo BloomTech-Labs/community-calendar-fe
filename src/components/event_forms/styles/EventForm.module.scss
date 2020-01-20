@@ -4,30 +4,66 @@
 @import '~bulma/sass/grid/columns.sass';
 @import '~bulma/sass/form/_all.sass';
 
-select {
-    appearance: none;
-    border-radius: 0px;
+
+.createEventForm {
+    padding-top: 5vh;
+    width: 60%;
+    height: 100%;
+    margin: 0 auto;
+
+    div, label, input {
+        width: 100%;
+    }
+
+    select {
+        appearance: none;
+        border-radius: 0px;
+    }
+    
+    label {
+        // margin: $gap-sm 0;
+        font-weight: bold;
+    }
+    
+    .input, .select {
+        border: none;
+        border-bottom: 2px solid black;
+        border-radius: 0px;
+        box-shadow: none;
+        text-align: left;
+        padding: 0;
+        background-color: white;
+        font-size: $gap-xs;
+        width: 100%;
+    }
 }
 
-.input, .select {
-    border: none;
-    border-bottom: 2px solid black;
-    border-radius: 0px;
-    box-shadow: none;
-    text-align: left;
-    padding: 0;
-    background-color: white;
-    font-size: $gap-xs;
-}
-
-label {
-    // margin: $gap-sm 0;
-    font-weight: bold;
+.shark {
+    background-color: $shark;
 }
 
 .vSpacing {
     margin: 2rem 1rem 2rem 1rem;
 
+}
+
+.littleTopMargin {
+    margin-top: $gap-sm;
+}
+
+.littleTopPadding {
+    padding-top: 2vh;
+}
+
+.location {
+    padding-top: 3vh;
+}
+
+.picker {
+    border: 2px solid black;
+    border-radius: 4px;
+    resize: none;
+    text-align: center;
 }
 
 .textarea {
@@ -36,7 +72,18 @@ label {
     resize: none;
 }
 
-// .has-fixed-size {}
+.imageUploader {
+    padding: 100px 0;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.uploadContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 
 .flexcolumn {
     display: flex;
@@ -48,49 +95,32 @@ label {
     display: flex;
 }
 
-.responsiveflexrow {
+.tabletFlexrow {
     display: flex;
     flex-direction: column;
-    @include tablet-up {
+    @include tablet {
         flex-direction: row;
     }
 }
 
-.createEventForm {
-    padding-top: 5vh;
-    width: 60%;
-    height: 100%;
-    margin: 0 auto;
-    * {
-        width: 100%;
-    }
-
-    .shark {
-        background-color: $shark;
-    }
-}
-
-.imageUploader {
-    padding: 100px 0;
-    border-radius: 4px;
-    border: 2px solid black;
-}
-
-.littleTopMargin {
-    margin-top: $gap-sm;
-}
-
-.location {
-    padding-top: 3vh;
-}
-
-.placeName {
-    padding-top: 2vh;
-}
-
-.endfield {
+.tabletEndfield {
     margin-left: 0;
-    @include tablet-up {
+    @include tablet {
+        margin-left: $gap-sm;
+    }
+}
+
+.desktopFlexrow {
+    display: flex;
+    flex-direction: column;
+    @include desktop {
+        flex-direction: row;
+    }
+}
+
+.desktopEndfield {
+    margin-left: 0;
+    @include desktop {
         margin-left: $gap-sm;
     }
 }
