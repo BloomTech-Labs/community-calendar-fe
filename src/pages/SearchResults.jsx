@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, useLocation} from 'react-router-dom'
 
 //graphql
 import {useQuery} from '@apollo/react-hooks'
@@ -12,15 +12,23 @@ import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
 const SearchResults = () => {
   const {loading, error, data: apolloData, refetch} = useQuery(GET_EVENTS)
   // get search values from  useParams
-  const {searchText} = useParams()
+  // const {searchText} = useParams()
+  let location = useLocation()
+  const urlQS = new URLSearchParams(location.search)
   //make request using query params
   const data = {...apolloData}
   //create regex
-  let regex = new RegExp(searchText, 'ig')
+  let regex = new RegExp(urlQS.get('searchText'), 'ig')
   // filter results using searchString
   if (!loading && data.events) {
     const filtered = data.events.filter(event => {
-      return regex.test(event.title) || regex.test(event.description)
+      return (
+        regex.test(event.title) ||
+        regex.test(event.description) ||
+        event.tags.reduce((result, tag) => {
+          return regex.test(tag.title) ? (result = true) : result
+        }, false)
+      )
     })
     // apply filtered events to data.events
     data.events = [...filtered]

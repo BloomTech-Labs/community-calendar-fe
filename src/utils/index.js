@@ -2,7 +2,7 @@ import getGeoPosition from './getPosition'
 import GetUserPosition from './GetUserPosition'
 import ScrollToTop from './ScrollToTop'
 import {months, weekDays} from './time-helpers'
-import buildQueryParams from './buildQueryParams'
+import buildQS from './buildQS'
 import fetchGeocode from './fetchGeocode'
 
 export {
@@ -10,7 +10,7 @@ export {
   GetUserPosition,
   ScrollToTop,
   months,
-  buildQueryParams,
+  buildQS,
   fetchGeocode,
   weekDays,
 }
