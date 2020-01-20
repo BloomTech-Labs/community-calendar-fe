@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
-import moment from 'moment';
+import * as yup from 'yup';
 
 // form components
-import {useForm} from 'react-hook-form'
+import {useForm, ErrorMessage} from 'react-hook-form'
 import DateTimePicker from 'react-datetime-picker';
-
 import Dropzone from 'react-dropzone'
 import TagInput from "./TagInput";
 
@@ -19,6 +18,9 @@ import {
   input,
   select,
   shark,
+  errorMessage,
+  errorMargin,
+  errorMarginMobile,
   vSpacing,
   littleTopMargin,
   littleTopPadding,
@@ -51,11 +53,12 @@ const EventForm = (props) => {
   `tags`, `images`, `startDatetime`, and `endDatetime` all require custom state handlers */
 
   /* react-hook-form state:
-  Desturcutre the `register` value handler, submit handler, and error handler
-  Ternary maps values passed in on `item` prop as default values for `update` forms */
+  Destructure the `register` value handler, submit handler, and error handler
+  Ternary maps values passed in on `item` prop as default values for `update` forms
+  yup validationSchema imported from `eventSchema.js` */
   const {register, handleSubmit, errors: formErrors} = (formType === "update" && item) ?
     useForm({
-      // validationSchema: {eventSchema},
+      validationSchema: eventSchema,
       defaultValues: {
         title: item.title || null,
         placeName: item.locations[0].name || null,
@@ -68,9 +71,8 @@ const EventForm = (props) => {
         ticketType: item.ticketType || null
       }
     }) :
-    useForm();
+    useForm({validationSchema: eventSchema});
     
-
   // create `tag` state to be used in backend mutation request
   // Ternary maps values passed in on `item` prop as default tags for `update` forms, 
   const [selectedTags, setSelectedTags] = (formType === "update" && item.tags.length) ?
@@ -172,6 +174,9 @@ const EventForm = (props) => {
                 name='title'
                 ref={register}
               />
+              <p className={`is-size-7 ${errorMessage}`}>
+                <ErrorMessage errors={formErrors} name="title" />
+              </p>
             </div>
           </label>
         </div>
@@ -192,11 +197,14 @@ const EventForm = (props) => {
                   name='placeName'
                   ref={register}
                 />
+                <p className={`is-size-7 ${errorMessage}`}>
+                  <ErrorMessage errors={formErrors} name="placeName" />
+                </p>
               </label>
 
               {/* Group 2: Street address, street address line 2 */}
               <div className={`${tabletFlexrow}`}>
-                <div className='field'>
+                <div className={`field ${errorMargin}`}>
                   <label className='label'>
                     Street Address
                     <input
@@ -205,9 +213,12 @@ const EventForm = (props) => {
                       name='streetAddress'
                       ref={register}
                     />
+                    <p className={`is-size-7 ${errorMessage}`}>
+                      <ErrorMessage errors={formErrors} name="streetAddress" />
+                    </p>
                   </label>
                 </div>
-                <div className={`field ${tabletEndfield}`}>
+                <div className={`field ${errorMargin} ${tabletEndfield}`}>
                   <label className='label'>
                     Street Address 2
                     <input
@@ -216,6 +227,9 @@ const EventForm = (props) => {
                       name='streetAddress2'
                       ref={register}
                     />
+                    <p className={`is-size-7 ${errorMessage}`}>
+                      <ErrorMessage errors={formErrors} name="streetAddress2" />
+                    </p>
                   </label>
                 </div>
               </div>
@@ -223,7 +237,7 @@ const EventForm = (props) => {
 
               {/* Group 3: City, state, zip */}
               <div className={`${tabletFlexrow}`}>
-                <div className='field'>
+                <div className={`field ${errorMargin} ${errorMarginMobile}`}>
                   <label className='label'>
                     City
                     <input
@@ -232,9 +246,12 @@ const EventForm = (props) => {
                       name='city'
                       ref={register}
                     />
+                    <p className={`is-size-7 ${errorMessage}`}>
+                      <ErrorMessage errors={formErrors} name="city" />
+                    </p>
                   </label>
                 </div>
-                <div className={`field ${tabletEndfield}`}>
+                <div className={`field ${errorMargin} ${tabletEndfield}`}>
                   <label className='label'>
                     State
                     <select
@@ -253,9 +270,12 @@ const EventForm = (props) => {
                         </option>
                       ))}
                     </select>
+                    <p className={`is-size-7 ${errorMessage}`}>
+                      <ErrorMessage errors={formErrors} name="state" />
+                    </p>
                   </label>
                 </div>
-                <div className={`field ${tabletEndfield}`}>
+                <div className={`field ${errorMargin} ${tabletEndfield}`}>
                   <label className='label'>
                     Zip Code
                     <input
@@ -264,6 +284,9 @@ const EventForm = (props) => {
                       name='zipcode'
                       ref={register}
                     />
+                    <p className={`is-size-7 ${errorMessage}`}>
+                      <ErrorMessage errors={formErrors} name="zipcode" />
+                    </p>
                   </label>
                 </div>
               </div>
@@ -304,7 +327,7 @@ const EventForm = (props) => {
         </div>
 
         {/* EVENT DESCRIPTION */}
-        <div className='field'>
+        <div className={`field ${errorMarginMobile}`}>
           <label className='label'>
             Event Description
             <textarea
@@ -312,11 +335,14 @@ const EventForm = (props) => {
               name='description'
               ref={register}
             />
+            <p className={`is-size-7 ${errorMessage}`}>
+              <ErrorMessage errors={formErrors} name="description" />
+            </p>
           </label>
         </div>
 
         {/* TICKET TYPE */}
-        <div className='field'>
+        <div className={`field ${errorMargin}`}>
           <label className='label'>
             Type of ticket
             <select
@@ -328,11 +354,14 @@ const EventForm = (props) => {
               <option value='FREE'>Free</option>
               <option value='PAID'>Paid</option>
             </select>
+            <p className={`is-size-7 ${errorMessage}`}>
+              <ErrorMessage errors={formErrors} name="ticketType" />
+            </p>
           </label>
         </div>
 
         {/* EVENT TAGS */}
-        <div>
+        <div className={`field ${errorMargin}`}>
           <label>
             Tags
             <TagInput
@@ -344,7 +373,7 @@ const EventForm = (props) => {
 
 
         {/* IMAGE UPLOAD */}
-        <div className='field'>
+        <div className={`field ${errorMargin}`}>
           <label className='label'>
             Event image
             <div style={{pointerEvents: 'none'}}>
