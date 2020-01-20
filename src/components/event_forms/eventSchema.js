@@ -4,7 +4,7 @@ import * as yup from 'yup';
 // if the schema is written properly, it should be impossible to induce an error otherwise!
 
 export const eventSchema = {
-  eventTitle: yup.string()
+  title: yup.string()
     .required("Please give your event a title")
     .max(128, "Event title is too long"),
   placeName: yup.string()

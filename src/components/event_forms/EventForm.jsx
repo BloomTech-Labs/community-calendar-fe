@@ -8,6 +8,7 @@ import TagInput from "./TagInput";
 
 // form data
 import {states, statesAbbreviated} from './states'
+import {eventSchema} from './eventSchema'
 
 // styles
 import UploadIcon from '../icons/UploadIcon'
@@ -42,28 +43,33 @@ const EventForm = (props) => {
   // Ternary maps values passed in on `item` prop as default values for `update` forms, 
   const {register, handleSubmit, errors: formErrors} = (formType === "update" && item) ?
     useForm({
-        defaultValues: {
-          title: item.title || null,
-          placeName: item.locations[0].name || null,
-          streetAddress: item.locations[0].streetAddress || null,
-          streetAddress2: item.locations[0].streetAddress2 || null,
-          city: item.locations[0].city || null,
-          state: item.locations[0].state || null,
-          zipcode: item.locations[0].zipcode || null,
-          //startDate
-          //startTime
-          //endDate
-          //endTime
-          description: item.description || null,
-          ticketType: item.ticketType || null
-        }
-      }) :
-    useForm();
+      validationSchema: {eventSchema},
+      defaultValues: {
+        title: item.title || null,
+        placeName: item.locations[0].name || null,
+        streetAddress: item.locations[0].streetAddress || null,
+        streetAddress2: item.locations[0].streetAddress2 || null,
+        city: item.locations[0].city || null,
+        state: item.locations[0].state || null,
+        zipcode: item.locations[0].zipcode || null,
+        //startDate
+        //startTime
+        //endDate
+        //endTime
+        description: item.description || null,
+        ticketType: item.ticketType || null
+      }
+    }) :
+    useForm({validationSchema: {eventSchema}});
     
 
-  // create additional image and tag state to be used in backend mutation request
+  // create tag state to be used in backend mutation request
+  // Ternary maps values passed in on `item` prop as default tags for `update` forms, 
+  const [selectedTags, setSelectedTags] = (formType === "update" && item.tags.length) ?
+    useState(item.tags.map(tag => tag.title)) :
+    useState([]);
+
   const [images, setImages] = useState(null);
-  const [selectedTags, setSelectedTags] = useState([]);
 
 
   console.log("formType and item props in EventForm", formType, item);
