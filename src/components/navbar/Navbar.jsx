@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import ReactGA from 'react-ga'
 import gql from 'graphql-tag'
 import navUtils from './navbar_utils'
+import {useDropdown} from '../../utils'
 
 //components
 import {CCLogo, MapMarkerCircle, DropdownIcon} from 'icons'
