@@ -28,9 +28,11 @@
 
     h1 {
       margin-bottom: $gap-xs;
+    }
 
-      @include tablet {
-        flex-direction: row;
+    @include tablet {
+      flex-direction: row;
+      h1 {
         margin-bottom: $gap;
       }
     }
@@ -49,7 +51,7 @@
       padding-top: $gap-sm;
       padding-bottom: $gap-xxs;
       @include tablet {
-        padding-top: 0;
+        // padding-top: 0;
         padding-bottom: 0;
         justify-content: flex-end;
       }
