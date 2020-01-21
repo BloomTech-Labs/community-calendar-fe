@@ -1,18 +1,21 @@
 import React, {useState} from 'react'
-import * as yup from 'yup';
+import * as yup from 'yup'
 
 // form components
 import {useForm, ErrorMessage} from 'react-hook-form'
-import DateTimePicker from 'react-datetime-picker';
+import DateTimePicker from 'react-datetime-picker'
 import Dropzone from 'react-dropzone'
-import TagInput from "./TagInput";
+import TagInput from './TagInput'
 
 // form data
 import {states, statesAbbreviated} from './states'
 import {eventSchema} from './eventSchema'
 
-// styles
+// components
 import UploadIcon from '../icons/UploadIcon'
+import LoadingDots from 'loading/LoadingDots'
+
+// styles
 import {
   createEventForm,
   input,
@@ -34,19 +37,18 @@ import {
   tabletFlexrow,
   tabletEndfield,
   desktopFlexrow,
-  desktopEndfield
+  desktopEndfield,
 } from './styles/EventForm.module.scss'
-import { date } from 'yup';
+import {date} from 'yup'
 
-const EventForm = (props) => {
-
+const EventForm = props => {
   /* FORM FUNCTIONS AND DATA:
   Destructure `formType`, `item`, `mutation` function, `mutationData`, and `mutationError`
   `formType` is "add" or "update"
   `item` is result of GET_EVENT_BY_ID query which is only passed down for an EditForm
   `mutation` is AddEvent or UpdateEvent as defined in parent useMutation
   `mutationData` and `mutationError` could possibly be removed and handled in parent */
-  const {formType, item, mutation, mutationData, mutationError} = props;
+  const {formType, item, mutation, mutationData, mutationError} = props
 
   /* FORM STATE:
   react-hook-form manages state for all text values (location and details) inputted by user
@@ -56,58 +58,63 @@ const EventForm = (props) => {
   Destructure the `register` value handler, submit handler, and error handler
   Ternary maps values passed in on `item` prop as default values for `update` forms
   yup validationSchema imported from `eventSchema.js` */
-  const {register, handleSubmit, errors: formErrors} = (formType === "update" && item) ?
-    useForm({
-      validationSchema: eventSchema,
-      defaultValues: {
-        title: item.title || null,
-        placeName: item.locations[0].name || null,
-        streetAddress: item.locations[0].streetAddress || null,
-        streetAddress2: item.locations[0].streetAddress2 || null,
-        city: item.locations[0].city || null,
-        state: item.locations[0].state || null,
-        zipcode: item.locations[0].zipcode || null,
-        description: item.description || null,
-        ticketType: item.ticketType || null
-      }
-    }) :
-    useForm({validationSchema: eventSchema});
-    
+  const {register, handleSubmit, errors: formErrors} =
+    formType === 'update' && item
+      ? useForm({
+          validationSchema: eventSchema,
+          defaultValues: {
+            title: item.title || null,
+            placeName: item.locations[0].name || null,
+            streetAddress: item.locations[0].streetAddress || null,
+            streetAddress2: item.locations[0].streetAddress2 || null,
+            city: item.locations[0].city || null,
+            state: item.locations[0].state || null,
+            zipcode: item.locations[0].zipcode || null,
+            description: item.description || null,
+            ticketType: item.ticketType || null,
+          },
+        })
+      : useForm({validationSchema: eventSchema})
+
   // create `tag` state to be used in backend mutation request
-  // Ternary maps values passed in on `item` prop as default tags for `update` forms, 
-  const [selectedTags, setSelectedTags] = (formType === "update" && item.tags.length) ?
-    useState(item.tags.map(tag => tag.title)) :
-    useState([]);
+  // Ternary maps values passed in on `item` prop as default tags for `update` forms,
+  const [selectedTags, setSelectedTags] =
+    formType === 'update' && item.tags.length
+      ? useState(item.tags.map(tag => tag.title))
+      : useState([])
 
   // create `images` state to be used in backend mutation request
-  const [images, setImages] = useState(null);
-  
+  const [images, setImages] = useState(null)
+
   // create `startDatetime` state to be used in datepicker and backend mutation request
   // defaults to the next noon (today or tomorrow)
-  let nextNoon = new Date();
+  let nextNoon = new Date()
   if (nextNoon.getHours() >= 12) nextNoon.setDate(nextNoon.getDate() + 1)
   nextNoon.setHours(12, 0, 0, 0)
 
-  const [startDatetime, setStartDatetime] = (formType === "update" && item.start) ?
-  useState(item.start) :
-  useState(nextNoon);
+  const [startDatetime, setStartDatetime] =
+    formType === 'update' && item.start
+      ? useState(item.start)
+      : useState(nextNoon)
 
-  const startChange = (datetime) => {
-    setStartDatetime(datetime);
+  const startChange = datetime => {
+    setStartDatetime(datetime)
   }
 
   // create `endDatetime` state to be used in datepicker and backend mutation request
   // defaults to 3PM after the next noon (today or tomorrow)
-  let nextAfternoon = new Date();
-  if (nextAfternoon.getHours() >= 12) nextAfternoon.setDate(nextAfternoon.getDate() + 1)
+  let nextAfternoon = new Date()
+  if (nextAfternoon.getHours() >= 12)
+    nextAfternoon.setDate(nextAfternoon.getDate() + 1)
   nextAfternoon.setHours(15, 0, 0, 0)
-  
-  const [endDatetime, setEndDatetime] = (formType === "update" && item.end) ?
-    useState(item.end) :
-    useState(nextAfternoon);
 
-  const endChange = (datetime) => {
-    setEndDatetime(datetime);
+  const [endDatetime, setEndDatetime] =
+    formType === 'update' && item.end
+      ? useState(item.end)
+      : useState(nextAfternoon)
+
+  const endChange = datetime => {
+    setEndDatetime(datetime)
   }
 
   // submit handler pulls together state from all sources and creates a mutation request
@@ -121,9 +128,9 @@ const EventForm = (props) => {
       state,
       zipcode,
       description,
-      ticketType
-    } = formValues;
-    
+      ticketType,
+    } = formValues
+
     const mutationValues = {
       title,
       description,
@@ -138,22 +145,22 @@ const EventForm = (props) => {
       tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : [],
       ticketType,
       images,
-      eventImages: images && images.length ? [] : undefined
+      eventImages: images && images.length ? [] : undefined,
     }
 
-    console.log(mutationValues, "mutation values");
+    console.log(mutationValues, 'mutation values')
 
-    mutation({variables: mutationValues});
+    mutation({variables: mutationValues})
   }
 
   // log errors and success messags
-  if(mutationError){
-    console.log(mutationError);
+  if (mutationError) {
+    console.log(mutationError)
   }
-  if(mutationData){
-    console.log(mutationData);
+  if (mutationData) {
+    console.log(mutationData)
   }
-  if(formErrors.length > 0){
+  if (formErrors.length > 0) {
     console.log('form errors', formErrors)
   }
 
@@ -161,7 +168,6 @@ const EventForm = (props) => {
   return (
     <div className={`${createEventForm}`}>
       <form onSubmit={handleSubmit(onSubmit)} className={`${flexcolumn}`}>
-
         {/* EVENT TITLE */}
         <div className='field'>
           <label className='label'>
@@ -174,7 +180,7 @@ const EventForm = (props) => {
                 ref={register}
               />
               <p className={`is-size-7 ${errorMessage}`}>
-                <ErrorMessage errors={formErrors} name="title" />
+                <ErrorMessage errors={formErrors} name='title' />
               </p>
             </div>
           </label>
@@ -185,7 +191,6 @@ const EventForm = (props) => {
           <label className='label'>
             Location
             <div className={` field ${littleTopPadding}`}>
-
               {/* Group 1: Place name */}
               <label className='label'>
                 Place Name
@@ -197,7 +202,7 @@ const EventForm = (props) => {
                   ref={register}
                 />
                 <p className={`is-size-7 ${errorMessage}`}>
-                  <ErrorMessage errors={formErrors} name="placeName" />
+                  <ErrorMessage errors={formErrors} name='placeName' />
                 </p>
               </label>
 
@@ -213,7 +218,7 @@ const EventForm = (props) => {
                       ref={register}
                     />
                     <p className={`is-size-7 ${errorMessage}`}>
-                      <ErrorMessage errors={formErrors} name="streetAddress" />
+                      <ErrorMessage errors={formErrors} name='streetAddress' />
                     </p>
                   </label>
                 </div>
@@ -227,12 +232,11 @@ const EventForm = (props) => {
                       ref={register}
                     />
                     <p className={`is-size-7 ${errorMessage}`}>
-                      <ErrorMessage errors={formErrors} name="streetAddress2" />
+                      <ErrorMessage errors={formErrors} name='streetAddress2' />
                     </p>
                   </label>
                 </div>
               </div>
-
 
               {/* Group 3: City, state, zip */}
               <div className={`${tabletFlexrow}`}>
@@ -246,7 +250,7 @@ const EventForm = (props) => {
                       ref={register}
                     />
                     <p className={`is-size-7 ${errorMessage}`}>
-                      <ErrorMessage errors={formErrors} name="city" />
+                      <ErrorMessage errors={formErrors} name='city' />
                     </p>
                   </label>
                 </div>
@@ -270,7 +274,7 @@ const EventForm = (props) => {
                       ))}
                     </select>
                     <p className={`is-size-7 ${errorMessage}`}>
-                      <ErrorMessage errors={formErrors} name="state" />
+                      <ErrorMessage errors={formErrors} name='state' />
                     </p>
                   </label>
                 </div>
@@ -284,7 +288,7 @@ const EventForm = (props) => {
                       ref={register}
                     />
                     <p className={`is-size-7 ${errorMessage}`}>
-                      <ErrorMessage errors={formErrors} name="zipcode" />
+                      <ErrorMessage errors={formErrors} name='zipcode' />
                     </p>
                   </label>
                 </div>
@@ -295,12 +299,9 @@ const EventForm = (props) => {
 
         {/* EVENT DATES AND TIME: 1 row desktop and up, 2 rows tablet and mobile */}
         <div className={`${desktopFlexrow}`}>
-
           {/* Group 1: Start date/time */}
           <div className='field start-field'>
-            <label className='label'>
-              Starts
-            </label>
+            <label className='label'>Starts</label>
             <DateTimePicker
               onChange={startChange}
               value={startDatetime}
@@ -312,9 +313,7 @@ const EventForm = (props) => {
 
           {/* Group 2: End date/time */}
           <div className={`${desktopEndfield} field`}>
-            <label className='label'>
-              Ends
-            </label>
+            <label className='label'>Ends</label>
             <DateTimePicker
               onChange={endChange}
               value={endDatetime}
@@ -335,7 +334,7 @@ const EventForm = (props) => {
               ref={register}
             />
             <p className={`is-size-7 ${errorMessage}`}>
-              <ErrorMessage errors={formErrors} name="description" />
+              <ErrorMessage errors={formErrors} name='description' />
             </p>
           </label>
         </div>
@@ -354,7 +353,7 @@ const EventForm = (props) => {
               <option value='PAID'>Paid</option>
             </select>
             <p className={`is-size-7 ${errorMessage}`}>
-              <ErrorMessage errors={formErrors} name="ticketType" />
+              <ErrorMessage errors={formErrors} name='ticketType' />
             </p>
           </label>
         </div>
@@ -369,7 +368,6 @@ const EventForm = (props) => {
             />
           </label>
         </div>
-
 
         {/* IMAGE UPLOAD */}
         <div className={`field ${errorMargin}`}>
