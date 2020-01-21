@@ -7,7 +7,7 @@ Loading animation. Displays three dot in a row.
 
 'dotSize' is the diameter of each dot in px.
  */
-const LoadingDots = ({dotSize}) => {
+const LoadingDots = ({dotSize, bgColor = '#21242c'}) => {
   const size = dotSize ? dotSize : 8
   return (
     <div className={dots}>
@@ -21,6 +21,7 @@ const LoadingDots = ({dotSize}) => {
           style={{
             width: `${size}px`,
             height: `${size}px`,
+            backgroundColor: `${bgColor}`,
             margin: ` 0 ${size / 4}px`,
             animationDelay: `${time}s`,
           }}
@@ -32,6 +33,7 @@ const LoadingDots = ({dotSize}) => {
 
 LoadingDots.propTypes = {
   dotSize: PropTypes.number,
+  bgColor: PropTypes.string,
 }
 
 export default LoadingDots

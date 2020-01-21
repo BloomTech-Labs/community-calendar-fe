@@ -35,7 +35,6 @@
   padding: $gap-sm;
 
   .dot {
-    background-color: $shark;
     @include is-round;
     animation: {
       name: fadeIn;

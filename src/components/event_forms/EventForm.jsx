@@ -48,7 +48,14 @@ const EventForm = props => {
   `item` is result of GET_EVENT_BY_ID query which is only passed down for an EditForm
   `mutation` is AddEvent or UpdateEvent as defined in parent useMutation
   `mutationData` and `mutationError` could possibly be removed and handled in parent */
-  const {formType, item, mutation, mutationData, mutationError} = props
+  const {
+    formType,
+    item,
+    mutation,
+    mutationData,
+    mutationError,
+    mutationLoading,
+  } = props
 
   /* FORM STATE:
   react-hook-form manages state for all text values (location and details) inputted by user
@@ -395,11 +402,19 @@ const EventForm = props => {
 
         {/* FORM CONTROLS (submit and preview) */}
         {/* <button className='button is-medium'>Preview</button> */}
-        <input
-          className={`button is-medium ${shark} has-text-white ${littleTopMargin}`}
-          type='submit'
-          value={formType === 'update' ? 'Update Event' : 'Create Event'}
-        />
+        {mutationLoading ? (
+          <div
+            className={` button is-medium ${shark} ${littleTopMargin} is-medium `}
+          >
+            <LoadingDots bgColor='#fff' />
+          </div>
+        ) : (
+          <input
+            className={`button is-medium ${shark} has-text-white ${littleTopMargin}`}
+            type='submit'
+            value={formType === 'update' ? 'Update Event' : 'Create Event'}
+          />
+        )}
       </form>
     </div>
   )
