@@ -33,8 +33,10 @@ import {
   textarea,
   imageUploader,
   uploadContainer,
+  imagePreview,
   flexcolumn,
   flexrow,
+  flexCenter,
   tabletFlexrow,
   tabletEndfield,
   desktopFlexrow,
@@ -397,27 +399,35 @@ const EventForm = props => {
         </div>
 
         {/* IMAGE UPLOAD */}
-        <div className={`field ${errorMargin}`}>
-          <label className='label'>
+        <div className={`field ${errorMargin} ${flexCenter}`}>
+          <label className={`field ${flexCenter}`}>
             Event image
             <div
+            className={`field ${flexCenter}`}
               style={{
                 pointerEvents: 'none',
               }}
             >
               <Dropzone
+                // If used uploads file, replace the image in state with the new uploaded file
                 onDrop={acceptedFiles => {
-                  setImages(acceptedFiles)
+                  acceptedFiles.length ? setImages(acceptedFiles) : null
                 }}
               >
                 {({getRootProps, getInputProps}) => (
-                  <section className={imageUploader}>
-                    <div {...getRootProps()} className={uploadContainer}>
+                  <div className={`${imageUploader} ${flexCenter}`}>
+                    <div {...getRootProps()} className={`${uploadContainer} ${flexCenter}`}>
                       <input {...getInputProps()} />
-                      {/* <p>Drag 'n' drop some files here, or click to select files</p> */}
-                      <UploadIcon />
+                      {/* <p>Drag 'n' drop some files here, or click to select files</p> */}                
+                      { images 
+                        ? <img 
+                            src={URL.createObjectURL(images[0])}
+                            className={imagePreview}  
+                          /> 
+                        : <UploadIcon /> 
+                      }
                     </div>
-                  </section>
+                  </div>
                 )}
               </Dropzone>
             </div>
