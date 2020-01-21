@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useParams, Link} from 'react-router-dom'
 
 // components
 import LoadingLogo from '../components/loading/LoadingLogo'
 import {DropdownIcon} from 'icons'
+import DeleteEventModal from '../components/events/DeleteEventModal'
 
 //graphql
 import {useQuery, useMutation} from '@apollo/react-hooks'
@@ -35,11 +36,12 @@ import {
 Users can RSVP to an event from here.
  */
 const EventView = ({history}) => {
+  const [showModal, setShowModal] = useState(false);
   const queryParams = useParams()
 
   const {data: localCache} = useQuery(GET_CACHE)
   const {data: userId} = useQuery(GET_USER_ID)
-  const [deleteEvent, {data: deleteData, error: deleteError}] = useMutation(
+  const [deleteEventMutation, {data: deleteData, error: deleteError}] = useMutation(
     DELETE_EVENT,
   )
   const {userLatitude, userLongitude} = localCache
@@ -130,6 +132,14 @@ const EventView = ({history}) => {
       ? `${endHours - 12}:${String(endMinutes).padStart(2, '0')} pm`
       : `${endHours}:${String(endMinutes).padStart(2, '0')} am`
 
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  }
+
+  const deleteEvent = () => {
+    deleteEventMutation({variables: {id}})
+  }
+
   return (
     <div className={eventView}>
       {/* Banner image */}
@@ -212,7 +222,7 @@ const EventView = ({history}) => {
                   </Link>
                   <div
                     onClick={() => {
-                      deleteEvent({variables: {id}})
+                      toggleModal();
                     }}
                     className='dropdown-item has-text-centered has-text-danger'
                   >
@@ -295,6 +305,7 @@ const EventView = ({history}) => {
           </div>
         </div>
       </section>
+      {showModal && <DeleteEventModal deleteEvent={deleteEvent} toggleModal={toggleModal} />}
     </div>
   )
 }
