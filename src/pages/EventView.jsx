@@ -98,9 +98,7 @@ const EventView = ({history}) => {
     eventImages,
     tags,
   } = data.events.length && data.events[0]
-  if (data.events[0]) {
-    console.log(data.events[0])
-  }
+
   //destructure first item in locations array
   const {
     name,
@@ -284,7 +282,7 @@ const EventView = ({history}) => {
                 Tags
               </p>
               {tags &&
-                tags.map((tag, indx) => (
+                tags.map(tag => (
                   <Link
                     to={`/search/${buildQS({searchText: tag.title})}`}
                     className='tag is-small is-white color_shark tag-hover'

@@ -127,9 +127,6 @@ const EventForm = props => {
     setEndDatetime(datetime)
   }
 
-  // latitude and longitude of event address
-  // const [eventCoords, setEventCoords] = useState({})
-
   // submit handler pulls together state from all sources and creates a mutation request
   const onSubmit = async formValues => {
     const {
@@ -145,15 +142,15 @@ const EventForm = props => {
     } = formValues
 
     // query Mapbox for event coordinates
-    let combinedAddress = [streetAddress, city, state, zipcode].join(' ')
+    let combinedAddress = [streetAddress, city, `${state} ${zipcode}`].join(
+      ', ',
+    )
     const geoData = await fetchGeocode({searchWords: combinedAddress})
-    console.log('geoData', geoData)
     let [lat, long] = [null, null]
     if (geoData && geoData.features[0]) {
       lat = geoData.features[0].geometry.coordinates[1]
       long = geoData.features[0].geometry.coordinates[0]
     }
-    console.log(`Event coordinates: lat ${lat} long ${long}`)
 
     const mutationValues = {
       title,
@@ -181,10 +178,10 @@ const EventForm = props => {
 
   // log errors and success messages
   if (mutationError) {
-    console.log(mutationError)
+    console.log('mutation error', mutationError)
   }
   if (mutationData) {
-    console.log(mutationData)
+    console.log('mutation data', mutationData)
     const {id} = mutationData.addEvent || mutationData.updateEvent
     props.history.push(`/events/${id}`)
   }
@@ -404,8 +401,6 @@ const EventForm = props => {
             <div
               style={{
                 pointerEvents: 'none',
-                backgroundImage:
-                  images && images[0].path ? `url(${images[0].path})` : 'none',
               }}
             >
               <Dropzone
