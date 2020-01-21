@@ -49,7 +49,6 @@ const EventView = () => {
   const [manageIsOpen, setManageOpen] = useDropdown(closeManage, false)
 
   function closeManage(e) {
-    console.log('calling close manage', e.target)
     if (e.target.getAttribute('data-id') !== 'manage-dropdown') {
       setManageOpen(false)
     }

@@ -23,7 +23,6 @@ export default function Navbar() {
   console.log('localCache', localCache)
 
   const {user, loginWithRedirect, logout} = useAuth0()
-  console.log('user', user)
 
   // used to show/hide the dropdown menu
   const dropMenu = useRef(null)
