@@ -7,7 +7,12 @@ import {DropdownIcon} from 'icons'
 
 //graphql
 import {useQuery, useMutation} from '@apollo/react-hooks'
-import {GET_EVENT_BY_ID_WITH_DISTANCE, GET_CACHE, GET_USER_ID, DELETE_EVENT} from '../graphql'
+import {
+  GET_EVENT_BY_ID_WITH_DISTANCE,
+  GET_CACHE,
+  GET_USER_ID,
+  DELETE_EVENT,
+} from '../graphql'
 
 import {months, weekDays, buildQS, useDropdown} from '../utils'
 
@@ -34,12 +39,14 @@ const EventView = ({history}) => {
 
   const {data: localCache} = useQuery(GET_CACHE)
   const {data: userId} = useQuery(GET_USER_ID)
-  const [deleteEvent, {data: deleteData, error: deleteError}] = useMutation(DELETE_EVENT);
+  const [deleteEvent, {data: deleteData, error: deleteError}] = useMutation(
+    DELETE_EVENT,
+  )
   const {userLatitude, userLongitude} = localCache
 
-  if(deleteData){
-    console.log(deleteData);
-    history.push('/');
+  if (deleteData) {
+    console.log(deleteData)
+    history.push('/')
   }
 
   // destructure event information passed through props
@@ -76,6 +83,7 @@ const EventView = ({history}) => {
         <LoadingLogo />
       </div>
     )
+
   if (error) return <p>Error</p>
 
   // destructure and render event properties when fetch successful
@@ -90,7 +98,9 @@ const EventView = ({history}) => {
     eventImages,
     tags,
   } = data.events.length && data.events[0]
-
+  if (data.events[0]) {
+    console.log(data.events[0])
+  }
   //destructure first item in locations array
   const {
     name,
@@ -171,40 +181,49 @@ const EventView = ({history}) => {
         </div>
         <div className={panel_right}>
           {/* Manage Buton, only displays if logged-in user is the event creator  */}
-          {userId && creator && userId.userId === creator.id && <div
-            className={`dropdown  has-background-danger button ${
-              manageIsOpen ? 'is-active' : ''
-            }  no-border`}
-            onClick={() => setManageOpen(!manageIsOpen)}
-            data-id='manage-dropdown'
-          >
+          {userId && creator && userId.userId === creator.id && (
             <div
-              className='dropdown-trigger has-text-centered no-pointer-events'
-              style={{width: '100px'}}
-              aria-haspopup='true'
-              aria-controls='dropdown-menu2'
-              data-id='manage-trigger'
+              className={`dropdown  has-background-danger button ${
+                manageIsOpen ? 'is-active' : ''
+              }  no-border`}
+              onClick={() => setManageOpen(!manageIsOpen)}
+              data-id='manage-dropdown'
             >
-              <span className='no-pointer-events has-text-white'>Manage</span>
-              <span
-                className={`icon  no-pointer-events  ${
-                  manageIsOpen ? 'flip' : ''
-                }`}
-                style={{transition: 'transform 0.2s'}}
-                aria-hidden='true'
+              <div
+                className='dropdown-trigger has-text-centered no-pointer-events'
+                style={{width: '100px'}}
+                aria-haspopup='true'
+                aria-controls='dropdown-menu2'
+                data-id='manage-trigger'
               >
-                <DropdownIcon isLight />
-              </span>
-            </div>
-            <div className='dropdown-menu drop-center w-100' role='menu'>
-              <div className='dropdown-content'>
-              <Link to={`/events/${id}/update`}><div className='dropdown-item has-text-centered'>Edit</div></Link>
-                <div onClick={() => {deleteEvent({variables: {id}})}} className='dropdown-item has-text-centered has-text-danger'>
-                  Delete
+                <span className='no-pointer-events has-text-white'>Manage</span>
+                <span
+                  className={`icon  no-pointer-events  ${
+                    manageIsOpen ? 'flip' : ''
+                  }`}
+                  style={{transition: 'transform 0.2s'}}
+                  aria-hidden='true'
+                >
+                  <DropdownIcon isLight />
+                </span>
+              </div>
+              <div className='dropdown-menu drop-center w-100' role='menu'>
+                <div className='dropdown-content'>
+                  <Link to={`/events/${id}/update`}>
+                    <div className='dropdown-item has-text-centered'>Edit</div>
+                  </Link>
+                  <div
+                    onClick={() => {
+                      deleteEvent({variables: {id}})
+                    }}
+                    className='dropdown-item has-text-centered has-text-danger'
+                  >
+                    Delete
+                  </div>
                 </div>
               </div>
             </div>
-          </div>}{' '}
+          )}{' '}
           {/* end manage dropdown */}
           {/* numbers to be replaced with event information */}
           {/* <div>
@@ -251,7 +270,7 @@ const EventView = ({history}) => {
                 {description}
               </p>
               {/* Attend functionality not yet implemented */}
-                <button className='button  is-dark'>Attend</button>
+              <button className='button  is-dark'>Attend</button>
             </div>
           </div>
           {/* Appears to right of event info on tablet+ */}

@@ -153,7 +153,7 @@ const EventForm = props => {
       lat = geoData.features[0].geometry.coordinates[1]
       long = geoData.features[0].geometry.coordinates[0]
     }
-    console.log(`lat ${lat} long ${long}`)
+    console.log(`Event coordinates: lat ${lat} long ${long}`)
 
     const mutationValues = {
       title,
@@ -174,7 +174,7 @@ const EventForm = props => {
       eventImages: images && images.length ? [] : undefined,
     }
 
-    console.log(mutationValues, 'mutation values')
+    console.log('mutation values:', mutationValues)
 
     mutation({variables: mutationValues})
   } //end onSubmit
