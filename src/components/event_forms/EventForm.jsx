@@ -6,14 +6,15 @@ import {useForm, ErrorMessage} from 'react-hook-form'
 import DateTimePicker from 'react-datetime-picker'
 import Dropzone from 'react-dropzone'
 import TagInput from './TagInput'
+import UploadIcon from '../icons/UploadIcon'
+import LoadingDots from 'loading/LoadingDots'
 
 // form data
 import {states, statesAbbreviated} from './states'
 import {eventSchema} from './eventSchema'
 
-// components
-import UploadIcon from '../icons/UploadIcon'
-import LoadingDots from 'loading/LoadingDots'
+// utils
+import {fetchGeocode} from '../../utils'
 
 // styles
 import {
@@ -80,8 +81,9 @@ const EventForm = props => {
             description: item.description || null,
             ticketType: item.ticketType || null,
           },
+          mode: 'onBlur',
         })
-      : useForm({validationSchema: eventSchema})
+      : useForm({validationSchema: eventSchema, mode: 'onBlur'})
 
   // create `tag` state to be used in backend mutation request
   // Ternary maps values passed in on `item` prop as default tags for `update` forms,
@@ -92,6 +94,7 @@ const EventForm = props => {
 
   // create `images` state to be used in backend mutation request
   const [images, setImages] = useState(null)
+  console.log('event images', images)
 
   // create `startDatetime` state to be used in datepicker and backend mutation request
   // defaults to the next noon (today or tomorrow)
@@ -124,8 +127,11 @@ const EventForm = props => {
     setEndDatetime(datetime)
   }
 
+  // latitude and longitude of event address
+  // const [eventCoords, setEventCoords] = useState({})
+
   // submit handler pulls together state from all sources and creates a mutation request
-  const onSubmit = formValues => {
+  const onSubmit = async formValues => {
     const {
       title,
       placeName,
@@ -138,6 +144,17 @@ const EventForm = props => {
       ticketType,
     } = formValues
 
+    // query Mapbox for event coordinates
+    let combinedAddress = [streetAddress, city, state, zipcode].join(' ')
+    const geoData = await fetchGeocode({searchWords: combinedAddress})
+    console.log('geoData', geoData)
+    let [lat, long] = [null, null]
+    if (geoData && geoData.features[0]) {
+      lat = geoData.features[0].geometry.coordinates[1]
+      long = geoData.features[0].geometry.coordinates[0]
+    }
+    console.log(`lat ${lat} long ${long}`)
+
     const mutationValues = {
       title,
       description,
@@ -149,6 +166,8 @@ const EventForm = props => {
       city,
       state,
       zipcode: parseInt(zipcode),
+      latitude: lat, // pass event coordinates to mutation
+      longitude: long,
       tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : [],
       ticketType,
       images,
@@ -158,9 +177,9 @@ const EventForm = props => {
     console.log(mutationValues, 'mutation values')
 
     mutation({variables: mutationValues})
-  }
+  } //end onSubmit
 
-  // log errors and success messags
+  // log errors and success messages
   if (mutationError) {
     console.log(mutationError)
   }
@@ -380,7 +399,13 @@ const EventForm = props => {
         <div className={`field ${errorMargin}`}>
           <label className='label'>
             Event image
-            <div style={{pointerEvents: 'none'}}>
+            <div
+              style={{
+                pointerEvents: 'none',
+                backgroundImage:
+                  images && images[0].path ? `url(${images[0].path})` : 'none',
+              }}
+            >
               <Dropzone
                 onDrop={acceptedFiles => {
                   setImages(acceptedFiles)
