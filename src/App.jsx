@@ -29,6 +29,7 @@ import PrivateRoute from 'private-route/PrivateRoute'
 import {GetUserPosition} from './utils'
 
 function App() {
+  const decode = require('jwt-decode'); //used to decode access token
   const {
     isLoading,
     user,
@@ -41,7 +42,14 @@ function App() {
   const getAccessToken = async () => {
     try {
       const token = await getTokenSilently()
+      const decodedToken = decode(token);
       setAccessToken(token)
+      cache.writeData({
+        data: {
+          userId: decodedToken['http://cc_id']
+        },
+      })
+
     } catch (err) {
       console.log(err)
     }
@@ -106,6 +114,7 @@ function App() {
       userLongitude: null,
       userAddress: null,
       maxDistance: null,
+      userId: null
     },
   })
 
@@ -116,7 +125,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/create-event' component={CreateEventPage} />
-        <Route path='/events/:id' component={EventView} />
+        <Route exact path='/events/:id' component={EventView} />
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />
         <Route path='/test-page' component={TestPage} />
