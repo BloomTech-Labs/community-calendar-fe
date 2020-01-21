@@ -1,19 +1,24 @@
+@import '_variables.scss';
+
 .tagDisplayClass {
     border-bottom: 2px solid black;
     display: flex;
     flex-wrap: wrap;
+    padding-bottom: $gap-sm;
+    margin-bottom: $gap-sm;
 }
 
 .suggestedTags {
     width: 48% !important;
     max-height: 15vh;
     position: absolute;
-    background-color: white;
+    background-color: $offwhite;
     z-index: 1;
     overflow-y: scroll;
 
     p:hover {
-        background-color: blue;
+        background-color: black;
+        color: white;
     }
 }
 
