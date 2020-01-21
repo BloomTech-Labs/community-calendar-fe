@@ -152,6 +152,8 @@ const EventForm = (props) => {
   }
   if(mutationData){
     console.log(mutationData);
+    const {id} = mutationData.addEvent || mutationData.updateEvent;
+    props.history.push(`/events/${id}`);
   }
   if(formErrors.length > 0){
     console.log('form errors', formErrors)

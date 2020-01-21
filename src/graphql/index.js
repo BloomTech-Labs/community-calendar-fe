@@ -10,7 +10,7 @@ import {
 import USERS from './users.query.js'
 
 // pure server GraphQL API mutations
-import {ADD_EVENT, UPDATE_EVENT} from './events.mutation.js'
+import {ADD_EVENT, UPDATE_EVENT, DELETE_EVENT} from './events.mutation.js'
 
 // mixed server and client GraphQL API queries
 
@@ -18,6 +18,7 @@ import {ADD_EVENT, UPDATE_EVENT} from './events.mutation.js'
 import {typeDefs} from './localState'
 import USER_LOCATION from './userLocation.query.js'
 import GET_CACHE from './getCache.query.js'
+import GET_USER_ID from './getUserId.query'
 
 // re-export as modules
 export {
@@ -34,10 +35,12 @@ export {
   // server mutations
   ADD_EVENT,
   UPDATE_EVENT,
+  DELETE_EVENT,
 
   // mixed server and client
 
   // pure local state
   typeDefs,
   GET_CACHE,
+  GET_USER_ID
 }
