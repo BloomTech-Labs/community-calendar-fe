@@ -27,11 +27,17 @@ export default function Navbar() {
 
   // used to show/hide the dropdown menu
   const dropMenu = useRef(null)
-  const locationMenu = useRef(null)
 
   // drop down menu state
   const [navMenuIsOpen, setNavMenuIsOpen] = useState(false)
-  const [locationIsOpen, setLocationIsOpen] = useState(false)
+  const [locationIsOpen, setLocationIsOpen] = useDropdown(closeLocation, false)
+
+  // close location dropdown if user clicks outside of it
+  function closeLocation(e) {
+    if (!/^location-geocoder/gi.test(e.target.getAttribute('data-id'))) {
+      setLocationIsOpen(false)
+    }
+  }
 
   // used by geocoder to update local cache
   function setUserLocation(changes) {
@@ -123,14 +129,15 @@ export default function Navbar() {
             className={`dropdown  navDropdown ${
               locationIsOpen ? 'is-active' : ''
             }`}
+            data-id='location-geocoder-wrapper'
           >
             <div
               role='button'
               className='dropdown-trigger level is-clickable hover-underline'
               aria-haspopup='true'
               aria-controls='dropdown-menu2'
-              data-testid='location-dropdown-trigger'
-              data-id='location-dropdown'
+              data-testid='location-geocoder-trigger'
+              data-id='location-geocoder-trigger'
               onClick={() => setLocationIsOpen(!locationIsOpen)}
             >
               <span
@@ -148,24 +155,41 @@ export default function Navbar() {
               </span>
             </div>
             <div
-              className={` dropdown-menu drop-center `}
+              className={` dropdown-menu drop-center ${
+                locationIsOpen ? 'is-active' : ''
+              }`}
               id='location-dropdown-menu '
               role='menu'
-              ref={locationMenu}
             >
-              <div className='dropdown-content '>
-                <div className={locationContent}>
+              <div
+                className='dropdown-content '
+                data-id='location-geocoder-dropdown'
+              >
+                <div
+                  className={locationContent}
+                  data-id='location-geocoder-dropdown-content'
+                >
                   {localCache.userAddress && (
-                    <p data-id='address-box'>
-                      <span>
+                    <p
+                      data-id='location-geocoder-address-box'
+                      className='level-left'
+                      style={{marginBottom: '8px'}}
+                    >
+                      <span data-id='location-geocoder-icon' className='level'>
                         <MapMarkerCircle />
                       </span>
-                      <span>{localCache.userAddress}</span>
+                      <span
+                        data-id='location-geocoder-address'
+                        style={{marginLeft: '8px'}}
+                      >
+                        {localCache.userAddress}
+                      </span>
                     </p>
                   )}
                   <Geocoder
                     labelText='Enter Location:'
                     onSelectedItemChange={setUserLocation}
+                    dataIdPrefix='location-geocoder'
                   />
                 </div>
               </div>

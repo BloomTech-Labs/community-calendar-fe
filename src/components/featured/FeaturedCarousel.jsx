@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import PropTypes from 'prop-types'
 
 //components
@@ -9,16 +9,17 @@ import LoadingLogo from '../loading/LoadingLogo'
 import {featuredWrapper} from './Featured.module.scss'
 
 // Carousel
-import ReactSimpleCarousel from "react-spring-carousel";
+import ReactSimpleCarousel from 'react-spring-carousel'
 
 function FeatCarousel({apolloData: {data, loading, error}}) {
+  const eventsToShow = !loading && data.events ? data.events.slice(0, 6) : null
 
   return (
     <section style={{paddingBottom: 0}} className='section mobile-section'>
       <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
         Featured
       </h3>
-      
+
       {/*carousel container*/}
       <div className={`${featuredWrapper}`}>
         {/* Render loading spinner during fetch */}
@@ -28,13 +29,13 @@ function FeatCarousel({apolloData: {data, loading, error}}) {
         {error && <p>ERROR</p>}
 
         {/* map over events and create cards */}
-        {!loading && data &&
-          (<ReactSimpleCarousel slidesToShow={data.events.length}>
-            {data.events.map(event => (
-                <FeaturedCard key={event.id} item={event} />
-              ))}
-          </ReactSimpleCarousel>)
-        }
+        {!loading && data && (
+          <ReactSimpleCarousel slidesToShow={eventsToShow.length}>
+            {eventsToShow.map(event => (
+              <FeaturedCard key={event.id} item={event} />
+            ))}
+          </ReactSimpleCarousel>
+        )}
 
         {/* Render message if no events in data */}
         {!loading && data && !data.events.length && (
@@ -46,7 +47,7 @@ function FeatCarousel({apolloData: {data, loading, error}}) {
         )}
       </div>
     </section>
-  );
+  )
 }
 
-export default FeatCarousel;
+export default FeatCarousel
