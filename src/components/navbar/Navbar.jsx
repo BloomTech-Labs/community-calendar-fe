@@ -34,7 +34,6 @@ export default function Navbar() {
 
   // close location dropdown if user clicks outside of it
   function closeLocation(e) {
-    // let dataID = e.target.getAttribute('data-id')
     if (!/^location-geocoder/gi.test(e.target.getAttribute('data-id'))) {
       setLocationIsOpen(false)
     }
@@ -171,11 +170,18 @@ export default function Navbar() {
                   data-id='location-geocoder-dropdown-content'
                 >
                   {localCache.userAddress && (
-                    <p data-id='location-geocoder-address-box'>
-                      <span data-id='location-geocoder-icon'>
+                    <p
+                      data-id='location-geocoder-address-box'
+                      className='level-left'
+                      style={{marginBottom: '8px'}}
+                    >
+                      <span data-id='location-geocoder-icon' className='level'>
                         <MapMarkerCircle />
                       </span>
-                      <span data-id='location-geocoder-address'>
+                      <span
+                        data-id='location-geocoder-address'
+                        style={{marginLeft: '8px'}}
+                      >
                         {localCache.userAddress}
                       </span>
                     </p>
