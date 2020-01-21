@@ -1,9 +1,11 @@
 import React, {useState, useRef, useEffect} from "react";
+import LoadingDots from "../loading/LoadingDots";
 
 import {
     tagDisplayClass,
     suggestedTags,
-    tagClass
+    tagClass,
+    container
 } from "./styles/TagInput.module.scss"
 
 //graphql
@@ -138,16 +140,21 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
     }, []);
 
     if(loading) {
-        return <div>Loading tags</div>
+        return <LoadingDots/>;
     }
 
     if(error) {
-        return <div>Error loading tags</div>
+        return (
+            <input 
+                placeholder="Error loading tags"
+                className="no-border is-size-6half no-outline-focus"
+            />
+        );
     }
 
 
     return (
-        <div onFocus={showTags} onKeyDown={handleKeyDown}>
+        <div class={container} onFocus={showTags} onKeyDown={handleKeyDown}>
             {/* where selected tags are displayed */}
             <div className={tagDisplayClass}>
                 {
@@ -166,6 +173,7 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
                 ref={tagInputRef} 
                 value={tagInput} 
                 placeholder="Enter tags"
+                className="is-size-6half no-outline-focus"
             />
             {/* where suggested tags are displayed */}
             <div className={suggestedTags} ref={suggestedTagsRef} style={{visibility: "hidden"}}>
