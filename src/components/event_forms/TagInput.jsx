@@ -154,7 +154,7 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
 
 
     return (
-        <div class={container} onFocus={showTags} onKeyDown={handleKeyDown}>
+        <div onFocus={showTags} onKeyDown={handleKeyDown}>
             {/* where selected tags are displayed */}
             <div className={tagDisplayClass}>
                 {
