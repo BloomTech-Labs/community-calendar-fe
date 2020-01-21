@@ -109,7 +109,7 @@ const EventView = ({history}) => {
     state,
     distanceFromUser,
     distanceUnit,
-  } = locations[0]
+  } = locations[locations.length - 1]
 
   //convert start date to Date object
   const startDate = new Date(start)

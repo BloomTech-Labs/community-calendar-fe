@@ -14,17 +14,21 @@ import {
 Cards for the Featured Events carousel.
 */
 
-
 export default function FeaturedCard(props) {
   const {item} = props
+  let location = item.locations.length
+    ? item.locations[item.locations.length - 1]
+    : null
 
   return (
     <Link className={`${featuredCard}`} to={`events/${item.id}`}>
-      {item.eventImages.length > 0 && <img
-        className={eventImage}
-        src={item.eventImages[0].url}
-        alt='Event image'
-      />}
+      {item.eventImages.length > 0 && (
+        <img
+          className={eventImage}
+          src={item.eventImages[0].url}
+          alt='Event image'
+        />
+      )}
 
       <div className={featuredCardContent}>
         <p>
@@ -56,11 +60,12 @@ export default function FeaturedCard(props) {
             {moment(item.end).format('h:mm a')}
           </time>
         </p>
-        {item.locations.length > 0 && 
-        <p className='is-size-7 has-text-weight-bold'>
-          <span className='has-text-weight-light'>Location: </span>
-          {`${item.locations[0].streetAddress}, ${item.locations[0].city}`}
-        </p>}
+        {location && (
+          <p className='is-size-7 has-text-weight-bold'>
+            <span className='has-text-weight-light'>Location: </span>
+            {`${location.streetAddress}, ${location.city}`}
+          </p>
+        )}
       </div>
     </Link>
   )

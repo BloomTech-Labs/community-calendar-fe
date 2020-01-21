@@ -72,12 +72,14 @@ const EventForm = props => {
           validationSchema: eventSchema,
           defaultValues: {
             title: item.title || null,
-            placeName: item.locations[0].name || null,
-            streetAddress: item.locations[0].streetAddress || null,
-            streetAddress2: item.locations[0].streetAddress2 || null,
-            city: item.locations[0].city || null,
-            state: item.locations[0].state || null,
-            zipcode: item.locations[0].zipcode || null,
+            placeName: item.locations[item.locations.length - 1].name || null,
+            streetAddress:
+              item.locations[item.locations.length - 1].streetAddress || null,
+            streetAddress2:
+              item.locations[item.locations.length - 1].streetAddress2 || null,
+            city: item.locations[item.locations.length - 1].city || null,
+            state: item.locations[item.locations.length - 1].state || null,
+            zipcode: item.locations[item.locations.length - 1].zipcode || null,
             description: item.description || null,
             ticketType: item.ticketType || null,
           },

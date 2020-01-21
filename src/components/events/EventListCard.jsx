@@ -24,6 +24,10 @@ sets the style to List format or Grid format
  */
 export default function EventListCard(props) {
   const {item, useListView} = props
+  const location =
+    item.locations && item.locations[0].streetAddress
+      ? item.locations[item.locations.length - 1]
+      : null
 
   return (
     //  Use `listCard` or `gridCard` style based on `useListView` bool from parent
@@ -45,21 +49,17 @@ export default function EventListCard(props) {
         >
           {/* display neighborhood if defined, otherwise city */}
           <span className='is-size-6 is-uppercase'>
-            {item.locations && item.locations[0].neighborhood
-              ? item.locations[0].neighborhood
-              : item.locations[0].city}
+            {location.neighborhood ? location.neighborhood : location.city}
           </span>
           {/* display distanceFromUser if defined */}
-          {item.locations && item.locations[0].distanceFromUser && (
+          {location && location.distanceFromUser && (
             <span className={`is-size-7`}>
               &nbsp; &#8226; &nbsp;
               <span
                 className={space_letters}
-              >{`${item.locations[0].distanceFromUser.toFixed(1)}`}</span>
+              >{`${location.distanceFromUser.toFixed(1)}`}</span>
               &nbsp;
-              {`${
-                item.locations[0].distanceUnit === 'miles' ? 'mi' : 'km'
-              } away`}
+              {`${location.distanceUnit === 'miles' ? 'mi' : 'km'} away`}
             </span>
           )}
         </p>
@@ -81,16 +81,6 @@ export default function EventListCard(props) {
           &nbsp;
           <span className='color_chalice'>Free</span>
         </p>
-        {/* &nbsp;
-        </p>
-        {item.locations[0].distanceFromUser && (
-          <p className='color_shark'>
-            {`Distance: ${item.locations[0].distanceFromUser.toFixed(2)} ${
-              item.locations[0].distanceUnit === 'miles' ? 'mi' : 'km'
-            }`}
-          </p>
-        )} */}
-
         <p
           data-id='event_description'
           data-testid='event_description'
