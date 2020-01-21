@@ -140,12 +140,6 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
     }, []);
 
     if(loading) {
-        // return (
-        //     <input 
-        //         placeholder="Loading tags"
-        //         className="no-border is-size-6half no-outline-focus"
-        //     />
-        // );
         return <LoadingDots/>;
     }
 
