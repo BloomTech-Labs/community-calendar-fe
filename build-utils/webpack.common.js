@@ -135,8 +135,14 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
     ],
   },
   resolve: {
-    // Eliminate need to type absolute path to directories/files from these paths
-    modules: ['node_modules', 'src/styles', 'test-utils', 'src/components'],
+    // Eliminate need to type relative path to directories/files from these paths
+    modules: [
+      'node_modules',
+      'src/styles',
+      'test-utils',
+      'src/components',
+      'src/graphql',
+    ],
     //  imports don't have to use the  file extension
     enforceExtension: false,
     extensions: [

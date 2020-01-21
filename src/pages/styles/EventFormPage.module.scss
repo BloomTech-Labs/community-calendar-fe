@@ -1,0 +1,33 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/_all.sass';
+@import '~bulma/sass/grid/columns.sass';
+@import '~bulma/sass/form/_all.sass';
+
+.outerContainer {
+    min-width: 100%;
+    min-height: 100%;
+    background: url('../../assets/images/createEventsBackground.png') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.innerContainer {
+    width: 80%;
+    padding-top: 0;
+    padding-bottom: 4rem;
+    margin: 0 auto;
+    background: white;
+    @include mobile {
+        width: 90%;
+    }
+}
+
+.banner {
+    background-color: $shark;
+    h3 {
+        color: white;
+    }
+}

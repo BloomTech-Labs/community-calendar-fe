@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {navsearch} from './Navbar.module.scss'
 import {useHistory} from 'react-router-dom'
+import {buildQS} from '../../utils'
 
 /* 
 This component appears in the NavBar.
@@ -15,7 +16,10 @@ const NavbarSearchBox = props => {
 
   const handleSearchClick = () => {
     if (searchText.length) {
-      rccHistory.push(`/search/${searchText}`)
+      //encode text to query string searchtext=stuff
+      const qs = buildQS({searchText})
+      // push to /search with query string
+      rccHistory.push(`/search${qs}`)
     }
   }
 

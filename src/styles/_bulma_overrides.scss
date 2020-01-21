@@ -16,6 +16,12 @@
     pointer-events: none;
   }
 
+  @include mobile {
+    &.is-active {
+      height: 100vh;
+    }
+  }
+
   @include tablet-up {
     padding: 0 $bodyPaddingX-hd;
     flex-direction: row;
@@ -51,17 +57,19 @@
         bottom: 0;
       }
       & > a,
-      div,
-      button {
+      > div,
+      > button {
         margin: {
           left: $gap-xxs;
           top: 0;
         }
+        padding: 0 $gap-xxs;
       }
     }
   }
 
   &-brand {
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     @include tablet {
@@ -74,12 +82,14 @@
   }
 
   &-menu {
+    position: relative;
     background-color: transparent;
     box-shadow: none;
     flex-grow: 1;
     padding: 0;
     flex-direction: column;
     overflow: visible !important;
+    z-index: 1000;
 
     @include tablet {
       display: flex;
@@ -90,12 +100,25 @@
 
     &.is-active {
       display: flex;
+      /* 
+      &:after {
+        content: '';
+        width: 150%;
+        height: 100vh;
+        position: absolute;
+        bottom: -100vh;
+        z-index: 0;
+        margin-left: -15%;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+ */
     }
   }
 
   &-burger {
     width: 16px;
     margin-right: $gap-xxs;
+    margin-left: initial;
     &:hover {
       color: initial;
       background-color: initial;
@@ -107,14 +130,16 @@
   }
 
   &-search {
-    padding-left: 12px;
+    margin-left: $gap-xs;
+    margin-right: $gap-xs;
     display: flex;
     align-items: center !important;
     border-radius: $radius;
-    width: 300px;
+    max-width: 300px;
     transition: width 0.4s;
 
     @include tablet {
+      margin-left: $gap-md;
       max-width: 350px;
       flex-grow: 1;
     }
@@ -145,23 +170,78 @@
 
   &-menu {
     @include willSlideDown;
+
+    &.is-active {
+      @include slideDownShow;
+    }
   }
-  &.is-active &-menu {
+
+  // styles for dropdown menus in navbar. different on mobile
+  &.navDropdown {
+    margin-bottom: -4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .dropdown-menu.drop-center {
+      display: none;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+
+    &.is-active {
+      .dropdown-menu.drop-center {
+        display: block;
+      }
+    }
+    @include tablet {
+      display: inline-flex;
+      flex-direction: row;
+      margin-bottom: 0;
+
+      .dropdown-menu.drop-center {
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+      }
+
+      &.is-active {
+        .dropdown-menu.drop-center {
+          display: block;
+        }
+      }
+    } // styles for tablet up
+  }
+
+  // center-aligned dropdown menus NOT in navbar.
+  & .dropdown-menu.drop-center {
+    @include willSlideDown(0.4s);
+    min-width: unset;
+
+    @include tablet {
+      left: 50%;
+      transform: translateX(-50%) !important;
+    }
+  }
+
+  &.is-active .dropdown-menu.drop-center {
     @include slideDownShow;
   }
 }
 
-.dropdown .dropdown-menu.drop-center {
-  @include willSlideDown(0.4s);
-  min-width: unset;
-  width: 90%;
-  left: 50%;
-  transform: translateX(-50%) !important;
+// ==== Input ====
+.input {
+  border: none;
+  border-bottom: 2px solid black;
+  border-radius: 0px;
+  box-shadow: none;
+  text-align: left;
+  padding: 0;
+  background-color: white;
 }
 
-.dropdown.is-active .dropdown-menu.drop-center {
-  @include slideDownShow;
-}
 // ===== Section =====
 .section {
   padding: {
@@ -226,4 +306,9 @@ div.select.is-rounded select {
   option {
     text-align: center;
   }
+}
+
+// ==== Spacing for <select> ====
+.left-margin {
+  margin-left: $gap-sm;
 }

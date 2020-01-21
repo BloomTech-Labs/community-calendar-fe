@@ -1,13 +1,12 @@
-import {useState, useEffect, useCallback} from 'react'
+import {useState, useEffect} from 'react'
 
 /* 
  This function is used to read the user's geolocation coordinates. When a component utilizing this function 
  is mounted the user is prompted if the app can use their current location. 
 
- It also returns a function that can be used 
   */
 
-export default function getGeoPosition(config) {
+export default function useGeo(config) {
   const [userPosition, setUserPosition] = useState({})
 
   // default options for geolocation.getCurrentPosition
@@ -32,12 +31,8 @@ export default function getGeoPosition(config) {
       await window.navigator.geolocation.getCurrentPosition(
         pos => {
           const {latitude, longitude} = pos.coords
-          if (
-            latitude !== userPosition.latitude &&
-            longitude !== userPosition.longitude
-          ) {
-            setUserPosition({latitude, longitude})
-          }
+
+          setUserPosition({latitude, longitude})
         },
         onError,
         useConfig,
@@ -50,5 +45,5 @@ export default function getGeoPosition(config) {
     getUserPosition()
   }, [])
 
-  return {userPosition, setUserPosition, getUserPosition}
+  return userPosition
 }
