@@ -14,7 +14,7 @@ import {
 
 function DeleteEventModal({deleteEvent, toggleModal}) {
     return (
-        <div className={`${deleteEventModal}`}id="modal">
+        <div className={`${deleteEventModal}`}>
             <div className={`${deleteEventModalContent}`}>
                 <div className={`${deleteEventModalBody}`}>
                     Are you sure you want to delete this event?
