@@ -1,4 +1,5 @@
 import React, {useState, useRef, useEffect} from "react";
+import LoadingDots from "../loading/LoadingDots";
 
 import {
     tagDisplayClass,
@@ -139,12 +140,13 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
     }, []);
 
     if(loading) {
-        return (
-            <input 
-                placeholder="Loading tags"
-                className="no-border is-size-6half no-outline-focus"
-            />
-        );
+        // return (
+        //     <input 
+        //         placeholder="Loading tags"
+        //         className="no-border is-size-6half no-outline-focus"
+        //     />
+        // );
+        return <LoadingDots/>;
     }
 
     if(error) {
