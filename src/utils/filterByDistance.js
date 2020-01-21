@@ -1,6 +1,8 @@
 const filterByDistance = (distance, events) => {
   return events.filter(event => {
-    return event.locations[0].distanceFromUser <= distance
+    return (
+      event.locations[event.locations.length - 1].distanceFromUser <= distance
+    )
   })
 }
 
