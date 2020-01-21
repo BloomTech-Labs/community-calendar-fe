@@ -30,6 +30,11 @@
   }
 }
 
+.lightFill {
+  path {
+    fill: $white;
+  }
+}
 .dropdown {
   transition: all $duration-short;
 }

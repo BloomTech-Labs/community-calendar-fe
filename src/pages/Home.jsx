@@ -12,9 +12,6 @@ import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_EVENTS_WITH_DISTANCE, GET_CACHE} from '../graphql'
 
-//styles
-import styles from './styles/Home.module.scss'
-
 /* The first page user's see when opening the app */
 const Home = () => {
   ReactGA.pageview('/')
