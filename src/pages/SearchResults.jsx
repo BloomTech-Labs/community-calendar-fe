@@ -34,16 +34,26 @@ const SearchResults = () => {
   const data = {...apolloData}
   //create regex
   let regex = new RegExp(urlQS.get('searchText'), 'ig')
+  let searchTxtArr = urlQS.get('searchText').split(' ')
+
   // filter results using searchString
   if (!loading && data.events) {
     const filtered = data.events.filter(event => {
-      return (
+      return searchTxtArr.some(word => {
+        word = word.toLowerCase()
+        event.title.toLowerCase().includes(word) ||
+          event.description.toLowerCase().includes(word) ||
+          event.tags.reduce((result, tag) => {
+            return tag.title.toLowerCase() == word ? (result = true) : result
+          }, false)
+      })
+      /* 
         regex.test(event.title) ||
         regex.test(event.description) ||
         event.tags.reduce((result, tag) => {
           return regex.test(tag.title) ? (result = true) : result
         }, false)
-      )
+  */
     })
     // apply filtered events to data.events
     data.events = [...filtered]
