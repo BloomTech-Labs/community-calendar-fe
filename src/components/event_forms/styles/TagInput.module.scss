@@ -1,11 +1,17 @@
 @import '_variables.scss';
 
-.tagDisplayClass {
+// .container {
+// }
+input {
+    padding: $gap-xxs 0;
+    border: none;
     border-bottom: 2px solid black;
+}
+
+
+.tagDisplayClass {
     display: flex;
     flex-wrap: wrap;
-    padding-bottom: $gap-sm;
-    margin-bottom: $gap-sm;
 }
 
 .suggestedTags {
