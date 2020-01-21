@@ -6,8 +6,8 @@ import LoadingLogo from '../components/loading/LoadingLogo'
 import {DropdownIcon} from 'icons'
 
 //graphql
-import {useQuery} from '@apollo/react-hooks'
-import {GET_EVENT_BY_ID_WITH_DISTANCE, GET_CACHE} from '../graphql'
+import {useQuery, useMutation} from '@apollo/react-hooks'
+import {GET_EVENT_BY_ID_WITH_DISTANCE, GET_CACHE, GET_USER_ID, DELETE_EVENT} from '../graphql'
 
 import {months, weekDays, buildQS, useDropdown} from '../utils'
 
@@ -29,11 +29,18 @@ import {
 /* Show all of the details and information about an event.
 Users can RSVP to an event from here.
  */
-const EventView = () => {
+const EventView = ({history}) => {
   const queryParams = useParams()
 
   const {data: localCache} = useQuery(GET_CACHE)
+  const {data: userId} = useQuery(GET_USER_ID)
+  const [deleteEvent, {data: deleteData, error: deleteError}] = useMutation(DELETE_EVENT);
   const {userLatitude, userLongitude} = localCache
+
+  if(deleteData){
+    console.log(deleteData);
+    history.push('/');
+  }
 
   // destructure event information passed through props
   const apolloData = useQuery(GET_EVENT_BY_ID_WITH_DISTANCE, {
@@ -164,7 +171,7 @@ const EventView = () => {
         </div>
         <div className={panel_right}>
           {/* Manage Buton, only displays if logged-in user is the event creator  */}
-          <div
+          {userId && creator && userId.userId === creator.id && <div
             className={`dropdown  has-background-danger button ${
               manageIsOpen ? 'is-active' : ''
             }  no-border`}
@@ -191,13 +198,13 @@ const EventView = () => {
             </div>
             <div className='dropdown-menu drop-center w-100' role='menu'>
               <div className='dropdown-content'>
-                <div className='dropdown-item has-text-centered'>Edit</div>
-                <div className='dropdown-item has-text-centered has-text-danger'>
+              <Link to={`/events/${id}/update`}><div className='dropdown-item has-text-centered'>Edit</div></Link>
+                <div onClick={() => {deleteEvent({variables: {id}})}} className='dropdown-item has-text-centered has-text-danger'>
                   Delete
                 </div>
               </div>
             </div>
-          </div>{' '}
+          </div>}{' '}
           {/* end manage dropdown */}
           {/* numbers to be replaced with event information */}
           {/* <div>
@@ -244,9 +251,7 @@ const EventView = () => {
                 {description}
               </p>
               {/* Attend functionality not yet implemented */}
-              <Link to={`${id}/update`}>
-                <button className='button  is-dark'>Update</button>
-              </Link>
+                <button className='button  is-dark'>Attend</button>
             </div>
           </div>
           {/* Appears to right of event info on tablet+ */}

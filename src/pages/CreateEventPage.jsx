@@ -8,7 +8,7 @@ import {
   banner
 } from './styles/EventFormPage.module.scss'
 
-export default function CreateEventPage() {
+export default function CreateEventPage({history}) {
   return (
     <div className={`${outerContainer}`}>
       <div className={`${innerContainer}`}>
@@ -17,7 +17,7 @@ export default function CreateEventPage() {
             Event Details
           </h3>
         </section>
-        <CreateEvent />
+        <CreateEvent history={history}/>
       </div>
     </div>
   )

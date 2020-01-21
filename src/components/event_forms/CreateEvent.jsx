@@ -3,7 +3,7 @@ import {useMutation} from '@apollo/react-hooks'
 import {ADD_EVENT} from '../../graphql'
 import EventForm from './EventForm'
 
-export default function CreateEvent() {
+export default function CreateEvent({history}) {
   const [addEvent, {data, error, loading}] = useMutation(ADD_EVENT)
 
   return (
@@ -13,6 +13,7 @@ export default function CreateEvent() {
       mutationData={data}
       mutationError={error}
       mutationLoading={loading}
+      history={history}
     />
   )
 }
