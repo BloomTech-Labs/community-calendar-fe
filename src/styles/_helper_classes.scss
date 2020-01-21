@@ -58,6 +58,10 @@
   }
 }
 
+.w-100 {
+  width: 100%;
+}
+
 // horizontally center an element
 .mx-auto {
   @include mx-auto;
@@ -75,11 +79,17 @@
   justify-content: center;
 }
 
-.flip {
-  transition: transform $duration-short;
-  transform: rotate(180deg);
+.border-radius {
+  border-radius: $radius;
 }
 
+.border-radius-lg {
+  border-radius: $radius-large;
+}
+
+.border-radius--sm {
+  border-radius: $radius-small;
+}
 // ===== Other =====
 
 .is-bold {
@@ -152,4 +162,9 @@ a.tag.tag-hover,
     background-color: $offwhite;
     text-decoration: none;
   }
+}
+
+.flip {
+  transition: transform $duration-short;
+  transform: rotate(180deg);
 }

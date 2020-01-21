@@ -36,7 +36,7 @@ const DistanceDropdown = (client, userLat, userLong, maxDistance) => {
 
   return (
     <div
-      className={`dropdown is-right ccDropdown small-btn ${
+      className={`dropdown  ccDropdown small-btn ${
         showDistances ? 'is-active' : ''
       }`}
       data-testid='distanceSelectDiv'

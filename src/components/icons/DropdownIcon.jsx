@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {dropdown, darkFill} from './Icons.module.scss'
+import {dropdown, darkFill, lightFill} from './Icons.module.scss'
 
-const DropdownIcon = ({showDropdown, dimensions, dataId}) => {
+const DropdownIcon = ({isLight, dimensions, dataId}) => {
   return (
     <svg
       data-id={dataId}
       width={dimensions ? dimensions : 13}
       height={dimensions ? dimensions : 7}
       viewBox='0 0 13 7'
-      className={(dropdown, darkFill)}
+      className={`dropdown ${isLight ? lightFill : darkFill}`}
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
       style={{pointerEvents: 'none'}}
@@ -20,7 +20,7 @@ const DropdownIcon = ({showDropdown, dimensions, dataId}) => {
 }
 
 DropdownIcon.propTypes = {
-  showDropdown: PropTypes.bool,
+  isLight: PropTypes.bool,
   dimensions: PropTypes.number,
   dataId: PropTypes.string,
 }

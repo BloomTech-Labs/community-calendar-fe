@@ -20,5 +20,6 @@ export const typeDefs = gql`
     userLatitude: Float
     userLongitude: Float
     userAddress: String
+    userId: String
   }
 `
