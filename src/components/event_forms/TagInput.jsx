@@ -168,7 +168,7 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
                 placeholder="Enter tags"
             />
             {/* where suggested tags are displayed */}
-            <div className={suggestedTags} ref={suggestedTagsRef}>
+            <div className={suggestedTags} ref={suggestedTagsRef} style={{visibility: "hidden"}}>
                 {
 
                     data.tags
