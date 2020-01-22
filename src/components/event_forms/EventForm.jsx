@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import * as yup from 'yup'
 
 // form components
@@ -6,8 +6,7 @@ import {useForm, ErrorMessage} from 'react-hook-form'
 import DateTimePicker from 'react-datetime-picker'
 import Dropzone from 'react-dropzone'
 import TagInput from './TagInput'
-import UploadIcon from '../icons/UploadIcon'
-import LoadingDots from 'loading/LoadingDots'
+import ErrorModal from './ErrorModal'
 
 // form data
 import {states, statesAbbreviated} from './states'
@@ -17,6 +16,8 @@ import {eventSchema} from './eventSchema'
 import {fetchGeocode} from '../../utils'
 
 // styles
+import UploadIcon from '../icons/UploadIcon'
+import LoadingDots from 'loading/LoadingDots'
 import {
   createEventForm,
   input,
@@ -131,6 +132,12 @@ const EventForm = props => {
     setEndDatetime(datetime)
   }
 
+  // error modal state
+  const [showModal, setShowModal] = useState(false)
+  const toggleModal = () => {
+    setShowModal(!showModal)
+  }
+
   // submit handler pulls together state from all sources and creates a mutation request
   const onSubmit = async formValues => {
     const {
@@ -181,16 +188,17 @@ const EventForm = props => {
   } //end onSubmit
 
   // log errors and success messages
-  if (mutationError) {
-    console.log('mutation error', mutationError)
-  }
+  useEffect(() => {
+    if(mutationError) {
+      setShowModal(true);
+      console.log('mutation error', mutationError);
+    }
+  }, [mutationError]);
+  
   if (mutationData) {
     console.log('mutation data', mutationData)
     const {id} = mutationData.addEvent || mutationData.updateEvent
     props.history.push(`/events/${id}`)
-  }
-  if (formErrors.length > 0) {
-    console.log('form errors', formErrors)
   }
 
   // render form component
@@ -464,6 +472,10 @@ const EventForm = props => {
           />
         )}
       </form>
+      
+      {showModal && (
+        <ErrorModal toggleModal={toggleModal} />
+      )}
     </div>
   )
 }
