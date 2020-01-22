@@ -100,7 +100,7 @@
     }
 
     p:nth-of-type(2) {
-      margin-top: $gap-xxs;
+      margin-top: $gap-sm;
     }
 
     @include tablet {
@@ -108,17 +108,25 @@
       max-width: 700px;
       p:nth-of-type(2) {
         margin-top: 0;
-        padding: $gap + $gap-xxs 0;
+        padding: {
+          top: $gap;
+          bottom: 0;
+          left: 0;
+          right: 0;
+        }
       }
 
       button {
-        margin-top: 0;
+        margin-top: $gap;
       }
     }
   }
 
+  .descriptionText {
+    padding-bottom: 0;
+  }
+
   .socialOptions {
-    margin-top: $gap-sm;
     p {
       margin-bottom: $gap-xs;
       margin-right: $gap-sm;
@@ -130,7 +138,6 @@
       }
     }
     @include tablet {
-      // margin-top: $gap-md;
       margin-top: 0;
     }
   }
