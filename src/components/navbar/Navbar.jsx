@@ -202,6 +202,7 @@ export default function Navbar() {
             to='/'
             role='button'
             className={`has-text-centered is-size-5-tablet ${navButton} no-outline-focus`}
+            onClick={() => setNavMenuIsOpen(false)}
           >
             Events
           </Link>
@@ -212,6 +213,7 @@ export default function Navbar() {
               <Link to='/create-event' className={`   color_shark`}>
                 <button
                   className={`${navButton} is-size-5-tablet  no-border no-outline-focus`}
+                  onClick={() => setNavMenuIsOpen(false)}
                 >
                   Create Event
                 </button>
@@ -220,13 +222,17 @@ export default function Navbar() {
                 to='#'
                 role='button'
                 className={` is-hidden-tablet  is-flex has-text-centered ${navButton} no-outline-focus`}
+                onClick={() => setNavMenuIsOpen(false)}
               >
                 Profile
               </Link>
               <div
                 role='button'
                 className={` is-hidden-tablet  is-flex has-text-centered ${navButton} is-clickable no-outline-focus`}
-                onClick={e => navUtils.handleLogout(e, logout)}
+                onClick={e => {
+                  setNavMenuIsOpen(false)
+                  navUtils.handleLogout(e, logout)
+                }}
               >
                 Log Out
               </div>
@@ -258,7 +264,10 @@ export default function Navbar() {
                     <div className='dropdown-item'>Profile</div>
                     <div
                       className='dropdown-item is-clickable'
-                      onClick={e => navUtils.handleLogout(e, logout)}
+                      onClick={e => {
+                        setNavMenuIsOpen(false)
+                        navUtils.handleLogout(e, logout)
+                      }}
                     >
                       Log Out
                     </div>
