@@ -108,6 +108,11 @@ export const GET_EVENTS_WITH_DISTANCE = gql`
       tags {
         title
       }
+      rsvps {
+        id
+        firstName
+        lastName
+      }
     }
   }
   ${EVENT_DETAIL_DATA}
@@ -125,7 +130,7 @@ export const GET_ALL_TAGS = gql`
 
 export const GET_EVENT_BY_ID = gql`
   query EventById($id: ID) {
-    events(where: {id: $id}){
+    events(where: {id: $id}) {
       ...EventDetail
       creator {
         id
@@ -138,11 +143,11 @@ export const GET_EVENT_BY_ID = gql`
       eventImages {
         url
       }
-      tags{
+      tags {
         title
       }
     }
-    tags{
+    tags {
       title
     }
   }

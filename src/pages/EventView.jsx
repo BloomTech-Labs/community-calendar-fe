@@ -41,6 +41,7 @@ const EventView = ({history}) => {
 
   const {data: localCache} = useQuery(GET_CACHE)
   const {data: userId} = useQuery(GET_USER_ID)
+  console.log('userID in cache', userId)
   const [
     deleteEventMutation,
     {data: deleteData, error: deleteError},
