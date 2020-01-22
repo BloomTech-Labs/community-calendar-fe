@@ -175,8 +175,12 @@ const EventView = ({history}) => {
     deleteEventMutation({variables: {id}})
   }
 
-  const addRSVP = () => addRsvpMutation({variables: {id}})
-  const removeRSVP = () => removeRsvpMutation({variables: {id}})
+  const addRSVP = () => {
+    addRsvpMutation({variables: {id}}).then(() => refetch())
+  }
+  const removeRSVP = () => {
+    removeRsvpMutation({variables: {id}}).then(() => refetch())
+  }
 
   return (
     <div className={eventView}>
@@ -272,7 +276,7 @@ const EventView = ({history}) => {
           )}
           {/* end manage dropdown */}
           {/* Rsvp change, only displays if logged-in user is rsvp'd to event  */}
-          {didRsvp && (
+          {didRsvp && !removeRsvpLoading && (
             <div
               className={`dropdown  has-background-success button ${
                 rsvpOpen ? 'is-active' : ''
@@ -312,6 +316,11 @@ const EventView = ({history}) => {
           )}
           {/* end rsvp dropdown */}
 
+          {didRsvp && removeRsvpLoading && (
+            <div className='has-background-success button no-border no-pointer-events'>
+              <LoadingDots bgColor='#fff' />
+            </div>
+          )}
           {/* numbers to be replaced with event information */}
           {/* <div>
             <p>
@@ -363,7 +372,7 @@ const EventView = ({history}) => {
                 </button>
               )}
               {cacheUserId.userId && addRsvpLoading && !didRsvp && (
-                <button className='button  is-dark'>
+                <button className='button  is-dark is-fake'>
                   <LoadingDots bgColor='#fff' />
                 </button>
               )}
