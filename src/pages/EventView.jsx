@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react'
 import {useParams, Link} from 'react-router-dom'
 
 // components
-import LoadingLogo from '../components/loading/LoadingLogo'
+import LoadingLogo from 'loading/LoadingLogo'
+import LoadingDots from 'loading/LoadingDots'
 import {DropdownIcon} from 'icons'
-import DeleteEventModal from '../components/events/DeleteEventModal'
+import DeleteEventModal from 'events/DeleteEventModal'
 
 //graphql
 import {useQuery, useMutation} from '@apollo/react-hooks'
@@ -13,6 +14,7 @@ import {
   GET_CACHE,
   GET_USER_ID,
   DELETE_EVENT,
+  ADD_RSVP,
 } from '../graphql'
 
 import {months, weekDays, buildQS, useDropdown} from '../utils'
@@ -40,18 +42,25 @@ const EventView = ({history}) => {
   const queryParams = useParams()
 
   const {data: localCache} = useQuery(GET_CACHE)
-  const {data: userId} = useQuery(GET_USER_ID)
-  console.log('userID in cache', userId)
+  const {userLatitude, userLongitude} = localCache
+
+  const {data: cacheUserId} = useQuery(GET_USER_ID)
+  console.log('userID in cache', cacheUserId.userId)
+
   const [
     deleteEventMutation,
-    {data: deleteData, error: deleteError},
+    {data: deleteData, error: deleteError, loading: deleteLoading},
   ] = useMutation(DELETE_EVENT)
-  const {userLatitude, userLongitude} = localCache
 
   if (deleteData) {
     console.log(deleteData)
     history.push('/')
   }
+
+  const [
+    addRsvpMutation,
+    {data: rsvpData, error: rsvpError, loading: rsvpLoading},
+  ] = useMutation(ADD_RSVP)
 
   // destructure event information passed through props
   const apolloData = useQuery(GET_EVENT_BY_ID_WITH_DISTANCE, {
@@ -101,7 +110,14 @@ const EventView = ({history}) => {
     locations,
     eventImages,
     tags,
+    rsvps,
   } = data.events.length && data.events[0]
+  console.log('rsvps', rsvps)
+  const didRsvp =
+    rsvps.length && cacheUserId
+      ? rsvps.filter(rsvpData => rsvpData.id === cacheUserId.userId)[0]
+      : null
+  console.log('didRsvp', didRsvp)
 
   //destructure first item in locations array
   const {
@@ -141,6 +157,8 @@ const EventView = ({history}) => {
   const deleteEvent = () => {
     deleteEventMutation({variables: {id}})
   }
+
+  const addRSVP = () => addRsvpMutation({variables: {id}})
 
   return (
     <div className={eventView}>
@@ -190,8 +208,8 @@ const EventView = ({history}) => {
           </p>
         </div>
         <div className={panel_right}>
-          {/* Manage Buton, only displays if logged-in user is the event creator  */}
-          {userId && creator && userId.userId === creator.id && (
+          {/* Manage Button, only displays if logged-in user is the event creator  */}
+          {cacheUserId && creator && cacheUserId.userId === creator.id && (
             <div
               className={`dropdown  has-background-danger button ${
                 manageIsOpen ? 'is-active' : ''
@@ -233,8 +251,13 @@ const EventView = ({history}) => {
                 </div>
               </div>
             </div>
-          )}{' '}
+          )}
           {/* end manage dropdown */}
+          {didRsvp && (
+            <div className='has-background-success button has-text-centered has-text-white no-border'>
+              Going
+            </div>
+          )}
           {/* numbers to be replaced with event information */}
           {/* <div>
             <p>
@@ -282,8 +305,16 @@ const EventView = ({history}) => {
               <p className={`${descriptionText} is-size-7-mobile`}>
                 {description}
               </p>
-              {/* Attend functionality not yet implemented */}
-              {/* <button className='button  is-dark'>Attend</button> */}
+              {cacheUserId && !rsvpLoading && !didRsvp && (
+                <button className='button  is-dark' onClick={() => addRSVP()}>
+                  Attend
+                </button>
+              )}
+              {cacheUserId && rsvpLoading && !didRsvp && (
+                <button className='button  is-dark'>
+                  <LoadingDots bgColor='#fff' />
+                </button>
+              )}
             </div>
           </div>
           {/* Appears to right of event info on tablet+ */}

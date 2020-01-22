@@ -181,6 +181,11 @@ export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
       tags {
         title
       }
+      rsvps {
+        id
+        firstName
+        lastName
+      }
     }
   }
   ${EVENT_DETAIL_DATA}
