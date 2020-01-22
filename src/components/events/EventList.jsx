@@ -83,7 +83,7 @@ export default function EventList({
       >
         {/* Render loading spinner during fetch or error message on error */}
         {loading && <LoadingLogo dimensions={50} />}
-        {error && <p>ERROR</p>}
+        {error && <p>Error fetching data from the server, please refresh the page</p>}
 
         {/* Render EventListCards for each item in `eventsToDisplay` array */}
         {!loading &&

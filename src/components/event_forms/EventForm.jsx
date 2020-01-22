@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import * as yup from 'yup'
 
 // form components
@@ -6,8 +6,7 @@ import {useForm, ErrorMessage} from 'react-hook-form'
 import DateTimePicker from 'react-datetime-picker'
 import Dropzone from 'react-dropzone'
 import TagInput from './TagInput'
-import UploadIcon from '../icons/UploadIcon'
-import LoadingDots from 'loading/LoadingDots'
+import ErrorModal from './ErrorModal'
 
 // form data
 import {states, statesAbbreviated} from './states'
@@ -17,6 +16,8 @@ import {eventSchema} from './eventSchema'
 import {fetchGeocode} from '../../utils'
 
 // styles
+import UploadIcon from '../icons/UploadIcon'
+import LoadingDots from 'loading/LoadingDots'
 import {
   createEventForm,
   input,
@@ -33,8 +34,10 @@ import {
   textarea,
   imageUploader,
   uploadContainer,
+  imagePreview,
   flexcolumn,
   flexrow,
+  flexCenter,
   tabletFlexrow,
   tabletEndfield,
   desktopFlexrow,
@@ -129,6 +132,12 @@ const EventForm = props => {
     setEndDatetime(datetime)
   }
 
+  // error modal state
+  const [showModal, setShowModal] = useState(false)
+  const toggleModal = () => {
+    setShowModal(!showModal)
+  }
+
   // submit handler pulls together state from all sources and creates a mutation request
   const onSubmit = async formValues => {
     const {
@@ -179,16 +188,17 @@ const EventForm = props => {
   } //end onSubmit
 
   // log errors and success messages
-  if (mutationError) {
-    console.log('mutation error', mutationError)
-  }
+  useEffect(() => {
+    if(mutationError) {
+      setShowModal(true);
+      console.log('mutation error', mutationError);
+    }
+  }, [mutationError]);
+  
   if (mutationData) {
     console.log('mutation data', mutationData)
     const {id} = mutationData.addEvent || mutationData.updateEvent
     props.history.push(`/events/${id}`)
-  }
-  if (formErrors.length > 0) {
-    console.log('form errors', formErrors)
   }
 
   // render form component
@@ -397,27 +407,49 @@ const EventForm = props => {
         </div>
 
         {/* IMAGE UPLOAD */}
-        <div className={`field ${errorMargin}`}>
-          <label className='label'>
+        <div className={`field ${errorMargin} ${flexCenter}`}>
+          <label className={`field ${flexCenter}`}>
             Event image
             <div
+            className={`field ${flexCenter}`}
               style={{
                 pointerEvents: 'none',
               }}
             >
               <Dropzone
+                // If used uploads file, replace the image in state with the new uploaded file
                 onDrop={acceptedFiles => {
-                  setImages(acceptedFiles)
+                  acceptedFiles.length ? setImages(acceptedFiles) : null
                 }}
               >
                 {({getRootProps, getInputProps}) => (
-                  <section className={imageUploader}>
-                    <div {...getRootProps()} className={uploadContainer}>
+                  <div className={`${imageUploader} ${flexCenter}`}>
+                    <div {...getRootProps()} className={`${uploadContainer} ${flexCenter}`}>
                       <input {...getInputProps()} />
-                      {/* <p>Drag 'n' drop some files here, or click to select files</p> */}
-                      <UploadIcon />
+                      {/* Chained ternary is an expression that executes the following logic:
+                      1. If an "update" and NO image in upload state, initially show image from database in preview.
+                      2. If an "update" and the user has added a new image to upload state, preview the new image
+                      3. If an "add" and NO image in upload state, show upload icon
+                      4. If an "add" and the user has added a new image to upload state, preview the new image */}
+                      { formType === "update" && !images
+                        ? <img 
+                            src={item.eventImages[0].url}
+                            className={imagePreview}  
+                          /> 
+                        : formType === "update" && images
+                        ? <img 
+                            src={URL.createObjectURL(images[0])}
+                            className={imagePreview}  
+                          />
+                        : formType === "add" && !images
+                        ? <UploadIcon /> 
+                        : <img 
+                            src={URL.createObjectURL(images[0])}
+                            className={imagePreview}  
+                          /> 
+                      }
                     </div>
-                  </section>
+                  </div>
                 )}
               </Dropzone>
             </div>
@@ -440,6 +472,10 @@ const EventForm = props => {
           />
         )}
       </form>
+      
+      {showModal && (
+        <ErrorModal toggleModal={toggleModal} />
+      )}
     </div>
   )
 }

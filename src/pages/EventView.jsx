@@ -87,7 +87,7 @@ const EventView = ({history}) => {
       </div>
     )
 
-  if (error) return <p>Error</p>
+  if (error) return <p>Error fetching data from the server, please refresh the page</p>
 
   // destructure and render event properties when fetch successful
   const {

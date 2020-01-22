@@ -1,0 +1,66 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/_all.sass';
+@import '~bulma/sass/grid/columns.sass';
+@import '~bulma/sass/elements/button.sass';
+
+.modalBackground {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index:100000;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modalCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    background-color: $shark;
+    width: 100%;
+    max-width: 450px;
+    height: 100px;
+    border-radius: 6px;
+}
+
+.modalBody {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.modalButtonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 450px;
+}
+
+.button {
+    width:100%;
+    max-width: 450px;
+    height: 50px;
+    border-radius: 6px;
+    color: $white;
+    border: none;
+    &:hover {
+        color: $white;
+        border: 3px solid #7AF286;
+    }
+}
+
+.yes {
+    background: $shark
+}
+
+.no {
+    background: $red
+}
