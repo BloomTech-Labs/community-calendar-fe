@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useParams, Link} from 'react-router-dom'
 
 // components
 import LoadingLogo from '../components/loading/LoadingLogo'
 import {DropdownIcon} from 'icons'
+import DeleteEventModal from '../components/events/DeleteEventModal'
 
 //graphql
 import {useQuery, useMutation} from '@apollo/react-hooks'
@@ -35,13 +36,15 @@ import {
 Users can RSVP to an event from here.
  */
 const EventView = ({history}) => {
+  const [showModal, setShowModal] = useState(false)
   const queryParams = useParams()
 
   const {data: localCache} = useQuery(GET_CACHE)
   const {data: userId} = useQuery(GET_USER_ID)
-  const [deleteEvent, {data: deleteData, error: deleteError}] = useMutation(
-    DELETE_EVENT,
-  )
+  const [
+    deleteEventMutation,
+    {data: deleteData, error: deleteError},
+  ] = useMutation(DELETE_EVENT)
   const {userLatitude, userLongitude} = localCache
 
   if (deleteData) {
@@ -130,6 +133,14 @@ const EventView = ({history}) => {
       ? `${endHours - 12}:${String(endMinutes).padStart(2, '0')} pm`
       : `${endHours}:${String(endMinutes).padStart(2, '0')} am`
 
+  const toggleModal = () => {
+    setShowModal(!showModal)
+  }
+
+  const deleteEvent = () => {
+    deleteEventMutation({variables: {id}})
+  }
+
   return (
     <div className={eventView}>
       {/* Banner image */}
@@ -212,7 +223,7 @@ const EventView = ({history}) => {
                   </Link>
                   <div
                     onClick={() => {
-                      deleteEvent({variables: {id}})
+                      toggleModal()
                     }}
                     className='dropdown-item has-text-centered has-text-danger'
                   >
@@ -245,11 +256,14 @@ const EventView = ({history}) => {
             {/* container which separates social links/tags from event info  */}
             <div className={`columns is-mobile ${horizontalBar}`}>
               {/* Host Name, Time, Type */}
-              <div className='column has-text-centered-mobile'>
+              {/* <div className='column has-text-centered-mobile'>
                 <p className='color_chalice is-size-6half-mobile'>Hosted by:</p>
-              </div>
+              </div> */}
               {/* <p className="color_shark">{creator}</p> */}
-              <div className='column has-text-centered-mobile'>
+              <div
+                className='column has-text-centered-mobile'
+                style={{paddingLeft: 0}} //remove this style when Hosted By is implemented
+              >
                 <p className='color_chalice is-size-6half-mobile'>Time:</p>
                 <p className='color_shark is-size-6half-mobile has-text-weight-bold'>{`${eventStartTime} - ${eventEndTime}`}</p>
               </div>
@@ -268,7 +282,7 @@ const EventView = ({history}) => {
                 {description}
               </p>
               {/* Attend functionality not yet implemented */}
-              <button className='button  is-dark'>Attend</button>
+              {/* <button className='button  is-dark'>Attend</button> */}
             </div>
           </div>
           {/* Appears to right of event info on tablet+ */}
@@ -295,6 +309,9 @@ const EventView = ({history}) => {
           </div>
         </div>
       </section>
+      {showModal && (
+        <DeleteEventModal deleteEvent={deleteEvent} toggleModal={toggleModal} />
+      )}
     </div>
   )
 }
