@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useParams, Link} from 'react-router-dom'
+import moment from 'moment'
 
 // components
 import LoadingLogo from 'loading/LoadingLogo'
@@ -202,10 +203,11 @@ const EventView = ({history}) => {
           <p
             className={`has-text-weight-bold is-size-6-mobile ${date_display}`}
           >
-            {`
-            ${months[startDate.getMonth()]} ${startDate.getDate()},
-             ${startDate.getFullYear()} ${weekDays[startDate.getDay()]}
-            `}
+            {Math.ceil(
+                    moment.duration(moment(end).diff(moment(start))).asDays(),
+                  ) === 1 ? moment(start).format('ddd, MMMM Do YYYY') : `${moment(start).format('ddd, MMMM Do YYYY')} - ${moment(
+                      end,
+                    ).format('ddd, MMMM Do YYYY')}`}
           </p>
           <p className='has-text-weight-bold is-size-6-mobile'>
             {name}
@@ -352,7 +354,11 @@ const EventView = ({history}) => {
                 style={{paddingLeft: 0}} //remove this style when Hosted By is implemented
               >
                 <p className='color_chalice is-size-6half-mobile'>Time:</p>
-                <p className='color_shark is-size-6half-mobile has-text-weight-bold'>{`${eventStartTime} - ${eventEndTime}`}</p>
+                <p className='color_shark is-size-6half-mobile has-text-weight-bold'>{Math.ceil(
+                    moment.duration(moment(end).diff(moment(start))).asDays(),
+                  ) === 1 ? `${eventStartTime} - ${eventEndTime}` : `${moment(start).format('MMM Do h:mm a')} - ${moment(
+                      end,
+                    ).format('MMM Do h:mm a')}`}</p>
               </div>
               <div className='column has-text-centered-mobile'>
                 <p className='color_chalice is-size-6half-mobile'>
