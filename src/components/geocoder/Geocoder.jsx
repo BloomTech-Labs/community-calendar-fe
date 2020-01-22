@@ -8,6 +8,7 @@ export default function Geocoder({
   labelText,
   onSelectedItemChange,
   placeholder,
+  dataIdPrefix = 'geocoder',
 }) {
   const [mbResults, setMbResults] = useState([])
 
@@ -44,15 +45,12 @@ export default function Geocoder({
     itemToString: item => (item ? item.place_name : ''),
   })
 
-  // console.log('Geocoder selected Item', selectedItem)
-
-  // reset the geocoder when the dropdown is closed
-
   return (
     <>
       {labelText && (
         <label
           {...getLabelProps({className: 'is-family-secondary color_shark'})}
+          data-id={`${dataIdPrefix}-label`}
         >
           {labelText}
         </label>
@@ -61,23 +59,29 @@ export default function Geocoder({
         {...getComboboxProps({
           className: ` is-flex control has-icons-right ${geocoder}`,
         })}
+        data-id={`${dataIdPrefix}-container`}
       >
         <input
           {...getInputProps({
             className: `input`,
             placeholder,
           })}
+          data-id={`${dataIdPrefix}-input`}
         />
         <span
           className={`${geocoderReset} ${
             inputValue.length > 2 ? '' : hide
           } icon is-small is-right`}
           onClick={() => reset()}
+          data-id={`${dataIdPrefix}-reset`}
         >
           &#127335;
         </span>
       </div>
-      <ul {...getMenuProps({className: 'is-size-6'})}>
+      <ul
+        {...getMenuProps({className: 'is-size-6'})}
+        data-id={`${dataIdPrefix}-list`}
+      >
         {isOpen &&
           mbResults.map((item, index) => (
             <li
@@ -92,6 +96,7 @@ export default function Geocoder({
                 item,
                 index,
               })}
+              data-id={`${dataIdPrefix}-list-item`}
             >
               {item.place_name}
             </li>
@@ -104,4 +109,5 @@ export default function Geocoder({
 Geocoder.propTypes = {
   labelText: PropTypes.string,
   placeholder: PropTypes.string,
+  dataIdPrefix: PropTypes.string,
 }
