@@ -93,15 +93,20 @@
 }
 
 .imageUploader {
-    padding: 100px 0;
+    width: 198px !important;
     border-radius: 4px;
     border: 2px solid black;
-}
 
-.uploadContainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    .uploadContainer {
+        height: 194px;
+        width: 194px;
+    }
+
+    .imagePreview {
+        height: 194px;
+        width: 194px;
+        object-fit: cover;
+    }
 }
 
 
@@ -113,6 +118,13 @@
 
 .flexrow {
     display: flex;
+}
+
+.flexCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .tabletFlexrow {
