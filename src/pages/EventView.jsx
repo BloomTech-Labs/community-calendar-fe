@@ -305,12 +305,12 @@ const EventView = ({history}) => {
               <p className={`${descriptionText} is-size-7-mobile`}>
                 {description}
               </p>
-              {cacheUserId && !rsvpLoading && !didRsvp && (
+              {cacheUserId.userId && !rsvpLoading && !didRsvp && (
                 <button className='button  is-dark' onClick={() => addRSVP()}>
                   Attend
                 </button>
               )}
-              {cacheUserId && rsvpLoading && !didRsvp && (
+              {cacheUserId.userId && rsvpLoading && !didRsvp && (
                 <button className='button  is-dark'>
                   <LoadingDots bgColor='#fff' />
                 </button>
