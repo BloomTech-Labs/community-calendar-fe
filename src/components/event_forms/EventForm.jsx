@@ -418,13 +418,27 @@ const EventForm = props => {
                   <div className={`${imageUploader} ${flexCenter}`}>
                     <div {...getRootProps()} className={`${uploadContainer} ${flexCenter}`}>
                       <input {...getInputProps()} />
-                      {/* <p>Drag 'n' drop some files here, or click to select files</p> */}                
-                      { images 
+                      {/* Chained ternary is an expression that executes the following logic:
+                      1. If an "update" and NO image in upload state, initially show image from database in preview.
+                      2. If an "update" and the user has added a new image to upload state, preview the new image
+                      3. If an "add" and NO image in upload state, show upload icon
+                      4. If an "add" and the user has added a new image to upload state, preview the new image */}
+                      { formType === "update" && !images
+                        ? <img 
+                            src={item.eventImages[0].url}
+                            className={imagePreview}  
+                          /> 
+                        : formType === "update" && images
                         ? <img 
                             src={URL.createObjectURL(images[0])}
                             className={imagePreview}  
+                          />
+                        : formType === "add" && !images
+                        ? <UploadIcon /> 
+                        : <img 
+                            src={URL.createObjectURL(images[0])}
+                            className={imagePreview}  
                           /> 
-                        : <UploadIcon /> 
                       }
                     </div>
                   </div>
