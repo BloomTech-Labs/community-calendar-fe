@@ -218,6 +218,7 @@ export default function Navbar() {
                   Create Event
                 </button>
               </Link>
+              {/*  
               <Link
                 to='#'
                 role='button'
@@ -226,6 +227,7 @@ export default function Navbar() {
               >
                 Profile
               </Link>
+ */}
               <div
                 role='button'
                 className={` is-hidden-tablet  is-flex has-text-centered ${navButton} is-clickable no-outline-focus`}
@@ -261,7 +263,7 @@ export default function Navbar() {
                   ref={dropMenu}
                 >
                   <div className='dropdown-content'>
-                    <div className='dropdown-item'>Profile</div>
+                    {/* <div className='dropdown-item'>Profile</div> */}
                     <div
                       className='dropdown-item is-clickable'
                       onClick={e => {
