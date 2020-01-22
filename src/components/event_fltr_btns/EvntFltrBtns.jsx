@@ -1,27 +1,36 @@
 import React,{useState} from 'react'
-import moment from 'moment'
+import Moment from 'moment'
+import {extendMoment} from 'moment-range'
+const moment = extendMoment(Moment);
 import {event_filter_buttons} from './EvntFltrBtns.module.scss'
 
 /* Buttons used to quickly filter events by date */
-const FilterBtns = ({refetch}) => {
-  const [eventRange, setEventRange] = useState('ALL')
+const FilterBtns = ({refetch, eventRange, setEventRange, start, end, setStart, setEnd, setDatePickerIsOpen}) => {
   return (
   <div className={event_filter_buttons}>
     {/* Show events for the current date */}
       <button
           onClick={() => {
             setEventRange('today')
-            refetch({
-              start: moment()
+            const start = moment()
                 .startOf('day')
-                .toISOString(),
-              end: moment()
+                .toISOString()
+            const end = moment()
                 .endOf('day')
-                .toISOString(),
+                .toISOString()
+            refetch({
+              start,
+              end
             })
+            setStart(start)
+            setEnd(end)
+            setDatePickerIsOpen(false)
           }}
           className={`${
-            eventRange === 'today' ? 'color_black' : 'color_chalice'
+            (eventRange !== 'ALL' && (moment.range(start, end).contains(moment()
+                .startOf('day')
+                .toISOString()) || moment.range(start, end).contains(moment()
+                .endOf('day')))) ? 'color_black' : 'color_chalice'
           } `}
         >
           Today
@@ -29,20 +38,29 @@ const FilterBtns = ({refetch}) => {
     {/* Show events for the following date */}
         <button
           onClick={() => {
-            setEventRange('tomorrow')
-            refetch({
-              start: moment()
+            const start = moment()
                 .add(1, 'day')
                 .startOf('day')
-                .toISOString(),
-              end: moment()
+                .toISOString()
+            const end = moment()
                 .add(1, 'day')
                 .endOf('day')
-                .toISOString(),
+                .toISOString()
+            setEventRange('tomorrow')
+            refetch({
+              start,
+              end
             })
+            setStart(start)
+            setEnd(end)
+            setDatePickerIsOpen(false)
           }}
           className={`${
-            eventRange === 'tomorrow' ? 'color_black' : 'color_chalice'
+            (eventRange !== 'ALL' && (moment.range(start, end).contains(moment()
+                .add(1, 'day')
+                .startOf('day')) || moment.range(start, end).contains(moment()
+                .add(1, 'day')
+                .endOf('day')))) ? 'color_black' : 'color_chalice'
           } `}
         >
           Tomorrow
@@ -51,19 +69,26 @@ const FilterBtns = ({refetch}) => {
         <button
           onClick={() => {
             setEventRange('this weekend')
-            refetch({
-              start: moment()
+            const start = moment()
                 .day(6)
                 .startOf('day')
-                .toISOString(),
-              end: moment()
+                .toISOString()
+            const end = moment()
                 .day(7)
                 .endOf('day')
-                .toISOString(),
+                .toISOString()
+            refetch({
+              start,
+              end
             })
+            setStart(start)
+            setEnd(end)
+            setDatePickerIsOpen(false)
           }}
           className={`${
-            eventRange === 'this weekend' ? 'color_black' : 'color_chalice'
+            (eventRange !== 'ALL' && (moment.range(start,end).contains(moment().day(6).startOf('day')) || moment.range(start,end).contains(moment()
+                .day(7)
+                .endOf('day')))) ? 'color_black' : 'color_chalice'
           } `}
         >
           This Weekend
@@ -73,6 +98,9 @@ const FilterBtns = ({refetch}) => {
           onClick={() => {
             setEventRange('ALL')
             refetch({start: undefined, end: undefined}) //removes variables, otherwise old variables would be present in query if refetch was empty
+            setStart(undefined)
+            setEnd(undefined)
+            setDatePickerIsOpen(false)
           }}
           className={`${
             eventRange === 'ALL' ? 'color_black' : 'color_chalice'
