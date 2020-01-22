@@ -1,54 +1,58 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import DayPicker, { DateUtils } from 'react-day-picker';
+import React from 'react'
+import Helmet from 'react-helmet'
+import DayPicker, {DateUtils} from 'react-day-picker'
 import moment from 'moment'
-import 'react-day-picker/lib/style.css';
+import 'react-day-picker/lib/style.css'
 
 export default class SelectedRange extends React.Component {
   static defaultProps = {
     numberOfMonths: 1,
-  };
+  }
 
   constructor(props) {
-    super(props);
-    this.handleDayClick = this.handleDayClick.bind(this);
-    this.state = this.getInitialState();
+    super(props)
+    this.handleDayClick = this.handleDayClick.bind(this)
+    this.state = this.getInitialState()
   }
 
   getInitialState() {
     return {
       from: undefined,
       to: undefined,
-    };
+    }
   }
 
   handleDayClick(day) {
-    const range = DateUtils.addDayToRange(day, this.state);
-    const {from, to} = range;
-    if(!from && !to){
-        this.props.setStart(undefined);
-        this.props.setEnd(undefined);
-        this.props.refetch({start: undefined, end: undefined})
-    }else if(from && to){
-        const start = moment(from.toISOString()).startOf('day').toISOString()
-        const end = moment(to.toISOString()).endOf('day').toISOString()
-        this.props.setStart(start);
-        this.props.setEnd(end);
-        this.props.refetch({start, end})
+    const range = DateUtils.addDayToRange(day, this.state)
+    const {from, to} = range
+    if (!from && !to) {
+      this.props.setStart(undefined)
+      this.props.setEnd(undefined)
+      this.props.refetch({start: undefined, end: undefined})
+    } else if (from && to) {
+      const start = moment(from.toISOString())
+        .startOf('day')
+        .toISOString()
+      const end = moment(to.toISOString())
+        .endOf('day')
+        .toISOString()
+      this.props.setStart(start)
+      this.props.setEnd(end)
+      this.props.refetch({start, end})
     }
-    this.setState(range);
+    this.setState(range)
     this.props.setEventRange(undefined)
   }
 
   render() {
-    const { from, to } = this.state;
-    const modifiers = { start: from, end: to };
+    const {from, to} = this.state
+    const modifiers = {start: from, end: to}
     return (
       <div>
         <DayPicker
-          className="Selectable"
+          className='Selectable'
           numberOfMonths={this.props.numberOfMonths}
-          selectedDays={[from, { from, to }]}
+          selectedDays={[from, {from, to}]}
           modifiers={modifiers}
           onDayClick={this.handleDayClick}
         />
@@ -74,6 +78,6 @@ export default class SelectedRange extends React.Component {
 `}</style>
         </Helmet>
       </div>
-    );
+    )
   }
 }

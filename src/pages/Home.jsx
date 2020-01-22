@@ -8,7 +8,7 @@ import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
 import FeatCarousel from '../components/featured/FeaturedCarousel'
 import {DropdownIcon} from 'icons'
 import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
-import SelectedRange from '../components/daypicker/selectedRange';
+import SelectedRange from '../components/daypicker/selectedRange'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
@@ -18,8 +18,8 @@ import {GET_EVENTS_WITH_DISTANCE, GET_CACHE} from '../graphql'
 const Home = () => {
   const [datePickerIsOpen, setDatePickerIsOpen] = useState(false)
   const [eventRange, setEventRange] = useState('ALL')
-  const [start, setStart] = useState(undefined);
-  const [end, setEnd] = useState(undefined);
+  const [start, setStart] = useState(undefined)
+  const [end, setEnd] = useState(undefined)
 
   ReactGA.pageview('/')
 
@@ -65,49 +65,68 @@ const Home = () => {
             />
           )}
         </div>
-        <FilterBtns refetch={refetch} eventRange={eventRange} setEventRange={setEventRange} start={start} setStart={setStart} end={end} setEnd={setEnd} setDatePickerIsOpen={setDatePickerIsOpen}/>
+        <FilterBtns
+          refetch={refetch}
+          eventRange={eventRange}
+          setEventRange={setEventRange}
+          start={start}
+          setStart={setStart}
+          end={end}
+          setEnd={setEnd}
+          setDatePickerIsOpen={setDatePickerIsOpen}
+        />
         {/*yes*/}
         <div
-            className={`dropdown  navDropdown ${
-              datePickerIsOpen ? 'is-active' : ''
-            }`}
+          className={`dropdown  navDropdown ${
+            datePickerIsOpen ? 'is-active' : ''
+          }`}
+        >
+          <div
+            role='button'
+            className='dropdown-trigger level is-clickable hover-underline'
+            aria-haspopup='true'
+            aria-controls='dropdown-menu2'
+            data-testid='location-dropdown-trigger'
+            data-id='location-dropdown'
+            onClick={() => setDatePickerIsOpen(!datePickerIsOpen)}
           >
-            <div
-              role='button'
-              className='dropdown-trigger level is-clickable hover-underline'
-              aria-haspopup='true'
-              aria-controls='dropdown-menu2'
-              data-testid='location-dropdown-trigger'
-              data-id='location-dropdown'
-              onClick={() => setDatePickerIsOpen(!datePickerIsOpen)}
+            <span
+              className={` is-size-5-tablet no-outline-focus no-pointer-events`}
             >
-              <span
-                className={` is-size-5-tablet no-outline-focus no-pointer-events`}
-              >
-                {start && end ? (Math.ceil(moment.duration(moment(end).diff(moment(start))).asDays()) === 1 ? (
-                  moment(start).format('ddd, MMM Do YYYY')
-                  ) : (
-                    `${moment(start).format('ddd, MMM Do YYYY')} - ${moment(end).format('ddd, MMM Do YYYY')}`
-                  )) : 'Select a date range'}
-              </span>
-              <span
-                className={`${
-                  datePickerIsOpen ? 'flip' : ''
-                } no-pointer-events icon`}
-                style={{transition: 'transform 0.2s'}}
-              >
-                <DropdownIcon />
-              </span>
-            </div>
-            <div
-              className={` dropdown-menu drop-center `}
-              id='location-dropdown-menu '
-              role='menu'
+              {start && end
+                ? Math.ceil(
+                    moment.duration(moment(end).diff(moment(start))).asDays(),
+                  ) === 1
+                  ? moment(start).format('ddd, MMM Do YYYY')
+                  : `${moment(start).format('ddd, MMM Do YYYY')} - ${moment(
+                      end,
+                    ).format('ddd, MMM Do YYYY')}`
+                : 'Select a date range'}
+            </span>
+            <span
+              className={`${
+                datePickerIsOpen ? 'flip' : ''
+              } no-pointer-events icon`}
+              style={{transition: 'transform 0.2s'}}
             >
-            </div>
-            {/* end dropdown-menu*/}
+              <DropdownIcon />
+            </span>
           </div>
-          {datePickerIsOpen && <SelectedRange refetch={refetch} setStart={setStart} setEnd={setEnd} setEventRange={setEventRange}/>}
+          <div
+            className={` dropdown-menu drop-center `}
+            id='location-dropdown-menu '
+            role='menu'
+          ></div>
+          {/* end dropdown-menu*/}
+        </div>
+        {datePickerIsOpen && (
+          <SelectedRange
+            refetch={refetch}
+            setStart={setStart}
+            setEnd={setEnd}
+            setEventRange={setEventRange}
+          />
+        )}
         {/*yes*/}
         <EventList
           apolloData={{data, loading, error}}
