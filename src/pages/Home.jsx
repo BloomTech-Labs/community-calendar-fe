@@ -34,6 +34,7 @@ const Home = () => {
   })
 
   const {data, loading, error, refetch} = apolloData
+  console.log('events data', data)
 
   // find distance from user and update events with results if user location changes
   useEffect(() => {

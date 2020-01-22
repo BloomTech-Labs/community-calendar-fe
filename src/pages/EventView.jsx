@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react'
 import {useParams, Link} from 'react-router-dom'
 
 // components
-import LoadingLogo from '../components/loading/LoadingLogo'
+import LoadingLogo from 'loading/LoadingLogo'
+import LoadingDots from 'loading/LoadingDots'
 import {DropdownIcon} from 'icons'
-import DeleteEventModal from '../components/events/DeleteEventModal'
+import DeleteEventModal from 'events/DeleteEventModal'
 
 //graphql
 import {useQuery, useMutation} from '@apollo/react-hooks'
@@ -13,6 +14,8 @@ import {
   GET_CACHE,
   GET_USER_ID,
   DELETE_EVENT,
+  ADD_RSVP,
+  REMOVE_RSVP,
 } from '../graphql'
 
 import {months, weekDays, buildQS, useDropdown} from '../utils'
@@ -40,17 +43,32 @@ const EventView = ({history}) => {
   const queryParams = useParams()
 
   const {data: localCache} = useQuery(GET_CACHE)
-  const {data: userId} = useQuery(GET_USER_ID)
+  const {userLatitude, userLongitude} = localCache
+
+  const {data: cacheUserId} = useQuery(GET_USER_ID)
+  console.log('userID in cache', cacheUserId.userId)
+
   const [
     deleteEventMutation,
-    {data: deleteData, error: deleteError},
+    {data: deleteData, error: deleteError, loading: deleteLoading},
   ] = useMutation(DELETE_EVENT)
-  const {userLatitude, userLongitude} = localCache
 
   if (deleteData) {
     console.log(deleteData)
     history.push('/')
   }
+
+  // add rsvp mutation
+  const [
+    addRsvpMutation,
+    {data: addRsvpData, error: addRsvpError, loading: addRsvpLoading},
+  ] = useMutation(ADD_RSVP)
+
+  // remove rsvp mutation
+  const [
+    removeRsvpMutation,
+    {data: removeRsvpData, error: removeRsvpError, loading: removeRsvpLoading},
+  ] = useMutation(REMOVE_RSVP)
 
   // destructure event information passed through props
   const apolloData = useQuery(GET_EVENT_BY_ID_WITH_DISTANCE, {
@@ -71,6 +89,15 @@ const EventView = ({history}) => {
     }
   }
 
+  // rsvp dropdown
+  const [rsvpOpen, setRsvpOpen] = useDropdown(closeRsvp, false)
+
+  function closeRsvp(e) {
+    if (e.target.getAttribute('data-id') !== 'rsvp-dropdown') {
+      setRsvpOpen(false)
+    }
+  }
+
   // find distance from user and update events with results if user location changes
   useEffect(() => {
     refetch({userLatitude, userLongitude})
@@ -87,7 +114,8 @@ const EventView = ({history}) => {
       </div>
     )
 
-  if (error) return <p>Error fetching data from the server, please refresh the page</p>
+  if (error)
+    return <p>Error fetching data from the server, please refresh the page</p>
 
   // destructure and render event properties when fetch successful
   const {
@@ -100,7 +128,13 @@ const EventView = ({history}) => {
     locations,
     eventImages,
     tags,
+    rsvps,
   } = data.events.length && data.events[0]
+  // find out if current user rsvp'd for event
+  const didRsvp =
+    rsvps.length && cacheUserId
+      ? rsvps.filter(rsvpData => rsvpData.id === cacheUserId.userId)[0]
+      : null
 
   //destructure first item in locations array
   const {
@@ -139,6 +173,13 @@ const EventView = ({history}) => {
 
   const deleteEvent = () => {
     deleteEventMutation({variables: {id}})
+  }
+
+  const addRSVP = () => {
+    addRsvpMutation({variables: {id}}).then(() => refetch())
+  }
+  const removeRSVP = () => {
+    removeRsvpMutation({variables: {id}}).then(() => refetch())
   }
 
   return (
@@ -189,8 +230,8 @@ const EventView = ({history}) => {
           </p>
         </div>
         <div className={panel_right}>
-          {/* Manage Buton, only displays if logged-in user is the event creator  */}
-          {userId && creator && userId.userId === creator.id && (
+          {/* Manage Button, only displays if logged-in user is the event creator  */}
+          {cacheUserId && creator && cacheUserId.userId === creator.id && (
             <div
               className={`dropdown  has-background-danger button ${
                 manageIsOpen ? 'is-active' : ''
@@ -232,8 +273,54 @@ const EventView = ({history}) => {
                 </div>
               </div>
             </div>
-          )}{' '}
+          )}
           {/* end manage dropdown */}
+          {/* Rsvp change, only displays if logged-in user is rsvp'd to event  */}
+          {didRsvp && !removeRsvpLoading && (
+            <div
+              className={`dropdown  has-background-success button ${
+                rsvpOpen ? 'is-active' : ''
+              }  no-border`}
+              onClick={() => setRsvpOpen(!rsvpOpen)}
+              data-id='rsvp-dropdown'
+            >
+              <div
+                className='dropdown-trigger has-text-centered no-pointer-events'
+                style={{width: '100px'}}
+                aria-haspopup='true'
+                aria-controls='dropdown-menu2'
+                data-id='rsvp-trigger'
+              >
+                <span className='no-pointer-events has-text-white'>Going</span>
+                <span
+                  className={`icon  no-pointer-events  ${
+                    rsvpOpen ? 'flip' : ''
+                  }`}
+                  style={{transition: 'transform 0.2s'}}
+                  aria-hidden='true'
+                >
+                  <DropdownIcon isLight />
+                </span>
+              </div>
+              <div className='dropdown-menu drop-center w-100' role='menu'>
+                <div className='dropdown-content'>
+                  <div
+                    className='dropdown-item has-text-centered'
+                    onClick={() => removeRSVP()}
+                  >
+                    Cancel RSVP
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          {/* end rsvp dropdown */}
+
+          {didRsvp && removeRsvpLoading && (
+            <div className='has-background-success button no-border no-pointer-events'>
+              <LoadingDots bgColor='#fff' />
+            </div>
+          )}
           {/* numbers to be replaced with event information */}
           {/* <div>
             <p>
@@ -278,11 +365,17 @@ const EventView = ({history}) => {
               <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>
                 Event Details
               </p>
-              <p className={`${descriptionText} is-size-7-mobile`}>
-                {description}
-              </p>
-              {/* Attend functionality not yet implemented */}
-              {/* <button className='button  is-dark'>Attend</button> */}
+              <p className={` is-size-7-mobile`}>{description}</p>
+              {cacheUserId.userId && !addRsvpLoading && !didRsvp && (
+                <button className='button  is-dark' onClick={() => addRSVP()}>
+                  Attend
+                </button>
+              )}
+              {cacheUserId.userId && addRsvpLoading && !didRsvp && (
+                <button className='button  is-dark is-fake'>
+                  <LoadingDots bgColor='#fff' />
+                </button>
+              )}
             </div>
           </div>
           {/* Appears to right of event info on tablet+ */}

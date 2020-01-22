@@ -277,6 +277,11 @@
     border-color: $shark;
     font-weight: bold;
   }
+  &.is-fake:hover {
+    background-color: $shark;
+    color: $white;
+    font-weight: normal;
+  }
 }
 
 // ===== Tag Classes =====
