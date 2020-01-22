@@ -22,7 +22,7 @@ export default function UpdateEvent({history}) {
 
   const {data: userId} = useQuery(GET_USER_ID);
 
-  const [updateEvent, {data: mutationData, error: mutationError}] = useMutation(UPDATE_EVENT);
+  const [updateEvent, {loading: mutationLoading, data: mutationData, error: mutationError}] = useMutation(UPDATE_EVENT);
 
   const updateEventHandler = (data) => {
     const {variables} = data
@@ -56,6 +56,7 @@ export default function UpdateEvent({history}) {
       mutation={updateEventHandler} 
       mutationData={mutationData} 
       mutationError={mutationError}
+      mutationLoading={mutationLoading}
       history={history} />
   )
 }
