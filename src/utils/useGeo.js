@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import fetchGeocode from './fetchGeocode'
 
 /* 
  This function is used to read the user's geolocation coordinates. When a component utilizing this function 
@@ -28,11 +29,25 @@ export default function useGeo(config) {
   //get location
   const getUserPosition = async () => {
     if (typeof window !== undefined) {
+      // get the users's latitude and longitude
       await window.navigator.geolocation.getCurrentPosition(
-        pos => {
+        async pos => {
           const {latitude, longitude} = pos.coords
 
-          setUserPosition({latitude, longitude})
+          // find the closest address to the user's coordinates
+          const mbData = await fetchGeocode({
+            lat: latitude,
+            long: longitude,
+          })
+
+          setUserPosition({
+            latitude,
+            longitude,
+            address: mbData.features[0].place_name.replace(
+              /united states$/i,
+              'US',
+            ),
+          })
         },
         onError,
         useConfig,

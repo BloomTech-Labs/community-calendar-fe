@@ -18,11 +18,16 @@ export default function GetUserPosition() {
   const {data: cacheData} = useQuery(GET_CACHE)
   const userPosition = useGeo()
 
-  if (!cacheData.userLatitude && !cacheData.userLongitude) {
+  if (
+    !cacheData.userLatitude &&
+    !cacheData.userLongitude &&
+    userPosition.latitude & userPosition.longitude
+  ) {
     client.writeData({
       data: {
         userLatitude: userPosition.latitude,
         userLongitude: userPosition.longitude,
+        userAddress: userPosition.address,
       },
     })
   }

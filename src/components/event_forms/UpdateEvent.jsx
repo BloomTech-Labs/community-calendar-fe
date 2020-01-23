@@ -1,15 +1,14 @@
 import React from 'react'
 import {useParams} from 'react-router-dom'
-import {Redirect} from "react-router-dom"
+import {Redirect} from 'react-router-dom'
 
 // graphql
-import {useMutation, useQuery} from '@apollo/react-hooks';
+import {useMutation, useQuery} from '@apollo/react-hooks'
 import {GET_EVENT_BY_ID, UPDATE_EVENT, GET_USER_ID} from '../../graphql'
 
 // components
-import EventForm from './EventForm';
+import EventForm from './EventForm'
 import LoadingLogo from '../loading/LoadingLogo'
-
 
 export default function UpdateEvent({history}) {
   // get event id out of url for query
@@ -20,14 +19,16 @@ export default function UpdateEvent({history}) {
     variables: {id: queryParams.id},
   })
 
-  const {data: userId} = useQuery(GET_USER_ID);
+  const {data: userId} = useQuery(GET_USER_ID)
 
-  const [updateEvent, {loading: mutationLoading, data: mutationData, error: mutationError}] = useMutation(UPDATE_EVENT);
+  const [
+    updateEvent,
+    {loading: mutationLoading, data: mutationData, error: mutationError},
+  ] = useMutation(UPDATE_EVENT)
 
-  const updateEventHandler = (data) => {
+  const updateEventHandler = data => {
     const {variables} = data
-    updateEvent({variables: { id: queryParams.id, ...variables}})
-
+    updateEvent({variables: {id: queryParams.id, ...variables}})
   }
 
   // render loading spinner or error message if fetch fails
@@ -44,19 +45,24 @@ export default function UpdateEvent({history}) {
 
   // destructure and render event form with initial values if fetch successful
   const item = data.events[0]
-  if(userId && data && data.events[0] && userId.userId !== data.events[0].creator.id){
-    console.log(userId.userId, data.events[0].creator.id)
+  if (
+    userId &&
+    data &&
+    data.events[0] &&
+    userId.userId !== data.events[0].creator.id
+  ) {
     return <Redirect to='/'></Redirect>
   }
 
   return (
-    <EventForm 
-      formType="update"
+    <EventForm
+      formType='update'
       item={item}
-      mutation={updateEventHandler} 
-      mutationData={mutationData} 
+      mutation={updateEventHandler}
+      mutationData={mutationData}
       mutationError={mutationError}
       mutationLoading={mutationLoading}
-      history={history} />
+      history={history}
+    />
   )
 }
