@@ -25,7 +25,6 @@ const Home = () => {
 
   // local cache data
   const client = useApolloClient()
-  // console.log('client', client)
   const {data: localCache} = useQuery(GET_CACHE)
   const {userLatitude, userLongitude, maxDistance} = localCache
 
@@ -34,7 +33,6 @@ const Home = () => {
   })
 
   const {data, loading, error, refetch} = apolloData
-  console.log('events data', data)
 
   // find distance from user and update events with results if user location changes
   useEffect(() => {

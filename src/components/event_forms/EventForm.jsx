@@ -99,7 +99,6 @@ const EventForm = props => {
 
   // create `images` state to be used in backend mutation request
   const [images, setImages] = useState(null)
-  console.log('event images', images)
 
   // create `startDatetime` state to be used in datepicker and backend mutation request
   // defaults to the next noon (today or tomorrow)
@@ -182,21 +181,17 @@ const EventForm = props => {
       eventImages: images && images.length ? [] : undefined,
     }
 
-    console.log('mutation values:', mutationValues)
-
     mutation({variables: mutationValues})
   } //end onSubmit
 
   // log errors and success messages
   useEffect(() => {
-    if(mutationError) {
-      setShowModal(true);
-      console.log('mutation error', mutationError);
+    if (mutationError) {
+      setShowModal(true)
     }
-  }, [mutationError]);
-  
+  }, [mutationError])
+
   if (mutationData) {
-    console.log('mutation data', mutationData)
     const {id} = mutationData.addEvent || mutationData.updateEvent
     props.history.push(`/events/${id}`)
   }
@@ -411,7 +406,7 @@ const EventForm = props => {
           <label className={`field ${flexCenter}`}>
             Event image
             <div
-            className={`field ${flexCenter}`}
+              className={`field ${flexCenter}`}
               style={{
                 pointerEvents: 'none',
               }}
@@ -424,30 +419,34 @@ const EventForm = props => {
               >
                 {({getRootProps, getInputProps}) => (
                   <div className={`${imageUploader} ${flexCenter}`}>
-                    <div {...getRootProps()} className={`${uploadContainer} ${flexCenter}`}>
+                    <div
+                      {...getRootProps()}
+                      className={`${uploadContainer} ${flexCenter}`}
+                    >
                       <input {...getInputProps()} />
                       {/* Chained ternary is an expression that executes the following logic:
                       1. If an "update" and NO image in upload state, initially show image from database in preview.
                       2. If an "update" and the user has added a new image to upload state, preview the new image
                       3. If an "add" and NO image in upload state, show upload icon
                       4. If an "add" and the user has added a new image to upload state, preview the new image */}
-                      { formType === "update" && !images
-                        ? <img 
-                            src={item.eventImages[0].url}
-                            className={imagePreview}  
-                          /> 
-                        : formType === "update" && images
-                        ? <img 
-                            src={URL.createObjectURL(images[0])}
-                            className={imagePreview}  
-                          />
-                        : formType === "add" && !images
-                        ? <UploadIcon /> 
-                        : <img 
-                            src={URL.createObjectURL(images[0])}
-                            className={imagePreview}  
-                          /> 
-                      }
+                      {formType === 'update' && !images ? (
+                        <img
+                          src={item.eventImages[0].url}
+                          className={imagePreview}
+                        />
+                      ) : formType === 'update' && images ? (
+                        <img
+                          src={URL.createObjectURL(images[0])}
+                          className={imagePreview}
+                        />
+                      ) : formType === 'add' && !images ? (
+                        <UploadIcon />
+                      ) : (
+                        <img
+                          src={URL.createObjectURL(images[0])}
+                          className={imagePreview}
+                        />
+                      )}
                     </div>
                   </div>
                 )}
@@ -472,10 +471,8 @@ const EventForm = props => {
           />
         )}
       </form>
-      
-      {showModal && (
-        <ErrorModal toggleModal={toggleModal} />
-      )}
+
+      {showModal && <ErrorModal toggleModal={toggleModal} />}
     </div>
   )
 }
