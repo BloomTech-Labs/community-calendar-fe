@@ -8,7 +8,7 @@ import {useDropdown} from '../../utils'
 
 //components
 import {CCLogo, MapMarkerCircle, DropdownIcon} from 'icons'
-import NavbarSearchBox from './NavbarSearchBox'
+import Searchbar from 'searchbar/Searchbar'
 import Geocoder from 'geocoder/Geocoder'
 
 //styles
@@ -93,7 +93,7 @@ export default function Navbar() {
           <CCLogo dimensions={35} />
         </Link>
         <div className='is-hidden-tablet'>
-          <NavbarSearchBox />
+          <Searchbar />
         </div>
         <a
           role='button'
@@ -120,7 +120,7 @@ export default function Navbar() {
         <div className='navbar-start '>
           <div className='is-hidden-mobile'>
             {' '}
-            <NavbarSearchBox />
+            <Searchbar />
           </div>
         </div>
         <div className='navbar-end'>

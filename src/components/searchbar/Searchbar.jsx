@@ -1,12 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import {navsearch} from './Navbar.module.scss'
+import {searchbar, searchbarInput} from './Searchbar.module.scss'
 import {useHistory} from 'react-router-dom'
 import {buildQS} from '../../utils'
 
-/* 
-This component appears in the NavBar.
-*/
-const NavbarSearchBox = props => {
+const Searchbar = props => {
   const [searchText, setSearchText] = useState('')
   const rccHistory = useHistory()
 
@@ -22,9 +19,9 @@ const NavbarSearchBox = props => {
   }
 
   return (
-    <div className={` navbar-search control justify-center is-relative `}>
+    <div className={`  control justify-center is-relative ${searchbar}`}>
       <input
-        className={` input navbar-search-input border-radius`}
+        className={searchbarInput}
         type='text'
         placeholder='Search'
         onChange={e => handleChange(e)}
@@ -36,7 +33,7 @@ const NavbarSearchBox = props => {
         }}
       />
       <button
-        className={`button small-btn is-size-7 is-primary ${
+        className={`button small-btn is-size-7 is-primary  ${
           !searchText.length ? 'willFadeIn' : 'fadeIn'
         }`}
         onClick={() => handleSearch()}
@@ -47,4 +44,4 @@ const NavbarSearchBox = props => {
   )
 }
 
-export default NavbarSearchBox
+export default Searchbar

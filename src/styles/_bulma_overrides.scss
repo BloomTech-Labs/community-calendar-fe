@@ -129,7 +129,7 @@
     }
   }
 
-  &-search {
+  /*   &-search {
     margin-left: $gap-xs;
     margin-right: $gap-xs;
     display: flex;
@@ -164,10 +164,12 @@
       box-shadow: 0.3px 0.3px 4px rgba(0, 0, 0, 0.1),
         -0.3px -0.3px 4px rgba(0, 0, 0, 0.1) !important;
       &:focus {
-        box-shadow: 0.3px 0.3px 4px #ff6768cc, -0.3px -0.3px 4px #ff6768cc !important;
+        box-shadow: 0.3px 0.3px 4px rgba(0, 0, 0, 0.6),
+          -0.3px -0.3px 4px rgba(0, 0, 0, 0.6) !important;
       }
     }
   }
+ */
 }
 
 // ===== Dropdown =====

@@ -9,6 +9,7 @@ import {GET_EVENTS_WITH_DISTANCE, GET_CACHE} from '../graphql'
 import EventList from 'events/EventList'
 import FilterBtns from 'event_fltr_btns/EvntFltrBtns'
 import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
+import Searchbar from 'searchbar/Searchbar'
 
 import {filterByDistance} from '../utils'
 
