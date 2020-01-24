@@ -53,7 +53,8 @@ export const ADD_EVENT = gql`
 export const UPDATE_EVENT = gql`
   mutation UpdateEvent(
     # need ID to update a specific event
-    $id: ID!
+    $eventId: ID!
+    $locationId: ID!
     # same variables as AddEvent
     $title: String!
     $description: String!
@@ -73,7 +74,7 @@ export const UPDATE_EVENT = gql`
     $images: [Upload!]
   ) {
     updateEvent(
-      where: {id: $id}
+      where: {id: $eventId}
       data: {
         title: $title
         description: $description
@@ -81,8 +82,9 @@ export const UPDATE_EVENT = gql`
         end: $end
         eventImages: $eventImages
         locations: {
-          create: [
-            {
+          update: {
+            where: { id: $locationId }
+            data: {
               name: $placeName
               streetAddress: $streetAddress
               streetAddress2: $streetAddress2
@@ -91,8 +93,8 @@ export const UPDATE_EVENT = gql`
               state: $state
               latitude: $latitude
               longitude: $longitude
-            }
-          ]
+              }
+          }
         }
         tags: $tags
         ticketPrice: $ticketPrice
