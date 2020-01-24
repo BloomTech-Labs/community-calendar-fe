@@ -84,7 +84,7 @@ const EventForm = props => {
             state: item.locations[item.locations.length - 1].state || null,
             zipcode: item.locations[item.locations.length - 1].zipcode || null,
             description: item.description || null,
-            ticketType: item.ticketType || null,
+            ticketPrice: item.ticketPrice || null,
           },
           mode: 'onBlur',
         })
@@ -148,7 +148,7 @@ const EventForm = props => {
       state,
       zipcode,
       description,
-      ticketType,
+      ticketPrice,
     } = formValues
 
     // query Mapbox for event coordinates
@@ -176,7 +176,7 @@ const EventForm = props => {
       latitude: lat, // pass event coordinates to mutation
       longitude: long,
       tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : [],
-      ticketType,
+      ticketPrice,
       images,
       eventImages: images && images.length ? [] : undefined,
     }
@@ -371,21 +371,18 @@ const EventForm = props => {
           </label>
         </div>
 
-        {/* TICKET TYPE */}
-        <div className={`field ${errorMargin}`}>
+        {/* TICKET PRICE */}
+        <div className={`field ${errorMargin} ${errorMarginMobile}`}>
           <label className='label'>
-            Type of ticket
-            <select
-              name='ticketType'
+            Admission Price
+            <input
+              className={`${input}`}
+              type='text'
+              name='ticketPrice'
               ref={register}
-              className={`${select}`}
-              style={{display: 'block'}}
-            >
-              <option value='FREE'>Free</option>
-              <option value='PAID'>Paid</option>
-            </select>
+            />
             <p className={`is-size-7 ${errorMessage}`}>
-              <ErrorMessage errors={formErrors} name='ticketType' />
+              <ErrorMessage errors={formErrors} name='ticketPrice' />
             </p>
           </label>
         </div>
