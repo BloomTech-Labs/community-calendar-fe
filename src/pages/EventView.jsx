@@ -128,6 +128,7 @@ const EventView = ({history}) => {
     eventImages,
     tags,
     rsvps,
+    ticketPrice,
   } = data.events.length && data.events[0]
   // find out if current user rsvp'd for event
   const didRsvp =
@@ -366,9 +367,11 @@ const EventView = ({history}) => {
               </div>
               <div className='column has-text-centered-mobile'>
                 <p className='color_chalice is-size-6half-mobile'>
-                  Ticket Type:
+                  Ticket Price:
                 </p>
-                <p className='has-text-danger is-size-6half-mobile'>Free</p>
+                <p className='has-text-danger is-size-6half-mobile'>
+                  {ticketPrice ? '$' + ticketPrice.toFixed(2) : 'FREE'}
+                </p>
               </div>
             </div>
             <div className={descriptionDiv}>

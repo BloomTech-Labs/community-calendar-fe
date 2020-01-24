@@ -7,7 +7,7 @@ export const EVENT_DETAIL_DATA = gql`
     description
     start
     end
-    ticketType
+    ticketPrice
   }
 `
 
