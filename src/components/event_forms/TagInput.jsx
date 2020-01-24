@@ -5,7 +5,8 @@ import {
     tagDisplayClass,
     suggestedTags,
     tagClass,
-    container
+    removeTagBtn,
+    tagNameClass
 } from "./styles/TagInput.module.scss"
 
 //graphql
@@ -160,8 +161,8 @@ const TagInput = ({selectedTags, setSelectedTags}) => {
                 {
                     selectedTags.map((tagName, idx) => (
                             <span key={idx} className={`${tagClass} is-family-primary`}>
-                                {tagName}
-                                <span onClick={event => removeSelectedTag(tagName, event)}>&#x274C;</span>
+                                <span className={tagNameClass}>{tagName}</span>
+                                <span className={removeTagBtn} onClick={event => removeSelectedTag(tagName, event)}>x</span>
                             </span>
                         )
                     )
