@@ -16,7 +16,7 @@ export const ADD_EVENT = gql`
     $latitude: Float = null
     $longitude: Float = null
     $tags: [EventCreateTagInput!]
-    $ticketPrice: TicketPrice!
+    $ticketPrice: Float!
     $images: [Upload!]
   ) {
     addEvent(
@@ -69,7 +69,7 @@ export const UPDATE_EVENT = gql`
     $latitude: Float = null
     $longitude: Float = null
     $tags: [EventCreateTagInput!]
-    $ticketPrice: TicketPrice!
+    $ticketPrice: Float!
     $images: [Upload!]
   ) {
     updateEvent(

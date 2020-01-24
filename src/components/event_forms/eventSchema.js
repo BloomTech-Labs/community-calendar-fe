@@ -37,5 +37,5 @@ export const eventSchema = yup.object().shape({
     .number()
     .required('Price is required')
     .typeError('Please enter a positive number')
-    .positive('Please enter a postive number'),
+    .min(0, 'Please specify a price or enter 0 if the event is free'),
 })

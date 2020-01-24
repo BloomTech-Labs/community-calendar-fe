@@ -371,7 +371,7 @@ const EventForm = props => {
           </label>
         </div>
 
-        {/* TICKET TYPE */}
+        {/* TICKET PRICE */}
         <div className={`field ${errorMargin} ${errorMarginMobile}`}>
           <label className='label'>
             Admission Price
@@ -382,7 +382,7 @@ const EventForm = props => {
               ref={register}
             />
             <p className={`is-size-7 ${errorMessage}`}>
-              <ErrorMessage errors={formErrors} name='city' />
+              <ErrorMessage errors={formErrors} name='ticketPrice' />
             </p>
           </label>
         </div>
