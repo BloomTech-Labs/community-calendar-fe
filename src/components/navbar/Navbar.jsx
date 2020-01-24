@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react'
 import {useAuth0} from '../../contexts/auth0-context.jsx'
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import ReactGA from 'react-ga'
 import gql from 'graphql-tag'
 import navUtils from './navbar_utils'
@@ -19,6 +19,8 @@ import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_CACHE} from '../../graphql'
 
 export default function Navbar() {
+  const pageLocation = useLocation()
+  console.log('pageLocation', pageLocation)
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
 

@@ -267,16 +267,17 @@
 }
 
 .button.is-dark {
-  height: initial;
-  border: 2px solid $shark;
-  transition: background-color $duration-short, color $duration-short,
-    font-weight $duration-short;
-  &:hover {
-    background-color: $white;
-    color: $shark;
-    border-color: $shark;
-    font-weight: bold;
-  }
+  // height: initial;
+  // border: 2px solid $shark;
+  // transition: background-color $duration-short, color $duration-short,
+  // font-weight $duration-short;
+  // &:hover {
+  // background-color: $white;
+  // color: $shark;
+  // border-color: $shark;
+  // font-weight: bold;
+  // }
+  @include cc-button($shark, $white, $shark, $shark, $white, $shark);
   &.is-fake:hover {
     background-color: $shark;
     color: $white;
