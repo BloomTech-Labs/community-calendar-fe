@@ -168,3 +168,13 @@ a.tag.tag-hover,
   transition: transform $duration-short;
   transform: rotate(180deg);
 }
+
+.willFadeIn {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fadeIn {
+  opacity: 1;
+  visibility: visible;
+}

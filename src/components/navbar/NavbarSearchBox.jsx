@@ -14,29 +14,35 @@ const NavbarSearchBox = props => {
     setSearchText(e.target.value)
   }
 
-  const handleSearchClick = () => {
-    if (searchText.length) {
-      //encode text to query string searchtext=stuff
-      const qs = buildQS({searchText})
-      // push to /search with query string
-      rccHistory.push(`/search${qs}`)
-    }
+  const handleSearch = () => {
+    //encode text to query string searchtext=stuff
+    const qs = buildQS({searchText})
+    // push to /search with query string
+    rccHistory.push(`/search${qs}`)
   }
 
   return (
-    <div className={` navbar-search control justify-center`}>
+    <div className={` navbar-search control justify-center is-relative `}>
       <input
-        className={` input navbar-search-input`}
+        className={` input navbar-search-input border-radius`}
         type='text'
         placeholder='Search'
         onChange={e => handleChange(e)}
         value={searchText}
         onKeyDown={e => {
-          if (e.keyCode === 13) {
-            handleSearchClick()
+          if (e.keyCode === 13 && searchText.length) {
+            handleSearch()
           }
         }}
       />
+      <button
+        className={`button small-btn is-size-7 is-primary ${
+          !searchText.length ? 'willFadeIn' : 'fadeIn'
+        }`}
+        onClick={() => handleSearch()}
+      >
+        Search
+      </button>
     </div>
   )
 }
