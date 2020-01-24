@@ -62,6 +62,7 @@ const SearchResults = () => {
   return (
     <div className='page-wrapper'>
       <section className='section mobile-section'>
+        <Searchbar isLarge />
         <div className='is-flex level justify-between is-dark '>
           <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
             Search Results

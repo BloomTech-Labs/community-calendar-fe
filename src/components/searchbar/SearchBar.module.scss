@@ -17,8 +17,45 @@
     position: absolute;
     right: $gap-xxs;
     transition: all $duration-short !important;
+    font-size: 0.75rem;
   }
 
+  svg {
+    position: absolute;
+    left: 4px;
+  }
+
+  &.large {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: $gap-md;
+    width: 100%;
+    max-width: 100%;
+
+    button {
+      font-size: 20px;
+    }
+  } // end .large
+
+  &-input {
+    width: 100%;
+    border-radius: $radius !important;
+    border: none !important;
+    box-shadow: 0.3px 0.3px 4px rgba(0, 0, 0, 0.1),
+      -0.3px -0.3px 4px rgba(0, 0, 0, 0.1) !important;
+    &:focus {
+      outline: none;
+      box-shadow: 0.3px 0.3px 4px rgba(0, 0, 0, 0.6),
+        -0.3px -0.3px 4px rgba(0, 0, 0, 0.6) !important;
+    }
+  } // end -input
+  &-inputLarge {
+    padding-left: 50px !important;
+  }
+
+  &-inputSmall {
+    padding-left: $gap-xxs !important;
+  }
   @include tablet {
     margin-left: $gap-md;
     width: 350px;
@@ -29,19 +66,5 @@
 
   @include desktop {
     width: 400px;
-  }
-
-  &-input {
-    width: 100%;
-    padding-left: $gap-xxs !important;
-    border-radius: $radius !important;
-    border: none !important;
-    box-shadow: 0.3px 0.3px 4px rgba(0, 0, 0, 0.1),
-      -0.3px -0.3px 4px rgba(0, 0, 0, 0.1) !important;
-    &:focus {
-      outline: none;
-      box-shadow: 0.3px 0.3px 4px rgba(0, 0, 0, 0.6),
-        -0.3px -0.3px 4px rgba(0, 0, 0, 0.6) !important;
-    }
   }
 }

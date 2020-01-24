@@ -1,9 +1,16 @@
 import React, {useState, useEffect} from 'react'
-import {searchbar, searchbarInput} from './Searchbar.module.scss'
+import {
+  searchbar,
+  searchbarInput,
+  searchbarInputLarge,
+  large,
+  searchbarInputSmall,
+} from './Searchbar.module.scss'
 import {useHistory} from 'react-router-dom'
 import {buildQS} from '../../utils'
+import {SearchIcon} from 'icons'
 
-const Searchbar = props => {
+const Searchbar = ({isLarge}) => {
   const [searchText, setSearchText] = useState('')
   const rccHistory = useHistory()
 
@@ -16,12 +23,21 @@ const Searchbar = props => {
     const qs = buildQS({searchText})
     // push to /search with query string
     rccHistory.push(`/search${qs}`)
+    // clear search text
+    setSearchText('')
   }
 
   return (
-    <div className={`  control justify-center is-relative ${searchbar}`}>
+    <div
+      className={`   is-relative ${searchbar} ${
+        isLarge ? `${large} is-size-3` : ''
+      }`}
+    >
+      {isLarge && <SearchIcon dimensions={40} />}
       <input
-        className={searchbarInput}
+        className={`${searchbarInput} ${
+          isLarge ? searchbarInputLarge : searchbarInputSmall
+        }`}
         type='text'
         placeholder='Search'
         onChange={e => handleChange(e)}
@@ -33,8 +49,8 @@ const Searchbar = props => {
         }}
       />
       <button
-        className={`button small-btn is-size-7 is-primary  ${
-          !searchText.length ? 'willFadeIn' : 'fadeIn'
+        className={`button small-btn  is-primary   ${
+          !searchText.length && !isLarge ? 'willFadeIn' : 'fadeIn'
         }`}
         onClick={() => handleSearch()}
       >
