@@ -93,7 +93,9 @@ export default function Navbar() {
           <CCLogo dimensions={35} />
         </Link>
         <div className='is-hidden-tablet'>
-          {!/\/search/i.test(pageLocation.pathname) && <Searchbar />}
+          {!/\/search/i.test(pageLocation.pathname) && (
+            <Searchbar cb={() => setNavMenuIsOpen(false)} />
+          )}
         </div>
         <a
           role='button'
@@ -119,7 +121,6 @@ export default function Navbar() {
       >
         <div className='navbar-start '>
           <div className='is-hidden-mobile'>
-            {' '}
             {!/\/search/i.test(pageLocation.pathname) && <Searchbar />}
           </div>
         </div>

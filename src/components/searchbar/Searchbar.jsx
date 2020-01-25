@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import PropTypes from 'prop-types'
 import {
   searchbar,
   searchbarInput,
@@ -10,7 +11,7 @@ import {useHistory} from 'react-router-dom'
 import {buildQS} from '../../utils'
 import {SearchIcon} from 'icons'
 
-const Searchbar = ({isLarge}) => {
+const Searchbar = ({isLarge, cb}) => {
   const [searchText, setSearchText] = useState('')
   const rccHistory = useHistory()
 
@@ -25,6 +26,8 @@ const Searchbar = ({isLarge}) => {
     rccHistory.push(`/search${qs}`)
     // clear search text
     setSearchText('')
+    // execute callback if provided
+    cb && cb()
   }
 
   return (
@@ -60,4 +63,8 @@ const Searchbar = ({isLarge}) => {
   )
 }
 
+Searchbar.PropTypes = {
+  isLarge: PropTypes.bool,
+  cb: PropTypes.func,
+}
 export default Searchbar
