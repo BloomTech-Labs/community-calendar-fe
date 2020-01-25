@@ -28,13 +28,24 @@ input {
 
 .tagClass {
     padding: 0.5rem 1rem;
-    border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 25px;
     margin-right: 1rem;
     margin-top: 1rem;
     width: unset !important;
+    background-color: $shark;
+
+    .tagNameClass {
+        color: white;
+        text-align: center;
+    }
     
-    span {
-        margin-left: 0.4rem;
+    .removeTagBtn {
+        margin-left: 1rem;
+        border-radius: 50%;
+        background-color: $chalice;
+        color: $shark;
+        padding: 0 0.24rem;
+        display: inline-block;
+        transform:scale(1.5,1);
     }
 }

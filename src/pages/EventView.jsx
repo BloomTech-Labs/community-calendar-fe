@@ -47,7 +47,6 @@ const EventView = ({history}) => {
   const {userLatitude, userLongitude} = localCache
 
   const {data: cacheUserId} = useQuery(GET_USER_ID)
-  console.log('userID in cache', cacheUserId.userId)
 
   const [
     deleteEventMutation,
@@ -55,7 +54,6 @@ const EventView = ({history}) => {
   ] = useMutation(DELETE_EVENT)
 
   if (deleteData) {
-    console.log(deleteData)
     history.push('/')
   }
 
@@ -130,6 +128,7 @@ const EventView = ({history}) => {
     eventImages,
     tags,
     rsvps,
+    ticketPrice,
   } = data.events.length && data.events[0]
   // find out if current user rsvp'd for event
   const didRsvp =
@@ -204,10 +203,12 @@ const EventView = ({history}) => {
             className={`has-text-weight-bold is-size-6-mobile ${date_display}`}
           >
             {Math.ceil(
-                    moment.duration(moment(end).diff(moment(start))).asDays(),
-                  ) === 1 ? moment(start).format('ddd, MMMM Do YYYY') : `${moment(start).format('ddd, MMMM Do YYYY')} - ${moment(
-                      end,
-                    ).format('ddd, MMMM Do YYYY')}`}
+              moment.duration(moment(end).diff(moment(start))).asDays(),
+            ) === 1
+              ? moment(start).format('ddd, MMMM Do YYYY')
+              : `${moment(start).format('ddd, MMMM Do YYYY')} - ${moment(
+                  end,
+                ).format('ddd, MMMM Do YYYY')}`}
           </p>
           <p className='has-text-weight-bold is-size-6-mobile'>
             {name}
@@ -354,17 +355,23 @@ const EventView = ({history}) => {
                 style={{paddingLeft: 0}} //remove this style when Hosted By is implemented
               >
                 <p className='color_chalice is-size-6half-mobile'>Time:</p>
-                <p className='color_shark is-size-6half-mobile has-text-weight-bold'>{Math.ceil(
+                <p className='color_shark is-size-6half-mobile has-text-weight-bold'>
+                  {Math.ceil(
                     moment.duration(moment(end).diff(moment(start))).asDays(),
-                  ) === 1 ? `${eventStartTime} - ${eventEndTime}` : `${moment(start).format('MMM Do h:mm a')} - ${moment(
-                      end,
-                    ).format('MMM Do h:mm a')}`}</p>
+                  ) === 1
+                    ? `${eventStartTime} - ${eventEndTime}`
+                    : `${moment(start).format('MMM Do h:mm a')} - ${moment(
+                        end,
+                      ).format('MMM Do h:mm a')}`}
+                </p>
               </div>
               <div className='column has-text-centered-mobile'>
                 <p className='color_chalice is-size-6half-mobile'>
-                  Ticket Type:
+                  Ticket Price:
                 </p>
-                <p className='has-text-danger is-size-6half-mobile'>Free</p>
+                <p className='has-text-danger is-size-6half-mobile'>
+                  {ticketPrice ? '$' + ticketPrice.toFixed(2) : 'FREE'}
+                </p>
               </div>
             </div>
             <div className={descriptionDiv}>

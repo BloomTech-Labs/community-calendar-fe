@@ -21,7 +21,6 @@ import {GET_CACHE} from '../../graphql'
 export default function Navbar() {
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
-  console.log('localCache', localCache)
 
   const {user, loginWithRedirect, logout} = useAuth0()
 
@@ -41,10 +40,8 @@ export default function Navbar() {
 
   // used by geocoder to update local cache
   function setUserLocation(changes) {
-    console.log('Geocoder changes in Navbar', changes)
     if (changes.selectedItem) {
       const place = {...changes.selectedItem}
-      console.log(' selected place', place)
       //update user data in local cache
       client.writeData({
         data: {

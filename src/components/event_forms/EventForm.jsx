@@ -84,7 +84,7 @@ const EventForm = props => {
             state: item.locations[item.locations.length - 1].state || null,
             zipcode: item.locations[item.locations.length - 1].zipcode || null,
             description: item.description || null,
-            ticketType: item.ticketType || null,
+            ticketPrice: item.ticketPrice || null,
           },
           mode: 'onBlur',
         })
@@ -99,7 +99,6 @@ const EventForm = props => {
 
   // create `images` state to be used in backend mutation request
   const [images, setImages] = useState(null)
-  console.log('event images', images)
 
   // create `startDatetime` state to be used in datepicker and backend mutation request
   // defaults to the next noon (today or tomorrow)
@@ -149,7 +148,7 @@ const EventForm = props => {
       state,
       zipcode,
       description,
-      ticketType,
+      ticketPrice,
     } = formValues
 
     // query Mapbox for event coordinates
@@ -177,26 +176,22 @@ const EventForm = props => {
       latitude: lat, // pass event coordinates to mutation
       longitude: long,
       tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : [],
-      ticketType,
+      ticketPrice,
       images,
       eventImages: images && images.length ? [] : undefined,
     }
-
-    console.log('mutation values:', mutationValues)
 
     mutation({variables: mutationValues})
   } //end onSubmit
 
   // log errors and success messages
   useEffect(() => {
-    if(mutationError) {
-      setShowModal(true);
-      console.log('mutation error', mutationError);
+    if (mutationError) {
+      setShowModal(true)
     }
-  }, [mutationError]);
-  
+  }, [mutationError])
+
   if (mutationData) {
-    console.log('mutation data', mutationData)
     const {id} = mutationData.addEvent || mutationData.updateEvent
     props.history.push(`/events/${id}`)
   }
@@ -376,21 +371,18 @@ const EventForm = props => {
           </label>
         </div>
 
-        {/* TICKET TYPE */}
-        <div className={`field ${errorMargin}`}>
+        {/* TICKET PRICE */}
+        <div className={`field ${errorMargin} ${errorMarginMobile}`}>
           <label className='label'>
-            Type of ticket
-            <select
-              name='ticketType'
+            Admission Price
+            <input
+              className={`${input}`}
+              type='text'
+              name='ticketPrice'
               ref={register}
-              className={`${select}`}
-              style={{display: 'block'}}
-            >
-              <option value='FREE'>Free</option>
-              <option value='PAID'>Paid</option>
-            </select>
+            />
             <p className={`is-size-7 ${errorMessage}`}>
-              <ErrorMessage errors={formErrors} name='ticketType' />
+              <ErrorMessage errors={formErrors} name='ticketPrice' />
             </p>
           </label>
         </div>
@@ -411,7 +403,7 @@ const EventForm = props => {
           <label className={`field ${flexCenter}`}>
             Event image
             <div
-            className={`field ${flexCenter}`}
+              className={`field ${flexCenter}`}
               style={{
                 pointerEvents: 'none',
               }}
@@ -424,30 +416,34 @@ const EventForm = props => {
               >
                 {({getRootProps, getInputProps}) => (
                   <div className={`${imageUploader} ${flexCenter}`}>
-                    <div {...getRootProps()} className={`${uploadContainer} ${flexCenter}`}>
+                    <div
+                      {...getRootProps()}
+                      className={`${uploadContainer} ${flexCenter}`}
+                    >
                       <input {...getInputProps()} />
                       {/* Chained ternary is an expression that executes the following logic:
                       1. If an "update" and NO image in upload state, initially show image from database in preview.
                       2. If an "update" and the user has added a new image to upload state, preview the new image
                       3. If an "add" and NO image in upload state, show upload icon
                       4. If an "add" and the user has added a new image to upload state, preview the new image */}
-                      { formType === "update" && !images
-                        ? <img 
-                            src={item.eventImages[0].url}
-                            className={imagePreview}  
-                          /> 
-                        : formType === "update" && images
-                        ? <img 
-                            src={URL.createObjectURL(images[0])}
-                            className={imagePreview}  
-                          />
-                        : formType === "add" && !images
-                        ? <UploadIcon /> 
-                        : <img 
-                            src={URL.createObjectURL(images[0])}
-                            className={imagePreview}  
-                          /> 
-                      }
+                      {formType === 'update' && !images ? (
+                        <img
+                          src={item.eventImages[0].url}
+                          className={imagePreview}
+                        />
+                      ) : formType === 'update' && images ? (
+                        <img
+                          src={URL.createObjectURL(images[0])}
+                          className={imagePreview}
+                        />
+                      ) : formType === 'add' && !images ? (
+                        <UploadIcon />
+                      ) : (
+                        <img
+                          src={URL.createObjectURL(images[0])}
+                          className={imagePreview}
+                        />
+                      )}
                     </div>
                   </div>
                 )}
@@ -472,10 +468,8 @@ const EventForm = props => {
           />
         )}
       </form>
-      
-      {showModal && (
-        <ErrorModal toggleModal={toggleModal} />
-      )}
+
+      {showModal && <ErrorModal toggleModal={toggleModal} />}
     </div>
   )
 }

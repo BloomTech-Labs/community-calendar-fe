@@ -21,7 +21,6 @@ import EventView from './pages/EventView'
 import UpdateEventPage from './pages/UpdateEventPage'
 import CreateEventPage from './pages/CreateEventPage'
 import SearchResults from './pages/SearchResults'
-import TestPage from './pages/TestPage'
 
 //components
 import Navbar from 'navbar/Navbar'
@@ -29,7 +28,7 @@ import PrivateRoute from 'private-route/PrivateRoute'
 import {GetUserPosition} from './utils'
 
 function App() {
-  const decode = require('jwt-decode'); //used to decode access token
+  const decode = require('jwt-decode') //used to decode access token
   const {
     isLoading,
     user,
@@ -42,14 +41,13 @@ function App() {
   const getAccessToken = async () => {
     try {
       const token = await getTokenSilently()
-      const decodedToken = decode(token);
+      const decodedToken = decode(token)
       setAccessToken(token)
       cache.writeData({
         data: {
-          userId: decodedToken['http://cc_id']
+          userId: decodedToken['http://cc_id'],
         },
       })
-
     } catch (err) {
       console.log(err)
     }
@@ -114,7 +112,7 @@ function App() {
       userLongitude: null,
       userAddress: null,
       maxDistance: null,
-      userId: null
+      userId: null,
     },
   })
 
@@ -128,7 +126,6 @@ function App() {
         <Route exact path='/events/:id' component={EventView} />
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />
-        <Route path='/test-page' component={TestPage} />
       </Switch>
     </ApolloProvider>
   )
