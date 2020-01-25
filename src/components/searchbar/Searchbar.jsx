@@ -63,7 +63,7 @@ const Searchbar = ({isLarge, cb}) => {
   )
 }
 
-Searchbar.PropTypes = {
+Searchbar.propTypes = {
   isLarge: PropTypes.bool,
   cb: PropTypes.func,
 }

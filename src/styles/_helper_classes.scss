@@ -112,8 +112,8 @@
 
   @include tablet-up {
     padding: {
-      left: 2 * $gap-sm;
-      right: 2 * $gap-sm;
+      left: $gap;
+      right: $gap;
     }
   }
 }

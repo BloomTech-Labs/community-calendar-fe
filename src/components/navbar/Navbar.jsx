@@ -20,7 +20,7 @@ import {GET_CACHE} from '../../graphql'
 
 export default function Navbar() {
   const pageLocation = useLocation()
-  console.log('pageLocation', pageLocation)
+
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
 

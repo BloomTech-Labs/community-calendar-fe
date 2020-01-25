@@ -17,6 +17,7 @@ import {
   isMultiline,
   isNarrow,
   isMobile,
+  cardWrapper,
   grid_container,
   list_container,
   iconDivider,
@@ -74,36 +75,40 @@ export default function EventList({
       </div>
 
       {/* List of events */}
-      <div
-        className={` ${
-          useListView
-            ? `${list_container} ${columns} ${isMultiline}`
-            : grid_container
-        }`}
-      >
-        {/* Render loading spinner during fetch or error message on error */}
-        {loading && <LoadingLogo dimensions={50} />}
-        {error && <p>Error fetching data from the server, please refresh the page</p>}
+      <div className={cardWrapper}>
+        <div
+          className={` ${
+            useListView
+              ? `${list_container} ${columns} ${isMultiline}`
+              : grid_container
+          }`}
+        >
+          {/* Render loading spinner during fetch or error message on error */}
+          {loading && <LoadingLogo dimensions={50} />}
+          {error && (
+            <p>Error fetching data from the server, please refresh the page</p>
+          )}
 
-        {/* Render EventListCards for each item in `eventsToDisplay` array */}
-        {!loading &&
-          data &&
-          eventsToDisplay.map(item => (
-            <EventListCard
-              item={item}
-              key={item.id}
-              useListView={useListView}
-            />
-          ))}
+          {/* Render EventListCards for each item in `eventsToDisplay` array */}
+          {!loading &&
+            data &&
+            eventsToDisplay.map(item => (
+              <EventListCard
+                item={item}
+                key={item.id}
+                useListView={useListView}
+              />
+            ))}
 
-        {/* Inform user if query/filtering resolves to empty array with no error */}
-        {!loading && data && !eventsToDisplay.length && (
-          <div className='container'>
-            <h5 className='has-text-centered color_chalice'>
-              No events found for the selected date(s)
-            </h5>
-          </div>
-        )}
+          {/* Inform user if query/filtering resolves to empty array with no error */}
+          {!loading && data && !eventsToDisplay.length && (
+            <div className='container'>
+              <h5 className='has-text-centered color_chalice'>
+                No events found for the selected date(s)
+              </h5>
+            </div>
+          )}
+        </div>
       </div>
     </>
   )

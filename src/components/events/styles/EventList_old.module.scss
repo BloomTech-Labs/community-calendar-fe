@@ -19,13 +19,7 @@ $smallGrid: ($gridCard-w + ($gap-md * 2));
 $medGrid: $smallGrid * 2;
 $lgGrid: $smallGrid * 3;
 
-.cardWrapper {
-  display: flex;
-  justify-content: center;
-}
-
 .list_container {
-  @include mx-auto;
   a:first-of-type {
     margin-top: $gap-md !important;
   }
@@ -35,14 +29,14 @@ $lgGrid: $smallGrid * 3;
   display: flex;
   flex-wrap: wrap;
   @include mx-auto;
-  max-width: min-content;
+  max-width: $smallGrid;
 
-  @media screen and (min-width: 652px) {
-    max-width: 592px;
+  @media screen and (min-width: $medGrid) {
+    max-width: $medGrid;
   }
 
-  @media screen and (min-width: 900px) {
-    max-width: 888px;
+  @media screen and (min-width: $lgGrid) {
+    max-width: $lgGrid;
   }
 }
 
