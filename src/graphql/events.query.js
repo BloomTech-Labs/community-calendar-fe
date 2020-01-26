@@ -191,6 +191,8 @@ export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
     $id: ID
     $userLatitude: Float
     $userLongitude: Float
+    $withSaved: Boolean!
+    $savedUserId: ID
   ) {
     events(where: {id: $id}) {
       ...EventDetail
@@ -216,6 +218,10 @@ export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
         id
         firstName
         lastName
+      }
+      saved(where: {id: $savedUserId}) @include(if: $withSaved) {
+        id
+        firstName
       }
     }
   }

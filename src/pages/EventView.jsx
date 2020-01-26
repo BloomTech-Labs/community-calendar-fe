@@ -5,7 +5,8 @@ import moment from 'moment'
 // components
 import LoadingLogo from 'loading/LoadingLogo'
 import LoadingDots from 'loading/LoadingDots'
-import {DropdownIcon} from 'icons'
+import {DropdownIcon, HeartIcon} from 'icons'
+
 import DeleteEventModal from 'events/DeleteEventModal'
 
 //graphql
@@ -17,6 +18,7 @@ import {
   DELETE_EVENT,
   ADD_RSVP,
   REMOVE_RSVP,
+  SAVE_EVENT
 } from '../graphql'
 
 import {months, weekDays, buildQS, useDropdown} from '../utils'
@@ -34,12 +36,15 @@ import {
   panel_right,
   eventView,
   socialOptions,
+  row
 } from './styles/EventView.module.scss'
+import { set } from 'react-ga'
 
 /* Show all of the details and information about an event.
 Users can RSVP to an event from here.
  */
 const EventView = ({history}) => {
+  const [savedHeart, setSavedHeart] = useState(false);
   const [showModal, setShowModal] = useState(false)
   const queryParams = useParams()
 
@@ -68,6 +73,12 @@ const EventView = ({history}) => {
     removeRsvpMutation,
     {data: removeRsvpData, error: removeRsvpError, loading: removeRsvpLoading},
   ] = useMutation(REMOVE_RSVP)
+  
+  //save event mutation
+  const [
+    saveEventMutation,
+    {data: saveEventData, error: saveEventError, loading: saveEventLoading},
+  ] = useMutation(SAVE_EVENT);
 
   // destructure event information passed through props
   const apolloData = useQuery(GET_EVENT_BY_ID_WITH_DISTANCE, {
@@ -75,6 +86,8 @@ const EventView = ({history}) => {
       id: queryParams.id,
       userLatitude: userLatitude,
       userLongitude: userLongitude,
+      withSaved: !!(cacheUserId && cacheUserId.userId),
+      savedUserId: (cacheUserId && cacheUserId.userId) ? cacheUserId.userId : undefined
     },
   })
   const {data, loading, error, refetch} = apolloData
@@ -99,8 +112,14 @@ const EventView = ({history}) => {
 
   // find distance from user and update events with results if user location changes
   useEffect(() => {
-    refetch({userLatitude, userLongitude})
+    refetch({userLatitude, userLongitude, withSaved: !!(cacheUserId && cacheUserId.userId),savedUserId: (cacheUserId && cacheUserId.userId) ? cacheUserId.userId : undefined})
   }, [userLatitude, userLongitude])
+
+  useEffect(() => {
+    if(data && data.events && data.events.length && data.events[0].saved){
+      setSavedHeart(!!data.events[0].saved.length);
+    }
+  }, [data])
 
   // render loading spinner or error message if fetch fails
   if (loading)
@@ -129,7 +148,9 @@ const EventView = ({history}) => {
     tags,
     rsvps,
     ticketPrice,
+    saved
   } = data.events.length && data.events[0]
+
   // find out if current user rsvp'd for event
   const didRsvp =
     rsvps.length && cacheUserId
@@ -180,6 +201,12 @@ const EventView = ({history}) => {
   }
   const removeRSVP = () => {
     removeRsvpMutation({variables: {id}}).then(() => refetch())
+  }
+
+  const saveEvent = () => {
+    saveEventMutation({variables: {id}}).then(({data: {saveEvent}}) => {
+      setSavedHeart(saveEvent === 'SAVED')
+    })
   }
 
   return (
@@ -375,9 +402,14 @@ const EventView = ({history}) => {
               </div>
             </div>
             <div className={descriptionDiv}>
+              <div className={`${row}`}>
               <p className='has-text-weight-bold is-size-5 is-size-6-mobile'>
                 Event Details
               </p>
+              {cacheUserId && cacheUserId.userId && 
+                <span onClick={() => saveEvent()} style={saveEventLoading ? {pointerEvents: 'none', opacity: 0.3} : {}}><HeartIcon isLiked={savedHeart}/></span>
+                }
+              </div>
               <p className={` is-size-7-mobile`}>{description}</p>
               {cacheUserId.userId && !addRsvpLoading && !didRsvp && (
                 <button className='button  is-dark' onClick={() => addRSVP()}>
