@@ -12,11 +12,7 @@ import SelectedRange from '../components/daypicker/selectedRange'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {
-  GET_EVENTS_WITH_DISTANCE,
-  GET_EVENTS_FILTERED,
-  GET_CACHE,
-} from '../graphql'
+import {GET_EVENTS_FILTERED, GET_CACHE} from '../graphql'
 
 /* The first page user's see when opening the app */
 const Home = () => {
