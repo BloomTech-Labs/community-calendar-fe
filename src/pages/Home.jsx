@@ -12,7 +12,11 @@ import SelectedRange from '../components/daypicker/selectedRange'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_EVENTS_WITH_DISTANCE, GET_CACHE} from '../graphql'
+import {
+  GET_EVENTS_WITH_DISTANCE,
+  GET_EVENTS_FILTERED,
+  GET_CACHE,
+} from '../graphql'
 
 /* The first page user's see when opening the app */
 const Home = () => {
@@ -26,18 +30,44 @@ const Home = () => {
   // local cache data
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
-  const {userLatitude, userLongitude, maxDistance} = localCache
-
-  const apolloData = useQuery(GET_EVENTS_WITH_DISTANCE, {
-    variables: {userLatitude: userLatitude, userLongitude: userLongitude},
+  let {userLatitude, userLongitude, maxDistance} = localCache
+  const apolloData = useQuery(GET_EVENTS_FILTERED, {
+    variables: {
+      userLatitude: userLatitude || undefined,
+      userLongitude: userLongitude || undefined,
+      useLocation: !!(userLatitude && userLongitude),
+      searchFilters: {
+        location:
+          userLatitude && userLongitude && maxDistance
+            ? {
+                userLatitude: userLatitude,
+                userLongitude: userLongitude,
+                radius: maxDistance,
+              }
+            : undefined,
+      },
+    },
   })
 
   const {data, loading, error, refetch} = apolloData
-
   // find distance from user and update events with results if user location changes
   useEffect(() => {
-    refetch({userLatitude, userLongitude})
-  }, [userLatitude, userLongitude])
+    refetch({
+      useLocation: !!(userLatitude && userLongitude),
+      userLatitude: userLatitude || undefined,
+      userLongitude: userLongitude || undefined,
+      searchFilters: {
+        location:
+          userLatitude && userLongitude && maxDistance
+            ? {
+                userLatitude: userLatitude,
+                userLongitude: userLongitude,
+                radius: maxDistance,
+              }
+            : undefined,
+      },
+    })
+  }, [userLatitude, userLongitude, maxDistance])
 
   return (
     <div className='page-wrapper'>
@@ -127,10 +157,7 @@ const Home = () => {
           />
         )}
         {/*yes*/}
-        <EventList
-          apolloData={{data, loading, error}}
-          maxDistance={maxDistance}
-        />
+        <EventList apolloData={{data, loading, error}} />
       </section>
     </div>
   )

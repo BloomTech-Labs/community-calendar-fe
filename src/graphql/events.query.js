@@ -24,10 +24,10 @@ export const ADDRESS_DETAIL_DATA = gql`
 export const SEARCH_FILTERS = gql`
   input SearchFilters {
     index: String
-    location: LOCATION_FILTER
+    location: LocationFilters
     tags: [String!]
-    ticketPrice: [PRICE_FILTER!]
-    dateRange: DATE_FILTER
+    ticketPrice: [PriceFilters!]
+    dateRange: DateFilters
   }
 `
 export const PRICE_FILTER = gql`
@@ -38,7 +38,7 @@ export const PRICE_FILTER = gql`
 `
 export const DATE_FILTER = gql`
   input DateFilters {
-    start: DateTime
+    start: DateTime!
     end: DateTime!
   }
 `
@@ -229,8 +229,14 @@ export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
   ${ADDRESS_DETAIL_DATA}
 `
 export const GET_EVENTS_FILTERED = gql`
-  query EventsFiltered($id: ID, $userLatitude: Float, $userLongitude: Float) {
-    events(where: {id: $id}) {
+  query EventsFiltered(
+    $id: ID
+    $userLatitude: Float
+    $userLongitude: Float
+    $searchFilters: SearchFilters
+    $useLocation: Boolean!
+  ) {
+    events(where: {id: $id}, searchFilters: $searchFilters) {
       ...EventDetail
       creator {
         id
@@ -240,10 +246,11 @@ export const GET_EVENTS_FILTERED = gql`
         name
         latitude
         longitude
-        distanceFromUser
-        distanceUnit
+        distanceFromUser @include(if: $useLocation)
+        distanceUnit @include(if: $useLocation)
         ...AddressDetail
       }
+
       eventImages {
         url
       }

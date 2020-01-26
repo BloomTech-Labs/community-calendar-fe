@@ -30,25 +30,9 @@ EventList shows events passed in on the apolloData prop to the user
 -Filtering by distance happens when parent component passes `maxDistance` prop
 */
 
-export default function EventList({
-  apolloData: {data, loading, error},
-  maxDistance,
-}) {
+export default function EventList({apolloData: {data, loading, error}}) {
   // useListView determines if the cards should be displayed as list or grid
   const [useListView, setShowListView] = useState(true)
-
-  // Filter by distance radius
-  let eventsToDisplay = []
-
-  // If maxDistance filter passed in, filter out events that are too far away
-  // If no maxDistance filter passed in, render all events on `data.events`
-  if (!loading && !error) {
-    if (maxDistance && data.events) {
-      eventsToDisplay = filterByDistance(maxDistance, data.events)
-    } else {
-      eventsToDisplay = [...data.events]
-    }
-  }
 
   return (
     <>
@@ -91,8 +75,8 @@ export default function EventList({
 
           {/* Render EventListCards for each item in `eventsToDisplay` array */}
           {!loading &&
-            data &&
-            eventsToDisplay.map(item => (
+            data.events &&
+            data.events.map(item => (
               <EventListCard
                 item={item}
                 key={item.id}
@@ -101,7 +85,7 @@ export default function EventList({
             ))}
 
           {/* Inform user if query/filtering resolves to empty array with no error */}
-          {!loading && data && !eventsToDisplay.length && (
+          {!loading && data && !data.events.length && (
             <div className='container'>
               <h5 className='has-text-centered color_chalice'>
                 No events found for the selected date(s)
