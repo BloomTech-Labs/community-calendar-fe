@@ -150,3 +150,9 @@ export const REMOVE_RSVP = gql`
     }
   }
 `
+
+export const SAVE_EVENT = gql`
+  mutation SaveEvent($id: ID!) {
+    saveEvent(event: {id: $id})
+  }
+`
