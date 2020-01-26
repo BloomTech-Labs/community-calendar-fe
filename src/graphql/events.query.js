@@ -36,6 +36,12 @@ export const PRICE_FILTER = gql`
     maxPrice: Int
   }
 `
+export const DATE_FILTER = gql`
+  input DateFilters {
+    start: DateTime
+    end: DateTime!
+  }
+`
 
 export const LOCATION_FILTER = gql`
   input LocationFilters {
