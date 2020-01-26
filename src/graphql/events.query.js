@@ -20,6 +20,31 @@ export const ADDRESS_DETAIL_DATA = gql`
     state
   }
 `
+
+export const SEARCH_FILTERS = gql`
+  input SearchFilters {
+    index: String
+    location: LOCATION_FILTER
+    tags: [String!]
+    ticketPrice: [PRICE_FILTER!]
+    dateRange: DATE_FILTER
+  }
+`
+export const PRICE_FILTER = gql`
+  input PriceFilters {
+    minPrice: Int
+    maxPrice: Int
+  }
+`
+
+export const LOCATION_FILTER = gql`
+  input LocationFilters {
+    userLatitude: Float!
+    userLongitude: Float!
+    radius: Int!
+  }
+`
+
 export const GET_EVENTS = gql`
   query EventsByRange($start: DateTime, $end: DateTime) {
     events(
@@ -161,6 +186,38 @@ export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
     $userLatitude: Float
     $userLongitude: Float
   ) {
+    events(where: {id: $id}) {
+      ...EventDetail
+      creator {
+        id
+      }
+      locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
+        id
+        name
+        latitude
+        longitude
+        distanceFromUser
+        distanceUnit
+        ...AddressDetail
+      }
+      eventImages {
+        url
+      }
+      tags {
+        title
+      }
+      rsvps {
+        id
+        firstName
+        lastName
+      }
+    }
+  }
+  ${EVENT_DETAIL_DATA}
+  ${ADDRESS_DETAIL_DATA}
+`
+export const GET_EVENTS_FILTERED = gql`
+  query EventsFiltered($id: ID, $userLatitude: Float, $userLongitude: Float) {
     events(where: {id: $id}) {
       ...EventDetail
       creator {
