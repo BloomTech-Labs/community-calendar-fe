@@ -30,7 +30,8 @@
       align-items: center;
     }
 
-    .userInfo {
+    .userInfo,
+    .editUserForm {
 
       .profilePhoto {
         width: 8vw;
@@ -53,7 +54,7 @@
 
       .location {
         margin-top: 5%;
-
+        margin-left: -5%;
         display: flex;
         align-items: center;
 
