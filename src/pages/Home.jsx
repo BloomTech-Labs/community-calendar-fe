@@ -12,7 +12,7 @@ import SelectedRange from '../components/daypicker/selectedRange'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_EVENTS_WITH_DISTANCE, GET_CACHE} from '../graphql'
+import {GET_EVENTS_FILTERED, GET_CACHE} from '../graphql'
 
 /* The first page user's see when opening the app */
 const Home = () => {
@@ -26,18 +26,51 @@ const Home = () => {
   // local cache data
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
-  const {userLatitude, userLongitude, maxDistance} = localCache
-
-  const apolloData = useQuery(GET_EVENTS_WITH_DISTANCE, {
-    variables: {userLatitude: userLatitude, userLongitude: userLongitude},
+  const apolloData = useQuery(GET_EVENTS_FILTERED, {
+    variables: {
+      userLatitude: localCache.userLatitude || undefined,
+      userLongitude: localCache.userLongitude || undefined,
+      useLocation: !!(localCache.userLatitude && localCache.userLongitude),
+      searchFilters: {
+        location:
+          localCache.userLatitude &&
+          localCache.userLongitude &&
+          localCache.maxDistance
+            ? {
+                userLatitude: localCache.userLatitude,
+                userLongitude: localCache.userLongitude,
+                radius: localCache.maxDistance,
+              }
+            : undefined,
+      },
+    },
   })
 
   const {data, loading, error, refetch} = apolloData
-
   // find distance from user and update events with results if user location changes
   useEffect(() => {
-    refetch({userLatitude, userLongitude})
-  }, [userLatitude, userLongitude])
+    refetch({
+      useLocation: !!(localCache.userLatitude && localCache.userLongitude),
+      userLatitude: localCache.userLatitude || undefined,
+      userLongitude: localCache.userLongitude || undefined,
+      searchFilters: {
+        location:
+          localCache.userLatitude &&
+          localCache.userLongitude &&
+          localCache.maxDistance
+            ? {
+                userLatitude: localCache.userLatitude,
+                userLongitude: localCache.userLongitude,
+                radius: localCache.maxDistance,
+              }
+            : undefined,
+      },
+    })
+  }, [
+    localCache.userLatitude,
+    localCache.userLongitude,
+    localCache.maxDistance,
+  ])
 
   return (
     <div className='page-wrapper'>
@@ -55,12 +88,12 @@ const Home = () => {
           <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
             Events
           </h3>
-          {userLatitude && userLongitude && (
+          {localCache.userLatitude && localCache.userLongitude && (
             <DistanceDropdown
               client={client}
-              userLat={userLatitude}
-              userLong={userLongitude}
-              maxDistance={maxDistance}
+              userLat={localCache.userLatitude}
+              userLong={localCache.userLongitude}
+              maxDistance={localCache.maxDistance}
             />
           )}
         </div>
@@ -126,11 +159,7 @@ const Home = () => {
             setEventRange={setEventRange}
           />
         )}
-        {/*yes*/}
-        <EventList
-          apolloData={{data, loading, error}}
-          maxDistance={maxDistance}
-        />
+        <EventList apolloData={{data, loading, error}} />
       </section>
     </div>
   )

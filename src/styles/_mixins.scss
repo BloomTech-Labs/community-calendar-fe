@@ -19,6 +19,24 @@
   margin: 0 auto;
 }
 
+// ===== Button =====
+@mixin cc-button($bgClr, $bgClrHvr, $borderClr, $borderClrHvr, $clr, $clrHvr) {
+  height: initial;
+  background-color: $bgClr;
+  color: $clr;
+  border: 2px solid $borderClr;
+  transition: background-color $duration-short, color $duration-short,
+    font-weight $duration-short;
+
+  &:hover,
+  &:focus {
+    background-color: $bgClrHvr;
+    color: $clrHvr;
+    border-color: $borderClrHvr;
+    font-weight: bold;
+  }
+}
+
 // ===== Other =====
 @mixin is-clickable {
   cursor: pointer;

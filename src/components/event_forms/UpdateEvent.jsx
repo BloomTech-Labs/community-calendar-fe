@@ -26,11 +26,6 @@ export default function UpdateEvent({history}) {
     {loading: mutationLoading, data: mutationData, error: mutationError},
   ] = useMutation(UPDATE_EVENT)
 
-  const updateEventHandler = data => {
-    const {variables} = data
-    updateEvent({variables: {id: queryParams.id, ...variables}})
-  }
-
   // render loading spinner or error message if fetch fails
   if (loading)
     return (
@@ -43,8 +38,23 @@ export default function UpdateEvent({history}) {
     )
   if (error) return <p>Error</p>
 
-  // destructure and render event form with initial values if fetch successful
+  // destructure event details if fetch successful
   const item = data.events[0]
+  console.log(item)
+
+  // create updateEventHandler to pass eventId and loactionId into the mutation
+  const updateEventHandler = data => {
+    const {variables} = data
+    updateEvent({variables: {
+      eventId: item.id,
+      locationId: item.locations[0].id,
+      ...variables
+    }}).then(res => {
+      console.log(res)
+    })
+  }
+
+  // redirect if user is not the one who created the event
   if (
     userId &&
     data &&
@@ -54,6 +64,7 @@ export default function UpdateEvent({history}) {
     return <Redirect to='/'></Redirect>
   }
 
+  // render event form by passing in the event details from state
   return (
     <EventForm
       formType='update'

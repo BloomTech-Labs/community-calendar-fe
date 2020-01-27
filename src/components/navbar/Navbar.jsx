@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react'
 import {useAuth0} from '../../contexts/auth0-context.jsx'
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import ReactGA from 'react-ga'
 import gql from 'graphql-tag'
 import navUtils from './navbar_utils'
@@ -8,7 +8,7 @@ import {useDropdown} from '../../utils'
 
 //components
 import {CCLogo, MapMarkerCircle, DropdownIcon} from 'icons'
-import NavbarSearchBox from './NavbarSearchBox'
+import Searchbar from 'searchbar/Searchbar'
 import Geocoder from 'geocoder/Geocoder'
 
 //styles
@@ -19,6 +19,8 @@ import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_CACHE} from '../../graphql'
 
 export default function Navbar() {
+  const pageLocation = useLocation()
+
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
 
@@ -91,7 +93,9 @@ export default function Navbar() {
           <CCLogo dimensions={35} />
         </Link>
         <div className='is-hidden-tablet'>
-          <NavbarSearchBox />
+          {!/\/search/i.test(pageLocation.pathname) && (
+            <Searchbar cb={() => setNavMenuIsOpen(false)} />
+          )}
         </div>
         <a
           role='button'
@@ -117,8 +121,7 @@ export default function Navbar() {
       >
         <div className='navbar-start '>
           <div className='is-hidden-mobile'>
-            {' '}
-            <NavbarSearchBox />
+            {!/\/search/i.test(pageLocation.pathname) && <Searchbar />}
           </div>
         </div>
         <div className='navbar-end'>

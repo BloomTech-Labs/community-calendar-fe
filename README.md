@@ -69,6 +69,12 @@ Install the [Prettier](https://marketplace.visualstudio.com/items?itemName=esben
 
 This project use Sass for stying. The Bulma library was incorporated to speed up development.
 
+Webpack will convert kabob-case class names in modules to camelCase.
+
+So '.best-class-ever' in App.module.scss must be used in App.jsx as '.bestClassEver'.
+
+Kabob-case class names are not altered for classes created in non-module style sheets.
+
 `src/styles/` - contains classes, mixins, and variables that are used throughout the application.
 
 `src/styles/_variables.scss` - contains variables such as colors, padding, and border radius that can be used within classes and mixins. To override a Bulma variable add a variable with the same name to this file. To use the variables in a component module this file file must be imported.

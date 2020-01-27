@@ -3,64 +3,52 @@ import {useLocation} from 'react-router-dom'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_EVENTS_WITH_DISTANCE, GET_CACHE} from '../graphql'
+import {GET_EVENTS_FILTERED, GET_CACHE} from '../graphql'
 
 // Components
 import EventList from 'events/EventList'
 import FilterBtns from 'event_fltr_btns/EvntFltrBtns'
 import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
-
-import {filterByDistance} from '../utils'
+import Searchbar from 'searchbar/Searchbar'
 
 const SearchResults = () => {
   // local cache data
   const client = useApolloClient()
-  const {data: localCache} = useQuery(GET_CACHE)
-  const {userLatitude, userLongitude, maxDistance} = localCache
-
-  // gql
-  const {loading, error, data: apolloData, refetch} = useQuery(
-    GET_EVENTS_WITH_DISTANCE,
-    {
-      variables: {userLatitude: userLatitude, userLongitude: userLongitude},
-    },
-  )
+  const {
+    data: {userLatitude, userLongitude, maxDistance},
+  } = useQuery(GET_CACHE)
 
   // set up filter
   let location = useLocation()
-  // get search values from  uri
+  // create a search params object
   const urlQS = new URLSearchParams(location.search)
-  //make request using query params
-  const data = {...apolloData}
-  // create array of search words
-  let searchTxtArr = urlQS.get('searchText').split(' ')
+  // get searchText from query string and format string for gql query
+  let searchTxt = `,${urlQS.get('searchText').replace(' ', ',')},`
 
-  // filter results using searchString
-  if (!loading && data.events) {
-    const filtered = data.events.filter(event => {
-      return searchTxtArr.some(word => {
-        word = word.toLowerCase()
-        return (
-          event.title.toLowerCase().includes(word) ||
-          event.description.toLowerCase().includes(word) ||
-          event.tags.reduce((result, tag) => {
-            return tag.title.toLowerCase() == word ? (result = true) : result
-          }, false)
-        )
-      })
-    })
-    // apply filtered events to data.events
-    data.events = [...filtered]
-  }
-
-  // find distance from user and update events with results if user location changes
-  useEffect(() => {
-    refetch({userLatitude, userLongitude})
-  }, [userLatitude, userLongitude])
+  // gql
+  const {loading, error, data, refetch} = useQuery(GET_EVENTS_FILTERED, {
+    variables: {
+      userLatitude: userLatitude || undefined,
+      userLongitude: userLongitude || undefined,
+      useLocation: !!(userLatitude && userLongitude),
+      searchFilters: {
+        location:
+          userLatitude && userLongitude && maxDistance
+            ? {
+                userLatitude: userLatitude,
+                userLongitude: userLongitude,
+                radius: maxDistance,
+              }
+            : undefined,
+        index: searchTxt ? searchTxt : undefined,
+      },
+    },
+  })
 
   return (
     <div className='page-wrapper'>
       <section className='section mobile-section'>
+        <Searchbar isLarge />
         <div className='is-flex level justify-between is-dark '>
           <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
             Search Results
