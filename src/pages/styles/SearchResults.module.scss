@@ -1,0 +1,12 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/_all.sass';
+
+.filtersEventsWrap {
+  display: grid;
+  grid-template-columns: 100%;
+  @include tablet {
+    grid-template-columns: 20% 80%;
+    gap: $gap-md;
+  }
+}

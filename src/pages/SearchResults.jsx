@@ -10,6 +10,10 @@ import EventList from 'events/EventList'
 import FilterBtns from 'event_fltr_btns/EvntFltrBtns'
 import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
 import Searchbar from 'searchbar/Searchbar'
+import FilterMenu from 'filters/FilterMenu'
+
+//Styles
+import {filtersEventsWrap} from './styles/SearchResults.module.scss'
 
 const SearchResults = () => {
   // local cache data
@@ -63,11 +67,15 @@ const SearchResults = () => {
             />
           )}
         </div>
-        <FilterBtns refetch={refetch} />
-        <EventList
-          apolloData={{loading, error, data}}
-          maxDistance={maxDistance}
-        />
+        <div className={filtersEventsWrap}>
+          <FilterMenu />
+          <div>
+            <EventList
+              apolloData={{loading, error, data}}
+              maxDistance={maxDistance}
+            />
+          </div>
+        </div>
       </section>
     </div>
   )

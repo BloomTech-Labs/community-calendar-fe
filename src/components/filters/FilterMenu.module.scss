@@ -1,0 +1,13 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/_all.sass';
+
+.filterWrapper {
+  width: 100%;
+  @include tablet {
+    padding-right: $gap-md;
+    margin-right: $gap-md;
+    min-height: 500px;
+    border-right: 1px solid $iconLight;
+  }
+}
