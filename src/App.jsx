@@ -21,6 +21,7 @@ import EventView from './pages/EventView'
 import UpdateEventPage from './pages/UpdateEventPage'
 import CreateEventPage from './pages/CreateEventPage'
 import SearchResults from './pages/SearchResults'
+import UserProfile from './pages/UserProfile'
 
 //components
 import Navbar from 'navbar/Navbar'
@@ -123,6 +124,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/create-event' component={CreateEventPage} />
+        <Route path='/myprofile' component={UserProfile} />
         <Route exact path='/events/:id' component={EventView} />
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />
