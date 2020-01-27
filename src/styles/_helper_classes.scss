@@ -112,8 +112,8 @@
 
   @include tablet-up {
     padding: {
-      left: 2 * $gap-sm;
-      right: 2 * $gap-sm;
+      left: $gap;
+      right: $gap;
     }
   }
 }
@@ -167,4 +167,14 @@ a.tag.tag-hover,
 .flip {
   transition: transform $duration-short;
   transform: rotate(180deg);
+}
+
+.willFadeIn {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fadeIn {
+  opacity: 1;
+  visibility: visible;
 }

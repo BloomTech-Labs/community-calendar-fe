@@ -1,8 +1,9 @@
 //============= Palette =============
 $red: #ff2d2d;
 $bittersweet: #ff6768;
+$primary: $bittersweet; // override bulma
 $sunsetOrange: #ff4b4d;
-$danger: $sunsetOrange;
+$danger: $sunsetOrange; // override bulma
 $shark: #21242c;
 $astronaut: #263d67;
 $chalice: #acaaaa;
@@ -34,7 +35,7 @@ $bodyPaddingX-hd: $gap;
 $mobile-xs: 499px;
 
 //============= Component Sizes =============
-$container-width: 1200px; // used for setting max-width of  content
+$container-width: 1035px; // used for setting max-width of  content
 $navbar-height: 72px;
 $navbar-padding-vertical: $gap-xs;
 $gridCard-w: 320px;

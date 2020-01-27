@@ -71,21 +71,27 @@ export default function EventListCard(props) {
           {item.title}
         </p>
         {Math.ceil(
-                    moment.duration(moment(item.end).diff(moment(item.start))).asDays(),
-                  ) === 1 && <p className='is-size-6'>
-          <span data-id='event_time' className='color_chalice'>
-          {`${moment(item.start).format('ddd, MMMM Do YYYY')}`}
-          </span>
-        </p>}
+          moment.duration(moment(item.end).diff(moment(item.start))).asDays(),
+        ) === 1 && (
+          <p className='is-size-6'>
+            <span data-id='event_time' className='color_chalice'>
+              {`${moment(item.start).format('ddd, MMMM Do YYYY')}`}
+            </span>
+          </p>
+        )}
         <p className='is-size-6'>
           <span data-id='event_time' className='color_chalice'>
-          {Math.ceil(
-                    moment.duration(moment(item.end).diff(moment(item.start))).asDays(),
-                  ) === 1 ? `${moment(item.start).format('h:mm a')} - ${moment(
-              item.end,
-            ).format('h:mm a')}` : `${moment(item.start).format('MMM Do YYYY h:mm a')} - ${moment(
-                      item.end,
-                    ).format('MMM Do YYYY h:mm a')}`}
+            {Math.ceil(
+              moment
+                .duration(moment(item.end).diff(moment(item.start)))
+                .asDays(),
+            ) === 1
+              ? `${moment(item.start).format('h:mm a')} - ${moment(
+                  item.end,
+                ).format('h:mm a')}`
+              : `${moment(item.start).format('MMM Do YYYY h:mm a')} - ${moment(
+                  item.end,
+                ).format('MMM Do YYYY h:mm a')}`}
           </span>
           &nbsp;
           <span>&#8226;</span>

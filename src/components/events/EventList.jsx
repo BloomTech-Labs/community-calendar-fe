@@ -17,6 +17,7 @@ import {
   isMultiline,
   isNarrow,
   isMobile,
+  cardWrapper,
   grid_container,
   list_container,
   iconDivider,
@@ -29,25 +30,9 @@ EventList shows events passed in on the apolloData prop to the user
 -Filtering by distance happens when parent component passes `maxDistance` prop
 */
 
-export default function EventList({
-  apolloData: {data, loading, error},
-  maxDistance,
-}) {
+export default function EventList({apolloData: {data, loading, error}}) {
   // useListView determines if the cards should be displayed as list or grid
   const [useListView, setShowListView] = useState(true)
-
-  // Filter by distance radius
-  let eventsToDisplay = []
-
-  // If maxDistance filter passed in, filter out events that are too far away
-  // If no maxDistance filter passed in, render all events on `data.events`
-  if (!loading && !error) {
-    if (maxDistance && data.events) {
-      eventsToDisplay = filterByDistance(maxDistance, data.events)
-    } else {
-      eventsToDisplay = [...data.events]
-    }
-  }
 
   return (
     <>
@@ -74,36 +59,40 @@ export default function EventList({
       </div>
 
       {/* List of events */}
-      <div
-        className={` ${
-          useListView
-            ? `${list_container} ${columns} ${isMultiline}`
-            : grid_container
-        }`}
-      >
-        {/* Render loading spinner during fetch or error message on error */}
-        {loading && <LoadingLogo dimensions={50} />}
-        {error && <p>Error fetching data from the server, please refresh the page</p>}
+      <div className={cardWrapper}>
+        <div
+          className={` ${
+            useListView
+              ? `${list_container} ${columns} ${isMultiline}`
+              : grid_container
+          }`}
+        >
+          {/* Render loading spinner during fetch or error message on error */}
+          {loading && <LoadingLogo dimensions={50} />}
+          {error && (
+            <p>Error fetching data from the server, please refresh the page</p>
+          )}
 
-        {/* Render EventListCards for each item in `eventsToDisplay` array */}
-        {!loading &&
-          data &&
-          eventsToDisplay.map(item => (
-            <EventListCard
-              item={item}
-              key={item.id}
-              useListView={useListView}
-            />
-          ))}
+          {/* Render EventListCards for each item in `eventsToDisplay` array */}
+          {!loading &&
+            !error &&
+            data.events.map(item => (
+              <EventListCard
+                item={item}
+                key={item.id}
+                useListView={useListView}
+              />
+            ))}
 
-        {/* Inform user if query/filtering resolves to empty array with no error */}
-        {!loading && data && !eventsToDisplay.length && (
-          <div className='container'>
-            <h5 className='has-text-centered color_chalice'>
-              No events found for the selected date(s)
-            </h5>
-          </div>
-        )}
+          {/* Inform user if query/filtering resolves to empty array with no error */}
+          {!loading && data && !data.events.length && (
+            <div className='container'>
+              <h5 className='has-text-centered color_chalice'>
+                No events found for the selected date(s)
+              </h5>
+            </div>
+          )}
+        </div>
       </div>
     </>
   )

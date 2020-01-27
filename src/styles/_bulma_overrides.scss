@@ -129,7 +129,7 @@
     }
   }
 
-  &-search {
+  /*   &-search {
     margin-left: $gap-xs;
     margin-right: $gap-xs;
     display: flex;
@@ -138,16 +138,38 @@
     max-width: 300px;
     transition: width 0.4s;
 
+    button {
+      display: none;
+      position: absolute;
+      right: 8px;
+      transition: all $duration-short !important;
+    }
+
     @include tablet {
       margin-left: $gap-md;
-      max-width: 350px;
-      flex-grow: 1;
+      width: 350px;
+      button {
+        display: inline-block;
+      }
+    }
+
+    @include desktop {
+      width: 400px;
     }
 
     &-input {
-      width: initial;
+      padding-left: $gap-xxs !important;
+      border-radius: $radius !important;
+      border: none !important;
+      box-shadow: 0.3px 0.3px 4px rgba(0, 0, 0, 0.1),
+        -0.3px -0.3px 4px rgba(0, 0, 0, 0.1) !important;
+      &:focus {
+        box-shadow: 0.3px 0.3px 4px rgba(0, 0, 0, 0.6),
+          -0.3px -0.3px 4px rgba(0, 0, 0, 0.6) !important;
+      }
     }
   }
+ */
 }
 
 // ===== Dropdown =====
@@ -267,16 +289,7 @@
 }
 
 .button.is-dark {
-  height: initial;
-  border: 2px solid $shark;
-  transition: background-color $duration-short, color $duration-short,
-    font-weight $duration-short;
-  &:hover {
-    background-color: $white;
-    color: $shark;
-    border-color: $shark;
-    font-weight: bold;
-  }
+  @include cc-button($shark, $white, $shark, $shark, $white, $shark);
   &.is-fake:hover {
     background-color: $shark;
     color: $white;
@@ -284,6 +297,14 @@
   }
 }
 
+.button.is-primary {
+  @include cc-button($primary, $white, $primary, $primary, $white, $primary);
+  &.is-fake:hover {
+    background-color: $primary;
+    color: $white;
+    font-weight: normal;
+  }
+}
 // ===== Tag Classes =====
 .tag {
   border: 1px solid $black-bis;

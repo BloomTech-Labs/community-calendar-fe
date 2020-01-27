@@ -20,6 +20,37 @@ export const ADDRESS_DETAIL_DATA = gql`
     state
   }
 `
+
+export const SEARCH_FILTERS = gql`
+  input SearchFilters {
+    index: String
+    location: LocationFilters
+    tags: [String!]
+    ticketPrice: [PriceFilters!]
+    dateRange: DateFilters
+  }
+`
+export const PRICE_FILTER = gql`
+  input PriceFilters {
+    minPrice: Int
+    maxPrice: Int
+  }
+`
+export const DATE_FILTER = gql`
+  input DateFilters {
+    start: DateTime!
+    end: DateTime!
+  }
+`
+
+export const LOCATION_FILTER = gql`
+  input LocationFilters {
+    userLatitude: Float!
+    userLongitude: Float!
+    radius: Int!
+  }
+`
+
 export const GET_EVENTS = gql`
   query EventsByRange($start: DateTime, $end: DateTime) {
     events(
@@ -191,6 +222,45 @@ export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
       saved(where: {id: $savedUserId}) @include(if: $withSaved) {
         id
         firstName
+      }
+    }
+  }
+  ${EVENT_DETAIL_DATA}
+  ${ADDRESS_DETAIL_DATA}
+`
+export const GET_EVENTS_FILTERED = gql`
+  query EventsFiltered(
+    $id: ID
+    $userLatitude: Float
+    $userLongitude: Float
+    $searchFilters: SearchFilters
+    $useLocation: Boolean!
+  ) {
+    events(where: {id: $id}, searchFilters: $searchFilters) {
+      ...EventDetail
+      creator {
+        id
+      }
+      locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
+        id
+        name
+        latitude
+        longitude
+        distanceFromUser @include(if: $useLocation)
+        distanceUnit @include(if: $useLocation)
+        ...AddressDetail
+      }
+
+      eventImages {
+        url
+      }
+      tags {
+        title
+      }
+      rsvps {
+        id
+        firstName
+        lastName
       }
     }
   }
