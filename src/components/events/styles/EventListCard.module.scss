@@ -64,7 +64,8 @@ a.list-card {
 a.grid-card {
   display: inline-flex;
   flex-direction: column;
-  width: 307px;
+  width: 100%;
+  max-width: 307px;
   min-height: 401px;
   border-radius: $radius-small;
 

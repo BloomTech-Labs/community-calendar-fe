@@ -6,6 +6,7 @@
   display: grid;
   grid-template-columns: 100%;
   @include tablet {
+    margin-top: $gap-md;
     grid-template-columns: 20% 80%;
     gap: $gap-md;
   }
