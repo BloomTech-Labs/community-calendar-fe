@@ -13,7 +13,6 @@ import {
 const UserProfile = () => {
 
   const [isEditing, setIsEditing] = useState(false);
-  console.log("isEditing in UserProfile:", isEditing);
 
   return (
     <div className={userProfile}>
