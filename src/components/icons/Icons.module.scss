@@ -40,7 +40,8 @@
 }
 
 .grid,
-.list {
+.list,
+.gear {
   path {
     @include iconFillTransition();
     fill: $iconLight;
