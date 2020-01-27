@@ -69,7 +69,7 @@ const EventForm = props => {
   Destructure the `register` value handler, submit handler, and error handler
   Ternary maps values passed in on `item` prop as default values for `update` forms
   yup validationSchema imported from `eventSchema.js` */
-  const {register, handleSubmit, errors: formErrors} =
+  const {register, handleSubmit, errors: formErrors, getValues, setValue} =
     formType === 'update' && item
       ? useForm({
           validationSchema: eventSchema,
@@ -380,6 +380,9 @@ const EventForm = props => {
               type='text'
               name='ticketPrice'
               ref={register}
+              onBlur={() => setValue("ticketPrice", getValues().ticketPrice || "0")}
+              onFocus={() => getValues().ticketPrice === "0" && setValue("ticketPrice", "")}
+              defaultValue="0"
             />
             <p className={`is-size-7 ${errorMessage}`}>
               <ErrorMessage errors={formErrors} name='ticketPrice' />
