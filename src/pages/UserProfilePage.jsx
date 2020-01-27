@@ -2,32 +2,11 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 //  Components
-import GearIcon from 'icons/GearIcon'
-
-
-
-import {
-  userProfile,
-  profileInfo,
-  userEvents,
-  userInfo
-} from "./styles/UserProfilePage.module.scss"
+import UserProfile from '../components/user_profile/UserProfile'
 
 
 const UserProfilePage = () => {
-  return (
-    <div className={userProfile}>
-      <div className={profileInfo}>
-        <GearIcon />
-        <div className={userInfo}>
-        
-        </div>
-      </div>
-      <div className={userEvents}>
-        <p>User Events</p>
-      </div>
-    </div>
-  )
+  return <UserProfile />
 }
 
 export default UserProfilePage
