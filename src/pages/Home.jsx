@@ -26,19 +26,20 @@ const Home = () => {
   // local cache data
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
-  let {userLatitude, userLongitude, maxDistance} = localCache
   const apolloData = useQuery(GET_EVENTS_FILTERED, {
     variables: {
-      userLatitude: userLatitude || undefined,
-      userLongitude: userLongitude || undefined,
-      useLocation: !!(userLatitude && userLongitude),
+      userLatitude: localCache.userLatitude || undefined,
+      userLongitude: localCache.userLongitude || undefined,
+      useLocation: !!(localCache.userLatitude && localCache.userLongitude),
       searchFilters: {
         location:
-          userLatitude && userLongitude && maxDistance
+          localCache.userLatitude &&
+          localCache.userLongitude &&
+          localCache.maxDistance
             ? {
-                userLatitude: userLatitude,
-                userLongitude: userLongitude,
-                radius: maxDistance,
+                userLatitude: localCache.userLatitude,
+                userLongitude: localCache.userLongitude,
+                radius: localCache.maxDistance,
               }
             : undefined,
       },
@@ -49,21 +50,27 @@ const Home = () => {
   // find distance from user and update events with results if user location changes
   useEffect(() => {
     refetch({
-      useLocation: !!(userLatitude && userLongitude),
-      userLatitude: userLatitude || undefined,
-      userLongitude: userLongitude || undefined,
+      useLocation: !!(localCache.userLatitude && localCache.userLongitude),
+      userLatitude: localCache.userLatitude || undefined,
+      userLongitude: localCache.userLongitude || undefined,
       searchFilters: {
         location:
-          userLatitude && userLongitude && maxDistance
+          localCache.userLatitude &&
+          localCache.userLongitude &&
+          localCache.maxDistance
             ? {
-                userLatitude: userLatitude,
-                userLongitude: userLongitude,
-                radius: maxDistance,
+                userLatitude: localCache.userLatitude,
+                userLongitude: localCache.userLongitude,
+                radius: localCache.maxDistance,
               }
             : undefined,
       },
     })
-  }, [userLatitude, userLongitude, maxDistance])
+  }, [
+    localCache.userLatitude,
+    localCache.userLongitude,
+    localCache.maxDistance,
+  ])
 
   return (
     <div className='page-wrapper'>
@@ -81,12 +88,12 @@ const Home = () => {
           <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
             Events
           </h3>
-          {userLatitude && userLongitude && (
+          {localCache.userLatitude && localCache.userLongitude && (
             <DistanceDropdown
               client={client}
-              userLat={userLatitude}
-              userLong={userLongitude}
-              maxDistance={maxDistance}
+              userLat={localCache.userLatitude}
+              userLong={localCache.userLongitude}
+              maxDistance={localCache.maxDistance}
             />
           )}
         </div>
