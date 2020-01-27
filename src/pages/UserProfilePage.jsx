@@ -11,10 +11,10 @@ import {
   profileInfo,
   userEvents,
   userInfo
-} from "./styles/UserProfile.module.scss"
+} from "./styles/UserProfilePage.module.scss"
 
 
-const UserProfile = () => {
+const UserProfilePage = () => {
   return (
     <div className={userProfile}>
       <div className={profileInfo}>
@@ -30,4 +30,4 @@ const UserProfile = () => {
   )
 }
 
-export default UserProfile
+export default UserProfilePage

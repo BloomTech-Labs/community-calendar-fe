@@ -21,7 +21,7 @@ import EventView from './pages/EventView'
 import UpdateEventPage from './pages/UpdateEventPage'
 import CreateEventPage from './pages/CreateEventPage'
 import SearchResults from './pages/SearchResults'
-import UserProfile from './pages/UserProfile'
+import UserProfile from './pages/UserProfilePage'
 
 //components
 import Navbar from 'navbar/Navbar'
