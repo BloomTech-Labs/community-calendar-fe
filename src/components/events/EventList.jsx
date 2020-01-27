@@ -75,7 +75,7 @@ export default function EventList({apolloData: {data, loading, error}}) {
 
           {/* Render EventListCards for each item in `eventsToDisplay` array */}
           {!loading &&
-            data.events &&
+            !error &&
             data.events.map(item => (
               <EventListCard
                 item={item}

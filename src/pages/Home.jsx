@@ -32,6 +32,7 @@ const Home = () => {
       userLatitude: userLatitude || undefined,
       userLongitude: userLongitude || undefined,
       useLocation: !!(userLatitude && userLongitude),
+      index: undefined,
       searchFilters: {
         location:
           userLatitude && userLongitude && maxDistance
@@ -41,6 +42,7 @@ const Home = () => {
                 radius: maxDistance,
               }
             : undefined,
+        index: undefined,
       },
     },
   })
@@ -152,7 +154,6 @@ const Home = () => {
             setEventRange={setEventRange}
           />
         )}
-        {/*yes*/}
         <EventList apolloData={{data, loading, error}} />
       </section>
     </div>

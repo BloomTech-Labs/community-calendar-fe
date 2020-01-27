@@ -235,6 +235,7 @@ export const GET_EVENTS_FILTERED = gql`
     $userLongitude: Float
     $searchFilters: SearchFilters
     $useLocation: Boolean!
+    $index: String
   ) {
     events(where: {id: $id}, searchFilters: $searchFilters) {
       ...EventDetail
