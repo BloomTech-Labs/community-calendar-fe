@@ -1,7 +1,15 @@
 import React from 'react'
 
+import {
+  userEvents
+} from './UserProfile.module.scss'
+
 const UserEvents = () => {
-  return <p>UserEvents</p>
+  return (
+    <div className={userEvents}>
+      <p>User Events</p>
+  </div>
+  )
 }
 
 export default UserEvents

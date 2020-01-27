@@ -6,6 +6,12 @@
   }
 }
 
+.gearActive {
+  path {
+    fill: $white !important;
+  }
+}
+
 @mixin iconFillTransition {
   transition: fill $duration-short;
 }

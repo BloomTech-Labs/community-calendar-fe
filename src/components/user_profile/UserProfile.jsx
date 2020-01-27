@@ -1,26 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 
+import UserInfo from './UserInfo'
+import UserEvents from './UserEvents'
+import EditUserForm from './EditUserForm'
 import GearIcon from '../icons/GearIcon'
 
 import {
   userProfile,
-  profileInfo,
-  userInfo,
-  userEvents
+  profileInfo
 } from './UserProfile.module.scss'
 
 const UserProfile = () => {
+
+  const [isEditing, setIsEditing] = useState(false);
+  console.log("isEditing in UserProfile:", isEditing);
+
   return (
     <div className={userProfile}>
-      <div className={profileInfo}>
-        <GearIcon />
-        <div className={userInfo}>
-        
-        </div>
+      <div onClick={() => setIsEditing(!isEditing)} className={profileInfo}>
+        <GearIcon isActive={isEditing} />
+        {isEditing ? <EditUserForm /> : <UserInfo />}
       </div>
-      <div className={userEvents}>
-        <p>User Events</p>
-      </div>
+      <UserEvents />
     </div>
   )
 }

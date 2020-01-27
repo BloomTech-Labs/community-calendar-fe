@@ -1,7 +1,15 @@
 import React from 'react'
 
+import {
+  userInfo
+} from './UserProfile.module.scss'
+
 const UserInfo = () => {
-  return <p>UserInfo</p>
+  return (
+    <div className={userInfo}>  
+      <p>UserInfo</p>
+    </div>
+  ) 
 }
 
 export default UserInfo

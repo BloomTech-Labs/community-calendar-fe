@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {gear, active} from './Icons.module.scss'
+import {gear, gearActive} from './Icons.module.scss'
 
 /* Used to edit user profile settings */
 const GearIcon = ({dimensions, dataId, isActive}) => {
   return (
     <svg
-      className={` ${isActive ? active : ''} ${gear}`}
+      className={` ${isActive ? gearActive : ''} ${gear}`}
       data-id={dataId}
       width={dimensions ? dimensions : 24}
       height={dimensions ? dimensions : 24}

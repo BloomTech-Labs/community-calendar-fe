@@ -23,7 +23,8 @@
     @include tablet {
       max-width: 25.6vw;
     }
-    .userInfo {
+    .userInfo,
+    .editUserForm {
       display: flex;
       flex-flow: column nowrap;
       align-items: center;
