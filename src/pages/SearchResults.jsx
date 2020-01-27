@@ -20,18 +20,16 @@ const SearchResults = () => {
 
   // set up filter
   let location = useLocation()
-  // get search values from  uri
+  // create a search params object
   const urlQS = new URLSearchParams(location.search)
-  // format string for gql query
+  // get searchText from query string and format string for gql query
   let searchTxt = `,${urlQS.get('searchText').replace(' ', ',')},`
-  console.log('searchTxt', searchTxt)
 
   // gql
   const {loading, error, data, refetch} = useQuery(GET_EVENTS_FILTERED, {
     variables: {
       userLatitude: userLatitude || undefined,
       userLongitude: userLongitude || undefined,
-      index: searchTxt || undefined,
       useLocation: !!(userLatitude && userLongitude),
       searchFilters: {
         location:
