@@ -51,7 +51,8 @@ const SearchResults = () => {
         <Searchbar isLarge />
         <div className='is-flex level justify-between is-dark '>
           <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
-            Search Results
+            Search Results&nbsp;:&nbsp;
+            {urlQS.get('searchText').replace(' ', ', ')}
           </h3>
           {userLatitude && userLongitude && (
             <DistanceDropdown
