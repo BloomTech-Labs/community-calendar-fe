@@ -160,7 +160,7 @@ const EventForm = props => {
 
   const onTicketPriceBlur = () => {
     const ticketPriceVal = getValues().ticketPrice;
-    setValue("ticketPrice", ticketPriceVal ? parseFloat(getValues().ticketPrice).toFixed(2) : "0")
+    setValue("ticketPrice", ticketPriceVal ? parseFloat(getValues().ticketPrice).toFixed(2) : "0.00")
   }
 
   // submit handler pulls together state from all sources and creates a mutation request
