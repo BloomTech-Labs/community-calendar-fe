@@ -13,4 +13,8 @@
     border-right: 1px solid $iconLight;
     margin-top: $gap-md + 6px;
   }
+
+  &.mobile {
+    @include shadow-br;
+  }
 }

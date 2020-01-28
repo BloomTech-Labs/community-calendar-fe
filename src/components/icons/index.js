@@ -9,6 +9,7 @@ import SearchIcon from './SearchIcon'
 import MapMarkerCircle from './MapMarkerCircle'
 import UploadIcon from './UploadIcon'
 import FilterIcon from './FilterIcon'
+import CloseIconSquare from './CloseIconSquare'
 
 export {
   ArrowIcon,
@@ -22,4 +23,5 @@ export {
   MapMarkerCircle,
   UploadIcon,
   FilterIcon,
+  CloseIconSquare,
 }

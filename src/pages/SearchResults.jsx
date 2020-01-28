@@ -12,7 +12,7 @@ import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
 import Searchbar from 'searchbar/Searchbar'
 import FilterMenu from 'filters/FilterMenu'
 import ViewToggle from 'events/ViewToggle'
-import {FilterIcon} from 'icons'
+import {FilterIcon, CloseIconSquare} from 'icons'
 
 //Styles
 import {
@@ -58,6 +58,9 @@ const SearchResults = () => {
   // used to set cards to list or grid
   const [useListView, setShowListView] = useState(true)
 
+  // toggle the Filters menu open/closed
+  const [filtersIsOpen, setFiltersIsOpen] = useState(false)
+
   return (
     <div className='page-wrapper'>
       <section className='section mobile-section'>
@@ -77,24 +80,25 @@ const SearchResults = () => {
           className='is-hidden-tablet is-flex level'
           style={{margin: '16px 0'}}
         >
-          <FilterIcon dimensions={30} />
+          <div
+            className='is-clickable is-flex level'
+            onClick={() => setFiltersIsOpen(!filtersIsOpen)}
+          >
+            {filtersIsOpen ? (
+              <CloseIconSquare dimensions={30} />
+            ) : (
+              <FilterIcon dimensions={30} />
+            )}
+          </div>
           <ViewToggle toggleFunc={setShowListView} viewState={useListView} />
         </div>
-        {/*
-        <div>
-            {userLatitude && userLongitude && (
-            <DistanceDropdown
-              client={client}
-              userLat={userLatitude}
-              userLong={userLongitude}
-              maxDistance={maxDistance}
-            />
-          )}
-  </div>
-*/}
         <div className='is-relative'>
-          <div className={`${hiddenMenu} is-hidden-tablet`}>
-            <FilterMenu />
+          <div
+            className={`${hiddenMenu} is-hidden-tablet ${
+              filtersIsOpen ? 'slideInR2L ' : 'willSlideInR2L'
+            }`}
+          >
+            <FilterMenu mobile />
           </div>
         </div>
         <div className={filtersEventsWrap}>

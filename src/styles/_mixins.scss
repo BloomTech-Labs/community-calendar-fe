@@ -19,6 +19,11 @@
   margin: 0 auto;
 }
 
+// ===== Shadow and Border =====
+@mixin shadow-br {
+  box-shadow: 8px 8px 10px -5px rgba(0, 0, 0, 0.5);
+}
+
 // ===== Button =====
 @mixin cc-button($bgClr, $bgClrHvr, $borderClr, $borderClrHvr, $clr, $clrHvr) {
   height: initial;
@@ -83,6 +88,7 @@ Default direction is horizontal . Pass 'y' for vertical divider
 }
 
 // ===== Hover Effects and Animations =====
+
 @mixin hover-shadow {
   &:hover {
     box-shadow: 8px 8px 10px -5px rgba(0, 0, 0, 0.5);
