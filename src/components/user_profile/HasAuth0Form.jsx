@@ -20,7 +20,8 @@ import {
   editTitleWrap,
   editTitleField,
   editAboutMeWrap,
-  editAboutMe
+  editAboutMe,
+  editAboutMeTextArea
 } from './UserProfile.module.scss'
 
 const HasAuth0Form = () => {
@@ -58,13 +59,13 @@ const HasAuth0Form = () => {
       <div className={aboutUser}>
         <small className={profileSmall}>About Me</small>
         <div className={`${editAboutMeWrap} field`}>
-        <label className={`${editAboutMe} label`}>
-          Edit 'About Me':
-          <div className="control">
-            <textarea className={`textarea`} placeholder="About Me" ></textarea>
-          </div>
-        </label>
-      </div>
+          <label className={`${editAboutMe} label`}>
+            Edit 'About Me':
+            <div className="control">
+              <textarea className={`${editAboutMeTextArea} textarea`} placeholder="About Me" ></textarea>
+            </div>
+          </label>
+        </div>
       </div>
   </>
   )

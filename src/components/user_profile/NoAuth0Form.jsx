@@ -12,7 +12,16 @@ import {
   profileSmall,
   eventNumbers,
   evNum,
-  aboutUser
+  aboutUser,
+  editTitleWrap,
+  editTitle,
+  editTitleField,
+  editAboutMeWrap,
+  editAboutMe,
+  editNameWrap,
+  editName,
+  editNameField,
+  editAboutMeTextArea
 } from './UserProfile.module.scss'
 
 const NoAuth0Form = () => {
@@ -21,8 +30,22 @@ const NoAuth0Form = () => {
       <div className={profilePhoto}>
         <p>img upload</p>
       </div>
-      <h1 className={profileUserName}>Edit Name</h1>
-      <h2 className={profileUserTitle}>Edit Title</h2>
+      <div className={`${editNameWrap} field`}>
+        <label className={`${editTitle} label`}>
+          Edit Name:
+          <div className="control">
+            <input className={`${editNameField} input`} type="text" placeholder={`Cici Adams`}></input>
+          </div>
+        </label>
+      </div>
+      <div className={`${editTitleWrap} field`}>
+        <label className={`${editName} label`}>
+          Edit Title:
+          <div className="control">
+            <input className={`${editTitleField} input`} type="text" placeholder={`Event Organizer`}></input>
+          </div>
+        </label>
+      </div>
       <div className={location}>
         <LocationPin />
         <small className={profileSmall}>San Francisco, CA</small>
@@ -43,7 +66,14 @@ const NoAuth0Form = () => {
       </div>
       <div className={aboutUser}>
         <small className={profileSmall}>About Me</small>
-        <p>Edit About me Text Area</p>
+        <div className={`${editAboutMeWrap} field`}>
+          <label className={`${editAboutMe} label`}>
+            Edit 'About Me':
+            <div className="control">
+              <textarea className={`${editAboutMeTextArea} textarea`} placeholder="About Me" ></textarea>
+            </div>
+          </label>
+        </div>
       </div>
     </>
   )

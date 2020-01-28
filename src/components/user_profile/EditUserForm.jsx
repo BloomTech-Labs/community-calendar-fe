@@ -38,15 +38,17 @@ const EditUserForm = () => {
 
   // conditionally renders components based on Auth0
   return (
-    <div className={editUserForm}>  
-      {hasProfile ? 
-        (
-          <HasAuth0Form />
-        ) : (
-          <NoAuth0Form />
-        )
-      }
-    </div>
+    <form>
+      <div className={editUserForm}>  
+        {hasProfile ? 
+          (
+            <HasAuth0Form />
+          ) : (
+            <NoAuth0Form />
+          )
+        }
+      </div>
+    </form>
   )
 }
 

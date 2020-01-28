@@ -148,7 +148,8 @@
 
 }
 
-.editTitleWrap {
+.editTitleWrap,
+.editNameWrap {
   width: 80%;
 
   @include mobile-xs-to-tablet {
@@ -159,17 +160,35 @@
     width: 95%;
   }
 
-  .editTitle {
+  .editTitle,
+  .editName {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: $white;
+    color: $silver;
+    font-size: 0.8em;
     div {
-      .editTitleField {
+      .editTitleField,
+      .editNameField {
         border: none;
-        height: 20px;
-        border-radius: 4px;
+        background-color: $shark;
         padding-left: 5px;
+        border-bottom: solid 1px $silver;
+        &::placeholder {
+          color: $silver;
+        }
+      }
+      
+      .editNameField {
+        height: 20px;
+        margin: 14px 0;
+        @include tablet {
+          margin: 5px 0;
+        }
+      }
+      
+      .editTitleField {
+        height: 20px;
       }
     }
   }
@@ -178,6 +197,17 @@
 .editAboutMeWrap {
 
   .editAboutMe {
-    color: $white;
+    color: $silver;
+
+    div {
+
+      .editAboutMeTextArea {
+        background-color: $shark;
+
+        &::placeholder {
+          color: $silver;
+        }
+      }
+    }
   }
 }
