@@ -137,6 +137,32 @@ const EventForm = props => {
     setShowModal(!showModal)
   }
 
+  const onTicketPriceChange = () => {
+    const ticketPriceVal = getValues().ticketPrice;
+    const arrTicketPriceVal = ticketPriceVal.split("");
+
+    var hasPeriod = false;
+
+    const newTicketPriceVal = 
+        arrTicketPriceVal.filter(letter => {
+          if(letter === ".") {
+            if(hasPeriod)
+              return false;
+
+            hasPeriod = true;
+          }
+          return /[0-9.]/.test(letter)
+        }
+      ).join("");
+
+    setValue("ticketPrice", newTicketPriceVal);      
+  }
+
+  const onTicketPriceBlur = () => {
+    const ticketPriceVal = getValues().ticketPrice;
+    setValue("ticketPrice", ticketPriceVal ? parseFloat(getValues().ticketPrice).toFixed(2) : "0")
+  }
+
   // submit handler pulls together state from all sources and creates a mutation request
   const onSubmit = async formValues => {
     const {
@@ -380,8 +406,9 @@ const EventForm = props => {
               type='text'
               name='ticketPrice'
               ref={register}
-              onBlur={() => setValue("ticketPrice", getValues().ticketPrice || "0")}
+              onBlur={onTicketPriceBlur}
               onFocus={() => getValues().ticketPrice === "0" && setValue("ticketPrice", "")}
+              onChange={onTicketPriceChange}
               defaultValue="0"
             />
             <p className={`is-size-7 ${errorMessage}`}>
