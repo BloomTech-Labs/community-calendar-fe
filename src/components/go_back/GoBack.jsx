@@ -2,9 +2,9 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {BackIcon} from '../icons'
 
-const GoBack = () => {
+const GoBack = (to = "/") => {
   return (
-    <Link to="/"
+    <Link to={to}
       style={{
         position: 'absolute',
         left: '0px',
