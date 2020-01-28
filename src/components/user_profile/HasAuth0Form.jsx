@@ -12,7 +12,15 @@ import {
   hasA0Msg,
   hasA0Name,
   profileUserTitle,
-  location
+  location,
+  eventNumbers,
+  evNum,
+  aboutUser,
+  editTitle,
+  editTitleWrap,
+  editTitleField,
+  editAboutMeWrap,
+  editAboutMe
 } from './UserProfile.module.scss'
 
 const HasAuth0Form = () => {
@@ -21,10 +29,42 @@ const HasAuth0Form = () => {
       <div className={`${profilePhoto} ${hasA0Wrapper}`}></div>
       <small className={`${profileSmall} ${hasA0Msg}`}>Photo and name imported from google</small>
       <h1 className={`${profileUserName} ${hasA0Name}`}>Cici Adams</h1>
-      <h2 className={profileUserTitle}>Edit Title</h2>
+      <div className={`${editTitleWrap} field`}>
+        <label className={`${editTitle} label`}>
+          Edit Title:
+          <div className="control">
+            <input className={`${editTitleField} input`} type="text" placeholder={`Event Organizer`}></input>
+          </div>
+        </label>
+      </div>
       <div className={location}>
         <LocationPin />
-        <small className={profileSmall}>San Francisco, CA</small>
+        <small className={profileSmall}>San Francisco, California</small>
+      </div>
+      <div className={eventNumbers}>
+        <div className={`created ${evNum}`}>
+          <h4>Events Created</h4>
+          <h4>00</h4>
+        </div>
+        <div className={`saved ${evNum}`}>
+          <h4>Events Saved</h4>
+          <h4>00</h4>
+        </div>
+        <div className={`attended ${evNum}`}>
+          <h4>Events Attended</h4>
+          <h4>00</h4>
+        </div>
+      </div>
+      <div className={aboutUser}>
+        <small className={profileSmall}>About Me</small>
+        <div className={`${editAboutMeWrap} field`}>
+        <label className={`${editAboutMe} label`}>
+          Edit 'About Me':
+          <div className="control">
+            <textarea className={`textarea`} placeholder="About Me" ></textarea>
+          </div>
+        </label>
+      </div>
       </div>
   </>
   )

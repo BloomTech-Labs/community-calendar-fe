@@ -35,6 +35,8 @@ const EditUserForm = () => {
   const [ hasProfile, setHasProfile ] = useState(true);
 
 
+
+  // conditionally renders components based on Auth0
   return (
     <div className={editUserForm}>  
       {hasProfile ? 
@@ -44,26 +46,6 @@ const EditUserForm = () => {
           <NoAuth0Form />
         )
       }
-      
-
-      <div className={eventNumbers}>
-        <div className={`created ${evNum}`}>
-          <h4>Events Created</h4>
-          <h4>00</h4>
-        </div>
-        <div className={`saved ${evNum}`}>
-          <h4>Events Saved</h4>
-          <h4>00</h4>
-        </div>
-        <div className={`attended ${evNum}`}>
-          <h4>Events Attended</h4>
-          <h4>00</h4>
-        </div>
-      </div>
-      <div className={aboutUser}>
-        <small className={profileSmall}>About Me</small>
-        <p>Edit About me Text Area</p>
-      </div>
     </div>
   )
 }
