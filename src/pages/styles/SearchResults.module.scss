@@ -19,8 +19,8 @@
 }
 
 .hiddenMenu {
-  border: 1px solid red;
   position: absolute;
+  border-radius: $radius;
   background-color: white;
   transition: left $duration-short;
 }

@@ -3,7 +3,7 @@ import {useLocation} from 'react-router-dom'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_EVENTS_FILTERED, GET_CACHE} from '../graphql'
+import {GET_EVENTS_FILTERED, GET_CACHE, GET_RECENT_SEARCHES} from '../graphql'
 
 // Components
 import EventList from 'events/EventList'
@@ -22,11 +22,17 @@ import {
 } from './styles/SearchResults.module.scss'
 
 const SearchResults = () => {
+  const [recentSearches, setRecentSearches] = useState([])
   // local cache data
   const client = useApolloClient()
   const {
     data: {userLatitude, userLongitude, maxDistance},
   } = useQuery(GET_CACHE)
+
+  const {data: recentSearchesData, refetch: recentSearchesRefetch} = useQuery(
+    GET_RECENT_SEARCHES,
+  )
+  console.log('recentSearchesData', recentSearchesData)
 
   // set up filter
   let location = useLocation()
@@ -61,10 +67,57 @@ const SearchResults = () => {
   // toggle the Filters menu open/closed
   const [filtersIsOpen, setFiltersIsOpen] = useState(false)
 
+  const getRecentSearches = () => {
+    recentSearchesRefetch().then(({data: {recentSearches}}) => {
+      console.log(recentSearches.length)
+      setRecentSearches([...recentSearches])
+    })
+  }
+
+  const addASearch = () => {
+    client.writeData({
+      data: {
+        recentSearches: [
+          ...recentSearches,
+          {
+            index: 'test testy mc testness',
+            location: {
+              userLatitude: 23.999,
+              userLongitude: 24.999,
+              radius: 20,
+              __typename: 'LocationFilters',
+            },
+            tags: ['tag1', 'dogs', 'cool', 'beef stew'],
+            ticketPrice: [
+              {
+                maxPrice: 10,
+                minPrice: 0,
+                __typename: 'PriceFilters',
+              },
+              {
+                maxPrice: 30,
+                minPrice: 20,
+                __typename: 'PriceFilters',
+              },
+            ],
+            dateRange: {
+              start: '2020-01-22T17:00:00.000Z',
+              end: '2020-01-24T17:00:00.000Z',
+              __typename: 'DateFilters',
+            },
+            __typename: 'SearchFilters',
+          },
+        ],
+      },
+    })
+  }
+
   return (
     <div className='page-wrapper'>
       <section className='section mobile-section'>
         <Searchbar isLarge />
+        <button onClick={() => getRecentSearches()}>Get recent searches</button>
+        <button onClick={() => addASearch()}>Add a search</button>
         <div className='is-flex level justify-between is-dark '>
           <h3
             className={`is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis ${pageTitle}`}
@@ -95,7 +148,7 @@ const SearchResults = () => {
         <div className='is-relative'>
           <div
             className={`${hiddenMenu} is-hidden-tablet ${
-              filtersIsOpen ? 'slideInR2L ' : 'willSlideInR2L'
+              filtersIsOpen ? 'slideInL2R ' : 'willSlideInL2R'
             }`}
           >
             <FilterMenu mobile />

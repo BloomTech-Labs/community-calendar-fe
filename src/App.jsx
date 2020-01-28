@@ -1,6 +1,7 @@
 import {hot} from 'react-hot-loader/root'
 import React, {useState, useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
+import {uuid} from 'uuidv4'
 
 //auth0
 import {useAuth0} from './contexts/auth0-context.jsx'
@@ -102,6 +103,7 @@ function App() {
     cache,
     // add typedefs and resolvers for local state
     typeDefs,
+    resolvers: {},
   })
 
   // initialize apollo client in-memory cache of local state
@@ -113,6 +115,36 @@ function App() {
       userAddress: null,
       maxDistance: null,
       userId: null,
+      recentSearches: [
+        {
+          index: 'test testy mc testness',
+          location: {
+            userLatitude: 23.999,
+            userLongitude: 24.999,
+            radius: 20,
+            __typename: 'LocationFilters',
+          },
+          tags: ['tag1', 'dogs', 'cool', 'beef stew'],
+          ticketPrice: [
+            {
+              maxPrice: 10,
+              minPrice: 0,
+              __typename: 'PriceFilters',
+            },
+            {
+              maxPrice: 30,
+              minPrice: 20,
+              __typename: 'PriceFilters',
+            },
+          ],
+          dateRange: {
+            start: '2020-01-22T17:00:00.000Z',
+            end: '2020-01-24T17:00:00.000Z',
+            __typename: 'DateFilters',
+          },
+          __typename: 'SearchFilters',
+        },
+      ],
     },
   })
 

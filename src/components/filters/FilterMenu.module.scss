@@ -15,6 +15,9 @@
   }
 
   &.mobile {
+    border: 1px solid $shark;
+    padding: $gap-xxs;
+    border-radius: $radius;
     @include shadow-br;
   }
 }
