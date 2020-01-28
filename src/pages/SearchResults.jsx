@@ -53,7 +53,7 @@ const SearchResults = () => {
 
   return (
     <div className='page-wrapper'>
-        <GoBack />
+      <GoBack />
       <section className={`section mobile-section ${gobackPadding}`}>
         <Searchbar isLarge />
         <div className='is-flex level justify-between is-dark '>
