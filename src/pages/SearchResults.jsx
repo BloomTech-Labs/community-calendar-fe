@@ -12,9 +12,14 @@ import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
 import Searchbar from 'searchbar/Searchbar'
 import FilterMenu from 'filters/FilterMenu'
 import ViewToggle from 'events/ViewToggle'
+import {FilterIcon} from 'icons'
 
 //Styles
-import {filtersEventsWrap, pageTitle} from './styles/SearchResults.module.scss'
+import {
+  filtersEventsWrap,
+  pageTitle,
+  hiddenMenu,
+} from './styles/SearchResults.module.scss'
 
 const SearchResults = () => {
   // local cache data
@@ -64,11 +69,20 @@ const SearchResults = () => {
             Search Results&nbsp;:&nbsp;
             {urlQS.get('searchText').replace(/ /g, ', ')}
           </h3>
+          <div className='is-hidden-mobile'>
+            <ViewToggle toggleFunc={setShowListView} viewState={useListView} />
+          </div>
+        </div>
+        <div
+          className='is-hidden-tablet is-flex level'
+          style={{margin: '16px 0'}}
+        >
+          <FilterIcon dimensions={30} />
           <ViewToggle toggleFunc={setShowListView} viewState={useListView} />
         </div>
+        {/*
         <div>
-          {' '}
-          {userLatitude && userLongitude && (
+            {userLatitude && userLongitude && (
             <DistanceDropdown
               client={client}
               userLat={userLatitude}
@@ -76,9 +90,17 @@ const SearchResults = () => {
               maxDistance={maxDistance}
             />
           )}
+  </div>
+*/}
+        <div className='is-relative'>
+          <div className={`${hiddenMenu} is-hidden-tablet`}>
+            <FilterMenu />
+          </div>
         </div>
         <div className={filtersEventsWrap}>
-          <FilterMenu />
+          <div className='is-hidden-mobile'>
+            <FilterMenu />
+          </div>
           <div>
             <EventList
               apolloData={{loading, error, data}}

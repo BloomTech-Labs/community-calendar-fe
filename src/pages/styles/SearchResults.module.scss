@@ -6,8 +6,7 @@
   display: grid;
   grid-template-columns: 100%;
   @include tablet {
-    margin-top: $gap-md;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: minmax(225px, 250px) 70%;
     gap: $gap-md;
   }
 }
@@ -17,4 +16,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   padding-right: $gap-md;
+}
+
+.hiddenMenu {
+  border: 1px solid red;
+  position: absolute;
+  background-color: white;
+  transition: transform $duration-short;
 }
