@@ -9,6 +9,7 @@ import FeatCarousel from '../components/featured/FeaturedCarousel'
 import {DropdownIcon} from 'icons'
 import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
 import SelectedRange from '../components/daypicker/selectedRange'
+import ViewToggle from 'events/ViewToggle'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
@@ -72,6 +73,9 @@ const Home = () => {
     localCache.maxDistance,
   ])
 
+  // used to set cards to list or grid
+  const [useListView, setShowListView] = useState(true)
+
   return (
     <div className='page-wrapper'>
       {/* Featured Events carousel */}
@@ -107,59 +111,69 @@ const Home = () => {
           setEnd={setEnd}
           setDatePickerIsOpen={setDatePickerIsOpen}
         />
-        {/*yes*/}
-        <div
-          className={`dropdown  navDropdown ${
-            datePickerIsOpen ? 'is-active' : ''
-          }`}
-        >
+        <div className='is-flex justify-between'>
           <div
-            role='button'
-            className='dropdown-trigger level is-clickable hover-underline'
-            aria-haspopup='true'
-            aria-controls='dropdown-menu2'
-            data-testid='location-dropdown-trigger'
-            data-id='location-dropdown'
-            onClick={() => setDatePickerIsOpen(!datePickerIsOpen)}
+            className={`dropdown  navDropdown ${
+              datePickerIsOpen ? 'is-active' : ''
+            }`}
           >
-            <span
-              className={` is-size-5-tablet no-outline-focus no-pointer-events`}
+            <div
+              role='button'
+              className='dropdown-trigger level is-clickable hover-underline is-size-7-mobile'
+              aria-haspopup='true'
+              aria-controls='dropdown-menu2'
+              data-testid='location-dropdown-trigger'
+              data-id='location-dropdown'
+              onClick={() => setDatePickerIsOpen(!datePickerIsOpen)}
             >
-              {start && end
-                ? Math.ceil(
-                    moment.duration(moment(end).diff(moment(start))).asDays(),
-                  ) === 1
-                  ? moment(start).format('ddd, MMM Do YYYY')
-                  : `${moment(start).format('ddd, MMM Do YYYY')} - ${moment(
-                      end,
-                    ).format('ddd, MMM Do YYYY')}`
-                : 'Select a date range'}
-            </span>
-            <span
-              className={`${
-                datePickerIsOpen ? 'flip' : ''
-              } no-pointer-events icon`}
-              style={{transition: 'transform 0.2s'}}
+              <span
+                className={` is-size-5-tablet no-outline-focus no-pointer-events`}
+              >
+                {start && end
+                  ? Math.ceil(
+                      moment.duration(moment(end).diff(moment(start))).asDays(),
+                    ) === 1
+                    ? moment(start).format('ddd, MMM Do YYYY')
+                    : `${moment(start).format('ddd, MMM Do YYYY')} - ${moment(
+                        end,
+                      ).format('ddd, MMM Do YYYY')}`
+                  : 'Select a date range'}
+              </span>
+              <span
+                className={`${
+                  datePickerIsOpen ? 'flip' : ''
+                } no-pointer-events icon`}
+                style={{transition: 'transform 0.2s'}}
+              >
+                <DropdownIcon />
+              </span>
+            </div>
+            <div
+              className={` dropdown-menu drop-center has-background-white border-radius`}
+              id='location-dropdown-menu '
+              role='menu'
+              style={{
+                border: '1px solid #21242c',
+                position: 'absolute',
+                top: '32px',
+              }}
             >
-              <DropdownIcon />
-            </span>
+              <SelectedRange
+                refetch={refetch}
+                setStart={setStart}
+                setEnd={setEnd}
+                setEventRange={setEventRange}
+              />
+            </div>
+            {/* end dropdown-menu*/}
           </div>
-          <div
-            className={` dropdown-menu drop-center `}
-            id='location-dropdown-menu '
-            role='menu'
-          ></div>
-          {/* end dropdown-menu*/}
+          <ViewToggle toggleFunc={setShowListView} viewState={useListView} />
         </div>
-        {datePickerIsOpen && (
-          <SelectedRange
-            refetch={refetch}
-            setStart={setStart}
-            setEnd={setEnd}
-            setEventRange={setEventRange}
-          />
-        )}
-        <EventList apolloData={{data, loading, error}} />
+        <EventList
+          apolloData={{data, loading, error}}
+          listView={useListView}
+          setListType={setShowListView}
+        />
       </section>
     </div>
   )

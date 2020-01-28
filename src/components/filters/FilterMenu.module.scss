@@ -7,6 +7,7 @@
   @include tablet {
     padding-right: $gap-md;
     margin-right: $gap-md;
+    margin-top: $gap-lg;
     min-height: 500px;
     border-right: 1px solid $iconLight;
   }

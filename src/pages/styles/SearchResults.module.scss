@@ -11,3 +11,10 @@
     gap: $gap-md;
   }
 }
+
+.pageTitle {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: $gap-md;
+}

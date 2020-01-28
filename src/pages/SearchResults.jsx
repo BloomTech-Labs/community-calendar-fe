@@ -11,9 +11,10 @@ import FilterBtns from 'event_fltr_btns/EvntFltrBtns'
 import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
 import Searchbar from 'searchbar/Searchbar'
 import FilterMenu from 'filters/FilterMenu'
+import ViewToggle from 'events/ViewToggle'
 
 //Styles
-import {filtersEventsWrap} from './styles/SearchResults.module.scss'
+import {filtersEventsWrap, pageTitle} from './styles/SearchResults.module.scss'
 
 const SearchResults = () => {
   // local cache data
@@ -49,15 +50,24 @@ const SearchResults = () => {
     },
   })
 
+  // used to set cards to list or grid
+  const [useListView, setShowListView] = useState(true)
+
   return (
     <div className='page-wrapper'>
       <section className='section mobile-section'>
         <Searchbar isLarge />
         <div className='is-flex level justify-between is-dark '>
-          <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
+          <h3
+            className={`is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis ${pageTitle}`}
+          >
             Search Results&nbsp;:&nbsp;
             {urlQS.get('searchText').replace(/ /g, ', ')}
           </h3>
+          <ViewToggle toggleFunc={setShowListView} viewState={useListView} />
+        </div>
+        <div>
+          {' '}
           {userLatitude && userLongitude && (
             <DistanceDropdown
               client={client}
@@ -72,7 +82,8 @@ const SearchResults = () => {
           <div>
             <EventList
               apolloData={{loading, error, data}}
-              maxDistance={maxDistance}
+              listView={useListView}
+              setListType={setShowListView}
             />
           </div>
         </div>
