@@ -1,0 +1,10 @@
+@import '_variables.scss';
+@import '~bulma/sass/utilities/_all.sass';
+
+.gobackPadding {
+  padding-top: 36px !important;
+
+  @include tablet {
+    padding-top: 36px !important;
+  }
+}

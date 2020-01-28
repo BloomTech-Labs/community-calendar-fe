@@ -6,6 +6,7 @@ import moment, {relativeTimeRounding} from 'moment'
 import LoadingLogo from 'loading/LoadingLogo'
 import LoadingDots from 'loading/LoadingDots'
 import {DropdownIcon, HeartIcon, CheckmarkIcon} from 'icons'
+import GoBack from 'go_back/GoBack'
 
 import DeleteEventModal from 'events/DeleteEventModal'
 
@@ -225,6 +226,7 @@ const EventView = ({history}) => {
 
   return (
     <div className={eventView}>
+      <GoBack />
       {/* Banner image */}
       {eventImages.length > 0 && (
         <img
