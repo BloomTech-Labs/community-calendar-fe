@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 
+// form components
+import {useForm, ErrorMessage} from 'react-hook-form'
+import Dropzone from 'react-dropzone'
+import ErrorModal from '../event_forms/ErrorModal'
+import NoAuth0Form from './NoAuth0Form'
+import HasAuth0Form from './HasAuth0Form'
+
+// utils
+import {fetchGeocode} from '../../utils'
+
+// icons
 import LocationPin from '../icons/LocationPin'
 
+// styles
+import UploadIcon from '../icons/UploadIcon'
 import {
   editUserForm,
   profilePhoto,
@@ -11,21 +24,28 @@ import {
   eventNumbers,
   evNum,
   aboutUser,
-  profileSmall
+  profileSmall,
+  hasA0Msg,
+  hasA0Wrapper,
+  hasA0Name
 } from './UserProfile.module.scss'
 
 const EditUserForm = () => {
+
+  const [ hasProfile, setHasProfile ] = useState(true);
+
+
   return (
     <div className={editUserForm}>  
-      <div className={profilePhoto}>
-        <p>img upload</p>
-      </div>
-      <h1 className={profileUserName}>Edit Name</h1>
-      <h2 className={profileUserTitle}>Edit Title</h2>
-      <div className={location}>
-        <LocationPin />
-        <small className={profileSmall}>Edit Location</small>
-      </div>
+      {hasProfile ? 
+        (
+          <HasAuth0Form />
+        ) : (
+          <NoAuth0Form />
+        )
+      }
+      
+
       <div className={eventNumbers}>
         <div className={`created ${evNum}`}>
           <h4>Events Created</h4>
@@ -42,8 +62,7 @@ const EditUserForm = () => {
       </div>
       <div className={aboutUser}>
         <small className={profileSmall}>About Me</small>
-        <p>I am an event organizer from the North End. I like to organize events that will leave an impact on the community. My mission is to unify communities in a fun and caring way.</p>
-        <p>Want to connect with me? Feel free to reach out!</p>
+        <p>Edit About me Text Area</p>
       </div>
     </div>
   )
