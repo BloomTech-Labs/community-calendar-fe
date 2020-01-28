@@ -11,11 +11,21 @@ const GoBack = () => {
         background: 'none',
         color: 'black',
         display: 'flex',
+        flexFlow: 'row nowrap',
         alignItems: 'center',
         padding: '5px'
       }}>
-      <BackIcon />
-      <div className="is-size-6">&nbsp;Go back home</div>
+      <div
+      
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+      }}>
+        <BackIcon />
+      </div>
+      <div className="is-size-6">
+        &nbsp;Go back home
+      </div>
     </div>
     </Link>
   )
