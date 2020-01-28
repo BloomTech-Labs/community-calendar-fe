@@ -1,4 +1,5 @@
 import ArrowIcon from './ArrowIcon'
+import BackIcon from './BackIcon'
 import GridIcon from './GridIcon'
 import CCLogo from './CCLogo'
 import DropdownIcon from './DropdownIcon'
@@ -12,6 +13,7 @@ import CheckmarkIcon from './CheckmarkIcon'
 
 export {
   ArrowIcon,
+  BackIcon,
   SearchIcon,
   GridIcon,
   CCLogo,
