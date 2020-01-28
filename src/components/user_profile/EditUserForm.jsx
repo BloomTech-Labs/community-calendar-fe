@@ -10,31 +10,15 @@ import HasAuth0Form from './HasAuth0Form'
 // utils
 import {fetchGeocode} from '../../utils'
 
-// icons
-import LocationPin from '../icons/LocationPin'
-
 // styles
-import UploadIcon from '../icons/UploadIcon'
 import {
-  editUserForm,
-  profilePhoto,
-  profileUserName,
-  profileUserTitle,
-  location,
-  eventNumbers,
-  evNum,
-  aboutUser,
-  profileSmall,
-  hasA0Msg,
-  hasA0Wrapper,
-  hasA0Name
+  editUserForm
 } from './UserProfile.module.scss'
+
 
 const EditUserForm = () => {
 
   const [ hasProfile, setHasProfile ] = useState(true);
-
-
 
   // conditionally renders components based on Auth0
   return (

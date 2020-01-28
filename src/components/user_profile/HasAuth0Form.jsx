@@ -11,7 +11,6 @@ import {
   hasA0Wrapper,
   hasA0Msg,
   hasA0Name,
-  profileUserTitle,
   location,
   eventNumbers,
   evNum,

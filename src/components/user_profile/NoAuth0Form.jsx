@@ -6,8 +6,6 @@ import LocationPin from '../icons/LocationPin'
 // styles
 import {
   profilePhoto,
-  profileUserName,
-  profileUserTitle,
   location,
   profileSmall,
   eventNumbers,
@@ -48,7 +46,7 @@ const NoAuth0Form = () => {
       </div>
       <div className={location}>
         <LocationPin />
-        <small className={profileSmall}>San Francisco, CA</small>
+        <small className={profileSmall}>San Francisco, California</small>
       </div>
       <div className={eventNumbers}>
         <div className={`created ${evNum}`}>
