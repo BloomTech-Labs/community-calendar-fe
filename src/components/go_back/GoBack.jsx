@@ -2,14 +2,23 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {BackIcon} from '../icons'
 
-const GoBack = (to = "/") => {
+const GoBack = ({to = "/", color}) => {
+  let background = "rgba(255, 255, 255, 0.75)"
+  let textColor = "black"
+  let arrowColor = "#000000"
+
+  if (color === "white"){
+    background = "none";
+    textColor = "white";
+    arrowColor = "#ffffff"
+  }
+
   return (
     <Link to={to}
       style={{
         position: 'absolute',
-        left: '0px',
-        background: 'rgba(255, 255, 255, 0.75)',
-        color: 'black',
+        background: background,
+        color: textColor,
         display: 'flex',
         flexFlow: 'row nowrap',
         alignItems: 'center',
@@ -21,7 +30,7 @@ const GoBack = (to = "/") => {
         display: 'flex',
         alignItems: 'center',
       }}>
-        <BackIcon />
+        <BackIcon color={arrowColor} />
       </div>
       <div className="is-size-6">
         &nbsp;Go back home
