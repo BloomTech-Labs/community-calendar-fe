@@ -12,6 +12,11 @@ import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
 import Searchbar from 'searchbar/Searchbar'
 import GoBack from 'go_back/GoBack'
 
+// styles
+import {
+  gobackPadding
+} from './styles/SearchResults.module.scss'
+
 const SearchResults = () => {
   // local cache data
   const client = useApolloClient()
@@ -48,8 +53,8 @@ const SearchResults = () => {
 
   return (
     <div className='page-wrapper'>
-      <GoBack />
-      <section className='section mobile-section'>
+        <GoBack />
+      <section className={`section mobile-section ${gobackPadding}`}>
         <Searchbar isLarge />
         <div className='is-flex level justify-between is-dark '>
           <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>

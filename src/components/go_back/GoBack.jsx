@@ -4,8 +4,7 @@ import {BackIcon} from '../icons'
 
 const GoBack = () => {
   return (
-    <Link to="/">
-    <div
+    <Link to="/"
       style={{
         position: 'absolute',
         background: 'rgba(255, 255, 255, 0.75)',
@@ -13,7 +12,7 @@ const GoBack = () => {
         display: 'flex',
         flexFlow: 'row nowrap',
         alignItems: 'center',
-        padding: '5px'
+        padding: '3px'
       }}>
       <div
       
@@ -26,7 +25,6 @@ const GoBack = () => {
       <div className="is-size-6">
         &nbsp;Go back home
       </div>
-    </div>
     </Link>
   )
 }
