@@ -114,47 +114,14 @@ export const DELETE_EVENT = gql`
   }
 `
 
-// Register user for an event
-export const ADD_RSVP = gql`
-  # pass id of event to add_rsvp
-  # backend will read token in header to get user id
-  mutation AddRsvp($id: ID!) {
-    addRsvp(event: {id: $id}) {
-      id # id of user added to rsvp list
-      rsvps {
-        #other events the user has rsvpd for
-        id
-        title
-        tags {
-          #tags assciated with events user has rsvp'd to
-          title
-        }
-      }
-    }
-  }
-`
-// Cancel registrationfor an event
-export const REMOVE_RSVP = gql`
-  # pass id of event to remove_rsvp
-  # backend will read token in header to get user id
-  mutation RemoveRsvp($id: ID!) {
-    removeRsvp(event: {id: $id}) {
-      id # id of user added to rsvp list
-      rsvps {
-        #other events the user has rsvpd for
-        id
-        title
-        tags {
-          #tags assciated with events user has rsvp'd to
-          title
-        }
-      }
-    }
-  }
-`
-
 export const SAVE_EVENT = gql`
   mutation SaveEvent($id: ID!) {
     saveEvent(event: {id: $id})
+  }
+`
+
+export const RSVP_EVENT = gql`
+  mutation RsvpEvent($id: ID!) {
+    rsvpEvent(event: {id: $id})
   }
 `

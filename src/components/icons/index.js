@@ -8,6 +8,7 @@ import ShareIcon from './ShareIcon'
 import SearchIcon from './SearchIcon'
 import MapMarkerCircle from './MapMarkerCircle'
 import UploadIcon from './UploadIcon'
+import CheckmarkIcon from './CheckmarkIcon'
 
 export {
   ArrowIcon,
@@ -20,4 +21,5 @@ export {
   DropdownIcon,
   MapMarkerCircle,
   UploadIcon,
+  CheckmarkIcon
 }
