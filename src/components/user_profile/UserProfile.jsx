@@ -16,8 +16,10 @@ const UserProfile = () => {
 
   return (
     <div className={userProfile}>
-      <div onClick={() => setIsEditing(!isEditing)} className={profileInfo}>
-        <GearIcon isActive={isEditing} />
+      <div className={profileInfo}>
+        <div onClick={() => setIsEditing(!isEditing)}>
+          <GearIcon isActive={isEditing} />
+        </div>
         {isEditing ? <EditUserForm /> : <UserInfo />}
       </div>
       <UserEvents />
