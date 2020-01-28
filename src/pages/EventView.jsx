@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import {useParams, Link} from 'react-router-dom'
-import moment from 'moment'
+import moment, {relativeTimeRounding} from 'moment'
 
 // components
 import LoadingLogo from 'loading/LoadingLogo'
 import LoadingDots from 'loading/LoadingDots'
-import {DropdownIcon, HeartIcon} from 'icons'
+import {DropdownIcon, HeartIcon, CheckmarkIcon} from 'icons'
 
 import DeleteEventModal from 'events/DeleteEventModal'
 
@@ -16,9 +16,8 @@ import {
   GET_CACHE,
   GET_USER_ID,
   DELETE_EVENT,
-  ADD_RSVP,
-  REMOVE_RSVP,
   SAVE_EVENT,
+  RSVP_EVENT,
 } from '../graphql'
 
 import {months, weekDays, buildQS, useDropdown} from '../utils'
@@ -45,6 +44,8 @@ Users can RSVP to an event from here.
  */
 const EventView = ({history}) => {
   const [savedHeart, setSavedHeart] = useState(false)
+  const [attendees, setAttendees] = useState(0)
+  const [rsvp, setRsvp] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const queryParams = useParams()
 
@@ -62,23 +63,17 @@ const EventView = ({history}) => {
     history.push('/')
   }
 
-  // add rsvp mutation
-  const [
-    addRsvpMutation,
-    {data: addRsvpData, error: addRsvpError, loading: addRsvpLoading},
-  ] = useMutation(ADD_RSVP)
-
-  // remove rsvp mutation
-  const [
-    removeRsvpMutation,
-    {data: removeRsvpData, error: removeRsvpError, loading: removeRsvpLoading},
-  ] = useMutation(REMOVE_RSVP)
-
   //save event mutation
   const [
     saveEventMutation,
     {data: saveEventData, error: saveEventError, loading: saveEventLoading},
   ] = useMutation(SAVE_EVENT)
+
+  //rsvp event mutation
+  const [
+    rsvpEventMutation,
+    {data: rsvpEventData, error: rsvpEventError, loading: rsvpEventLoading},
+  ] = useMutation(RSVP_EVENT)
 
   // destructure event information passed through props
   const apolloData = useQuery(GET_EVENT_BY_ID_WITH_DISTANCE, {
@@ -102,15 +97,6 @@ const EventView = ({history}) => {
     }
   }
 
-  // rsvp dropdown
-  const [rsvpOpen, setRsvpOpen] = useDropdown(closeRsvp, false)
-
-  function closeRsvp(e) {
-    if (e.target.getAttribute('data-id') !== 'rsvp-dropdown') {
-      setRsvpOpen(false)
-    }
-  }
-
   // find distance from user and update events with results if user location changes
   useEffect(() => {
     refetch({
@@ -123,8 +109,29 @@ const EventView = ({history}) => {
   }, [userLatitude, userLongitude])
 
   useEffect(() => {
-    if (data && data.events && data.events.length && data.events[0].saved) {
-      setSavedHeart(!!data.events[0].saved.length)
+    if (
+      data &&
+      data.events &&
+      data.events.length &&
+      data.events[0] &&
+      cacheUserId &&
+      cacheUserId.userId
+    ) {
+      if (data.events[0].saved) {
+        setSavedHeart(!!data.events[0].saved.length)
+      }
+
+      if (data.events[0].rsvps.length) {
+        let count = 0
+        data.events[0].rsvps.filter(({id}) => {
+          count++
+          return id === cacheUserId.userId
+        }).length
+          ? setRsvp(true)
+          : setRsvp(false)
+
+        setAttendees(count)
+      }
     }
   }, [data])
 
@@ -203,16 +210,16 @@ const EventView = ({history}) => {
     deleteEventMutation({variables: {id}})
   }
 
-  const addRSVP = () => {
-    addRsvpMutation({variables: {id}}).then(() => refetch())
-  }
-  const removeRSVP = () => {
-    removeRsvpMutation({variables: {id}}).then(() => refetch())
-  }
-
   const saveEvent = () => {
     saveEventMutation({variables: {id}}).then(({data: {saveEvent}}) => {
-      setSavedHeart(saveEvent === 'SAVED')
+      setSavedHeart(saveEvent)
+    })
+  }
+
+  const rsvpEvent = () => {
+    rsvpEventMutation({variables: {id}}).then(({data: {rsvpEvent}}) => {
+      rsvpEvent ? setAttendees(attendees + 1) : setAttendees(attendees - 1)
+      setRsvp(rsvpEvent)
     })
   }
 
@@ -312,65 +319,6 @@ const EventView = ({history}) => {
             </div>
           )}
           {/* end manage dropdown */}
-          {/* Rsvp change, only displays if logged-in user is rsvp'd to event  */}
-          {didRsvp && !removeRsvpLoading && (
-            <div
-              className={`dropdown  has-background-success button ${
-                rsvpOpen ? 'is-active' : ''
-              }  no-border`}
-              onClick={() => setRsvpOpen(!rsvpOpen)}
-              data-id='rsvp-dropdown'
-            >
-              <div
-                className='dropdown-trigger has-text-centered no-pointer-events'
-                style={{width: '100px'}}
-                aria-haspopup='true'
-                aria-controls='dropdown-menu2'
-                data-id='rsvp-trigger'
-              >
-                <span className='no-pointer-events has-text-white'>Going</span>
-                <span
-                  className={`icon  no-pointer-events  ${
-                    rsvpOpen ? 'flip' : ''
-                  }`}
-                  style={{transition: 'transform 0.2s'}}
-                  aria-hidden='true'
-                >
-                  <DropdownIcon isLight />
-                </span>
-              </div>
-              <div className='dropdown-menu drop-center w-100' role='menu'>
-                <div className='dropdown-content'>
-                  <div
-                    className='dropdown-item has-text-centered'
-                    onClick={() => removeRSVP()}
-                  >
-                    Cancel RSVP
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-          {/* end rsvp dropdown */}
-
-          {didRsvp && removeRsvpLoading && (
-            <div className='has-background-success button no-border no-pointer-events'>
-              <LoadingDots bgColor='#fff' />
-            </div>
-          )}
-          {/* numbers to be replaced with event information */}
-          {/* <div>
-            <p>
-              Going:
-              <br />
-              <span className='has-text-weight-bold'>50</span>
-            </p>
-            <p>
-              Interested:
-              <br />
-              <span className='has-text-weight-bold'>100</span>
-            </p>
-          </div> */}
         </div>
       </section>
       <section className=''>
@@ -407,6 +355,16 @@ const EventView = ({history}) => {
                   {ticketPrice ? '$' + ticketPrice.toFixed(2) : 'FREE'}
                 </p>
               </div>
+              {attendees > 0 && (
+                <div className='column has-text-centered-mobile'>
+                  <p className='color_chalice is-size-6half-mobile has-text-centered'>
+                    Attending:
+                  </p>
+                  <p className='is-size-6half-mobile has-text-centered'>
+                    {attendees}
+                  </p>
+                </div>
+              )}
             </div>
             <div className={descriptionDiv}>
               <div className={`${row}`}>
@@ -427,14 +385,27 @@ const EventView = ({history}) => {
                 )}
               </div>
               <p className={` is-size-7-mobile`}>{description}</p>
-              {cacheUserId.userId && !addRsvpLoading && !didRsvp && (
-                <button className='button  is-dark' onClick={() => addRSVP()}>
-                  Attend
-                </button>
-              )}
-              {cacheUserId.userId && addRsvpLoading && !didRsvp && (
-                <button className='button  is-dark is-fake'>
-                  <LoadingDots bgColor='#fff' />
+              {cacheUserId.userId && (
+                <button
+                  className={`button  level ${
+                    rsvp ? 'is-primary' : 'is-primary is-outlined'
+                  }`}
+                  onClick={() => {
+                    rsvpEvent()
+                  }}
+                >
+                  {rsvpEventLoading ? (
+                    <LoadingDots />
+                  ) : rsvp ? (
+                    <>
+                      <span>Attending</span>&nbsp;
+                      <CheckmarkIcon
+                        style={{position: 'relative', top: '4px'}}
+                      />
+                    </>
+                  ) : (
+                    'Attend'
+                  )}
                 </button>
               )}
             </div>
