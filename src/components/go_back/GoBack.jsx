@@ -8,7 +8,7 @@ const GoBack = () => {
     <div
       style={{
         position: 'absolute',
-        background: 'none',
+        background: 'rgba(255, 255, 255, 0.75)',
         color: 'black',
         display: 'flex',
         flexFlow: 'row nowrap',
