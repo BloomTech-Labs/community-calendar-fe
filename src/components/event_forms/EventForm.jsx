@@ -69,7 +69,7 @@ const EventForm = props => {
   Destructure the `register` value handler, submit handler, and error handler
   Ternary maps values passed in on `item` prop as default values for `update` forms
   yup validationSchema imported from `eventSchema.js` */
-  const {register, handleSubmit, errors: formErrors} =
+  const {register, handleSubmit, errors: formErrors, getValues, setValue} =
     formType === 'update' && item
       ? useForm({
           validationSchema: eventSchema,
@@ -135,6 +135,32 @@ const EventForm = props => {
   const [showModal, setShowModal] = useState(false)
   const toggleModal = () => {
     setShowModal(!showModal)
+  }
+
+  const onTicketPriceChange = () => {
+    const ticketPriceVal = getValues().ticketPrice;
+    const arrTicketPriceVal = ticketPriceVal.split("");
+
+    var hasPeriod = false;
+
+    const newTicketPriceVal = 
+        arrTicketPriceVal.filter(letter => {
+          if(letter === ".") {
+            if(hasPeriod)
+              return false;
+
+            hasPeriod = true;
+          }
+          return /[0-9.]/.test(letter)
+        }
+      ).join("");
+
+    setValue("ticketPrice", newTicketPriceVal);      
+  }
+
+  const onTicketPriceBlur = () => {
+    const ticketPriceVal = getValues().ticketPrice;
+    setValue("ticketPrice", ticketPriceVal ? parseFloat(getValues().ticketPrice).toFixed(2) : "0.00")
   }
 
   // submit handler pulls together state from all sources and creates a mutation request
@@ -380,6 +406,10 @@ const EventForm = props => {
               type='text'
               name='ticketPrice'
               ref={register}
+              onBlur={onTicketPriceBlur}
+              onFocus={() => getValues().ticketPrice === "0" && setValue("ticketPrice", "")}
+              onChange={onTicketPriceChange}
+              defaultValue="0"
             />
             <p className={`is-size-7 ${errorMessage}`}>
               <ErrorMessage errors={formErrors} name='ticketPrice' />
