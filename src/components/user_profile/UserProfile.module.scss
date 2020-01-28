@@ -23,6 +23,17 @@
     @include tablet {
       max-width: 25.6vw;
     }
+
+    .gearWrapper {
+      display: flex;
+      align-items: center;
+      width: 125px;
+
+      .hideText {
+        color: $white;
+      }
+    }
+
     .userInfo,
     .editUserForm {
       display: flex;
@@ -66,7 +77,7 @@
       }
 
       .location {
-        margin-top: 5%;
+        margin-top: 15px;
         margin-left: -5%;
         display: flex;
         align-items: center;
@@ -77,7 +88,7 @@
       }
 
       .eventNumbers {
-        margin-top: 10%;
+        margin-top: 10px;
         width: 95%;
 
         .evNum {
@@ -87,18 +98,18 @@
 
           h4 {
             font-size: 0.8em;
-            margin-bottom: 5px;;
+            margin-bottom: 5px;
             color: $silver;
           }
         }
       }
 
       .aboutUser {
-        margin-top: 8%;
+        margin-top: 8px;
         width: 95%;
 
         * {
-          margin: 5% 0;
+          margin: 15px 0;
         }
 
         p {
@@ -151,6 +162,7 @@
 .editTitleWrap,
 .editNameWrap {
   width: 80%;
+  margin-bottom: 0 !important; 
 
   @include mobile-xs-to-tablet {
     width: 40%;
@@ -174,6 +186,7 @@
         background-color: $shark;
         padding-left: 5px;
         border-bottom: solid 1px $silver;
+        // margin-bottom: 0 !important; 
         &::placeholder {
           color: $silver;
         }

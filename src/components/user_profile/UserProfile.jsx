@@ -7,7 +7,10 @@ import GearIcon from '../icons/GearIcon'
 
 import {
   userProfile,
-  profileInfo
+  profileInfo,
+  profileSmall,
+  gearWrapper,
+  hideText
 } from './UserProfile.module.scss'
 
 const UserProfile = () => {
@@ -17,8 +20,9 @@ const UserProfile = () => {
   return (
     <div className={userProfile}>
       <div className={profileInfo}>
-        <div onClick={() => setIsEditing(!isEditing)}>
+        <div className={gearWrapper} onClick={() => setIsEditing(!isEditing)}>
           <GearIcon isActive={isEditing} />
+          {isEditing && <small className={`${profileSmall} ${hideText}`}>save changes</small>}
         </div>
         {isEditing ? <EditUserForm /> : <UserInfo />}
       </div>
