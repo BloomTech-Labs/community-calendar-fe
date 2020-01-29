@@ -24,8 +24,7 @@ import {
   location,
   eventNumbers,
   evNum,
-  aboutUser,
-  editName
+  editNameLabel
 } from './UserProfile.module.scss'
 
 
@@ -39,7 +38,7 @@ const EditUserForm = () => {
   const [editName, setEditName] = useState(fullName);
   const handleChange = event => {
     const updatedValue = {
-      ...fullName,
+      ...editName,
       [event.currentTarget.name]: event.currentTarget.value
     };
     console.log("updatedValue in EditUSerForm.jsx:", updatedValue);
@@ -54,7 +53,7 @@ const EditUserForm = () => {
           <p>img upload</p>
         </div>
         <div className={`${editNameWrap} field`}>
-        <label className={`${editName} label`}>
+        <label className={`${editNameLabel} label`}>
           Edit:
           <div className={`${formFlex} control`}>
             <input className={`${editFirstNameField} input`} name="first" value={editName.first} onChange={handleChange} type="text"></input>
