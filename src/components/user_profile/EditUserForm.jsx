@@ -45,7 +45,6 @@ const EditUserForm = () => {
     setEditName(updatedValue);
   }
 
-  // conditionally renders components based on Auth0
   return (
     <form>
       <div className={editUserForm}>  
