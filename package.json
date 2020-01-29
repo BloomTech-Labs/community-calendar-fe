@@ -87,7 +87,6 @@
     "react-hot-loader": "^4.12.18",
     "react-router-dom": "^5.1.2",
     "react-spring-carousel": "0.0.4",
-    "uuidv4": "^6.0.2",
     "yup": "^0.28.0"
   },
   "browserslist": [
