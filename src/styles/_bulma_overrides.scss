@@ -338,3 +338,9 @@ div.select.is-rounded select {
 .left-margin {
   margin-left: $gap-sm;
 }
+
+// ==== User Profile Event Tabs ====
+.tabs .is-active a {
+  border-bottom-color: $bittersweet !important;
+  color: $bittersweet !important;
+}

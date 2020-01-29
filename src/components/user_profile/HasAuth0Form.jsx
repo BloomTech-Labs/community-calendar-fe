@@ -31,7 +31,7 @@ const HasAuth0Form = () => {
       <h1 className={`${profileUserName} ${hasA0Name}`}>Cici Adams</h1>
       <div className={`${editTitleWrap} field`}>
         <label className={`${editTitle} label`}>
-          Edit Title:
+          Edit Role:
           <div className="control">
             <input className={`${editTitleField} input`} type="text" placeholder={`Event Organizer`}></input>
           </div>

@@ -38,7 +38,7 @@ const NoAuth0Form = () => {
       </div>
       <div className={`${editTitleWrap} field`}>
         <label className={`${editName} label`}>
-          Edit Title:
+          Edit Role:
           <div className="control">
             <input className={`${editTitleField} input`} type="text" placeholder={`Event Organizer`}></input>
           </div>
