@@ -37,7 +37,10 @@ import {
   eventView,
   socialOptions,
   row,
+  eventImage,
+  padContent
 } from './styles/EventView.module.scss'
+
 import {set} from 'react-ga'
 
 /* Show all of the details and information about an event.
@@ -226,19 +229,20 @@ const EventView = ({history}) => {
 
   return (
     <div className={eventView}>
-      <GoBack />
-      {/* Banner image */}
-      {eventImages.length > 0 && (
-        <img
-          className={`${banner} is-block mx-auto`}
-          // className='mx-auto'
-          src={eventImages[0].url}
-          alt='banner'
-        />
-      )}
       {/* Event title, location, RSVP info */}
       <section className={top_sec}>
-        <div>
+        <GoBack />
+        {/* Banner image */}
+        {eventImages.length > 0 && (
+          <img
+            className={`${eventImage}`}
+            // className={`${banner} is-block mx-auto`}
+            // className='mx-auto'
+            src={eventImages[0].url}
+            alt='banner'
+          />
+        )}
+        <div className={padContent}>
           <h1 className='is-family-secondary is-size-1 is-size-4-mobile'>
             {title}
           </h1>
@@ -323,7 +327,7 @@ const EventView = ({history}) => {
           {/* end manage dropdown */}
         </div>
       </section>
-      <section className=''>
+      <section className={padContent}>
         <div className={middle_div}>
           <div>
             {' '}

@@ -1,8 +1,16 @@
 @import '_variables.scss';
 @import '~bulma/sass/utilities/_all.sass';
 
-.event-view {
-  section {
+.eventView {
+  .eventImage {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  width: 80%;
+  margin: 0 auto;
+
+  .padContent {
     padding: $gap-xxs;
     @include tablet {
       padding: $gap;
