@@ -19,8 +19,6 @@ const Searchbar = ({isLarge, cb, filters = null}) => {
     setSearchText(e.target.value)
   }
 
-  console.log('filters in Searchbar', filters)
-
   const handleSearch = () => {
     //encode text and filters to query string
     let qsObj = {
@@ -33,6 +31,25 @@ const Searchbar = ({isLarge, cb, filters = null}) => {
       if (filters.tags) {
         filters.tags.forEach((tag, ind) => {
           qsObj[`tag${ind}`] = tag
+        })
+      }
+      // if "locations" exist add to qs
+      if (filters.location) {
+        Object.keys(filters.location).forEach(k => {
+          if (!/^__typename/.test(k)) qsObj[k] = filters.location[k]
+        })
+      }
+      // if "dateRange" exist add to qs
+      if (filters.dateRange) {
+        Object.keys(filters.dateRange).forEach(k => {
+          if (!/^__typename/i.test(k)) qsObj[k] = filters.dateRange[k]
+        })
+      }
+      // if "ticketPrice" exist add to qs
+      if (filters.ticketPrice) {
+        filters.ticketPrice.forEach((priceRange, ind) => {
+          qsObj[`minPrice${ind}`] = priceRange.minPrice
+          qsObj[`maxPrice${ind}`] = priceRange.maxPrice
         })
       }
     }

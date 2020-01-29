@@ -67,12 +67,18 @@ const SearchResults = () => {
   const urlQS = new URLSearchParams(location.search)
   // get searchText from query string and format string for gql query
   let searchTxt = `,${urlQS.get('searchText').replace(/ /g, ',')},`
+  // create array of tags from query string
   let restructuredTags = []
   urlQS.forEach((v, k) => {
-    console.log(k, v)
     if (/tag/i.test(k)) restructuredTags.push(v)
   })
   console.log('tags array restructured', restructuredTags)
+
+  // create array of ticketPrices from query string
+  let restructuredPrices = []
+  urlQS.forEach((v, k) => {
+    return
+  })
 
   // gql
   const {loading, error, data, refetch} = useQuery(GET_EVENTS_FILTERED, {
