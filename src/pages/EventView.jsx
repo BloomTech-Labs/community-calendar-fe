@@ -38,7 +38,7 @@ import {
   socialOptions,
   row,
   eventImage,
-  padContent
+  padContent,
 } from './styles/EventView.module.scss'
 
 import {set} from 'react-ga'
@@ -386,7 +386,7 @@ const EventView = ({history}) => {
                         : {}
                     }
                   >
-                    <HeartIcon isLiked={savedHeart} />
+                    <HeartIcon isLiked={!!savedHeart} />
                   </span>
                 )}
               </div>

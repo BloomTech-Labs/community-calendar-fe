@@ -1,7 +1,6 @@
 import {hot} from 'react-hot-loader/root'
 import React, {useState, useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
-import {uuid} from 'uuidv4'
 
 //auth0
 import {useAuth0} from './contexts/auth0-context.jsx'
