@@ -30,14 +30,13 @@ const SearchResults = () => {
   const [recentSearches, setRecentSearches] = useState([])
 
   //filter component states  START
+  const [lastSearchFilter, setLastSearchFilter] = useState({});
 
   // location filter
-  const [locationLongitude, setLocationLongitude] = useState(undefined)
-  const [locationLatitude, setLocationLatitude] = useState(undefined)
+  const [location, setLocation] = useState({});
 
   // date range filter
-  const [start, setStart] = useState(undefined)
-  const [end, setEnd] = useState(undefined)
+  const [dateRange, setDateRange] = useState({});
   // tags filter
   const [tags, setTags] = useState([])
 
@@ -59,12 +58,11 @@ const SearchResults = () => {
   const {data: recentSearchesData, refetch: recentSearchesRefetch} = useQuery(
     GET_RECENT_SEARCHES,
   )
-  console.log('recentSearchesData', recentSearchesData)
 
   // set up filter
-  let location = useLocation()
+  let pageLocation = useLocation()
   // create a search params object
-  const urlQS = new URLSearchParams(location.search)
+  const urlQS = new URLSearchParams(pageLocation.search)
   // get searchText from query string and format string for gql query
   let searchTxt = `,${urlQS.get('searchText').replace(/ /g, ',')},`
   // create array of tags from query string
@@ -72,13 +70,20 @@ const SearchResults = () => {
   urlQS.forEach((v, k) => {
     if (/tag/i.test(k)) restructuredTags.push(v)
   })
-  console.log('tags array restructured', restructuredTags)
 
   // create array of ticketPrices from query string
   let restructuredPrices = []
   urlQS.forEach((v, k) => {
-    return
+    if(/minprice/i.test(k)){
+      let ind = k.slice(k.indexOf('-') + 1)
+     restructuredPrices[ind] = {...restructuredPrices[ind], minPrice: +v} 
+    }
+    if(/maxprice/i.test(k)){
+      let ind = k.slice(k.indexOf('-') + 1)
+     restructuredPrices[ind] = {...restructuredPrices[ind], maxPrice: +v} 
+    }
   })
+
 
   // gql
   const {loading, error, data, refetch} = useQuery(GET_EVENTS_FILTERED, {
@@ -108,7 +113,6 @@ const SearchResults = () => {
 
   const getRecentSearches = () => {
     recentSearchesRefetch().then(({data: {recentSearches}}) => {
-      console.log(recentSearches.length)
       setRecentSearches([...recentSearches])
     })
   }
@@ -121,21 +125,78 @@ const SearchResults = () => {
     })
   }
 
+  useEffect(() => {
+    const searchFilters = {};
+    const ticketPrice = [];
+
+    if(price010){
+      ticketPrice.push({minPrice: 0, maxPrice: 10})
+    }
+    if(price1020){
+      ticketPrice.push({minPrice: 10, maxPrice: 20})
+    }
+    if(price2040){
+      ticketPrice.push({minPrice: 20, maxPrice: 40})
+    }
+    if(price4080){
+      ticketPrice.push({minPrice: 40, maxPrice: 80})
+    }
+
+    if(price010 || price1020 || price2040 || price4080){
+      searchFilters['ticketPrice'] = ticketPrice;
+    }
+
+    if(tags.length){
+      searchFilters['tags'] = tags;
+    }
+
+    if(dateRange && dateRange.start && dateRange.end){
+      searchFilters['dateRange'] = dateRange;
+    }
+
+    if(location && location.userLatitude && location.userLongitude && location.radius){
+      searchFilters['location'] = location;
+    }
+
+    if(Object.keys(searchFilters).length){
+      console.log(searchFilters);
+      refetch( {
+        userLatitude: userLatitude || undefined,
+        userLongitude: userLongitude || undefined,
+        useLocation: !!(userLatitude && userLongitude),
+        searchFilters: {index: searchTxt ? searchTxt : undefined, ...searchFilters}
+        }
+      ).then(res => {
+        console.log(res);
+      })
+    }
+    setLastSearchFilter(searchFilters);
+  }, [price010, price1020, price2040, price4080, tags, dateRange, location])
+
   return (
     <div className='page-wrapper'>
       <GoBack />
       <section className='section mobile-section'>
-        <Searchbar isLarge filters={{...recentSearchExample}} />
+        <Searchbar isLarge filters={lastSearchFilter} />
         {/* DUMMY BUTTONS FOR TESTING */}
-        <button>Test Date</button>
-        <button>Test Tags</button>
-        <button onClick={() => setPrice010(!setPrice80)}>Price $0-$10</button>
-        <button onClick={() => setPrice1020(!setPrice80)}>Price $10-$20</button>
-        <button onClick={() => setPrice2040(!setPrice80)}>Price $20-$40</button>
-        <button onClick={() => setPrice4080(!setPrice80)}>Price $40-$80</button>
-        <button onClick={() => setPrice80(!setPrice80)}>Price $80+</button>
-        <button>Test Location</button>
-        <button>Reset filters</button>
+        <button onClick={() => setDateRange({start: '2020-01-23T17:00:00.000Z', end: '2020-01-24T17:00:00.000Z'})}>Test Date</button>
+        <button onClick={() => setTags(['corn', 'milk', 'eggs', 'fruit roll ups'])}>Test Tags</button>
+        <button onClick={() => setPrice010(!price010)}>Price $0-$10</button>
+        <button onClick={() => setPrice1020(!price1020)}>Price $10-$20</button>
+        <button onClick={() => setPrice2040(!price2040)}>Price $20-$40</button>
+        <button onClick={() => setPrice4080(!price4080)}>Price $40-$80</button>
+        <button onClick={() => setPrice80(!price80)}>Price $80+</button>
+        <button onClick={() => setLocation({userLatitude: 33.999, userLongitude: 29.999, radius: 30})}>Test Location</button>
+        <button onClick={() => {
+          setPrice010(false)
+          setPrice1020(false)
+          setPrice2040(false)
+          setPrice4080(false)
+          setPrice80(false)
+          setLocation({})
+          setTags([]);
+          setLastSearchFilter({});
+        }}>Reset filters</button>
         {/* DUMMY BUTTONS FOR TESTING */}
         <button onClick={() => getRecentSearches()}>Get recent searches</button>
         <button onClick={() => addASearch()}>Add a search</button>

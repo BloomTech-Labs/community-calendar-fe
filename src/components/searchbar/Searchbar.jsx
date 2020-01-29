@@ -48,8 +48,8 @@ const Searchbar = ({isLarge, cb, filters = null}) => {
       // if "ticketPrice" exist add to qs
       if (filters.ticketPrice) {
         filters.ticketPrice.forEach((priceRange, ind) => {
-          qsObj[`minPrice${ind}`] = priceRange.minPrice
-          qsObj[`maxPrice${ind}`] = priceRange.maxPrice
+          qsObj[`minPrice-${ind}`] = priceRange.minPrice
+          qsObj[`maxPrice-${ind}`] = priceRange.maxPrice
         })
       }
     }

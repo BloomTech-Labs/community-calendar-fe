@@ -22,7 +22,6 @@ const FilterMenu = props => {
   const {data: recentSearchesData, refetch: recentSearchesRefetch} = useQuery(
     GET_RECENT_SEARCHES,
   )
-  console.log('recentSearchesData', recentSearchesData)
   /*
   const addLocationToCache = (location) => {
     // add lat, long, and maxDistance to cache
