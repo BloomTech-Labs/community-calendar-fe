@@ -41,10 +41,10 @@ const SearchResults = () => {
 
   // price filter
   const [price010, setPrice010] = useState(false)
-  const [price1020, setPrice1020] = useState(undefined)
-  const [price2040, setPrice2040] = useState(undefined)
-  const [price4080, setPrice4080] = useState(undefined)
-  const [price80, setPrice80] = useState(undefined)
+  const [price1020, setPrice1020] = useState(false)
+  const [price2040, setPrice2040] = useState(false)
+  const [price4080, setPrice4080] = useState(false)
+  const [price80, setPrice80] = useState(false)
 
   //filter component states  END
 

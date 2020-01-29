@@ -1,6 +1,6 @@
 import React from 'react'
 
-const RecentSearches = () => {
+const RecentSearches = ({queryString, keywords, number}) => {
   return (
     <div className='is-flex'>
       <p className='has-text-grey-lighter'>
