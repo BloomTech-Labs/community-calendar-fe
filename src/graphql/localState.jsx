@@ -21,6 +21,10 @@ export const typeDefs = gql`
     dateRange: DateFilters
   }
 
+  type CurrentFilters {
+    currentFilters: SearchFilters
+  }
+
   type RecentSearches {
     recentSearches: [SearchFilters!]
   }
@@ -49,5 +53,6 @@ export const typeDefs = gql`
     userAddress: String
     userId: String
     recentSearches: [RecentSearches!]
+    currentFilters: CurrentFilters
   }
 `

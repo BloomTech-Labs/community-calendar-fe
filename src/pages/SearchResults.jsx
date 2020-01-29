@@ -13,6 +13,7 @@ import Searchbar from 'searchbar/Searchbar'
 import FilterMenu from 'filters/FilterMenu'
 import ViewToggle from 'events/ViewToggle'
 import {FilterIcon, CloseIconSquare} from 'icons'
+import RecentSearches from 'recent-searches/RecentSearches'
 
 //Styles
 import {
@@ -21,8 +22,32 @@ import {
   hiddenMenu,
 } from './styles/SearchResults.module.scss'
 
+import recentSearchExample from 'mock_data/test_recent_search'
+
 const SearchResults = () => {
   const [recentSearches, setRecentSearches] = useState([])
+
+  //filter component states  START
+
+  // location filter
+  const [locationLongitude, setLocationLongitude] = useState(undefined)
+  const [locationLatitude, setLocationLatitude] = useState(undefined)
+
+  // date range filter
+  const [start, setStart] = useState(undefined)
+  const [end, setEnd] = useState(undefined)
+  // tags filter
+  const [tags, setTags] = useState([])
+
+  // price filter
+  const [price010, setPrice010] = useState(false)
+  const [price1020, setPrice1020] = useState(undefined)
+  const [price2040, setPrice2040] = useState(undefined)
+  const [price4080, setPrice4080] = useState(undefined)
+  const [price80, setPrice80] = useState(undefined)
+
+  //filter component states  END
+
   // local cache data
   const client = useApolloClient()
   const {
@@ -40,6 +65,12 @@ const SearchResults = () => {
   const urlQS = new URLSearchParams(location.search)
   // get searchText from query string and format string for gql query
   let searchTxt = `,${urlQS.get('searchText').replace(/ /g, ',')},`
+  let restructuredTags = []
+  urlQS.forEach((v, k) => {
+    console.log(k, v)
+    if (/tag/i.test(k)) restructuredTags.push(v)
+  })
+  console.log('tags array restructured', restructuredTags)
 
   // gql
   const {loading, error, data, refetch} = useQuery(GET_EVENTS_FILTERED, {
@@ -77,37 +108,7 @@ const SearchResults = () => {
   const addASearch = () => {
     client.writeData({
       data: {
-        recentSearches: [
-          ...recentSearches,
-          {
-            index: 'test testy mc testness',
-            location: {
-              userLatitude: 23.999,
-              userLongitude: 24.999,
-              radius: 20,
-              __typename: 'LocationFilters',
-            },
-            tags: ['tag1', 'dogs', 'cool', 'beef stew'],
-            ticketPrice: [
-              {
-                maxPrice: 10,
-                minPrice: 0,
-                __typename: 'PriceFilters',
-              },
-              {
-                maxPrice: 30,
-                minPrice: 20,
-                __typename: 'PriceFilters',
-              },
-            ],
-            dateRange: {
-              start: '2020-01-22T17:00:00.000Z',
-              end: '2020-01-24T17:00:00.000Z',
-              __typename: 'DateFilters',
-            },
-            __typename: 'SearchFilters',
-          },
-        ],
+        recentSearches: [...recentSearches, {...recentSearchExample}],
       },
     })
   }
@@ -115,9 +116,21 @@ const SearchResults = () => {
   return (
     <div className='page-wrapper'>
       <section className='section mobile-section'>
-        <Searchbar isLarge />
+        <Searchbar isLarge filters={{...recentSearchExample}} />
+        {/* DUMMY BUTTONS FOR TESTING */}
+        <button>Test Date</button>
+        <button>Test Tags</button>
+        <button onClick={() => setPrice010(!setPrice80)}>Price $0-$10</button>
+        <button onClick={() => setPrice1020(!setPrice80)}>Price $10-$20</button>
+        <button onClick={() => setPrice2040(!setPrice80)}>Price $20-$40</button>
+        <button onClick={() => setPrice4080(!setPrice80)}>Price $40-$80</button>
+        <button onClick={() => setPrice80(!setPrice80)}>Price $80+</button>
+        <button>Test Location</button>
+        <button>Reset filters</button>
+        {/* DUMMY BUTTONS FOR TESTING */}
         <button onClick={() => getRecentSearches()}>Get recent searches</button>
         <button onClick={() => addASearch()}>Add a search</button>
+        <RecentSearches />
         <div className='is-flex level justify-between is-dark '>
           <h3
             className={`is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis ${pageTitle}`}

@@ -11,7 +11,7 @@ import {useHistory} from 'react-router-dom'
 import {buildQS} from '../../utils'
 import {SearchIcon} from 'icons'
 
-const Searchbar = ({isLarge, cb}) => {
+const Searchbar = ({isLarge, cb, filters = null}) => {
   const [searchText, setSearchText] = useState('')
   const rccHistory = useHistory()
 
@@ -19,9 +19,26 @@ const Searchbar = ({isLarge, cb}) => {
     setSearchText(e.target.value)
   }
 
+  console.log('filters in Searchbar', filters)
+
   const handleSearch = () => {
-    //encode text to query string searchtext=stuff
-    const qs = buildQS({searchText})
+    //encode text and filters to query string
+    let qsObj = {
+      searchText,
+    }
+
+    // if filters exist flatten into new object
+    if (filters) {
+      // if "tags" exist add to qs
+      if (filters.tags) {
+        filters.tags.forEach((tag, ind) => {
+          qsObj[`tag${ind}`] = tag
+        })
+      }
+    }
+
+    console.log('qsObj in Searchbar', qsObj)
+    const qs = buildQS(qsObj)
     // push to /search with query string
     rccHistory.push(`/search${qs}`)
     // clear search text
@@ -55,7 +72,9 @@ const Searchbar = ({isLarge, cb}) => {
         className={`button small-btn  is-primary   ${
           !searchText.length && !isLarge ? 'willFadeIn' : 'fadeIn'
         }`}
-        onClick={() => handleSearch()}
+        onClick={() => {
+          if (searchText.length) handleSearch()
+        }}
       >
         Search
       </button>

@@ -31,3 +31,25 @@ export const GET_RECENT_SEARCHES = gql`
     }
   }
 `
+
+export const GET_CURRENT_FILTERS = gql`
+  query GetRecentFilters {
+    currentFilters @client {
+      index
+      location {
+        userLatitude
+        userLongitude
+        radius
+      }
+      tags
+      ticketPrice {
+        minPrice
+        maxPrice
+      }
+      dateRange {
+        start
+        end
+      }
+    }
+  }
+`
