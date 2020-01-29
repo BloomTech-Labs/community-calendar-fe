@@ -19,8 +19,6 @@ import {
   ADD_EVENT,
   UPDATE_EVENT,
   DELETE_EVENT,
-  ADD_RSVP,
-  REMOVE_RSVP,
   SAVE_EVENT,
   RSVP_EVENT,
 } from './events.mutation.js'
@@ -52,8 +50,6 @@ export {
   ADD_EVENT,
   UPDATE_EVENT,
   DELETE_EVENT,
-  ADD_RSVP,
-  REMOVE_RSVP,
   SAVE_EVENT,
   RSVP_EVENT,
   // mixed server and client

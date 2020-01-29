@@ -228,7 +228,7 @@ const EventView = ({history}) => {
   }
 
   return (
-    <div className={eventView}>
+    <div className={`${eventView} page-wrapper`}>
       {/* Event title, location, RSVP info */}
       <section className={top_sec}>
         <GoBack />
