@@ -1,4 +1,5 @@
 import ArrowIcon from './ArrowIcon'
+import BackIcon from './BackIcon'
 import GridIcon from './GridIcon'
 import CCLogo from './CCLogo'
 import DropdownIcon from './DropdownIcon'
@@ -8,9 +9,11 @@ import ShareIcon from './ShareIcon'
 import SearchIcon from './SearchIcon'
 import MapMarkerCircle from './MapMarkerCircle'
 import UploadIcon from './UploadIcon'
+import CheckmarkIcon from './CheckmarkIcon'
 
 export {
   ArrowIcon,
+  BackIcon,
   SearchIcon,
   GridIcon,
   CCLogo,
@@ -20,4 +23,5 @@ export {
   DropdownIcon,
   MapMarkerCircle,
   UploadIcon,
+  CheckmarkIcon
 }
