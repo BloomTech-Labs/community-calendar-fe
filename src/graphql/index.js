@@ -22,6 +22,7 @@ import {
   ADD_RSVP,
   REMOVE_RSVP,
   SAVE_EVENT,
+  RSVP_EVENT,
 } from './events.mutation.js'
 
 // mixed server and client GraphQL API queries
@@ -54,6 +55,7 @@ export {
   ADD_RSVP,
   REMOVE_RSVP,
   SAVE_EVENT,
+  RSVP_EVENT,
   // mixed server and client
 
   // pure local state

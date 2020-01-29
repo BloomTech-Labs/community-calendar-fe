@@ -24,3 +24,11 @@
   background-color: white;
   transition: left $duration-short;
 }
+
+.gobackPadding {
+  padding-top: 36px !important;
+
+  @include tablet {
+    padding-top: 36px !important;
+  }
+}

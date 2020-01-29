@@ -20,9 +20,11 @@ import {
   filtersEventsWrap,
   pageTitle,
   hiddenMenu,
+  gobackpadding,
 } from './styles/SearchResults.module.scss'
 
 import recentSearchExample from 'mock_data/test_recent_search'
+import GoBack from 'go_back/GoBack'
 
 const SearchResults = () => {
   const [recentSearches, setRecentSearches] = useState([])
@@ -115,6 +117,7 @@ const SearchResults = () => {
 
   return (
     <div className='page-wrapper'>
+      <GoBack />
       <section className='section mobile-section'>
         <Searchbar isLarge filters={{...recentSearchExample}} />
         {/* DUMMY BUTTONS FOR TESTING */}
