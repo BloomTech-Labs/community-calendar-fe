@@ -6,6 +6,7 @@ import buildQS from './buildQS'
 import filterByDistance from './filterByDistance'
 import fetchGeocode from './fetchGeocode'
 import useDropdown from './useDropdown'
+import useObjFromQS from './useObjFromQS'
 
 export {
   useGeo,
@@ -17,4 +18,5 @@ export {
   weekDays,
   filterByDistance,
   useDropdown,
+  useObjFromQS,
 }

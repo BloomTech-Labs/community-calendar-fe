@@ -269,3 +269,86 @@ export const GET_EVENTS_FILTERED = gql`
   ${EVENT_DETAIL_DATA}
   ${ADDRESS_DETAIL_DATA}
 `
+
+export const GET_USER_SAVED = gql `
+  query GetUserSaved(
+    $id: ID!,
+    $userLatitude: Float,
+    $userLongitude: Float,
+    $useLocation: Boolean!
+    ){
+    users(where: {id: $id}){
+      saved {
+        id
+        title
+        start
+        end
+        ticketPrice
+        eventImages {
+          url
+        }
+        locations(userLatitude: $userLongitude, userLongitude: $userLongitude){
+          distanceFromUser @include(if: $useLocation)
+          distanceUnit @include(if: $useLocation)
+          city
+        }
+
+      }
+    }
+  }
+`
+
+export const GET_USER_ATTENDING = gql `
+  query GetUserAttending(
+    $id: ID!,
+    $userLatitude: Float,
+    $userLongitude: Float,
+    $useLocation: Boolean!
+    ){
+    users(where: {id: $id}){
+      rsvps {
+        id
+        title
+        start
+        end
+        ticketPrice
+        eventImages {
+          url
+        }
+        locations(userLatitude: $userLongitude, userLongitude: $userLongitude){
+          distanceFromUser @include(if: $useLocation)
+          distanceUnit @include(if: $useLocation)
+          city
+        }
+
+      }
+    }
+  }
+`
+
+export const GET_USER_CREATED = gql `
+  query GetUserCreated(
+    $id: ID!,
+    $userLatitude: Float,
+    $userLongitude: Float,
+    $useLocation: Boolean!
+    ){
+    users(where: {id: $id}){
+      createdEvents {
+        id
+        title
+        start
+        end
+        ticketPrice
+        eventImages {
+          url
+        }
+        locations(userLatitude: $userLongitude, userLongitude: $userLongitude){
+          distanceFromUser @include(if: $useLocation)
+          distanceUnit @include(if: $useLocation)
+          city
+        }
+      }
+    }
+  }
+`
