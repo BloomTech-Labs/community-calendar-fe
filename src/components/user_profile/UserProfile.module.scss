@@ -155,6 +155,9 @@
             .userEventTabAnchor {
               color: $silver;
               padding: 1em;
+              &:hover {
+                color: $shark;
+              }
             }
           }
         }
