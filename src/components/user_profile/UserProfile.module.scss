@@ -186,7 +186,11 @@
         background-color: $shark;
         padding-left: 5px;
         border-bottom: solid 1px $silver;
-        // margin-bottom: 0 !important; 
+        color: $silver;
+        &::selection {
+          background-color: $silver;
+          color: $astronaut;
+        }
         &::placeholder {
           color: $silver;
         }
@@ -216,7 +220,7 @@
 
       .editAboutMeTextArea {
         background-color: $shark;
-
+        color: $silver;
         &::placeholder {
           color: $silver;
         }

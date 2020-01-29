@@ -18,7 +18,7 @@ import {
 
 const EditUserForm = () => {
 
-  const [ hasProfile, setHasProfile ] = useState(false);
+  const [ hasProfile, setHasProfile ] = useState(true);
 
   // conditionally renders components based on Auth0
   return (
