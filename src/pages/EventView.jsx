@@ -39,6 +39,7 @@ import {
   row,
   eventImage,
   padContent,
+  userImage
 } from './styles/EventView.module.scss'
 
 import {set} from 'react-ga'
@@ -338,6 +339,20 @@ const EventView = ({history}) => {
                 <p className='color_chalice is-size-6half-mobile'>Hosted by:</p>
               </div> */}
               {/* <p className="color_shark">{creator}</p> */}
+              <div className='column has-text-centered-mobile'>
+              <div className={`columns is-mobile ${horizontalBar}`}>
+              <div className={`${userImage}`} style={{backgroundImage: `url(${creator.profileImage})`}}/>
+                <div>
+                <p className='color_chalice is-size-6half-mobile'>
+                  Hosted by:
+                </p>
+                <p className='color_chalice is-size-6half-mobile'>
+                {console.log(creator)}
+                  {creator.firstName}
+                </p>
+                </div>
+                </div>
+              </div>
               <div
                 className='column has-text-centered-mobile'
                 style={{paddingLeft: 0}} //remove this style when Hosted By is implemented

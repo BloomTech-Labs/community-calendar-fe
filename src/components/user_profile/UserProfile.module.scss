@@ -1,0 +1,271 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/_all.sass';
+
+
+.userProfile {
+  margin: 0 auto;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-flow: row wrap;
+
+
+  @include tablet {
+    max-width: 80vw;
+  }
+  
+  .profileInfo {
+    background-color: $shark;
+    color: $white;
+    width: 100%;
+    
+    @include tablet {
+      max-width: 25.6vw;
+    }
+
+    .gearWrapper {
+      display: flex;
+      align-items: center;
+      width: 125px;
+
+      .hideText {
+        color: $white;
+      }
+    }
+
+    .userInfo,
+    .editUserForm {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+    }
+
+    .userInfo,
+    .editUserForm {
+
+      .profilePhoto {
+        width: 50vw;
+        height: 50vw;
+        background-color: $astronaut;
+        border: solid $bittersweet;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        @include mobile-xs-to-tablet {
+          width: 23vw;
+          height: 23vw;
+          margin-bottom: 25px;
+        }
+        @include tablet {
+          width: 8vw;
+          height: 8vw;
+          margin-bottom: 30px;
+        }
+      }
+
+      .profileUserName {
+        font-family: $family-secondary;
+        font-size: 2em;
+        @include tablet {
+          font-size: 1.25em;
+        }
+      }
+
+      .profileUserTitle {
+        color: $silver;
+        font-size: 1em;
+      }
+
+      .location {
+        margin-top: 15px;
+        margin-left: -5%;
+        display: flex;
+        align-items: center;
+
+        svg {
+          height: 12px;
+        }
+      }
+
+      .eventNumbers {
+        margin-top: 10px;
+        width: 95%;
+
+        .evNum {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+
+          h4 {
+            font-size: 0.8em;
+            margin-bottom: 5px;
+            color: $silver;
+          }
+        }
+      }
+
+      .aboutUser {
+        margin-top: 8px;
+        width: 95%;
+
+        * {
+          margin: 15px 0;
+        }
+
+        p {
+          font-size: 0.75em;
+        }
+      }
+    }
+  }
+  
+  .userEvents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $offwhite;
+    width: 100vh;
+    height: 100vw;
+    
+    @include tablet {
+      max-width: 52vw;
+    }
+
+    .userEventStage {
+      background-color: $white;
+      width: 100%;
+      height: 100%;
+
+      @include tablet {
+        margin: 5%;
+        width: 100%;
+        height: 95%;
+      }
+
+      .userEventTabs {
+        height: 72px;
+        
+        .userEventTabsUl {
+          justify-content: space-around;
+          border: none;
+
+          .userEventTab {
+            width: 30%;
+            
+            .userEventTabAnchor {
+              color: $silver;
+              padding: 1em;
+              &:hover {
+                color: $shark;
+              }
+            }
+          }
+        }
+      }
+
+      .userEventGrid {
+
+      }
+    }
+  }
+}
+
+.profileSmall {
+  color: rgba(142, 142, 142, 0.5);
+          font-size: 0.7em;
+}
+
+// hasA0 and noA0 refer to classNames in components
+// that are conditionally rendered based on if the 
+// logged in user has an associated Auth0 profile or not.
+// (ie: profile photo, username)
+
+.hasA0Wrapper {
+  margin-bottom: 0 !important;
+}
+
+.hasA0Msg {
+  margin-bottom: 4px;
+
+  @include mobile-xs-to-tablet {
+    margin-bottom: 9px;
+  }
+
+  @include tablet {
+    margin-bottom: 14px;
+  }
+}
+
+.hasA0Name {
+
+}
+
+.editTitleWrap,
+.editNameWrap {
+  width: 80%;
+  margin-bottom: 0 !important; 
+
+  @include mobile-xs-to-tablet {
+    width: 40%;
+  }
+
+  @include tablet {
+    width: 95%;
+  }
+
+  .editTitle,
+  .editName {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $silver;
+    font-size: 0.8em;
+    div {
+      .editTitleField,
+      .editNameField {
+        border: none;
+        background-color: $shark;
+        padding-left: 5px;
+        border-bottom: solid 1px $silver;
+        color: $silver;
+        &::selection {
+          background-color: $silver;
+          color: $astronaut;
+        }
+        &::placeholder {
+          color: $silver;
+        }
+      }
+      
+      .editNameField {
+        height: 20px;
+        margin: 14px 0;
+        @include tablet {
+          margin: 5px 0;
+        }
+      }
+      
+      .editTitleField {
+        height: 20px;
+      }
+    }
+  }
+}
+
+.editAboutMeWrap {
+
+  .editAboutMe {
+    color: $silver;
+
+    div {
+
+      .editAboutMeTextArea {
+        background-color: $shark;
+        color: $silver;
+        &::placeholder {
+          color: $silver;
+        }
+      }
+    }
+  }
+}

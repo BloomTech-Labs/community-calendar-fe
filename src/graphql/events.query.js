@@ -198,6 +198,8 @@ export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
       ...EventDetail
       creator {
         id
+        firstName
+        profileImage
       }
       locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
         id

@@ -289,3 +289,8 @@ div.select.is-rounded select {
 .has-text-grey-lighter {
   color: $silver !important;
 }
+// ==== User Profile Event Tabs ====
+.tabs .is-active a {
+  border-bottom-color: $bittersweet !important;
+  color: $bittersweet !important;
+}
