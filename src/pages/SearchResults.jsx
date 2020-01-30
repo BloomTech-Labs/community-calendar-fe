@@ -42,7 +42,7 @@ const SearchResults = ({history}) => {
   const [location, setLocation] = useState({})
 
   // date range filter
-  const [dateRange, setDateRange] = useState([new Date(), new Date()])
+  const [dateRange, setDateRange] = useState([])
   // tags filter
   const [tags, setTags] = useState([])
 
@@ -267,6 +267,8 @@ const SearchResults = ({history}) => {
               mobile
               setLocation={setLocation}
               currentLocation={location}
+              setDateRange={setDateRange}
+              dateRange={dateRange}
             />
           </div>
         </div>

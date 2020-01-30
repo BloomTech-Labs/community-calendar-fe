@@ -21,3 +21,10 @@
     @include shadow-br;
   }
 }
+
+.picker {
+  border: 2px solid black;
+  border-radius: 4px;
+  resize: none;
+  text-align: center;
+}

@@ -12,21 +12,21 @@ import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_CACHE} from '../../graphql'
 
 // Styles
-import {filterWrapper, mobile} from './FilterMenu.module.scss'
+import {filterWrapper, mobile, picker} from './FilterMenu.module.scss'
 import {locationContent} from 'navbar/Navbar.module.scss'
 import { DateRange } from 'moment-range'
 
 const FilterMenu = props => {
   const {setLocation, currentLocation, setDateRange, dateRange} = props
 
-  const [eventSearchAddress, setEventSearchAddress] = useState('')
-
   const client = useApolloClient()
 
   const {data: localCache} = useQuery(GET_CACHE)
 
-  // LOCATION HANDLERS
-  // location dropdown
+  // EVENT LOCATION SEARCH HANDLERS
+  const [eventSearchAddress, setEventSearchAddress] = useState('')
+
+  // event location dropdown
   const [locationIsOpen, setLocationIsOpen] = useDropdown(closeLocation, false)
 
   // close location dropdown if user clicks outside of it
@@ -52,19 +52,22 @@ const FilterMenu = props => {
     }
   }
 
-  // DATE HANDLERS
+  // DATE RANGE SEARCH HANDLERS
+  const [searchDateRange, setSearchDateRange] = useState([new Date(), new Date()])
   // date dropdown
   const [dateIsOpen, setDateIsOpen] = useDropdown(closeDate, false)
 
   // close date dropdown if user clicks outside of it
   function closeDate(e) {
-    if (!/^date-picker/gi.test(e.target.getAttribute('data-id'))) {
-      setDateIsOpen(false)
-    }
+    // if (!/^date-picker/gi.test(e.target.getAttribute('data-id'))) {
+    //   setDateIsOpen(false)
+    // }
+    return
   }
 
-  const dateRangeChange = dateRange => {
-    setDateRange(dateRange)
+  const dateRangeChange = newDateRange => {
+    setSearchDateRange(newDateRange)
+    setDateRange(newDateRange)
   }
 
   return (
@@ -198,7 +201,12 @@ const FilterMenu = props => {
             >
               <DateRangePicker
                 onChange={dateRangeChange}
-                value={dateRange}
+                value={searchDateRange}
+                className={picker}
+                calendarIcon={null}
+                clearIcon={null}
+                minDate={new Date()}
+                rangeDivider=" to "
               />
             </div>
           </div>
