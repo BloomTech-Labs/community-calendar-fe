@@ -22,8 +22,8 @@ const UserEvents = () => {
 
   
   // replace switch statement with following commented-out function
-  const tabContentSwitch = (param) => {
-    switch(param) {
+  const tabContentSwitch = (tabIndex) => {
+    switch(tabIndex) {
       case '1':
         return <div className={`1 ${userEventCards}`}>Attending</div>;
       case '2':
@@ -34,10 +34,10 @@ const UserEvents = () => {
         return <div className={`1 ${userEventCards}`}></div>;
     }
   }
-  // const tabContentSwitch = (param, eventData) => {
+  // const tabContentSwitch = (tabIndex, eventData) => {
   //   return (
-  //     {eventData.map(item => (
-  //       <EventListCard className={`${param} ${userEventCards}`} item={item} key={item.id} useListView={listView} />
+  //     {eventData.map(event => (
+  //       <EventListCard className={`${tabIndex} ${userEventCards}`} event={event} key={event.id} useListView={listView} />
   //     ))}
   //   )
   // }
