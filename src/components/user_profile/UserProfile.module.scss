@@ -63,6 +63,74 @@
         }
       }
 
+      .imageInput {
+        opacity: 0;
+        pointer-events: none;
+        width: 1px;
+        height: 1px;
+      }
+      
+      .editProfilePhotoWrap {
+        margin-top: -18px;
+
+        .editProfilePhotoFilter {
+          cursor: pointer;
+          height: 100%;
+          width: 100%;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 3rem;
+          
+          @media (hover: hover) {
+            &:hover {
+              background-color: #536d9e;
+            }
+          }
+
+          @include tablet {
+            font-size: inherit;
+          }
+
+          .editPhoto {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            svg {
+              width: 48px;
+              height: 48px;
+
+              @include tablet {
+                width: 24px;
+                height: 24px;
+              }
+            }
+          }
+
+          .profileImg {
+            position: absolute;
+            border-radius: 50%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            width: 50vw;
+            height: 50vh;
+            @include mobile-xs-to-tablet {
+              width: 23vw;
+              height: 23vw;
+              margin-bottom: 25px;
+            }
+            @include tablet {
+              width: 8vw;
+              height: 8vw;
+              margin-bottom: 30px;
+            }
+          }
+        }
+      }
+
       .profileUserName {
         font-family: $family-secondary;
         font-size: 2em;
@@ -136,7 +204,9 @@
             background-color: $shark;
             padding-left: 5px;
             border-bottom: solid 1px $silver;
-            color: $silver;
+            font-family: $family-secondary;
+            color: $white;
+            box-shadow: none;
 
             &::selection {
               background-color: $silver;
