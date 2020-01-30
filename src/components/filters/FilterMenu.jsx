@@ -28,10 +28,7 @@ const FilterMenu = props => {
 
   // close location dropdown if user clicks outside of it
   function closeLocation(e) {
-    // if (!/^location-geocoder/gi.test(e.target.getAttribute('data-id'))) {
-    // setLocationIsOpen(false)
     return
-    // }
   }
 
   // used by geocoder to update local cache
@@ -125,6 +122,53 @@ const FilterMenu = props => {
           </div>
           {/* end dropdown-content*/}
           <p className='is-size-5'>Distance</p>
+          <div>
+            <div>
+              <input
+                type='radio'
+                name='radius'
+                value={2}
+                onClick={() => setLocation({...currentLocation, radius: 2})}
+              />
+              <label htmlFor='2'>Nearby</label>
+            </div>
+            <div>
+              <input
+                type='radio'
+                name='radius'
+                value={5}
+                onClick={() => setLocation({...currentLocation, radius: 5})}
+              />
+              <label htmlFor='5'>5 mi</label>
+            </div>
+            <div>
+              <input
+                type='radio'
+                name='radius'
+                value={5}
+                onClick={() => setLocation({...currentLocation, radius: 10})}
+              />
+              <label htmlFor='10'>10 mi</label>
+            </div>
+            <div>
+              <input
+                type='radio'
+                name='radius'
+                value={5}
+                onClick={() => setLocation({...currentLocation, radius: 20})}
+              />
+              <label htmlFor='20'> 20 mi</label>
+            </div>
+            <div>
+              <input
+                type='radio'
+                name='radius'
+                value={5}
+                onClick={() => setLocation({...currentLocation, radius: 30})}
+              />
+              <label htmlFor='30'> 30 mi</label>
+            </div>
+          </div>
         </div>
         {/* end dropdown-menu*/}
       </div>
