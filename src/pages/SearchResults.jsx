@@ -42,7 +42,7 @@ const SearchResults = ({history}) => {
   const [location, setLocation] = useState({})
 
   // date range filter
-  const [dateRange, setDateRange] = useState({})
+  const [dateRange, setDateRange] = useState([])
   // tags filter
   const [tags, setTags] = useState([])
 
@@ -135,10 +135,10 @@ const SearchResults = ({history}) => {
       searchFilters['tags'] = tags
     }
 
-    if (dateRange && dateRange.start && dateRange.end) {
+    if (dateRange && dateRange[0] && dateRange[1]) {
       searchFilters['dateRange'] = {
-        start: dateRange.start,
-        end: dateRange.end,
+        start: dateRange[0],
+        end: dateRange[1],
       }
     }
 
@@ -267,12 +267,19 @@ const SearchResults = ({history}) => {
               mobile
               setLocation={setLocation}
               currentLocation={location}
+              setDateRange={setDateRange}
+              dateRange={dateRange}
             />
           </div>
         </div>
         <div className={filtersEventsWrap}>
           <div className='is-hidden-mobile'>
-            <FilterMenu setLocation={setLocation} currentLocation={location} />
+            <FilterMenu 
+              setLocation={setLocation}
+              currentLocation={location} 
+              setDateRange={setDateRange}
+              dateRange={dateRange}
+            />
           </div>
           <div>
             <EventList

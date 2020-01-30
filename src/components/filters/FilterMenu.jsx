@@ -5,25 +5,28 @@ import {useDropdown} from '../../utils'
 //Components
 import Geocoder from 'geocoder/Geocoder'
 import {FilterIcon, MapMarkerCircle, DropdownIcon} from 'icons'
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 //GQL
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_CACHE} from '../../graphql'
 
 // Styles
-import {filterWrapper, mobile} from './FilterMenu.module.scss'
+import {filterWrapper, mobile, picker} from './FilterMenu.module.scss'
 import {locationContent} from 'navbar/Navbar.module.scss'
+import { DateRange } from 'moment-range'
 
 const FilterMenu = props => {
-  const {setLocation, currentLocation} = props
-
-  const [eventSearchAddress, setEventSearchAddress] = useState('')
+  const {setLocation, currentLocation, setDateRange, dateRange} = props
 
   const client = useApolloClient()
 
   const {data: localCache} = useQuery(GET_CACHE)
 
-  // location dropdown
+  // EVENT LOCATION SEARCH HANDLERS
+  const [eventSearchAddress, setEventSearchAddress] = useState('')
+
+  // event location dropdown
   const [locationIsOpen, setLocationIsOpen] = useDropdown(closeLocation, false)
 
   // close location dropdown if user clicks outside of it
@@ -46,9 +49,29 @@ const FilterMenu = props => {
     }
   }
 
+  // DATE RANGE SEARCH HANDLERS
+  const [searchDateRange, setSearchDateRange] = useState([new Date(), new Date()])
+  // date dropdown
+  const [dateIsOpen, setDateIsOpen] = useDropdown(closeDate, false)
+
+  // close date dropdown if user clicks outside of it
+  function closeDate(e) {
+    // if (!/^date-picker/gi.test(e.target.getAttribute('data-id'))) {
+    //   setDateIsOpen(false)
+    // }
+    return
+  }
+
+  const dateRangeChange = newDateRange => {
+    setSearchDateRange(newDateRange)
+    setDateRange(newDateRange)
+  }
+
   return (
     <div className={`${filterWrapper} ${props.mobile ? mobile : ''}`}>
       <p className='is-size-4'>Filters</p>
+
+      {/* Select event location filter dropdown menu */}
       <div
         className={`dropdown is-block navDropdown ${
           locationIsOpen ? 'is-active' : ''
@@ -172,7 +195,69 @@ const FilterMenu = props => {
         </div>
         {/* end dropdown-menu*/}
       </div>
-      <p className='is-size-5'>Date</p>
+      
+      {/* Select event date fiter dropdown menu */}
+      <div
+        className={`dropdown is-block navDropdown ${
+          dateIsOpen ? 'is-active' : ''
+        }`}
+        data-id='date-picker-wrapper'
+      >
+        <div
+          role='button'
+          className='dropdown-trigger level is-clickable '
+          aria-haspopup='true'
+          aria-controls='dropdown-menu2'
+          data-testid='date-picker-trigger'
+          data-id='date-picker-trigger'
+          onClick={() => setDateIsOpen(!dateIsOpen)}
+        >
+          <span className={` is-size-5 no-outline-focus no-pointer-events`}>
+            Date
+          </span>
+          <span
+            className={`${dateIsOpen ? 'flip' : ''} no-pointer-events icon`}
+            style={{transition: 'transform 0.2s'}}
+          >
+            <DropdownIcon />
+          </span>
+        </div>
+        <div
+          className={` dropdown-menu  drop-center ${
+            dateIsOpen ? 'is-active' : ''
+          }`}
+          id='date-dropdown-menu '
+          role='menu'
+          style={{
+            position: 'relative',
+            height: `${dateIsOpen ? 'initial' : 0}`,
+            paddingTop: 0,
+          }}
+        >
+          <div
+            className='dropdown-content '
+            data-id='date-picker-dropdown'
+            style={{boxShadow: 'none', backgroundColor: '#fff', paddingTop: 0}}
+          >
+            <div
+              className={locationContent}
+              data-id='date-picker-dropdown-content'
+            >
+              <DateRangePicker
+                onChange={dateRangeChange}
+                value={searchDateRange}
+                className={picker}
+                calendarIcon={null}
+                clearIcon={null}
+                minDate={new Date()}
+                rangeDivider=" to "
+              />
+            </div>
+          </div>
+          {/* end dropdown-content*/}
+        </div>
+        {/* end dropdown-menu*/}
+      </div>
       <p className='is-size-5'>Tags</p>
       <p className='is-size-5'>Price</p>
     </div>
