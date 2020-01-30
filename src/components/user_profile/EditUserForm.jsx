@@ -16,6 +16,10 @@ import {
   editUserForm,
   formFlex,
   profilePhoto,
+  profilePhotoWrap,
+  profilePhotoFilter,
+  editPhoto,
+  profileImg,
   editNameWrap,
   editFirstNameField,
   editLastNameField,
@@ -24,30 +28,45 @@ import {
   location,
   eventNumbers,
   evNum,
+  imageInput,
   editNameLabel
 } from './UserProfile.module.scss'
 
+//  TODO Add camera Icon to image upload
 
-const EditUserForm = () => {
 
-  // manages local form state
-  const fullName = {
-    first: "Cici",
-    last: "Adams"
+const EditUserForm = (props) => {
+
+  const image = {
+    url: ''
   }
-  const [editName, setEditName] = useState(fullName);
-  const handleChange = event => {
-    const updatedValue = {
-      ...editName,
-      [event.currentTarget.name]: event.currentTarget.value
-    };
-    console.log("updatedValue in EditUSerForm.jsx:", updatedValue);
-    setEditName(updatedValue);
-  }
+
+  const { editName, handleFormChange } = props;
 
   return (
     <form>
       <div className={editUserForm}>  
+
+        <input className={imageInput} />
+        <div className={profilePhotoWrap}>
+          <label htmlFor="imageInput">{image.url ? (
+            <div className={profilePhotoFilter}>
+              <div className={editPhoto}>
+                Edit
+                <p>CameraIcon</p>
+              </div>
+              <div className={profileImg} style={{backgroundImage: `url('${image.url}')`}}></div>
+            </div>) : (
+            <div className={profilePhotoFilter}>
+              <div className={editPhoto}>
+                Edit
+                <p>CameraIcon</p>
+              </div>
+              <p>userIcon</p>
+            </div>
+          )}</label>
+        </div>
+
         <div className={profilePhoto}>
           <p>img upload</p>
         </div>
@@ -55,8 +74,8 @@ const EditUserForm = () => {
         <label className={`${editNameLabel} label`}>
           Edit:
           <div className={`${formFlex} control`}>
-            <input className={`${editFirstNameField} input`} name="first" value={editName.first} onChange={handleChange} type="text"></input>
-            <input className={`${editLastNameField} input`} name="last" value={editName.last} onChange={handleChange} type="text"></input>
+            <input className={`${editFirstNameField} input`} name="first" value={editName.first} onChange={handleFormChange} type="text"></input>
+            <input className={`${editLastNameField} input`} name="last" value={editName.last} onChange={handleFormChange} type="text"></input>
           </div>
         </label>
       </div>

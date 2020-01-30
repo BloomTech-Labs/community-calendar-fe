@@ -63,6 +63,21 @@
         }
       }
 
+      .imageInput {
+
+      }
+
+      .profilePhotoWrap {
+
+        .profilePhotoFilter {
+
+          .editPhoto {
+
+            
+          }
+        }
+      }
+
       .profileUserName {
         font-family: $family-secondary;
         font-size: 2em;
@@ -136,7 +151,9 @@
             background-color: $shark;
             padding-left: 5px;
             border-bottom: solid 1px $silver;
-            color: $silver;
+            font-family: $family-secondary;
+            color: $white;
+            box-shadow: none;
 
             &::selection {
               background-color: $silver;

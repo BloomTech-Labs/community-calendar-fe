@@ -25,6 +25,22 @@ const UserProfile = () => {
 
   const [isEditing, setIsEditing] = useState(false);
   
+  
+  // manages local form state
+  const fullName = {
+    first: "Cici",
+    last: "Adams"
+  }
+  const [editName, setEditName] = useState(fullName);
+  const handleFormChange = event => {
+    const updatedValue = {
+      ...editName,
+      [event.currentTarget.name]: event.currentTarget.value
+    };
+    console.log("updatedValue in EditUSerForm.jsx:", updatedValue);
+    setEditName(updatedValue);
+  }
+  
   const {data: attendingData, loading: attendingLoading, error: attendingError, refetch: attendingRefetch} = useLazyQuery(GET_USER_ATTENDING)
 
 
@@ -35,7 +51,7 @@ const UserProfile = () => {
           <GearIcon isActive={isEditing} />
           {isEditing && <small className={`${profileSmall} ${hideText}`}>save changes</small>}
         </div>
-        {isEditing ? <EditUserForm /> : <UserInfo />}
+        {isEditing ? <EditUserForm editName={editName} handleFormChange={handleFormChange} /> : <UserInfo />}
       </div>
       <UserEvents />
     </div>
