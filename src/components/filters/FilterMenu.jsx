@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {useDropdown} from '../../utils'
 
@@ -16,6 +16,9 @@ import {locationContent} from 'navbar/Navbar.module.scss'
 
 const FilterMenu = props => {
   const {setLocation, currentLocation} = props
+
+  const [eventSearchAddress, setEventSearchAddress] = useState('')
+
   const client = useApolloClient()
 
   const {data: localCache} = useQuery(GET_CACHE)
@@ -25,9 +28,10 @@ const FilterMenu = props => {
 
   // close location dropdown if user clicks outside of it
   function closeLocation(e) {
-    if (!/^location-geocoder/gi.test(e.target.getAttribute('data-id'))) {
-      setLocationIsOpen(false)
-    }
+    // if (!/^location-geocoder/gi.test(e.target.getAttribute('data-id'))) {
+    // setLocationIsOpen(false)
+    return
+    // }
   }
 
   // used by geocoder to update local cache
@@ -36,6 +40,7 @@ const FilterMenu = props => {
       const place = {...changes.selectedItem}
       // apply filter
       console.log('place', place)
+      setEventSearchAddress(place.place_name.replace(/united states$/i, 'US'))
       setLocation({
         userLatitude: place.geometry.coordinates[1],
         userLongitude: place.geometry.coordinates[0],
@@ -63,7 +68,7 @@ const FilterMenu = props => {
           onClick={() => setLocationIsOpen(!locationIsOpen)}
         >
           <span className={` is-size-5 no-outline-focus no-pointer-events`}>
-            Location
+            Event Location
           </span>
           <span
             className={`${locationIsOpen ? 'flip' : ''} no-pointer-events icon`}
@@ -93,7 +98,7 @@ const FilterMenu = props => {
               className={locationContent}
               data-id='location-geocoder-dropdown-content'
             >
-              {localCache.userAddress && (
+              {eventSearchAddress && (
                 <p
                   data-id='location-geocoder-address-box'
                   className='level-left'
@@ -106,7 +111,7 @@ const FilterMenu = props => {
                     data-id='location-geocoder-address'
                     style={{marginLeft: '8px'}}
                   >
-                    {localCache.userAddress}
+                    {eventSearchAddress}
                   </span>
                 </p>
               )}
@@ -119,10 +124,10 @@ const FilterMenu = props => {
             </div>
           </div>
           {/* end dropdown-content*/}
+          <p className='is-size-5'>Distance</p>
         </div>
         {/* end dropdown-menu*/}
       </div>
-      <p className='is-size-5'>Distance</p>
       <p className='is-size-5'>Date</p>
       <p className='is-size-5'>Tags</p>
       <p className='is-size-5'>Price</p>
