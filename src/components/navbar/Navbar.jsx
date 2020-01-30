@@ -143,7 +143,7 @@ export default function Navbar() {
               <span
                 className={` is-size-5-tablet no-outline-focus no-pointer-events`}
               >
-                Location
+                My Location
               </span>
               <span
                 className={`${
