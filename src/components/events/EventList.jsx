@@ -57,12 +57,12 @@ export default function EventList({
           {/* Render EventListCards for each item in `eventsToDisplay` array */}
           {!loading &&
             !error &&
-            data.events.map(item => (
+            data.map(item => (
               <EventListCard item={item} key={item.id} useListView={listView} />
             ))}
 
           {/* Inform user if query/filtering resolves to empty array with no error */}
-          {!loading && data && !data.events.length && (
+          {!loading && data && !data.length && (
             <div className='container'>
               <h5 className='has-text-centered color_chalice'>
                 No events found for the selected date(s)
