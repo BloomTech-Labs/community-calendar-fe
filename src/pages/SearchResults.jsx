@@ -149,12 +149,13 @@ const SearchResults = ({history}) => {
       location.radius
     ) {
       searchFilters['location'] = {
-        userLatitude: location.radius,
-        userLongitude: location.radius,
+        userLatitude: location.userLatitude,
+        userLongitude: location.userLongitude,
         radius: location.radius,
       }
     }
 
+    console.log('searchFilters in SearchResults', searchFilters)
     if (Object.keys(searchFilters).length) {
       refetch({
         userLatitude: userLatitude || undefined,

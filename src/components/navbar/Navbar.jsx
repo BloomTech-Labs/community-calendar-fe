@@ -125,84 +125,79 @@ export default function Navbar() {
           </div>
         </div>
         <div className='navbar-end'>
-          {!/\/search/i.test(pageLocation.pathname) && (
+          <div
+            className={`dropdown  navDropdown ${
+              locationIsOpen ? 'is-active' : ''
+            }`}
+            data-id='location-geocoder-wrapper'
+          >
             <div
-              className={`dropdown  navDropdown ${
+              role='button'
+              className='dropdown-trigger level is-clickable hover-underline'
+              aria-haspopup='true'
+              aria-controls='dropdown-menu2'
+              data-testid='location-geocoder-trigger'
+              data-id='location-geocoder-trigger'
+              onClick={() => setLocationIsOpen(!locationIsOpen)}
+            >
+              <span
+                className={` is-size-5-tablet no-outline-focus no-pointer-events`}
+              >
+                Location
+              </span>
+              <span
+                className={`${
+                  locationIsOpen ? 'flip' : ''
+                } no-pointer-events icon`}
+                style={{transition: 'transform 0.2s'}}
+              >
+                <DropdownIcon />
+              </span>
+            </div>
+            <div
+              className={` dropdown-menu drop-center ${
                 locationIsOpen ? 'is-active' : ''
               }`}
-              data-id='location-geocoder-wrapper'
+              id='location-dropdown-menu '
+              role='menu'
+              style={{minWidth: '250px'}}
             >
               <div
-                role='button'
-                className='dropdown-trigger level is-clickable hover-underline'
-                aria-haspopup='true'
-                aria-controls='dropdown-menu2'
-                data-testid='location-geocoder-trigger'
-                data-id='location-geocoder-trigger'
-                onClick={() => setLocationIsOpen(!locationIsOpen)}
-              >
-                <span
-                  className={` is-size-5-tablet no-outline-focus no-pointer-events`}
-                >
-                  Location
-                </span>
-                <span
-                  className={`${
-                    locationIsOpen ? 'flip' : ''
-                  } no-pointer-events icon`}
-                  style={{transition: 'transform 0.2s'}}
-                >
-                  <DropdownIcon />
-                </span>
-              </div>
-              <div
-                className={` dropdown-menu drop-center ${
-                  locationIsOpen ? 'is-active' : ''
-                }`}
-                id='location-dropdown-menu '
-                role='menu'
-                style={{minWidth: '250px'}}
+                className='dropdown-content '
+                data-id='location-geocoder-dropdown'
               >
                 <div
-                  className='dropdown-content '
-                  data-id='location-geocoder-dropdown'
+                  className={locationContent}
+                  data-id='location-geocoder-dropdown-content'
                 >
-                  <div
-                    className={locationContent}
-                    data-id='location-geocoder-dropdown-content'
-                  >
-                    {localCache.userAddress && (
-                      <p
-                        data-id='location-geocoder-address-box'
-                        className='level-left'
-                        style={{marginBottom: '8px'}}
+                  {localCache.userAddress && (
+                    <p
+                      data-id='location-geocoder-address-box'
+                      className='level-left'
+                      style={{marginBottom: '8px'}}
+                    >
+                      <span data-id='location-geocoder-icon' className='level'>
+                        <MapMarkerCircle />
+                      </span>
+                      <span
+                        data-id='location-geocoder-address'
+                        style={{marginLeft: '8px'}}
                       >
-                        <span
-                          data-id='location-geocoder-icon'
-                          className='level'
-                        >
-                          <MapMarkerCircle />
-                        </span>
-                        <span
-                          data-id='location-geocoder-address'
-                          style={{marginLeft: '8px'}}
-                        >
-                          {localCache.userAddress}
-                        </span>
-                      </p>
-                    )}
-                    <Geocoder
-                      labelText='Enter Location:'
-                      onSelectedItemChange={setUserLocation}
-                      dataIdPrefix='location-geocoder'
-                    />
-                  </div>
+                        {localCache.userAddress}
+                      </span>
+                    </p>
+                  )}
+                  <Geocoder
+                    labelText='Enter Location:'
+                    onSelectedItemChange={setUserLocation}
+                    dataIdPrefix='location-geocoder'
+                  />
                 </div>
-                {/* end dropdown-content*/}
               </div>
-              {/* end dropdown-menu*/}
+              {/* end dropdown-content*/}
             </div>
-          )}
+            {/* end dropdown-menu*/}
+          </div>
           <Link
             to='/'
             role='button'

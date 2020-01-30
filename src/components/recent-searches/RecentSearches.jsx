@@ -9,8 +9,11 @@ const RecentSearches = ({recentSearches = null}) => {
       <p className='has-text-grey-lighter'>
         Recent Searches:&nbsp;
         {recentSearches.length &&
-          recentSearches.map(search => {
-            let filterCount = Object.keys(search).length - 1
+          recentSearches.map((search, ind) => {
+            let filterCount = Object.keys(search).reduce((acc, curr) => {
+              return curr !== 'index' && search[curr] ? acc++ : acc
+            }, 0)
+
             return (
               <span
                 key={JSON.stringify(search)}
@@ -51,10 +54,11 @@ const RecentSearches = ({recentSearches = null}) => {
                   }
                   rccHistory.push(`/search${buildQS(qsObj)}`)
                 }}
-                className='has-text-link'
-              >{`${search.index}${
-                filterCount ? `(${filterCount})` : ''
-              }`}</span>
+                className='has-text-link is-clickable'
+              >
+                {`${search.index}${filterCount ? `(${filterCount})` : ''}`}
+                {ind !== recentSearches.length - 1 && ', '}
+              </span>
             )
           })}
       </p>

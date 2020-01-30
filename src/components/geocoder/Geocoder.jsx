@@ -59,8 +59,8 @@ export default function Geocoder({
       )}
       <div
         {...getComboboxProps({
-          className: ` is-flex control has-icons-left has-icons-right ${geocoder} ${
-            isFilterMenu ? filterMenu : ''
+          className: ` is-flex control  has-icons-right ${geocoder} ${
+            isFilterMenu ? `${filterMenu} has-icons-left` : ''
           }`,
         })}
         data-id={`${dataIdPrefix}-container`}
