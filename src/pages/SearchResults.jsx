@@ -63,6 +63,7 @@ const SearchResults = ({history}) => {
   )
 
   const qsFilters = useObjFromQS()
+  console.log(qsFilters);
   let qsLocation = qsFilters.location || {}
   // console.log('qsFilters', qsFilters)
     // console.log(qsFilters);
@@ -135,7 +136,10 @@ const SearchResults = ({history}) => {
     }
 
     if (dateRange && dateRange.start && dateRange.end) {
-      searchFilters['dateRange'] = dateRange
+      searchFilters['dateRange'] = {
+        start: dateRange.start,
+        end: dateRange.end
+      }
     }
 
     if (
@@ -144,7 +148,11 @@ const SearchResults = ({history}) => {
       location.userLongitude &&
       location.radius
     ) {
-      searchFilters['location'] = location
+      searchFilters['location'] = {
+        userLatitude: location.radius,
+        userLongitude: location.radius,
+        radius: location.radius
+      }
     }
 
     if (Object.keys(searchFilters).length) {
@@ -166,7 +174,7 @@ const SearchResults = ({history}) => {
     <div className='page-wrapper'>
       <GoBack />
       <section className='section mobile-section'>
-        <Searchbar isLarge filters={lastSearchFilter} addASearch={addASearch} />
+        <Searchbar isLarge filters={lastSearchFilter} setRecentSearches={setRecentSearches} recentSearches={recentSearches}/>
         {/* DUMMY BUTTONS FOR TESTING */}
         <button
           onClick={() =>
@@ -215,8 +223,9 @@ const SearchResults = ({history}) => {
         </button>
         {/* DUMMY BUTTONS FOR TESTING */}
         <button onClick={() => getRecentSearches()}>Get recent searches</button>
-        <button onClick={() => addASearch()}>Add a search</button>
-        <RecentSearches />
+        {recentSearches.length && <RecentSearches recentSearches={recentSearches}/>
+        
+        }
         <div className='is-flex level justify-between is-dark '>
           <h3
             className={`is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis ${pageTitle}`}

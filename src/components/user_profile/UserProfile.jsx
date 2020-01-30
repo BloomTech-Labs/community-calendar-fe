@@ -5,14 +5,6 @@ import UserEvents from './UserEvents'
 import EditUserForm from './EditUserForm'
 import GearIcon from '../icons/GearIcon'
 
-//graphql
-import {useLazyQuery, useApolloClient} from '@apollo/react-hooks'
-import {
-  GET_USER_ATTENDING,
-  GET_USER_CREATED,
-  GET_USER_SAVED
-} from '../../graphql'
-
 import {
   userProfile,
   profileInfo,
@@ -24,9 +16,6 @@ import {
 const UserProfile = () => {
 
   const [isEditing, setIsEditing] = useState(false);
-  
-  const {data: attendingData, loading: attendingLoading, error: attendingError, refetch: attendingRefetch} = useLazyQuery(GET_USER_ATTENDING)
-
 
   return (
     <div className={userProfile}>
@@ -37,7 +26,8 @@ const UserProfile = () => {
         </div>
         {isEditing ? <EditUserForm /> : <UserInfo />}
       </div>
-      <UserEvents />
+      <UserEvents/>
+      />
     </div>
   )
 }

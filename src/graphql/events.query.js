@@ -272,12 +272,11 @@ export const GET_EVENTS_FILTERED = gql`
 
 export const GET_USER_SAVED = gql `
   query GetUserSaved(
-    $id: ID!,
-    $userLatitude: Float,
-    $userLongitude: Float,
+    $userLatitude: Float
+    $userLongitude: Float
     $useLocation: Boolean!
     ){
-    users(where: {id: $id}){
+    user{
       saved {
         id
         title
@@ -287,7 +286,7 @@ export const GET_USER_SAVED = gql `
         eventImages {
           url
         }
-        locations(userLatitude: $userLongitude, userLongitude: $userLongitude){
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
           distanceFromUser @include(if: $useLocation)
           distanceUnit @include(if: $useLocation)
           city
@@ -300,12 +299,11 @@ export const GET_USER_SAVED = gql `
 
 export const GET_USER_ATTENDING = gql `
   query GetUserAttending(
-    $id: ID!,
-    $userLatitude: Float,
-    $userLongitude: Float,
+    $userLatitude: Float
+    $userLongitude: Float
     $useLocation: Boolean!
     ){
-    users(where: {id: $id}){
+    user{
       rsvps {
         id
         title
@@ -315,7 +313,7 @@ export const GET_USER_ATTENDING = gql `
         eventImages {
           url
         }
-        locations(userLatitude: $userLongitude, userLongitude: $userLongitude){
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
           distanceFromUser @include(if: $useLocation)
           distanceUnit @include(if: $useLocation)
           city
@@ -328,12 +326,11 @@ export const GET_USER_ATTENDING = gql `
 
 export const GET_USER_CREATED = gql `
   query GetUserCreated(
-    $id: ID!,
-    $userLatitude: Float,
-    $userLongitude: Float,
+    $userLatitude: Float
+    $userLongitude: Float
     $useLocation: Boolean!
     ){
-    users(where: {id: $id}){
+    user{
       createdEvents {
         id
         title
@@ -343,7 +340,7 @@ export const GET_USER_CREATED = gql `
         eventImages {
           url
         }
-        locations(userLatitude: $userLongitude, userLongitude: $userLongitude){
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
           distanceFromUser @include(if: $useLocation)
           distanceUnit @include(if: $useLocation)
           city

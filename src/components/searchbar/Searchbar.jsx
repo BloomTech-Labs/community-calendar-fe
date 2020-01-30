@@ -13,16 +13,14 @@ import {useHistory} from 'react-router-dom'
 import {buildQS} from '../../utils'
 import {SearchIcon} from 'icons'
 
-const Searchbar = ({isLarge, cb, filters = null}) => {
-  const [recentSearches, setRecentSearches] = useState([])
+const Searchbar = ({isLarge, cb, filters = null, setRecentSearches, recentSearches}) => {
   const [searchText, setSearchText] = useState('')
   const client = useApolloClient();
   const rccHistory = useHistory()
-
-  const {data: recentSearchesData, refetch: recentSearchesRefetch} = useQuery(
-    GET_RECENT_SEARCHES,
-  )
-
+  // const {data: recentSearchesData, refetch: recentSearchesRefetch} = useQuery(
+  //   GET_RECENT_SEARCHES
+  // )
+  
   const handleChange = e => {
     setSearchText(e.target.value)
   }
@@ -62,8 +60,8 @@ const Searchbar = ({isLarge, cb, filters = null}) => {
       }
     }
 
-    const addASearch = () => {
-      if(Object.keys(filters).length){
+    
+      if(filters && Object.keys(filters).length){
         if(searchText){
           filters['index'] = searchText
         }
@@ -79,31 +77,34 @@ const Searchbar = ({isLarge, cb, filters = null}) => {
 
         if(filters.ticketPrice) filters.ticketPrice.forEach( range =>range['__typename'] = 'PriceFilters')
 
+        let arr = [];
 
-        recentSearchesRefetch().then(res => {
-          console.log(res);
-          let arr = [];
-          if(res.data.recentSearches){
-            arr = [...res.data.recentSearches]
-          }
-          console.log('arr is', arr);
-          console.log(filters);
-          client.writeData({
-            data: {
-              recentSearches: [...arr, {...filters}],
-            },
-          })    
-        })
-      
+        console.log(filters);
+        // console.log([{...filters}])
+        // client.writeData({
+        //   data: {
+        //     recentSearches: [{...filters}],
+        //   },
+        // })    
+        
+        // recentSearchesRefetch().then(res => {
+        //   console.log(res);
+        // })
+          
+
+        
+        setRecentSearches([...recentSearches, {...filters}])
+        console.log(recentSearches);
     }
-    }
+    
 
     const qs = buildQS(qsObj)
 
     // console.log('qsObj in Searchbar', qsObj)
     // console.log('qs is', qs);
     // console.log('filters is', filters)
-    addASearch()
+
+    
     // push to /search with query string
     rccHistory.push(`/search${qs}`)
     // clear search text

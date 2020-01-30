@@ -42,10 +42,15 @@ const useObjFromQS = () => {
       }
     }
     // create location filter object from query string
-    else if (/(user(latitude)|(longitude))|(maxdistance)/gi.test(k)) {
+    else if (/(user(latitude)|(longitude))|(radius)/gi.test(k)) {
       if (!filtersObj.location)
         filtersObj.location = {}
-      filtersObj.location[k] = v
+        if(k === 'userLatitude' || k === 'userLongitude'){
+          filtersObj.location[k] = parseFloat(v)
+        }else if(k === 'radius'){
+          filtersObj.location[k] = parseInt(v)
+        }
+      
     }
     // create date filter object from query string
     else if (/(start)|(end)/i.test(k)) {

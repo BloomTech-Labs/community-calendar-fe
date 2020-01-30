@@ -115,7 +115,7 @@ function App() {
       userAddress: null,
       maxDistance: null,
       userId: null,
-      recentSearches: [
+      recentSearches: null
         // {
         //   index: 'test testy mc testness',
         //   location: {
@@ -144,7 +144,6 @@ function App() {
         //   },
         //   __typename: 'SearchFilters',
         // },
-      ],
     },
   })
 
