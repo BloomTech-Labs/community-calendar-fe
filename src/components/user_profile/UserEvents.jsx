@@ -31,8 +31,8 @@ const UserEvents = () => {
   const {data: savedData, loading: savedLoading, error: savedError, refetch: savedRefetch} = useLazyQuery(GET_USER_SAVED, {variables: {useLocation: false, userLatitude: undefined, userLongitude: undefined}})
   
   // replace switch statement with following commented-out function
-  const tabContentSwitch = (param) => {
-    switch(param) {
+  const tabContentSwitch = (tabIndex) => {
+    switch(tabIndex) {
       case '1':
         return (
         <div className={`1 ${userEventCards}`}>
@@ -59,10 +59,10 @@ const UserEvents = () => {
         );
     }
   }
-  // const tabContentSwitch = (param, eventData) => {
+  // const tabContentSwitch = (tabIndex, eventData) => {
   //   return (
-  //     {eventData.map(item => (
-  //       <EventListCard className={`${param} ${userEventCards}`} item={item} key={item.id} useListView={listView} />
+  //     {eventData.map(event => (
+  //       <EventListCard className={`${tabIndex} ${userEventCards}`} event={event} key={event.id} useListView={listView} />
   //     ))}
   //   )
   // }
