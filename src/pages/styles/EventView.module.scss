@@ -150,4 +150,14 @@
     flex-direction: row;
     justify-content: space-between;
   }
+
+  .userImage {
+    width: 50px !important;
+    height: 50px !important;
+    margin: 0 1rem;;
+    border-radius: 50%;
+    background: no-repeat;
+    background-position: center;
+    
+  }
 }

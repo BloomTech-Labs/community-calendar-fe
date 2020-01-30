@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
+import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import PropTypes from 'prop-types'
+import {GET_EVENTS_FILTERED, GET_CACHE, GET_RECENT_SEARCHES} from '../../graphql'
 import {
   searchbar,
   searchbarInput,
@@ -11,10 +13,14 @@ import {useHistory} from 'react-router-dom'
 import {buildQS} from '../../utils'
 import {SearchIcon} from 'icons'
 
-const Searchbar = ({isLarge, cb, filters = null}) => {
+const Searchbar = ({isLarge, cb, filters = null, setRecentSearches, recentSearches}) => {
   const [searchText, setSearchText] = useState('')
+  const client = useApolloClient();
   const rccHistory = useHistory()
-
+  // const {data: recentSearchesData, refetch: recentSearchesRefetch} = useQuery(
+  //   GET_RECENT_SEARCHES
+  // )
+  
   const handleChange = e => {
     setSearchText(e.target.value)
   }
@@ -54,8 +60,51 @@ const Searchbar = ({isLarge, cb, filters = null}) => {
       }
     }
 
-    console.log('qsObj in Searchbar', qsObj)
+    
+      if(filters && Object.keys(filters).length){
+        if(searchText){
+          filters['index'] = searchText
+        }
+
+        // add __typename to filters
+        filters['__typename'] =  'SearchFilters'
+
+        if(filters.location) filters.location['__typename'] = 'LocationFilters'
+
+
+        if(filters.dateRange) filters.dateRange['__typename'] = 'DateFilters'
+
+
+        if(filters.ticketPrice) filters.ticketPrice.forEach( range =>range['__typename'] = 'PriceFilters')
+
+        let arr = [];
+
+        console.log(filters);
+        // console.log([{...filters}])
+        // client.writeData({
+        //   data: {
+        //     recentSearches: [{...filters}],
+        //   },
+        // })    
+        
+        // recentSearchesRefetch().then(res => {
+        //   console.log(res);
+        // })
+          
+
+        
+        setRecentSearches([...recentSearches, {...filters}])
+        console.log(recentSearches);
+    }
+    
+
     const qs = buildQS(qsObj)
+
+    // console.log('qsObj in Searchbar', qsObj)
+    // console.log('qs is', qs);
+    // console.log('filters is', filters)
+
+    
     // push to /search with query string
     rccHistory.push(`/search${qs}`)
     // clear search text

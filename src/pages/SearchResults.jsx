@@ -23,20 +23,23 @@ import {
   gobackpadding,
 } from './styles/SearchResults.module.scss'
 
-import recentSearchExample from 'mock_data/test_recent_search'
 import GoBack from 'go_back/GoBack'
 
-const SearchResults = () => {
+//utilities
+import {useObjFromQS} from '../utils'
+
+const SearchResults = ({history}) => {
   const [recentSearches, setRecentSearches] = useState([])
 
   //filter component states  START
-  const [lastSearchFilter, setLastSearchFilter] = useState({});
+  const [lastSearchFilter, setLastSearchFilter] = useState({})
+  const [currentSearch, setCurrentSearch] = useState({})
 
   // location filter
-  const [location, setLocation] = useState({});
+  const [location, setLocation] = useState({})
 
   // date range filter
-  const [dateRange, setDateRange] = useState({});
+  const [dateRange, setDateRange] = useState({})
   // tags filter
   const [tags, setTags] = useState([])
 
@@ -59,39 +62,18 @@ const SearchResults = () => {
     GET_RECENT_SEARCHES,
   )
 
-  // set up filter
-  let pageLocation = useLocation()
-  // create a search params object
-  const urlQS = new URLSearchParams(pageLocation.search)
-  // get searchText from query string and format string for gql query
-  let searchTxt = `,${urlQS.get('searchText').replace(/ /g, ',')},`
-  // create array of tags from query string
-  let restructuredTags = []
-  urlQS.forEach((v, k) => {
-    if (/tag/i.test(k)) restructuredTags.push(v)
-  })
-
-  // create array of ticketPrices from query string
-  let restructuredPrices = []
-  urlQS.forEach((v, k) => {
-    if(/minprice/i.test(k)){
-      let ind = k.slice(k.indexOf('-') + 1)
-     restructuredPrices[ind] = {...restructuredPrices[ind], minPrice: +v} 
-    }
-    if(/maxprice/i.test(k)){
-      let ind = k.slice(k.indexOf('-') + 1)
-     restructuredPrices[ind] = {...restructuredPrices[ind], maxPrice: +v} 
-    }
-  })
-
-
+  const qsFilters = useObjFromQS()
+  console.log(qsFilters);
+  let qsLocation = qsFilters.location || {}
+  // console.log('qsFilters', qsFilters)
+    // console.log(qsFilters);
   // gql
   const {loading, error, data, refetch} = useQuery(GET_EVENTS_FILTERED, {
     variables: {
       userLatitude: userLatitude || undefined,
       userLongitude: userLongitude || undefined,
       useLocation: !!(userLatitude && userLongitude),
-      searchFilters: {
+      searchFilters: qsFilters || {
         location:
           userLatitude && userLongitude && maxDistance
             ? {
@@ -100,7 +82,7 @@ const SearchResults = () => {
                 radius: maxDistance,
               }
             : undefined,
-        index: searchTxt ? searchTxt : undefined,
+        index: qsFilters.index,
       },
     },
   })
@@ -117,96 +99,139 @@ const SearchResults = () => {
     })
   }
 
-  const addASearch = () => {
+  const addASearch = recentSearches => {
+    if(Object.keys(recentSearches).length){
+
     client.writeData({
       data: {
-        recentSearches: [...recentSearches, {...recentSearchExample}],
+        recentSearches: [...recentSearches],
       },
     })
   }
+  }
 
   useEffect(() => {
-    const searchFilters = {};
-    const ticketPrice = [];
+    const searchFilters = {}
+    const ticketPrice = []
 
-    if(price010){
+    if (price010) {
       ticketPrice.push({minPrice: 0, maxPrice: 10})
     }
-    if(price1020){
+    if (price1020) {
       ticketPrice.push({minPrice: 10, maxPrice: 20})
     }
-    if(price2040){
+    if (price2040) {
       ticketPrice.push({minPrice: 20, maxPrice: 40})
     }
-    if(price4080){
+    if (price4080) {
       ticketPrice.push({minPrice: 40, maxPrice: 80})
     }
 
-    if(price010 || price1020 || price2040 || price4080){
-      searchFilters['ticketPrice'] = ticketPrice;
+    if (price010 || price1020 || price2040 || price4080) {
+      searchFilters['ticketPrice'] = ticketPrice
     }
 
-    if(tags.length){
-      searchFilters['tags'] = tags;
+    if (tags.length) {
+      searchFilters['tags'] = tags
     }
 
-    if(dateRange && dateRange.start && dateRange.end){
-      searchFilters['dateRange'] = dateRange;
+    if (dateRange && dateRange.start && dateRange.end) {
+      searchFilters['dateRange'] = {
+        start: dateRange.start,
+        end: dateRange.end
+      }
     }
 
-    if(location && location.userLatitude && location.userLongitude && location.radius){
-      searchFilters['location'] = location;
+    if (
+      location &&
+      location.userLatitude &&
+      location.userLongitude &&
+      location.radius
+    ) {
+      searchFilters['location'] = {
+        userLatitude: location.radius,
+        userLongitude: location.radius,
+        radius: location.radius
+      }
     }
 
-    if(Object.keys(searchFilters).length){
-      console.log(searchFilters);
-      refetch( {
+    if (Object.keys(searchFilters).length) {
+      // console.log(searchFilters)
+      refetch({
         userLatitude: userLatitude || undefined,
         userLongitude: userLongitude || undefined,
         useLocation: !!(userLatitude && userLongitude),
-        searchFilters: {index: searchTxt ? searchTxt : undefined, ...searchFilters}
-        }
-      ).then(res => {
-        console.log(res);
+        searchFilters: searchFilters,
+        // searchFilters: {index: searchTxt ? searchTxt : undefined, ...searchFilters}
+      }).then(res => {
+        // console.log(res)
       })
     }
-    setLastSearchFilter(searchFilters);
+    setLastSearchFilter(searchFilters)
   }, [price010, price1020, price2040, price4080, tags, dateRange, location])
 
   return (
     <div className='page-wrapper'>
       <GoBack />
       <section className='section mobile-section'>
-        <Searchbar isLarge filters={lastSearchFilter} />
+        <Searchbar isLarge filters={lastSearchFilter} setRecentSearches={setRecentSearches} recentSearches={recentSearches}/>
         {/* DUMMY BUTTONS FOR TESTING */}
-        <button onClick={() => setDateRange({start: '2020-01-23T17:00:00.000Z', end: '2020-01-24T17:00:00.000Z'})}>Test Date</button>
-        <button onClick={() => setTags(['corn', 'milk', 'eggs', 'fruit roll ups'])}>Test Tags</button>
+        <button
+          onClick={() =>
+            setDateRange({
+              start: '2020-01-23T17:00:00.000Z',
+              end: '2020-01-24T17:00:00.000Z',
+            })
+          }
+        >
+          Test Date
+        </button>
+        <button
+          onClick={() => setTags(['corn', 'milk', 'eggs', 'fruit roll ups'])}
+        >
+          Test Tags
+        </button>
         <button onClick={() => setPrice010(!price010)}>Price $0-$10</button>
         <button onClick={() => setPrice1020(!price1020)}>Price $10-$20</button>
         <button onClick={() => setPrice2040(!price2040)}>Price $20-$40</button>
         <button onClick={() => setPrice4080(!price4080)}>Price $40-$80</button>
         <button onClick={() => setPrice80(!price80)}>Price $80+</button>
-        <button onClick={() => setLocation({userLatitude: 33.999, userLongitude: 29.999, radius: 30})}>Test Location</button>
-        <button onClick={() => {
-          setPrice010(false)
-          setPrice1020(false)
-          setPrice2040(false)
-          setPrice4080(false)
-          setPrice80(false)
-          setLocation({})
-          setTags([]);
-          setLastSearchFilter({});
-        }}>Reset filters</button>
+        <button
+          onClick={() =>
+            setLocation({
+              userLatitude: 33.999,
+              userLongitude: 29.999,
+              radius: 30,
+            })
+          }
+        >
+          Test Location
+        </button>
+        <button
+          onClick={() => {
+            setPrice010(false)
+            setPrice1020(false)
+            setPrice2040(false)
+            setPrice4080(false)
+            setPrice80(false)
+            setLocation({})
+            setTags([])
+            setLastSearchFilter({})
+          }}
+        >
+          Reset filters
+        </button>
         {/* DUMMY BUTTONS FOR TESTING */}
         <button onClick={() => getRecentSearches()}>Get recent searches</button>
-        <button onClick={() => addASearch()}>Add a search</button>
-        <RecentSearches />
+        {recentSearches.length && <RecentSearches recentSearches={recentSearches}/>
+        
+        }
         <div className='is-flex level justify-between is-dark '>
           <h3
             className={`is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis ${pageTitle}`}
           >
             Search Results&nbsp;:&nbsp;
-            {urlQS.get('searchText').replace(/ /g, ', ')}
+            {qsFilters.index.replace(/ /g, ', ')}
           </h3>
           <div className='is-hidden-mobile'>
             <ViewToggle toggleFunc={setShowListView} viewState={useListView} />

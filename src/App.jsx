@@ -21,6 +21,7 @@ import EventView from './pages/EventView'
 import UpdateEventPage from './pages/UpdateEventPage'
 import CreateEventPage from './pages/CreateEventPage'
 import SearchResults from './pages/SearchResults'
+import UserProfile from './pages/UserProfilePage'
 
 //components
 import Navbar from 'navbar/Navbar'
@@ -114,36 +115,35 @@ function App() {
       userAddress: null,
       maxDistance: null,
       userId: null,
-      recentSearches: [
-        {
-          index: 'test testy mc testness',
-          location: {
-            userLatitude: 23.999,
-            userLongitude: 24.999,
-            radius: 20,
-            __typename: 'LocationFilters',
-          },
-          tags: ['tag1', 'dogs', 'cool', 'beef stew'],
-          ticketPrice: [
-            {
-              maxPrice: 10,
-              minPrice: 0,
-              __typename: 'PriceFilters',
-            },
-            {
-              maxPrice: 30,
-              minPrice: 20,
-              __typename: 'PriceFilters',
-            },
-          ],
-          dateRange: {
-            start: '2020-01-22T17:00:00.000Z',
-            end: '2020-01-24T17:00:00.000Z',
-            __typename: 'DateFilters',
-          },
-          __typename: 'SearchFilters',
-        },
-      ],
+      recentSearches: null
+        // {
+        //   index: 'test testy mc testness',
+        //   location: {
+        //     userLatitude: 23.999,
+        //     userLongitude: 24.999,
+        //     radius: 20,
+        //     __typename: 'LocationFilters',
+        //   },
+        //    tags: ['tag1', 'dogs', 'cool', 'beef stew'],
+        //   ticketPrice: [
+        //     {
+        //       maxPrice: 10,
+        //       minPrice: 0,
+        //       __typename: 'PriceFilters',
+        //     },
+        //     {
+        //       maxPrice: 30,
+        //       minPrice: 20,
+        //       __typename: 'PriceFilters',
+        //     },
+        //   ],
+        //   dateRange: {
+        //     start: '2020-01-22T17:00:00.000Z',
+        //     end: '2020-01-24T17:00:00.000Z',
+        //     __typename: 'DateFilters',
+        //   },
+        //   __typename: 'SearchFilters',
+        // },
     },
   })
 
@@ -154,6 +154,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/create-event' component={CreateEventPage} />
+        <Route path='/myprofile' component={UserProfile} />
         <Route exact path='/events/:id' component={EventView} />
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />

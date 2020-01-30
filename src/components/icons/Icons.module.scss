@@ -6,6 +6,12 @@
   }
 }
 
+.gearActive {
+  path {
+    fill: $white !important;
+  }
+}
+
 @mixin iconFillTransition {
   transition: fill $duration-short;
 }
@@ -40,7 +46,8 @@
 }
 
 .grid,
-.list {
+.list,
+.gear {
   path {
     @include iconFillTransition();
     fill: $iconLight;
