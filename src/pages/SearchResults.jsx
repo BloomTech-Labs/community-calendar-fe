@@ -29,11 +29,14 @@ import GoBack from 'go_back/GoBack'
 import {useObjFromQS} from '../utils'
 
 const SearchResults = ({history}) => {
-  const [recentSearches, setRecentSearches] = useState([])
+  const qsFilters = useObjFromQS()
+  console.log('qsFilters', qsFilters)
+  let qsLocation = qsFilters.location || {}
+
+  const [recentSearches, setRecentSearches] = useState([qsFilters])
 
   //filter component states  START
   const [lastSearchFilter, setLastSearchFilter] = useState({})
-  const [currentSearch, setCurrentSearch] = useState({})
 
   // location filter
   const [location, setLocation] = useState({})
@@ -57,16 +60,12 @@ const SearchResults = ({history}) => {
   const {
     data: {userLatitude, userLongitude, maxDistance},
   } = useQuery(GET_CACHE)
-
+  /*
   const {data: recentSearchesData, refetch: recentSearchesRefetch} = useQuery(
     GET_RECENT_SEARCHES,
   )
+*/
 
-  const qsFilters = useObjFromQS()
-  console.log(qsFilters);
-  let qsLocation = qsFilters.location || {}
-  // console.log('qsFilters', qsFilters)
-    // console.log(qsFilters);
   // gql
   const {loading, error, data, refetch} = useQuery(GET_EVENTS_FILTERED, {
     variables: {
@@ -93,6 +92,7 @@ const SearchResults = ({history}) => {
   // toggle the Filters menu open/closed
   const [filtersIsOpen, setFiltersIsOpen] = useState(false)
 
+  /*
   const getRecentSearches = () => {
     recentSearchesRefetch().then(({data: {recentSearches}}) => {
       setRecentSearches([...recentSearches])
@@ -100,15 +100,15 @@ const SearchResults = ({history}) => {
   }
 
   const addASearch = recentSearches => {
-    if(Object.keys(recentSearches).length){
-
-    client.writeData({
-      data: {
-        recentSearches: [...recentSearches],
-      },
-    })
+    if (Object.keys(recentSearches).length) {
+      client.writeData({
+        data: {
+          recentSearches: [...recentSearches],
+        },
+      })
+    }
   }
-  }
+*/
 
   useEffect(() => {
     const searchFilters = {}
@@ -138,7 +138,7 @@ const SearchResults = ({history}) => {
     if (dateRange && dateRange.start && dateRange.end) {
       searchFilters['dateRange'] = {
         start: dateRange.start,
-        end: dateRange.end
+        end: dateRange.end,
       }
     }
 
@@ -151,20 +151,16 @@ const SearchResults = ({history}) => {
       searchFilters['location'] = {
         userLatitude: location.radius,
         userLongitude: location.radius,
-        radius: location.radius
+        radius: location.radius,
       }
     }
 
     if (Object.keys(searchFilters).length) {
-      // console.log(searchFilters)
       refetch({
         userLatitude: userLatitude || undefined,
         userLongitude: userLongitude || undefined,
         useLocation: !!(userLatitude && userLongitude),
         searchFilters: searchFilters,
-        // searchFilters: {index: searchTxt ? searchTxt : undefined, ...searchFilters}
-      }).then(res => {
-        // console.log(res)
       })
     }
     setLastSearchFilter(searchFilters)
@@ -174,9 +170,14 @@ const SearchResults = ({history}) => {
     <div className='page-wrapper'>
       <GoBack />
       <section className='section mobile-section'>
-        <Searchbar isLarge filters={lastSearchFilter} setRecentSearches={setRecentSearches} recentSearches={recentSearches}/>
+        <Searchbar
+          isLarge
+          filters={lastSearchFilter}
+          setRecentSearches={setRecentSearches}
+          recentSearches={recentSearches}
+        />
         {/* DUMMY BUTTONS FOR TESTING */}
-        <button
+        {/*         <button
           onClick={() =>
             setDateRange({
               start: '2020-01-23T17:00:00.000Z',
@@ -221,11 +222,12 @@ const SearchResults = ({history}) => {
         >
           Reset filters
         </button>
-        {/* DUMMY BUTTONS FOR TESTING */}
         <button onClick={() => getRecentSearches()}>Get recent searches</button>
-        {recentSearches.length && <RecentSearches recentSearches={recentSearches}/>
-        
-        }
+
+  */}
+        {recentSearches[0] && (
+          <RecentSearches recentSearches={recentSearches} />
+        )}
         <div className='is-flex level justify-between is-dark '>
           <h3
             className={`is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis ${pageTitle}`}
@@ -258,13 +260,18 @@ const SearchResults = ({history}) => {
             className={`${hiddenMenu} is-hidden-tablet ${
               filtersIsOpen ? 'slideInL2R ' : 'willSlideInL2R'
             }`}
+            style={{zIndex: 1, width: '280px'}}
           >
-            <FilterMenu mobile />
+            <FilterMenu
+              mobile
+              setLocation={setLocation}
+              currentLocation={location}
+            />
           </div>
         </div>
         <div className={filtersEventsWrap}>
           <div className='is-hidden-mobile'>
-            <FilterMenu />
+            <FilterMenu setLocation={setLocation} currentLocation={location} />
           </div>
           <div>
             <EventList

@@ -14,6 +14,7 @@
   &-reset {
     color: $shark !important;
     top: 20% !important;
+    // right: 2px;
     transition: text-shadow $duration-short, opacity $duration-short;
     pointer-events: all !important;
     &:hover,
@@ -24,6 +25,17 @@
     &.hide {
       opacity: 0;
       visibility: hidden;
+    }
+  }
+
+  &.filterMenu {
+    input {
+      margin-top: $gap-xs;
+      min-width: 100%;
+      border-radius: $radius;
+      padding-left: $gap-xxs / 2;
+      border: 1px solid black !important;
+      padding-left: 20px !important;
     }
   }
 }

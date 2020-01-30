@@ -37,14 +37,13 @@ $lgGrid: $smallGrid * 3;
   grid-template-columns: 100%;
   grid-gap: $gap-xs;
   @include mx-auto;
-  // max-width: min-content;
 
   @media screen and (min-width: 650px) {
-    grid-template-columns: 50% 50%;
+    grid-template-columns: repeat(2, minmax(200px, 250px));
   }
 
   @media screen and (min-width: 971px) {
-    grid-template-columns: repeat(3, 33%);
+    grid-template-columns: repeat(3, minmax(200px, 33%));
   }
 }
 
