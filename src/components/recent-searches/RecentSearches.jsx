@@ -10,10 +10,12 @@ const RecentSearches = ({recentSearches = null}) => {
         Recent Searches:&nbsp;
         {recentSearches.length &&
           recentSearches.map((search, ind) => {
+            console.log('search item in RecentSearches', search)
             let filterCount = Object.keys(search).reduce((acc, curr) => {
-              return curr !== 'index' && search[curr] ? acc++ : acc
+              return !/(index)|(__typename)/i.test(curr) && search[curr]
+                ? (acc += 1)
+                : acc
             }, 0)
-
             return (
               <span
                 key={JSON.stringify(search)}
