@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // form components
 import {useForm, ErrorMessage} from 'react-hook-form'
@@ -10,16 +10,20 @@ import {fetchGeocode} from '../../utils'
 
 // icons
 import LocationPin from '../icons/LocationPin'
+import UserIcon from '../icons/UserIcon'
+import CameraIcon from '../icons/CameraIcon'
+
 
 // styles
 import {
   editUserForm,
   formFlex,
   profilePhoto,
-  profilePhotoWrap,
-  profilePhotoFilter,
+  editProfilePhotoWrap,
+  editProfilePhotoFilter,
   editPhoto,
   profileImg,
+  defaultProfilePhoto,
   editNameWrap,
   editFirstNameField,
   editLastNameField,
@@ -32,50 +36,83 @@ import {
   editNameLabel
 } from './UserProfile.module.scss'
 
-//  TODO Add camera Icon to image upload
+//  TODO Add camera Icon and User Icon to image upload
 
 
 const EditUserForm = (props) => {
+  const { 
+    editName, 
+    handleFormChange
+   } = props;
+  
+  const [profilePicture, setProfilePicture] = useState(null);
 
   const image = {
-    url: ''
+    url: false
   }
 
-  const { editName, handleFormChange } = props;
+  useEffect(() => {
+    if (profilePicture) {
+      const formData = new FormData();
+      formData.append();
+      // append/edit formData and send as mutation
+    }
+  }, [profilePicture])
 
   return (
     <form>
       <div className={editUserForm}>  
 
-        <input className={imageInput} />
-        <div className={profilePhotoWrap}>
-          <label htmlFor="imageInput">{image.url ? (
-            <div className={profilePhotoFilter}>
+      
+        {/* <div className={profilePhotoWrap}>
+          <label htmlFor="imageInput">
+            {image.url ? (
+              <div className={profilePhotoFilter}>
+                <div className={editPhoto}>
+                  Edit
+                  <CameraIcon />
+                </div>
+                <div className={profileImg} style={{backgroundImage: `url('${image.url}')`}}></div>
+              </div>) : (
+              <div className={profilePhotoFilter}>
+                <div className={editPhoto}>
+                  Edit
+                  <CameraIcon />
+                </div>
+                <UserIcon className={defaultProfilePhoto} />
+              </div>
+            )}
+          </label>
+        </div> */}
+
+        <input className={imageInput} type="file" onChange={e => setProfilePicture(e.target.target.files[0])} id="imageInput" />
+        <div className={`${profilePhoto} ${editProfilePhotoWrap}`}>
+          <label htmlFor="imageInput">
+            <div className={editProfilePhotoFilter}>
               <div className={editPhoto}>
                 Edit
-                <p>CameraIcon</p>
+                <CameraIcon />
               </div>
               <div className={profileImg} style={{backgroundImage: `url('${image.url}')`}}></div>
-            </div>) : (
-            <div className={profilePhotoFilter}>
-              <div className={editPhoto}>
-                Edit
-                <p>CameraIcon</p>
-              </div>
-              <p>userIcon</p>
             </div>
-          )}</label>
-        </div>
-
-        <div className={profilePhoto}>
-          <p>img upload</p>
+          </label>
         </div>
         <div className={`${editNameWrap} field`}>
         <label className={`${editNameLabel} label`}>
           Edit:
           <div className={`${formFlex} control`}>
-            <input className={`${editFirstNameField} input`} name="first" value={editName.first} onChange={handleFormChange} type="text"></input>
-            <input className={`${editLastNameField} input`} name="last" value={editName.last} onChange={handleFormChange} type="text"></input>
+            <input 
+              className={`${editFirstNameField} input`} 
+              name="first" value={editName.first} 
+              onChange={handleFormChange} 
+              type="text">
+            </input>
+            <input 
+              className={`${editLastNameField} input`} 
+              name="last" value={editName.last} 
+              onChange={handleFormChange} 
+              type="text">
+            </input>
           </div>
         </label>
       </div>
