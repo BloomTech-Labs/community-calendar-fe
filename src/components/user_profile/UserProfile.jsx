@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {useAuth0} from '../../contexts/auth0-context'
 
 import UserInfo from './UserInfo'
 import UserEvents from './UserEvents'
@@ -24,6 +25,9 @@ import {
 const UserProfile = () => {
 
   const [isEditing, setIsEditing] = useState(false);
+
+  // Auth0 User info
+  const { user } = useAuth0();
   
   
   // manages local form state
