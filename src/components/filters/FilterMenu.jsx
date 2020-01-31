@@ -18,7 +18,24 @@ import {locationContent} from 'navbar/Navbar.module.scss'
 import {DateRange} from 'moment-range'
 
 const FilterMenu = props => {
-  const {setLocation, currentLocation, setDateRange, dateRange} = props
+  const {
+    setLocation,
+    currentLocation,
+    setDate,
+    currentDate,
+    currentTags,
+    setTags,
+    setPrice010,
+    price010,
+    setPrice1020,
+    price1020,
+    setPrice2040,
+    price2040,
+    setPrice4080,
+    price4080,
+    setPrice80,
+    price80,
+  } = props
 
   const client = useApolloClient()
 
@@ -28,12 +45,7 @@ const FilterMenu = props => {
   const [eventSearchAddress, setEventSearchAddress] = useState('')
 
   // event location dropdown
-  const [locationIsOpen, setLocationIsOpen] = useDropdown(closeLocation, false)
-
-  // close location dropdown if user clicks outside of it
-  function closeLocation(e) {
-    return
-  }
+  const [locationIsOpen, setLocationIsOpen] = useDropdown(fakeCb, false)
 
   // used by geocoder to update local cache
   function setUserLocation(changes) {
@@ -56,28 +68,23 @@ const FilterMenu = props => {
     new Date(),
   ])
   // date dropdown
-  const [dateIsOpen, setDateIsOpen] = useDropdown(closeDate, false)
-
-  // close date dropdown if user clicks outside of it
-  function closeDate(e) {
-    // if (!/^date-picker/gi.test(e.target.getAttribute('data-id'))) {
-    //   setDateIsOpen(false)
-    // }
-    return
-  }
+  const [dateIsOpen, setDateIsOpen] = useDropdown(fakeCb, false)
 
   const dateRangeChange = newDateRange => {
     setSearchDateRange(newDateRange)
-    setDateRange(newDateRange)
+    setDate(newDateRange)
   }
 
   // TAG SEARCH HANDLERS
-  const [searchTags, setSearchTags] = useState([])
-  // date dropdown
-  const [tagsIsOpen, setTagsIsOpen] = useDropdown(closeTags, false)
+  // tags dropdown
+  const [tagsIsOpen, setTagsIsOpen] = useDropdown(fakeCb, false)
 
-  // close date dropdown if user clicks outside of it
-  function closeTags(e) {
+  // PRICE SEARCH HANDLERS
+  // price dropdown
+  const [priceIsOpen, setPriceIsOpen] = useDropdown(fakeCb, false)
+
+  // fake cb  for close function
+  function fakeCb(e) {
     return
   }
 
@@ -166,7 +173,9 @@ const FilterMenu = props => {
                 id='2'
                 onClick={() => setLocation({...currentLocation, radius: 2})}
               />
-              <label htmlFor='2'> Nearby</label>
+              <label htmlFor='2' style={{paddingLeft: '1rem'}}>
+                Nearby
+              </label>
             </div>
             <div>
               <input
@@ -175,7 +184,9 @@ const FilterMenu = props => {
                 id='5'
                 onClick={() => setLocation({...currentLocation, radius: 5})}
               />
-              <label htmlFor='5'> 5 mi</label>
+              <label htmlFor='5' style={{paddingLeft: '1rem'}}>
+                5 mi
+              </label>
             </div>
             <div>
               <input
@@ -184,7 +195,9 @@ const FilterMenu = props => {
                 id='10'
                 onClick={() => setLocation({...currentLocation, radius: 10})}
               />
-              <label htmlFor='10'> 10 mi</label>
+              <label htmlFor='10' style={{paddingLeft: '1rem'}}>
+                10 mi
+              </label>
             </div>
             <div>
               <input
@@ -193,7 +206,9 @@ const FilterMenu = props => {
                 id='25'
                 onClick={() => setLocation({...currentLocation, radius: 25})}
               />
-              <label htmlFor='25'> 25 mi</label>
+              <label htmlFor='25' style={{paddingLeft: '1rem'}}>
+                25 mi
+              </label>
             </div>
             <div>
               <input
@@ -202,12 +217,15 @@ const FilterMenu = props => {
                 id='50'
                 onClick={() => setLocation({...currentLocation, radius: 50})}
               />
-              <label htmlFor='50'> 50 mi</label>
+              <label htmlFor='50' style={{paddingLeft: '1rem'}}>
+                50 mi
+              </label>
             </div>
           </div>
         </div>
         {/* end dropdown-menu*/}
-      </div>
+      </div>{' '}
+      {/** End location dropdown */}
       {/* Select event date fiter dropdown menu */}
       <div
         className={`dropdown is-block navDropdown ${
@@ -318,7 +336,7 @@ const FilterMenu = props => {
               className={locationContent}
               data-id='tag-picker-dropdown-content'
             >
-              <TagInput />
+              <TagInput selectedTags={currentTags} setSelectedTags={setTags} />
             </div>
           </div>
           {/* end dropdown-content*/}
@@ -326,7 +344,118 @@ const FilterMenu = props => {
         {/* end dropdown-menu*/}
       </div>{' '}
       {/** end tag filter dropdown */}
-      <p className='is-size-5'>Price</p>
+      {/* Select Price fiter dropdown menu */}
+      <div
+        className={`dropdown is-block navDropdown ${
+          priceIsOpen ? 'is-active' : ''
+        }`}
+        data-id='price-picker-wrapper'
+      >
+        <div
+          role='button'
+          className='dropdown-trigger level is-clickable '
+          aria-haspopup='true'
+          aria-controls='dropdown-menu2'
+          data-testid='price-picker-trigger'
+          data-id='price-picker-trigger'
+          onClick={() => setPriceIsOpen(!priceIsOpen)}
+        >
+          <span className={` is-size-5 no-outline-focus no-pointer-events`}>
+            Price
+          </span>
+          <span
+            className={`${priceIsOpen ? 'flip' : ''} no-pointer-events icon`}
+            style={{transition: 'transform 0.2s'}}
+          >
+            <DropdownIcon />
+          </span>
+        </div>
+        <div
+          className={` dropdown-menu  drop-center ${
+            priceIsOpen ? 'is-active' : ''
+          }`}
+          id='price-dropdown-menu '
+          role='menu'
+          style={{
+            position: 'relative',
+            height: `${priceIsOpen ? 'initial' : 0}`,
+            paddingTop: 0,
+          }}
+        >
+          <div
+            className='dropdown-content '
+            data-id='tag-picker-dropdown'
+            style={{boxShadow: 'none', backgroundColor: '#fff', paddingTop: 0}}
+          >
+            <div
+              className={locationContent}
+              data-id='tag-picker-dropdown-content'
+            >
+              <div>
+                <input
+                  type='checkbox'
+                  name='010'
+                  id='010'
+                  onClick={() => setPrice010(!price010)}
+                />
+                <label htmlFor='010' style={{paddingLeft: '1rem'}}>
+                  &#36;0 &#8208; &#36;10
+                </label>
+              </div>
+
+              <div>
+                <input
+                  type='checkbox'
+                  name='1020'
+                  id='1020'
+                  onClick={() => setPrice1020(!price1020)}
+                />
+                <label htmlFor='1020' style={{paddingLeft: '1rem'}}>
+                  &#36;10 &#8208; &#36;20
+                </label>
+              </div>
+
+              <div>
+                <input
+                  type='checkbox'
+                  name='2040'
+                  id='2040'
+                  onClick={() => setPrice2040(!price2040)}
+                />
+                <label htmlFor='2040' style={{paddingLeft: '1rem'}}>
+                  &#36;20 &#8208; &#36;40
+                </label>
+              </div>
+
+              <div>
+                <input
+                  type='checkbox'
+                  name='4080'
+                  id='4080'
+                  onClick={() => setPrice4080(!price4080)}
+                />
+                <label htmlFor='4080' style={{paddingLeft: '1rem'}}>
+                  &#36;40 &#8208; &#36;80
+                </label>
+              </div>
+
+              <div>
+                <input
+                  type='checkbox'
+                  name='80'
+                  id='80'
+                  onClick={() => setPrice80(!price80)}
+                />
+                <label htmlFor='80' style={{paddingLeft: '1rem'}}>
+                  &#36;80&#43;
+                </label>
+              </div>
+            </div>
+          </div>
+          {/* end dropdown-content*/}
+        </div>
+        {/* end dropdown-menu*/}
+      </div>{' '}
     </div>
   )
 }

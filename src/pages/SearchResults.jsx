@@ -42,7 +42,7 @@ const SearchResults = ({history}) => {
   const [location, setLocation] = useState({})
 
   // date range filter
-  const [dateRange, setDateRange] = useState([])
+  const [dateRange, setDateRange] = useState({})
   // tags filter
   const [tags, setTags] = useState([])
 
@@ -60,11 +60,6 @@ const SearchResults = ({history}) => {
   const {
     data: {userLatitude, userLongitude, maxDistance},
   } = useQuery(GET_CACHE)
-  /*
-  const {data: recentSearchesData, refetch: recentSearchesRefetch} = useQuery(
-    GET_RECENT_SEARCHES,
-  )
-*/
 
   // gql
   const {loading, error, data, refetch} = useQuery(GET_EVENTS_FILTERED, {
@@ -92,24 +87,6 @@ const SearchResults = ({history}) => {
   // toggle the Filters menu open/closed
   const [filtersIsOpen, setFiltersIsOpen] = useState(false)
 
-  /*
-  const getRecentSearches = () => {
-    recentSearchesRefetch().then(({data: {recentSearches}}) => {
-      setRecentSearches([...recentSearches])
-    })
-  }
-
-  const addASearch = recentSearches => {
-    if (Object.keys(recentSearches).length) {
-      client.writeData({
-        data: {
-          recentSearches: [...recentSearches],
-        },
-      })
-    }
-  }
-*/
-
   useEffect(() => {
     const searchFilters = {}
     const ticketPrice = []
@@ -135,10 +112,10 @@ const SearchResults = ({history}) => {
       searchFilters['tags'] = tags
     }
 
-    if (dateRange && dateRange[0] && dateRange[1]) {
+    if (dateRange && dateRange.start && dateRange.end) {
       searchFilters['dateRange'] = {
-        start: dateRange[0],
-        end: dateRange[1],
+        start: dateRange.start,
+        end: dateRange.end,
       }
     }
 
@@ -176,6 +153,7 @@ const SearchResults = ({history}) => {
           filters={lastSearchFilter}
           setRecentSearches={setRecentSearches}
           recentSearches={recentSearches}
+          initialText={qsFilters.index}
         />
         {/* DUMMY BUTTONS FOR TESTING */}
         {/*         <button
@@ -188,42 +166,6 @@ const SearchResults = ({history}) => {
         >
           Test Date
         </button>
-        <button
-          onClick={() => setTags(['corn', 'milk', 'eggs', 'fruit roll ups'])}
-        >
-          Test Tags
-        </button>
-        <button onClick={() => setPrice010(!price010)}>Price $0-$10</button>
-        <button onClick={() => setPrice1020(!price1020)}>Price $10-$20</button>
-        <button onClick={() => setPrice2040(!price2040)}>Price $20-$40</button>
-        <button onClick={() => setPrice4080(!price4080)}>Price $40-$80</button>
-        <button onClick={() => setPrice80(!price80)}>Price $80+</button>
-        <button
-          onClick={() =>
-            setLocation({
-              userLatitude: 33.999,
-              userLongitude: 29.999,
-              radius: 30,
-            })
-          }
-        >
-          Test Location
-        </button>
-        <button
-          onClick={() => {
-            setPrice010(false)
-            setPrice1020(false)
-            setPrice2040(false)
-            setPrice4080(false)
-            setPrice80(false)
-            setLocation({})
-            setTags([])
-            setLastSearchFilter({})
-          }}
-        >
-          Reset filters
-        </button>
-        <button onClick={() => getRecentSearches()}>Get recent searches</button>
 
   */}
         {recentSearches[0] && (
@@ -267,18 +209,42 @@ const SearchResults = ({history}) => {
               mobile
               setLocation={setLocation}
               currentLocation={location}
-              setDateRange={setDateRange}
-              dateRange={dateRange}
+              setPrice010={setPrice010}
+              price010={price010}
+              setPrice1020={setPrice1020}
+              price1020={price1020}
+              setPrice2040={setPrice2040}
+              price2040={price2040}
+              setPrice4080={setPrice4080}
+              price4080={price4080}
+              setPrice80={setPrice80}
+              price80={price80}
+              setTags={setTags}
+              currentTags={tags}
+              setDate={setDateRange}
+              currentDate={dateRange}
             />
           </div>
         </div>
         <div className={filtersEventsWrap}>
           <div className='is-hidden-mobile'>
-            <FilterMenu 
+            <FilterMenu
               setLocation={setLocation}
-              currentLocation={location} 
-              setDateRange={setDateRange}
-              dateRange={dateRange}
+              currentLocation={location}
+              setPrice010={setPrice010}
+              price010={price010}
+              setPrice1020={setPrice1020}
+              price1020={price1020}
+              setPrice2040={setPrice2040}
+              price2040={price2040}
+              setPrice4080={setPrice4080}
+              price4080={price4080}
+              setPrice80={setPrice80}
+              price80={price80}
+              setTags={setTags}
+              currentTags={tags}
+              setDate={setDateRange}
+              currentDate={dateRange}
             />
           </div>
           <div>
