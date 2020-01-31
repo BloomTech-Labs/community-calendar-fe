@@ -3,7 +3,7 @@ import {useLocation} from 'react-router-dom'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_EVENTS_FILTERED, GET_CACHE, GET_RECENT_SEARCHES} from '../graphql'
+import {GET_EVENTS_FILTERED, GET_CACHE} from '../graphql'
 
 // Components
 import EventList from 'events/EventList'

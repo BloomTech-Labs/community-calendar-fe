@@ -13,9 +13,9 @@ import {
   GET_EVENTS_FILTERED,
   GET_USER_ATTENDING,
   GET_USER_CREATED,
-  GET_USER_SAVED
+  GET_USER_SAVED,
 } from './events.query.js'
-import USERS from './users.query.js'
+import {GET_USERS} from './users.query.js'
 
 // pure server GraphQL API mutations
 import {
@@ -44,7 +44,7 @@ export {
   GET_EVENT_BY_ID,
   GET_EVENT_BY_ID_WITH_DISTANCE,
   USER_LOCATION,
-  USERS,
+  GET_USERS,
   PRICE_FILTER,
   LOCATION_FILTER,
   DATE_FILTER,

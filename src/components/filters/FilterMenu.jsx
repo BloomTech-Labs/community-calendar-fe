@@ -37,10 +37,6 @@ const FilterMenu = props => {
     price80,
   } = props
 
-  const client = useApolloClient()
-
-  const {data: localCache} = useQuery(GET_CACHE)
-
   // EVENT LOCATION SEARCH HANDLERS
   const [eventSearchAddress, setEventSearchAddress] = useState('')
 
@@ -52,7 +48,6 @@ const FilterMenu = props => {
     if (changes.selectedItem) {
       const place = {...changes.selectedItem}
       // apply filter
-      console.log('place', place)
       setEventSearchAddress(place.place_name.replace(/united states$/i, 'US'))
       setLocation({
         userLatitude: place.geometry.coordinates[1],
@@ -165,61 +160,76 @@ const FilterMenu = props => {
           </div>
           {/* end dropdown-content*/}
           <p className='is-size-5'>Distance</p>
-          <div>
-            <div>
+          <div style={{padding: '8px'}}>
+            <div className='checkmarkContainer'>
               <input
                 type='radio'
                 name='radius'
+                checked={currentLocation.radius === 2}
                 id='2'
-                onClick={() => setLocation({...currentLocation, radius: 2})}
+                onChange={() => setLocation({...currentLocation, radius: 2})}
               />
-              <label htmlFor='2' style={{paddingLeft: '1rem'}}>
-                Nearby
-              </label>
+              <label htmlFor='2'>Nearby</label>
+              <span
+                onClick={() => setLocation({...currentLocation, radius: 2})}
+                className='checkmark is-clickable'
+              ></span>
             </div>
-            <div>
+            <div className='checkmarkContainer'>
               <input
                 type='radio'
                 name='radius'
                 id='5'
-                onClick={() => setLocation({...currentLocation, radius: 5})}
+                checked={currentLocation.radius === 5}
+                onChange={() => setLocation({...currentLocation, radius: 5})}
               />
-              <label htmlFor='5' style={{paddingLeft: '1rem'}}>
-                5 mi
-              </label>
+              <span
+                onClick={() => setLocation({...currentLocation, radius: 5})}
+                className='checkmark is-clickable'
+              ></span>
+              <label htmlFor='5'>5 mi</label>
             </div>
-            <div>
+            <div className='checkmarkContainer'>
               <input
                 type='radio'
                 name='radius'
                 id='10'
-                onClick={() => setLocation({...currentLocation, radius: 10})}
+                checked={currentLocation.radius === 10}
+                onChange={() => setLocation({...currentLocation, radius: 10})}
               />
-              <label htmlFor='10' style={{paddingLeft: '1rem'}}>
-                10 mi
-              </label>
+              <span
+                onClick={() => setLocation({...currentLocation, radius: 10})}
+                className='checkmark is-clickable'
+              ></span>
+              <label htmlFor='10'>10 mi</label>
             </div>
-            <div>
+            <div className='checkmarkContainer'>
               <input
                 type='radio'
                 name='radius'
                 id='25'
-                onClick={() => setLocation({...currentLocation, radius: 25})}
+                checked={currentLocation.radius === 25}
+                onChange={() => setLocation({...currentLocation, radius: 25})}
               />
-              <label htmlFor='25' style={{paddingLeft: '1rem'}}>
-                25 mi
-              </label>
+              <span
+                onClick={() => setLocation({...currentLocation, radius: 25})}
+                className='checkmark is-clickable'
+              ></span>
+              <label htmlFor='25'>25 mi</label>
             </div>
-            <div>
+            <div className='checkmarkContainer'>
               <input
                 type='radio'
                 name='radius'
                 id='50'
-                onClick={() => setLocation({...currentLocation, radius: 50})}
+                checked={currentLocation.radius === 50}
+                onChange={() => setLocation({...currentLocation, radius: 50})}
               />
-              <label htmlFor='50' style={{paddingLeft: '1rem'}}>
-                50 mi
-              </label>
+              <span
+                onClick={() => setLocation({...currentLocation, radius: 50})}
+                className='checkmark is-clickable'
+              ></span>
+              <label htmlFor='50'>50 mi</label>
             </div>
           </div>
         </div>
@@ -391,64 +401,79 @@ const FilterMenu = props => {
               className={locationContent}
               data-id='tag-picker-dropdown-content'
             >
-              <div>
+              <div className='checkmarkContainer'>
                 <input
                   type='checkbox'
                   name='010'
                   id='010'
-                  onClick={() => setPrice010(!price010)}
+                  checked={price010}
+                  onChange={() => setPrice010(!price010)}
                 />
-                <label htmlFor='010' style={{paddingLeft: '1rem'}}>
-                  &#36;0 &#8208; &#36;10
-                </label>
+                <span
+                  onClick={() => setPrice010(!price010)}
+                  className='checkmark is-clickable'
+                ></span>
+                <label htmlFor='010'>&#36;0 &#8208; &#36;10</label>
               </div>
 
-              <div>
+              <div className='checkmarkContainer'>
                 <input
                   type='checkbox'
                   name='1020'
                   id='1020'
-                  onClick={() => setPrice1020(!price1020)}
+                  checked={price1020}
+                  onChange={() => setPrice1020(!price1020)}
                 />
-                <label htmlFor='1020' style={{paddingLeft: '1rem'}}>
-                  &#36;10 &#8208; &#36;20
-                </label>
+                <span
+                  onClick={() => setPrice1020(!price1020)}
+                  className='checkmark is-clickable'
+                ></span>
+                <label htmlFor='1020'>&#36;10 &#8208; &#36;20</label>
               </div>
 
-              <div>
+              <div className='checkmarkContainer'>
                 <input
                   type='checkbox'
                   name='2040'
                   id='2040'
-                  onClick={() => setPrice2040(!price2040)}
+                  checked={price2040}
+                  onChange={() => setPrice2040(!price2040)}
                 />
-                <label htmlFor='2040' style={{paddingLeft: '1rem'}}>
-                  &#36;20 &#8208; &#36;40
-                </label>
+                <span
+                  onClick={() => setPrice2040(!price2040)}
+                  className='checkmark is-clickable'
+                ></span>
+                <label htmlFor='2040'>&#36;20 &#8208; &#36;40</label>
               </div>
 
-              <div>
+              <div className='checkmarkContainer'>
                 <input
                   type='checkbox'
                   name='4080'
                   id='4080'
-                  onClick={() => setPrice4080(!price4080)}
+                  checked={price4080}
+                  onChange={() => setPrice4080(!price4080)}
                 />
-                <label htmlFor='4080' style={{paddingLeft: '1rem'}}>
-                  &#36;40 &#8208; &#36;80
-                </label>
+                <span
+                  onClick={() => setPrice4080(!price4080)}
+                  className='checkmark is-clickable'
+                ></span>
+                <label htmlFor='4080'>&#36;40 &#8208; &#36;80</label>
               </div>
 
-              <div>
+              <div className='checkmarkContainer'>
                 <input
                   type='checkbox'
                   name='80'
+                  checked={price80}
                   id='80'
-                  onClick={() => setPrice80(!price80)}
+                  onChange={() => setPrice80(!price80)}
                 />
-                <label htmlFor='80' style={{paddingLeft: '1rem'}}>
-                  &#36;80&#43;
-                </label>
+                <span
+                  onClick={() => setPrice80(!price80)}
+                  className='checkmark is-clickable'
+                ></span>
+                <label htmlFor='80'>&#36;80&#43;</label>
               </div>
             </div>
           </div>
