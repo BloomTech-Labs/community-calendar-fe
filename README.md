@@ -2,7 +2,15 @@
 
 # Community Calendar Front End
 
-We create incredible neighborhoods and community spaces through meaningful shared events. You can find the deployed project at [Community Calendar](https://www.communitycalendar.xyz)
+We create incredible neighborhoods and community spaces through meaningful shared events. You can find the deployed project at [Community Calendar](https://www.communitycalendar.xyz).
+
+- [Contributors](#contributors)
+- [Project Overview](#project-overview)
+- [Build and Installation](#build-and-installation)
+- [Styling](#styling)
+- [Testing](#testing)
+- [Future Developers](#future-developers)
+- [Contributing](#contributing)
 
 ## Contributors
 
@@ -16,17 +24,21 @@ We create incredible neighborhoods and community spaces through meaningful share
 
 [Planned Releases](https://www.notion.so/06de41bdd6124a459140e0b943b648a1)
 
-Community Calendar is a single web application built with React and styled using SASS and the Bulma framework. Our data is stored and served by an [Apollo GraphQL server](https://github.com/Lambda-School-Labs/community-calendar-be). Mobile versions of the Community Calendar are under developments simultaneously for [Adroid](https://github.com/Lambda-School-Labs/community-calendar-android) and [iOS](https://github.com/Lambda-School-Labs/community-calendar-ios).
+Community Calendar is a single web application built with React and styled using SASS and the Bulma framework. Our data is stored and served by an [Apollo GraphQL server](https://github.com/Lambda-School-Labs/community-calendar-be). Mobile versions of the Community Calendar client are under development simultaneously for [Adroid](https://github.com/Lambda-School-Labs/community-calendar-android) and [iOS](https://github.com/Lambda-School-Labs/community-calendar-ios).
 
 Community Calendar uses the apollo-client library to conduct GraphQL queries and store data in local cache for state management purposes. Authentication of users is accomplished through the Auth0 API.
 
 ### Key Features
 
-- View a list of local events (deployed)
-- Sort events by how close they are to your neighborhood (RC 2)
-- Create new events and manage your events (RC 3)
-- RSVP to events (RC 4)
-- View events in an interactive map (RC 5)
+- View a list of local events (Release 1, deployed 08JAN20)
+- Sort events by how close they are to your neighborhood (Release 2, deployed 20JAN20)
+- Create new events and manage your events (Release 2, deployed 20JAN20)
+- RSVP to events (Release 2, deployed 20JAN20)
+- Search events by location, price, and event details (Release 3)
+- Create a user profile and manage events from a dashboard (Release 3)
+- View events in an interactive map (future release)
+- Comment on events and message hosts (future release)
+- Integrate events from external APIs (future release)
 
 ## Build and Installation
 
@@ -92,6 +104,26 @@ Kabob-case class names are not altered for classes created in non-module style s
 Jest is use for snapshot, unit, and integration tests.
 
 The Testing-Library/React library is used to help test React components. It includes many utilities that simplify setting up and testing React components. '@testing-library/jest-dom' provides additional assertion methods. '@testing-library/user-event' has utilities for simulating user events such as clicking on a button.
+
+## Future Developers
+
+There are a few key considerations for the development team inheriting development of this application:
+
+### Custom Webpack
+
+[Westley Strellis](https://github.com/wstrellis) rolled a custom webpack for this project. If you are used to developing with `Create-React-App`, there are few nuances to how styles are imported and built. If you follow the file naming conventions in the [Styling](#styling) section development is straightforward. You can contact Westley by slack, github, or email with any questions.
+
+### State Management
+
+[Apollo Client](https://www.apollographql.com/docs/react/) is a complete state management library for React apps that use GraphQL. The `@apollo/react-hooks` library's tools for conducting GraphQL queries and mutations and storing fetched results from the network in a local cache are excellent. You never need to put the results of your `useQuery` hooks or other network requests into local state, because the Apollo Client automatically does that in their cache. Future queries qith `readQuery` will pull data from the local cache first, or will go back to the network if needed.
+
+However, Apollo Client's tools for local state management through the `useApolloClient()` hook at `cache.writeData` method are much more limited. They are billed as a replacement for Redux, but actually leave a lot to be desired. The Apollo Client local state features are [documented here](https://www.apollographql.com/docs/react/data/local-state/) and are also demonstrated in their [tutorial here](https://www.apollographql.com/docs/tutorial/local-state/). Our recommendation to future developers is to implement a Redux store alongside the Apollo Client for storing local state (user location, preferences, etc).
+
+There are several other dependencies that use of Apollo Client brought in to our project, including `apollo-cache-inmemory`, `apollo-client`, `apollo-link`, `apollo-link-context`, `apollo-link-error`, `apollo-link-http`, and `apollo-upload-client`. To get familiar with the Apollo stack we recommend doing their [entire official tutorial](https://www.apollographql.com/docs/tutorial) to help understand how these pieces work together.
+
+### Forms
+
+[react-hook-form](https://react-hook-form.com/get-started) was our library of choice for managing form state and validation. It works alongside [Yup](https://github.com/jquense/yup) in a similar fashion to Formik, but give you some more flexibility and control over your submitter, handler, and error methods.
 
 ## Contributing
 
