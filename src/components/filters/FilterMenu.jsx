@@ -6,6 +6,7 @@ import {useDropdown} from '../../utils'
 import Geocoder from 'geocoder/Geocoder'
 import {FilterIcon, MapMarkerCircle, DropdownIcon} from 'icons'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
+import TagInput from 'event_forms/TagInput'
 
 //GQL
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
@@ -70,10 +71,19 @@ const FilterMenu = props => {
     setDateRange(newDateRange)
   }
 
+  // TAG SEARCH HANDLERS
+  const [searchTags, setSearchTags] = useState([])
+  // date dropdown
+  const [tagsIsOpen, setTagsIsOpen] = useDropdown(closeTags, false)
+
+  // close date dropdown if user clicks outside of it
+  function closeTags(e) {
+    return
+  }
+
   return (
     <div className={`${filterWrapper} ${props.mobile ? mobile : ''}`}>
       <p className='is-size-4'>Filters</p>
-
       {/* Select event location filter dropdown menu */}
       <div
         className={`dropdown is-block navDropdown ${
@@ -198,7 +208,6 @@ const FilterMenu = props => {
         </div>
         {/* end dropdown-menu*/}
       </div>
-
       {/* Select event date fiter dropdown menu */}
       <div
         className={`dropdown is-block navDropdown ${
@@ -260,8 +269,63 @@ const FilterMenu = props => {
           {/* end dropdown-content*/}
         </div>
         {/* end dropdown-menu*/}
-      </div>
-      <p className='is-size-5'>Tags</p>
+      </div>{' '}
+      {/** end date filter dropdown */}
+      {/* Select tag fiter dropdown menu */}
+      <div
+        className={`dropdown is-block navDropdown ${
+          tagsIsOpen ? 'is-active' : ''
+        }`}
+        data-id='tag-picker-wrapper'
+      >
+        <div
+          role='button'
+          className='dropdown-trigger level is-clickable '
+          aria-haspopup='true'
+          aria-controls='dropdown-menu2'
+          data-testid='tag-picker-trigger'
+          data-id='tag-picker-trigger'
+          onClick={() => setTagsIsOpen(!tagsIsOpen)}
+        >
+          <span className={` is-size-5 no-outline-focus no-pointer-events`}>
+            Tags
+          </span>
+          <span
+            className={`${tagsIsOpen ? 'flip' : ''} no-pointer-events icon`}
+            style={{transition: 'transform 0.2s'}}
+          >
+            <DropdownIcon />
+          </span>
+        </div>
+        <div
+          className={` dropdown-menu  drop-center ${
+            tagsIsOpen ? 'is-active' : ''
+          }`}
+          id='tag-dropdown-menu '
+          role='menu'
+          style={{
+            position: 'relative',
+            height: `${tagsIsOpen ? 'initial' : 0}`,
+            paddingTop: 0,
+          }}
+        >
+          <div
+            className='dropdown-content '
+            data-id='tag-picker-dropdown'
+            style={{boxShadow: 'none', backgroundColor: '#fff', paddingTop: 0}}
+          >
+            <div
+              className={locationContent}
+              data-id='tag-picker-dropdown-content'
+            >
+              <TagInput />
+            </div>
+          </div>
+          {/* end dropdown-content*/}
+        </div>
+        {/* end dropdown-menu*/}
+      </div>{' '}
+      {/** end tag filter dropdown */}
       <p className='is-size-5'>Price</p>
     </div>
   )
