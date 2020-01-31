@@ -14,6 +14,8 @@ We create incredible neighborhoods and community spaces through meaningful share
 
 ## Contributors
 
+### Labs 19 - December 2nd, 2019 to February 7th, 2020
+
 | [Skyler Dowdy](https://github.com/skylerwebdev) | [Louis Gelinas](https://github.com/gelinas) | [Lowell Jacobs](https://github.com/lowell1) | [Mark King](https://github.com/markpkng) | [Ben Rogers](https://github.com/thisbenrogers) | [Westley Strellis](https://github.com/wstrellis) |
 
 ## Project Overview
