@@ -1,3 +1,5 @@
+@import '_variables.scss';
+
 #section1 {
     display: flex;
     width: 80%;
@@ -7,5 +9,51 @@
 
     div {
         width: 50%;
+    }
+}
+
+#section2 {
+//    position: relative;
+    // .topDiv {
+    //     // position: absolute;
+    //     background-color: blue;
+    // }
+    
+    // .midDiv {
+    //     position: absolute;
+    //     top: 2rem;
+    //     height: 16rem;
+    //     background-color: green;
+    // }
+    
+    // .botDiv {
+    //     position: relative;
+    //     height: 20rem;
+    //     background-color: red;
+    //     width: 80%;
+    //     left: 10%;
+    // }
+    width: 80vw;
+    margin: 0 auto;
+    background-color: $shark;
+    height: 40rem;
+    padding-top: 1rem;
+    padding-right: 8vw;
+
+    div {
+        background-color: $bittersweet;
+        height: 38rem;
+        margin-left: -10vw;
+
+        padding-top: 3rem;
+
+        div {
+            height: 32rem;
+            width: 70vw;
+            background-image: url("../../assets/images/our-mission-park.png");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            margin-left: 14vw;
+        }
     }
 }
