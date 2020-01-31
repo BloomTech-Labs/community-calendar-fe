@@ -5,9 +5,9 @@ import {
     section2,
     section3,
     section4,
-    botDiv,
-    midDiv,
-    topDiv,
+    div1,
+    div2,
+    div3
 } from "./OurMission.module.scss";
 
 const OurMission = () => {
@@ -38,6 +38,25 @@ const OurMission = () => {
                 <div>
                     <div/>
                 </div>
+            </section>
+
+            <section id={section3}>
+                <div className={div1}/>
+                <div className={div2}>
+                    <h3 className="is-family-secondary is-size-3">Target Audience</h3>
+                    <p>We are targeting real people in communities<br/>who find it hard to find local events.</p>
+                </div>
+                <div className={div3}/>
+            </section>
+            
+            <section id={section4}>
+                <div className={div1}>
+                    <h3 className="is-family-secondary is-size-3">Our Focus</h3>
+                    <p>To make easier to find local events in their community and respective location.<br/>
+                    We aim to solve that by creating a design<br/>
+                    that is elegant and intuitive.</p>
+                </div>
+                <div className={div2}/>
             </section>
         </>
     );
