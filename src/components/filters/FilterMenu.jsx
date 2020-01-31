@@ -7,13 +7,19 @@ import Geocoder from 'geocoder/Geocoder'
 import {FilterIcon, MapMarkerCircle, DropdownIcon} from 'icons'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import TagInput from 'event_forms/TagInput'
+import SelectedRange from 'daypicker/selectedRange'
 
 //GQL
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_CACHE} from '../../graphql'
 
 // Styles
-import {filterWrapper, mobile, picker} from './FilterMenu.module.scss'
+import {
+  filterWrapper,
+  mobile,
+  picker,
+  datePickerDropdown,
+} from './FilterMenu.module.scss'
 import {locationContent} from 'navbar/Navbar.module.scss'
 import {DateRange} from 'moment-range'
 
@@ -35,6 +41,7 @@ const FilterMenu = props => {
     price4080,
     setPrice80,
     price80,
+    refetch,
   } = props
 
   // EVENT LOCATION SEARCH HANDLERS
@@ -265,13 +272,14 @@ const FilterMenu = props => {
         <div
           className={` dropdown-menu  drop-center ${
             dateIsOpen ? 'is-active' : ''
-          }`}
+          } ${datePickerDropdown}`}
           id='date-dropdown-menu '
           role='menu'
           style={{
             position: 'relative',
             height: `${dateIsOpen ? 'initial' : 0}`,
             paddingTop: 0,
+            width: 'max-content',
           }}
         >
           <div
@@ -283,7 +291,8 @@ const FilterMenu = props => {
               className={locationContent}
               data-id='date-picker-dropdown-content'
             >
-              <DateRangePicker
+              <SelectedRange setDate={setDate} />
+              {/*               <DateRangePicker
                 onChange={dateRangeChange}
                 value={searchDateRange}
                 className={picker}
@@ -292,6 +301,7 @@ const FilterMenu = props => {
                 minDate={new Date()}
                 rangeDivider=' to '
               />
+  */}
             </div>
           </div>
           {/* end dropdown-content*/}

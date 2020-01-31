@@ -30,7 +30,6 @@ import {useObjFromQS} from '../utils'
 
 const SearchResults = ({history}) => {
   const qsFilters = useObjFromQS()
-  console.log('qsFilters', qsFilters)
   let qsLocation = qsFilters.location || {}
 
   const [recentSearches, setRecentSearches] = useState([qsFilters])
@@ -223,6 +222,7 @@ const SearchResults = ({history}) => {
               currentTags={tags}
               setDate={setDateRange}
               currentDate={dateRange}
+              refetch={refetch}
             />
           </div>
         </div>
@@ -245,6 +245,7 @@ const SearchResults = ({history}) => {
               currentTags={tags}
               setDate={setDateRange}
               currentDate={dateRange}
+              refetch={refetch}
             />
           </div>
           <div>
