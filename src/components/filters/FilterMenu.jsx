@@ -5,7 +5,7 @@ import {useDropdown} from '../../utils'
 //Components
 import Geocoder from 'geocoder/Geocoder'
 import {FilterIcon, MapMarkerCircle, DropdownIcon} from 'icons'
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 
 //GQL
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
@@ -14,7 +14,7 @@ import {GET_CACHE} from '../../graphql'
 // Styles
 import {filterWrapper, mobile, picker} from './FilterMenu.module.scss'
 import {locationContent} from 'navbar/Navbar.module.scss'
-import { DateRange } from 'moment-range'
+import {DateRange} from 'moment-range'
 
 const FilterMenu = props => {
   const {setLocation, currentLocation, setDateRange, dateRange} = props
@@ -50,7 +50,10 @@ const FilterMenu = props => {
   }
 
   // DATE RANGE SEARCH HANDLERS
-  const [searchDateRange, setSearchDateRange] = useState([new Date(), new Date()])
+  const [searchDateRange, setSearchDateRange] = useState([
+    new Date(),
+    new Date(),
+  ])
   // date dropdown
   const [dateIsOpen, setDateIsOpen] = useDropdown(closeDate, false)
 
@@ -150,52 +153,52 @@ const FilterMenu = props => {
               <input
                 type='radio'
                 name='radius'
-                value={2}
+                id='2'
                 onClick={() => setLocation({...currentLocation, radius: 2})}
               />
-              <label htmlFor='2'>Nearby</label>
+              <label htmlFor='2'> Nearby</label>
             </div>
             <div>
               <input
                 type='radio'
                 name='radius'
-                value={5}
+                id='5'
                 onClick={() => setLocation({...currentLocation, radius: 5})}
               />
-              <label htmlFor='5'>5 mi</label>
+              <label htmlFor='5'> 5 mi</label>
             </div>
             <div>
               <input
                 type='radio'
                 name='radius'
-                value={5}
+                id='10'
                 onClick={() => setLocation({...currentLocation, radius: 10})}
               />
-              <label htmlFor='10'>10 mi</label>
+              <label htmlFor='10'> 10 mi</label>
             </div>
             <div>
               <input
                 type='radio'
                 name='radius'
-                value={5}
-                onClick={() => setLocation({...currentLocation, radius: 20})}
+                id='25'
+                onClick={() => setLocation({...currentLocation, radius: 25})}
               />
-              <label htmlFor='20'> 20 mi</label>
+              <label htmlFor='25'> 25 mi</label>
             </div>
             <div>
               <input
                 type='radio'
                 name='radius'
-                value={5}
-                onClick={() => setLocation({...currentLocation, radius: 30})}
+                id='50'
+                onClick={() => setLocation({...currentLocation, radius: 50})}
               />
-              <label htmlFor='30'> 30 mi</label>
+              <label htmlFor='50'> 50 mi</label>
             </div>
           </div>
         </div>
         {/* end dropdown-menu*/}
       </div>
-      
+
       {/* Select event date fiter dropdown menu */}
       <div
         className={`dropdown is-block navDropdown ${
@@ -250,7 +253,7 @@ const FilterMenu = props => {
                 calendarIcon={null}
                 clearIcon={null}
                 minDate={new Date()}
-                rangeDivider=" to "
+                rangeDivider=' to '
               />
             </div>
           </div>
