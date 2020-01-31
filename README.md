@@ -127,6 +127,10 @@ There are several other dependencies that use of Apollo Client brought in to our
 
 [react-hook-form](https://react-hook-form.com/get-started) was our library of choice for managing form state and validation. It works alongside [Yup](https://github.com/jquense/yup) in a similar fashion to Formik, but give you some more flexibility and control over your submitter, handler, and error methods.
 
+### Media Upload
+
+[apollo-upload-client](https://github.com/jaydenseric/apollo-upload-client) and [react-dropzone](https://github.com/react-dropzone/react-dropzone) are used together to accomplish media upload by embedding image files in GraphQL mutation requests. The image files are resolved on the backend, where the files are uploaded to a hosting service with the URL stored in the database. 
+
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
