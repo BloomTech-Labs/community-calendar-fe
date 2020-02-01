@@ -57,6 +57,7 @@ export default function EventList({
           {/* Render EventListCards for each item in `eventsToDisplay` array */}
           {!loading &&
             !error &&
+            data &&
             data.events.map(item => (
               <EventListCard item={item} key={item.id} useListView={listView} />
             ))}

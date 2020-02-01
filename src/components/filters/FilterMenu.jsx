@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {useDropdown} from '../../utils'
+import moment from 'moment'
 
 //Components
 import Geocoder from 'geocoder/Geocoder'
@@ -48,7 +49,7 @@ const FilterMenu = props => {
   const [eventSearchAddress, setEventSearchAddress] = useState('')
 
   // event location dropdown
-  const [locationIsOpen, setLocationIsOpen] = useDropdown(fakeCb, false)
+  const [locationIsOpen, setLocationIsOpen] = useDropdown(fakeCb, true)
 
   // used by geocoder to update local cache
   function setUserLocation(changes) {
@@ -70,7 +71,7 @@ const FilterMenu = props => {
     new Date(),
   ])
   // date dropdown
-  const [dateIsOpen, setDateIsOpen] = useDropdown(fakeCb, false)
+  const [dateIsOpen, setDateIsOpen] = useDropdown(fakeCb, true)
 
   const dateRangeChange = newDateRange => {
     setSearchDateRange(newDateRange)
@@ -79,11 +80,11 @@ const FilterMenu = props => {
 
   // TAG SEARCH HANDLERS
   // tags dropdown
-  const [tagsIsOpen, setTagsIsOpen] = useDropdown(fakeCb, false)
+  const [tagsIsOpen, setTagsIsOpen] = useDropdown(fakeCb, true)
 
   // PRICE SEARCH HANDLERS
   // price dropdown
-  const [priceIsOpen, setPriceIsOpen] = useDropdown(fakeCb, false)
+  const [priceIsOpen, setPriceIsOpen] = useDropdown(fakeCb, true)
 
   // fake cb  for close function
   function fakeCb(e) {
@@ -291,17 +292,45 @@ const FilterMenu = props => {
               className={locationContent}
               data-id='date-picker-dropdown-content'
             >
+              <div
+                className={` has-text-centered no-outline-focus no-pointer-events`}
+                style={{marginBottom: '8px'}}
+              >
+                {currentDate.start &&
+                  currentDate.end &&
+                  (Math.ceil(
+                    moment
+                      .duration(
+                        moment(currentDate.end).diff(moment(currentDate.start)),
+                      )
+                      .asDays(),
+                  ) === 1 ? (
+                    <>
+                      <p className='is-size-7 color_iconlight'>
+                        Selected Date:
+                      </p>
+                      <p>
+                        {moment(currentDate.start).format('ddd, MMM Do YYYY')}
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p>
+                        <span className='is-size-7 color_iconlight'>
+                          Start:&nbsp;
+                        </span>
+                        {moment(currentDate.start).format('ddd, MMM Do YYYY')}
+                      </p>
+                      <p>
+                        <span className='is-size-7 color_iconlight'>
+                          End:&nbsp;
+                        </span>
+                        {moment(currentDate.end).format('ddd, MMM Do YYYY')}
+                      </p>
+                    </>
+                  ))}
+              </div>
               <SelectedRange setDate={setDate} />
-              {/*               <DateRangePicker
-                onChange={dateRangeChange}
-                value={searchDateRange}
-                className={picker}
-                calendarIcon={null}
-                clearIcon={null}
-                minDate={new Date()}
-                rangeDivider=' to '
-              />
-  */}
             </div>
           </div>
           {/* end dropdown-content*/}

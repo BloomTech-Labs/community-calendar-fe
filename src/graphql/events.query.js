@@ -270,13 +270,13 @@ export const GET_EVENTS_FILTERED = gql`
   ${ADDRESS_DETAIL_DATA}
 `
 
-export const GET_USER_SAVED = gql `
+export const GET_USER_SAVED = gql`
   query GetUserSaved(
     $userLatitude: Float
     $userLongitude: Float
     $useLocation: Boolean!
-    ){
-    user{
+  ) {
+    user {
       saved {
         id
         title
@@ -286,24 +286,23 @@ export const GET_USER_SAVED = gql `
         eventImages {
           url
         }
-        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
           distanceFromUser @include(if: $useLocation)
           distanceUnit @include(if: $useLocation)
           city
         }
-
       }
     }
   }
 `
 
-export const GET_USER_ATTENDING = gql `
+export const GET_USER_ATTENDING = gql`
   query GetUserAttending(
     $userLatitude: Float
     $userLongitude: Float
     $useLocation: Boolean!
-    ){
-    user{
+  ) {
+    user {
       rsvps {
         id
         title
@@ -313,24 +312,23 @@ export const GET_USER_ATTENDING = gql `
         eventImages {
           url
         }
-        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
           distanceFromUser @include(if: $useLocation)
           distanceUnit @include(if: $useLocation)
           city
         }
-
       }
     }
   }
 `
 
-export const GET_USER_CREATED = gql `
+export const GET_USER_CREATED = gql`
   query GetUserCreated(
     $userLatitude: Float
     $userLongitude: Float
     $useLocation: Boolean!
-    ){
-    user{
+  ) {
+    user {
       createdEvents {
         id
         title
@@ -340,7 +338,7 @@ export const GET_USER_CREATED = gql `
         eventImages {
           url
         }
-        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
           distanceFromUser @include(if: $useLocation)
           distanceUnit @include(if: $useLocation)
           city

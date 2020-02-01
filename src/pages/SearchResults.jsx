@@ -30,6 +30,7 @@ import {useObjFromQS} from '../utils'
 
 const SearchResults = ({history}) => {
   const qsFilters = useObjFromQS()
+  console.log('qsFilters', qsFilters)
   let qsLocation = qsFilters.location || {}
 
   const [recentSearches, setRecentSearches] = useState([qsFilters])
@@ -55,7 +56,6 @@ const SearchResults = ({history}) => {
   //filter component states  END
 
   // local cache data
-  const client = useApolloClient()
   const {
     data: {userLatitude, userLongitude, maxDistance},
   } = useQuery(GET_CACHE)
@@ -87,7 +87,7 @@ const SearchResults = ({history}) => {
   const [filtersIsOpen, setFiltersIsOpen] = useState(false)
 
   useEffect(() => {
-    const searchFilters = {}
+    const searchFilters = {index: qsFilters.index}
     const ticketPrice = []
 
     if (price010) {
@@ -131,7 +131,6 @@ const SearchResults = ({history}) => {
       }
     }
 
-    console.log('searchFilters in SearchResults', searchFilters)
     if (Object.keys(searchFilters).length) {
       refetch({
         userLatitude: userLatitude || undefined,
@@ -154,19 +153,6 @@ const SearchResults = ({history}) => {
           recentSearches={recentSearches}
           initialText={qsFilters.index}
         />
-        {/* DUMMY BUTTONS FOR TESTING */}
-        {/*         <button
-          onClick={() =>
-            setDateRange({
-              start: '2020-01-23T17:00:00.000Z',
-              end: '2020-01-24T17:00:00.000Z',
-            })
-          }
-        >
-          Test Date
-        </button>
-
-  */}
         {recentSearches[0] && (
           <RecentSearches recentSearches={recentSearches} />
         )}

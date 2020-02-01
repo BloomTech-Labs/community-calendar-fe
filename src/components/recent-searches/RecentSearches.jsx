@@ -10,7 +10,6 @@ const RecentSearches = ({recentSearches = null}) => {
         Recent Searches:&nbsp;
         {recentSearches.length &&
           recentSearches.map((search, ind) => {
-            console.log('search item in RecentSearches', search)
             let filterCount = Object.keys(search).reduce((acc, curr) => {
               return !/(index)|(__typename)/i.test(curr) && search[curr]
                 ? (acc += 1)
@@ -18,7 +17,7 @@ const RecentSearches = ({recentSearches = null}) => {
             }, 0)
             return (
               <span
-                key={JSON.stringify(search)}
+                key={`${JSON.stringify(search)}-${ind} `}
                 onClick={() => {
                   let qsObj = {
                     searchText: search.index,
