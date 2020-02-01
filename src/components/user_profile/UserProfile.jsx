@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState, useEffect} from 'react'
 import {useAuth0} from '../../contexts/auth0-context'
 
 import UserInfo from './UserInfo'
@@ -7,57 +7,78 @@ import EditUserForm from './EditUserForm'
 import GearIcon from '../icons/GearIcon'
 
 //graphql
-import {useLazyQuery, useApolloClient} from '@apollo/react-hooks'
-import {
-  GET_USER_ATTENDING,
-  GET_USER_CREATED,
-  GET_USER_SAVED
-} from '../../graphql'
+import {useQuery, useApolloClient} from '@apollo/react-hooks'
+import {GET_USER_AND_EVENTS} from '../../graphql'
 
 import {
   userProfile,
   profileInfo,
   profileSmall,
-  gearWrapper,
-  hideText
+  gearWrapper
 } from './UserProfile.module.scss'
 
-const UserProfile = () => {
-
-  const [isEditing, setIsEditing] = useState(false);
-
-  // Auth0 User info
-  const { user } = useAuth0();
+const UserProfile = ({profileImage, setProfileImage}) => {
+  const [isEditing, setIsEditing] = useState(false)
+  const [firstName, setFirstName] = useState(undefined)
+  const [lastName, setLastName] = useState(undefined)
+  console.log(profileImage)
+  const {
+    data: userData,
+    loading: userLoading,
+    error: userError,
+    refetch: userRefetch,
+  } = useQuery(GET_USER_AND_EVENTS, {variables: {useLocation: false}})
   
+  const {
+    user
+  } = userData || {};
   
-  // manages local form state
-  const fullName = {
-    first: "Cici",
-    last: "Adams"
-  }
-  const [editName, setEditName] = useState(fullName);
-  const handleFormChange = event => {
-    const updatedValue = {
-      ...editName,
-      [event.currentTarget.name]: event.currentTarget.value
-    };
-    console.log("updatedValue in EditUSerForm.jsx:", updatedValue);
-    setEditName(updatedValue);
-  }
-  
-  const {data: attendingData, loading: attendingLoading, error: attendingError, refetch: attendingRefetch} = useLazyQuery(GET_USER_ATTENDING)
+  const {
+    firstName: first,
+    lastName: last,
+    createdEvents,
+    saved,
+    rsvps
+  } = user || {};
 
+  useEffect(() => {
+    setFirstName(first);
+    setLastName(last)
+  }, [userData])
+
+  
 
   return (
     <div className={userProfile}>
       <div className={profileInfo}>
         <div className={gearWrapper} onClick={() => setIsEditing(!isEditing)}>
           <GearIcon isActive={isEditing} />
-          {isEditing && <small className={`${profileSmall} ${hideText}`}>save changes</small>}
         </div>
-        {isEditing ? <EditUserForm editName={editName} handleFormChange={handleFormChange} /> : <UserInfo />}
+        {isEditing ? (
+          <EditUserForm
+            profileImage={profileImage}
+            setProfileImage={setProfileImage}
+            isEditing={isEditing}
+            first={firstName}
+            last={lastName}
+            setFirstName={setFirstName}
+            setLastName={setLastName}
+            created={(createdEvents && createdEvents.length) || 0}
+            saved={(saved && saved.length) || 0}
+            attending={(rsvps && rsvps.length) || 0}
+          />
+        ) : (
+          <UserInfo
+            first={firstName}
+            last={lastName}
+            image={profileImage}
+            created={(createdEvents && createdEvents.length) || 0}
+            saved={(saved && saved.length) || 0}
+            attending={(rsvps && rsvps.length) || 0}
+          />
+        )}
       </div>
-      <UserEvents />
+      <UserEvents created={createdEvents} attending={rsvps} saved={saved} loading={userLoading} error={userError}/>
     </div>
   )
 }

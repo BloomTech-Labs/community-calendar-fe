@@ -14,30 +14,25 @@ import {
   profileSmall
 } from './UserProfile.module.scss'
 
-const UserInfo = () => {
+const UserInfo = ({first, last, image, attending, saved, created}) => {
+  console.log(image);
   return (
     <div className={userInfo}>  
-      <div className={profilePhoto}>
-        <p>img placeholder</p>
-      </div>
-      <h1 className={profileUserName}>Cici Adams</h1>
+      <div className={profilePhoto} style={image && {backgroundImage: `url(${image})`}}/>
+      <h1 className={profileUserName}>{first} {last}</h1>
       <h2 className={profileUserTitle}>Event Organizer</h2>
-      <div className={location}>
-        <LocationPin />
-        <small className={profileSmall}>San Francisco, California</small>
-      </div>
       <div className={eventNumbers}>
         <div className={`created ${evNum}`}>
           <h4>Events Created</h4>
-          <h4>00</h4>
+          <h4>{created}</h4>
         </div>
         <div className={`saved ${evNum}`}>
           <h4>Events Saved</h4>
-          <h4>00</h4>
+          <h4>{saved}</h4>
         </div>
         <div className={`attended ${evNum}`}>
           <h4>Events Attended</h4>
-          <h4>00</h4>
+          <h4>{attending}</h4>
         </div>
       </div>
     </div>

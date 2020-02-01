@@ -270,50 +270,15 @@ export const GET_EVENTS_FILTERED = gql`
   ${ADDRESS_DETAIL_DATA}
 `
 
-export const GET_USER_SAVED = gql `
-  query GetUserSaved(
-    $userLatitude: Float
-    $userLongitude: Float
-    $useLocation: Boolean!
-    ){
-    user{
-      saved {
-        ...EventDetail
-        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
-          id
-          name
-          latitude
-          longitude
-          distanceFromUser @include(if: $useLocation)
-          distanceUnit @include(if: $useLocation)
-          ...AddressDetail
-        }
-        eventImages {
-          url
-        }
-        tags {
-          title
-        }
-        rsvps {
-          id
-          firstName
-          lastName
-        }
-
-      }
-    }
-  }
-  ${EVENT_DETAIL_DATA}
-  ${ADDRESS_DETAIL_DATA}
-`
-
-export const GET_USER_ATTENDING = gql `
+export const GET_USER_AND_EVENTS = gql `
   query GetUserAttending(
     $userLatitude: Float
     $userLongitude: Float
     $useLocation: Boolean!
     ){
     user{
+      firstName
+      lastName
       rsvps {
         ...EventDetail
         locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
@@ -336,21 +301,30 @@ export const GET_USER_ATTENDING = gql `
           firstName
           lastName
         }
-
       }
-    }
-  }
-  ${EVENT_DETAIL_DATA}
-  ${ADDRESS_DETAIL_DATA}
-`
-
-export const GET_USER_CREATED = gql `
-  query GetUserCreated(
-    $userLatitude: Float
-    $userLongitude: Float
-    $useLocation: Boolean!
-    ){
-    user{
+      saved {
+        ...EventDetail
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+          id
+          name
+          latitude
+          longitude
+          distanceFromUser @include(if: $useLocation)
+          distanceUnit @include(if: $useLocation)
+          ...AddressDetail
+        }
+        eventImages {
+          url
+        }
+        tags {
+          title
+        }
+        rsvps {
+          id
+          firstName
+          lastName
+        }
+      }
       createdEvents {
         ...EventDetail
         locations(userLatitude: $userLatitude, userLongitude: $userLongitude){

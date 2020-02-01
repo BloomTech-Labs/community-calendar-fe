@@ -5,14 +5,15 @@
 
 .userProfile {
   margin: 0 auto;
-  height: 90vh;
+  min-height: 100vh;
+  height: 100%;
   width: 100vw;
   display: flex;
   flex-flow: row wrap;
 
 
   @include tablet {
-    max-width: 80vw;
+    max-width: 90vw;
   }
   
   .profileInfo {
@@ -27,10 +28,13 @@
     .gearWrapper {
       display: flex;
       align-items: center;
-      width: 125px;
+      width: 25px;
+      cursor: pointer;
+      margin-right: 0;
 
       .hideText {
         color: $white;
+        cursor: pointer;
       }
     }
 
@@ -45,9 +49,10 @@
     .editUserForm {
 
       .profilePhoto {
-        width: 50vw;
-        height: 50vw;
+        width: 175px;
+        height: 175px;
         background-color: $astronaut;
+        background-size: cover;
         border: solid $bittersweet;
         border-radius: 50%;
         margin-bottom: 20px;
@@ -68,12 +73,15 @@
         pointer-events: none;
         width: 1px;
         height: 1px;
+        z-index: 2;
       }
       
       .editProfilePhotoWrap {
         margin-top: -18px;
+        z-index: 2;
 
         .editProfilePhotoFilter {
+          z-index: 2;
           cursor: pointer;
           height: 100%;
           width: 100%;
@@ -82,12 +90,6 @@
           align-items: center;
           justify-content: center;
           font-size: 3rem;
-          
-          @media (hover: hover) {
-            &:hover {
-              background-color: #536d9e;
-            }
-          }
 
           @include tablet {
             font-size: inherit;
@@ -97,6 +99,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: space-evenly;
+            z-index: 2;
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+
+            @media (hover: hover) {
+              &:hover {
+                background-color: rgba(83,109,158,0.6);
+              }
+            }
 
             svg {
               width: 48px;
@@ -112,11 +125,12 @@
           .profileImg {
             position: absolute;
             border-radius: 50%;
+            border: solid $bittersweet;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: 50% 50%;
-            width: 50vw;
-            height: 50vh;
+            width: 175px;
+            height: 175px;
             @include mobile-xs-to-tablet {
               width: 23vw;
               height: 23vw;
@@ -127,6 +141,24 @@
               height: 8vw;
               margin-bottom: 30px;
             }
+          }
+
+          .editProfileImg {
+            position: absolute;
+            z-index: 1;
+            width: 175px;
+            height: 175px;
+
+            @include mobile-xs-to-tablet {
+              width: 23vw;
+              height: 23vw;
+              margin-bottom: 25px;
+            }
+            @include tablet {
+              width: 8vw;
+              height: 8vw;
+            }
+
           }
         }
       }
@@ -239,10 +271,10 @@
     align-items: center;
     background-color: $offwhite;
     width: 100vw;
-    height: 90vh;
+    height: 100%;
     
     @include tablet {
-      max-width: 52vw;
+      max-width: 64.25vw;
     }
 
     .userEventStage {
@@ -278,6 +310,7 @@
       }
 
       .userEventGrid {
+        padding: 2%;
 
         .userEventCards {
 
@@ -288,6 +321,7 @@
 }
 
 .profileSmall {
-  color: rgba(142, 142, 142, 0.5);
-          font-size: 0.7em;
+  color: $white;
+  font-size: 0.7em;
+  margin-top: -24px;
 }

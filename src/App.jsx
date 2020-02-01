@@ -6,7 +6,7 @@ import {Route, Switch} from 'react-router-dom'
 import {useAuth0} from './contexts/auth0-context.jsx'
 
 //apollo
-import {ApolloProvider} from '@apollo/react-hooks'
+import {ApolloProvider, useQuery} from '@apollo/react-hooks'
 import {ApolloClient} from 'apollo-client'
 import {ApolloLink} from 'apollo-link'
 import {setContext} from 'apollo-link-context'
@@ -38,6 +38,9 @@ function App() {
     getTokenSilently,
   } = useAuth0()
   const [accessToken, setAccessToken] = useState('')
+  const [profileImage, setProfileImage] = useState(null)
+
+  console.log(profileImage);
 
   const getAccessToken = async () => {
     try {
@@ -116,45 +119,17 @@ function App() {
       maxDistance: null,
       userId: null,
       recentSearches: null
-        // {
-        //   index: 'test testy mc testness',
-        //   location: {
-        //     userLatitude: 23.999,
-        //     userLongitude: 24.999,
-        //     radius: 20,
-        //     __typename: 'LocationFilters',
-        //   },
-        //    tags: ['tag1', 'dogs', 'cool', 'beef stew'],
-        //   ticketPrice: [
-        //     {
-        //       maxPrice: 10,
-        //       minPrice: 0,
-        //       __typename: 'PriceFilters',
-        //     },
-        //     {
-        //       maxPrice: 30,
-        //       minPrice: 20,
-        //       __typename: 'PriceFilters',
-        //     },
-        //   ],
-        //   dateRange: {
-        //     start: '2020-01-22T17:00:00.000Z',
-        //     end: '2020-01-24T17:00:00.000Z',
-        //     __typename: 'DateFilters',
-        //   },
-        //   __typename: 'SearchFilters',
-        // },
     },
   })
 
   return (
     <ApolloProvider client={client}>
       <GetUserPosition />
-      <Navbar />
+      <Navbar profileImage={profileImage} setProfileImage={setProfileImage}/>
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/create-event' component={CreateEventPage} />
-        <Route path='/myprofile' component={UserProfile} />
+        <Route path='/myprofile' render={(props) => <UserProfile {...props} profileImage={profileImage} setProfileImage={setProfileImage}/>} />
         <Route exact path='/events/:id' component={EventView} />
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />

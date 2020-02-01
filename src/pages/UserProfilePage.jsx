@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 import UserProfile from '../components/user_profile/UserProfile'
 
 
-const UserProfilePage = () => {
-  return <UserProfile />
+const UserProfilePage = ({profileImage, setProfileImage}) => {
+  return <UserProfile profileImage={profileImage} setProfileImage={setProfileImage}/>
 }
 
 export default UserProfilePage

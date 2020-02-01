@@ -12,17 +12,22 @@ import Searchbar from 'searchbar/Searchbar'
 import Geocoder from 'geocoder/Geocoder'
 
 //styles
-import {navButton, locationContent, closeButton} from './Navbar.module.scss'
+import {navButton, locationContent, closeButton, navatar} from './Navbar.module.scss'
 
 // Apollo
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_CACHE} from '../../graphql'
+import {GET_CACHE, GET_USER_PICTURE} from '../../graphql'
 
-export default function Navbar() {
+export default function Navbar({setProfileImage, profileImage}) {
   const pageLocation = useLocation()
 
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
+  const {data: userImage} = useQuery(GET_USER_PICTURE)
+
+  if(userImage && userImage.user && userImage.user.profileImage){
+    setProfileImage(userImage.user.profileImage)
+  }
 
   const {user, loginWithRedirect, logout} = useAuth0()
 
@@ -238,19 +243,20 @@ export default function Navbar() {
               >
                 Log Out
               </div>
+              
               <div
                 className={`dropdown is-right is-hidden-mobile is-clickable`}
               >
                 <div
-                  className='dropdown-trigger is-flex'
+                  className='dropdown-trigger is-round'
                   aria-haspopup='true'
                   aria-controls='dropdown-menu2'
                   data-testid='nav-dropdown-trigger'
                   data-id='navbar-profile-dropdown'
                 >
                   <img
-                    src={`${user.picture}`}
-                    className='is-round'
+                    src={`${profileImage}`}
+                    className={`${navatar} is-round`}
                     width='35'
                     height='35'
                     alt=''
@@ -264,6 +270,12 @@ export default function Navbar() {
                 >
                   <div className='dropdown-content'>
                     {/* <div className='dropdown-item'>Profile</div> */}
+                    <Link
+                      to='/myprofile'
+                      className='dropdown-item is-clickable'
+                    >
+                      My profile
+                    </Link>
                     <div
                       className='dropdown-item is-clickable'
                       onClick={e => {
@@ -273,6 +285,7 @@ export default function Navbar() {
                     >
                       Log Out
                     </div>
+                    
                   </div>
                 </div>
               </div>

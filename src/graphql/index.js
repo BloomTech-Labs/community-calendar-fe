@@ -11,11 +11,10 @@ import {
   GET_EVENT_BY_ID,
   GET_EVENT_BY_ID_WITH_DISTANCE,
   GET_EVENTS_FILTERED,
-  GET_USER_ATTENDING,
-  GET_USER_CREATED,
-  GET_USER_SAVED
+  GET_USER_AND_EVENTS
 } from './events.query.js'
-import USERS from './users.query.js'
+import {USERS, GET_USER_PICTURE} from './users.query.js'
+import {UPDATE_USER} from './users.mutation.js'
 
 // pure server GraphQL API mutations
 import {
@@ -45,13 +44,12 @@ export {
   GET_EVENT_BY_ID_WITH_DISTANCE,
   USER_LOCATION,
   USERS,
+  GET_USER_PICTURE,
   PRICE_FILTER,
   LOCATION_FILTER,
   DATE_FILTER,
   GET_EVENTS_FILTERED,
-  GET_USER_ATTENDING,
-  GET_USER_CREATED,
-  GET_USER_SAVED,
+  GET_USER_AND_EVENTS,
   // server mutations
   ADD_EVENT,
   UPDATE_EVENT,
@@ -59,6 +57,9 @@ export {
   SAVE_EVENT,
   RSVP_EVENT,
   // mixed server and client
+
+  //users mutation
+  UPDATE_USER,
 
   // pure local state
   typeDefs,
