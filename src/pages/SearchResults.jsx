@@ -29,17 +29,18 @@ import GoBack from 'go_back/GoBack'
 import {useObjFromQS} from '../utils'
 
 const SearchResults = ({history}) => {
-  const qsFilters = useObjFromQS()
-  console.log('qsFilters', qsFilters)
-  let qsLocation = qsFilters.location || {}
+  const {filtersObj: qsFilters, filterAddress} = useObjFromQS()
 
   const [recentSearches, setRecentSearches] = useState([qsFilters])
+  console.log('recentSearches in SearchResults', recentSearches)
 
   //filter component states  START
-  const [lastSearchFilter, setLastSearchFilter] = useState({})
+  const [lastSearchFilter, setLastSearchFilter] = useState(qsFilters || {})
 
   // location filter
-  const [location, setLocation] = useState({})
+  const [location, setLocation] = useState(
+    qsFilters.location ? {...qsFilters.location} : {},
+  )
 
   // date range filter
   const [dateRange, setDateRange] = useState({})
@@ -152,6 +153,7 @@ const SearchResults = ({history}) => {
           setRecentSearches={setRecentSearches}
           recentSearches={recentSearches}
           initialText={qsFilters.index}
+          address={filterAddress}
         />
         {recentSearches[0] && (
           <RecentSearches recentSearches={recentSearches} />
@@ -209,6 +211,10 @@ const SearchResults = ({history}) => {
               setDate={setDateRange}
               currentDate={dateRange}
               refetch={refetch}
+              qsFilters={qsFilters}
+              recentSearches={recentSearches}
+              setRecentSearches={setRecentSearches}
+              filterAddress={filterAddress}
             />
           </div>
         </div>
@@ -232,6 +238,10 @@ const SearchResults = ({history}) => {
               setDate={setDateRange}
               currentDate={dateRange}
               refetch={refetch}
+              qsFilters={qsFilters}
+              recentSearches={recentSearches}
+              setRecentSearches={setRecentSearches}
+              filterAddress={filterAddress}
             />
           </div>
           <div>

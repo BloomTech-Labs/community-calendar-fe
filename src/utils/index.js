@@ -7,6 +7,7 @@ import filterByDistance from './filterByDistance'
 import fetchGeocode from './fetchGeocode'
 import useDropdown from './useDropdown'
 import useObjFromQS from './useObjFromQS'
+import createQSObj from './createQSObj'
 
 export {
   useGeo,
@@ -19,4 +20,5 @@ export {
   filterByDistance,
   useDropdown,
   useObjFromQS,
+  createQSObj,
 }

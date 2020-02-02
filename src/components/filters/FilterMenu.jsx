@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {useDropdown} from '../../utils'
 import moment from 'moment'
+import {DateRange} from 'moment-range'
+import {useHistory} from 'react-router-dom'
 
 //Components
 import Geocoder from 'geocoder/Geocoder'
@@ -14,6 +16,9 @@ import SelectedRange from 'daypicker/selectedRange'
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_CACHE} from '../../graphql'
 
+// Utils
+import {fetchGeocode, buildQS, createQSObj} from '../../utils'
+
 // Styles
 import {
   filterWrapper,
@@ -22,7 +27,6 @@ import {
   datePickerDropdown,
 } from './FilterMenu.module.scss'
 import {locationContent} from 'navbar/Navbar.module.scss'
-import {DateRange} from 'moment-range'
 
 const FilterMenu = props => {
   const {
@@ -43,7 +47,13 @@ const FilterMenu = props => {
     setPrice80,
     price80,
     refetch,
+    qsFilters,
+    recentSearches,
+    setRecentSearches,
+    filterAddress,
   } = props
+
+  const rccHistory = useHistory()
 
   // EVENT LOCATION SEARCH HANDLERS
   const [eventSearchAddress, setEventSearchAddress] = useState('')
@@ -56,12 +66,33 @@ const FilterMenu = props => {
     if (changes.selectedItem) {
       const place = {...changes.selectedItem}
       // apply filter
-      setEventSearchAddress(place.place_name.replace(/united states$/i, 'US'))
+      // setEventSearchAddress(place.place_name.replace(/united states$/i, 'US'))
+      let address = place.place_name.replace(/united states$/i, 'US')
+
+      let newFilters = {
+        ...qsFilters,
+        location: {
+          userLatitude: place.geometry.coordinates[1],
+          userLongitude: place.geometry.coordinates[0],
+          radius: currentLocation.radius || 10,
+        },
+      }
+
       setLocation({
         userLatitude: place.geometry.coordinates[1],
         userLongitude: place.geometry.coordinates[0],
-        radius: currentLocation.radius || 30,
+        radius: currentLocation.radius || 10,
       })
+      console.log('newFilters', newFilters)
+      const qsObj = createQSObj(qsFilters.index, newFilters, address)
+      console.log('qsObj', qsObj)
+
+      setRecentSearches([
+        ...recentSearches,
+        {...newFilters, filterAddress: address},
+      ])
+
+      rccHistory.push(`/search${buildQS(qsObj)}`)
     }
   }
 
@@ -141,7 +172,8 @@ const FilterMenu = props => {
               className={locationContent}
               data-id='location-geocoder-dropdown-content'
             >
-              {eventSearchAddress && (
+              {/* {eventSearchAddress && ( */}
+              {filterAddress && (
                 <p
                   data-id='location-geocoder-address-box'
                   className='level-left'
@@ -154,7 +186,8 @@ const FilterMenu = props => {
                     data-id='location-geocoder-address'
                     style={{marginLeft: '8px'}}
                   >
-                    {eventSearchAddress}
+                    {/* {eventSearchAddress} */}
+                    {filterAddress}
                   </span>
                 </p>
               )}
@@ -167,79 +200,100 @@ const FilterMenu = props => {
             </div>
           </div>
           {/* end dropdown-content*/}
-          <p className='is-size-5'>Distance</p>
-          <div style={{padding: '8px'}}>
-            <div className='checkmarkContainer'>
-              <input
-                type='radio'
-                name='radius'
-                checked={currentLocation.radius === 2}
-                id='2'
-                onChange={() => setLocation({...currentLocation, radius: 2})}
-              />
-              <label htmlFor='2'>Nearby</label>
-              <span
-                onClick={() => setLocation({...currentLocation, radius: 2})}
-                className='checkmark is-clickable'
-              ></span>
-            </div>
-            <div className='checkmarkContainer'>
-              <input
-                type='radio'
-                name='radius'
-                id='5'
-                checked={currentLocation.radius === 5}
-                onChange={() => setLocation({...currentLocation, radius: 5})}
-              />
-              <span
-                onClick={() => setLocation({...currentLocation, radius: 5})}
-                className='checkmark is-clickable'
-              ></span>
-              <label htmlFor='5'>5 mi</label>
-            </div>
-            <div className='checkmarkContainer'>
-              <input
-                type='radio'
-                name='radius'
-                id='10'
-                checked={currentLocation.radius === 10}
-                onChange={() => setLocation({...currentLocation, radius: 10})}
-              />
-              <span
-                onClick={() => setLocation({...currentLocation, radius: 10})}
-                className='checkmark is-clickable'
-              ></span>
-              <label htmlFor='10'>10 mi</label>
-            </div>
-            <div className='checkmarkContainer'>
-              <input
-                type='radio'
-                name='radius'
-                id='25'
-                checked={currentLocation.radius === 25}
-                onChange={() => setLocation({...currentLocation, radius: 25})}
-              />
-              <span
-                onClick={() => setLocation({...currentLocation, radius: 25})}
-                className='checkmark is-clickable'
-              ></span>
-              <label htmlFor='25'>25 mi</label>
-            </div>
-            <div className='checkmarkContainer'>
-              <input
-                type='radio'
-                name='radius'
-                id='50'
-                checked={currentLocation.radius === 50}
-                onChange={() => setLocation({...currentLocation, radius: 50})}
-              />
-              <span
-                onClick={() => setLocation({...currentLocation, radius: 50})}
-                className='checkmark is-clickable'
-              ></span>
-              <label htmlFor='50'>50 mi</label>
-            </div>
-          </div>
+          {/* {eventSearchAddress && ( */}
+          {filterAddress && (
+            <>
+              <p className='is-size-5'>Distance</p>
+              <div style={{padding: '8px'}}>
+                <div className='checkmarkContainer'>
+                  <input
+                    type='radio'
+                    name='radius'
+                    checked={currentLocation.radius === 2}
+                    id='2'
+                    onChange={() =>
+                      setLocation({...currentLocation, radius: 2})
+                    }
+                  />
+                  <label htmlFor='2'>Nearby</label>
+                  <span
+                    onClick={() => setLocation({...currentLocation, radius: 2})}
+                    className='checkmark is-clickable'
+                  ></span>
+                </div>
+                <div className='checkmarkContainer'>
+                  <input
+                    type='radio'
+                    name='radius'
+                    id='5'
+                    checked={currentLocation.radius === 5}
+                    onChange={() =>
+                      setLocation({...currentLocation, radius: 5})
+                    }
+                  />
+                  <span
+                    onClick={() => setLocation({...currentLocation, radius: 5})}
+                    className='checkmark is-clickable'
+                  ></span>
+                  <label htmlFor='5'>5 mi</label>
+                </div>
+                <div className='checkmarkContainer'>
+                  <input
+                    type='radio'
+                    name='radius'
+                    id='10'
+                    checked={currentLocation.radius === 10}
+                    onChange={() =>
+                      setLocation({...currentLocation, radius: 10})
+                    }
+                  />
+                  <span
+                    onClick={() =>
+                      setLocation({...currentLocation, radius: 10})
+                    }
+                    className='checkmark is-clickable'
+                  ></span>
+                  <label htmlFor='10'>10 mi</label>
+                </div>
+                <div className='checkmarkContainer'>
+                  <input
+                    type='radio'
+                    name='radius'
+                    id='25'
+                    checked={currentLocation.radius === 25}
+                    onChange={() =>
+                      setLocation({...currentLocation, radius: 25})
+                    }
+                  />
+                  <span
+                    onClick={() =>
+                      setLocation({...currentLocation, radius: 25})
+                    }
+                    className='checkmark is-clickable'
+                  ></span>
+                  <label htmlFor='25'>25 mi</label>
+                </div>
+                <div className='checkmarkContainer'>
+                  <input
+                    type='radio'
+                    name='radius'
+                    id='50'
+                    checked={currentLocation.radius === 50}
+                    onChange={() =>
+                      setLocation({...currentLocation, radius: 50})
+                    }
+                  />
+                  <span
+                    onClick={() =>
+                      setLocation({...currentLocation, radius: 50})
+                    }
+                    className='checkmark is-clickable'
+                  ></span>
+                  <label htmlFor='50'>50 mi</label>
+                </div>
+              </div>
+            </>
+          )}
         </div>
         {/* end dropdown-menu*/}
       </div>{' '}
