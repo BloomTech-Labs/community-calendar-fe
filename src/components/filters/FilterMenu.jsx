@@ -66,7 +66,6 @@ const FilterMenu = props => {
     if (changes.selectedItem) {
       const place = {...changes.selectedItem}
       // apply filter
-      // setEventSearchAddress(place.place_name.replace(/united states$/i, 'US'))
       let address = place.place_name.replace(/united states$/i, 'US')
 
       let newFilters = {
@@ -83,17 +82,44 @@ const FilterMenu = props => {
         userLongitude: place.geometry.coordinates[0],
         radius: currentLocation.radius || 10,
       })
-      console.log('newFilters', newFilters)
-      const qsObj = createQSObj(qsFilters.index, newFilters, address)
-      console.log('qsObj', qsObj)
 
       setRecentSearches([
         ...recentSearches,
         {...newFilters, filterAddress: address},
       ])
 
+      const qsObj = createQSObj(qsFilters.index, newFilters, address)
       rccHistory.push(`/search${buildQS(qsObj)}`)
     }
+  }
+
+  // update radius
+  function setRadius(radius) {
+    let newFilters = {
+      ...qsFilters,
+      location: {
+        userLatitude: qsFilters.location.userLatitude,
+        userLongitude: qsFilters.location.userLongitude,
+        radius: radius,
+      },
+    }
+
+    setLocation({
+      ...newFilters.location,
+      radius,
+    })
+
+    setRecentSearches([
+      ...recentSearches,
+      {...newFilters, filterAddress: qsFilters.filterAddress},
+    ])
+
+    const qsObj = createQSObj(
+      qsFilters.index,
+      newFilters,
+      qsFilters.filterAddress,
+    )
+    rccHistory.push(`/search${buildQS(qsObj)}`)
   }
 
   // DATE RANGE SEARCH HANDLERS
@@ -211,13 +237,17 @@ const FilterMenu = props => {
                     name='radius'
                     checked={currentLocation.radius === 2}
                     id='2'
-                    onChange={() =>
-                      setLocation({...currentLocation, radius: 2})
+                    onChange={
+                      () => setRadius(2)
+                      // setLocation({...currentLocation, radius: 2})
                     }
                   />
                   <label htmlFor='2'>Nearby</label>
                   <span
-                    onClick={() => setLocation({...currentLocation, radius: 2})}
+                    onClick={
+                      () => setRadius(2)
+                      // setLocation({...currentLocation, radius: 2})
+                    }
                     className='checkmark is-clickable'
                   ></span>
                 </div>
@@ -227,8 +257,9 @@ const FilterMenu = props => {
                     name='radius'
                     id='5'
                     checked={currentLocation.radius === 5}
-                    onChange={() =>
-                      setLocation({...currentLocation, radius: 5})
+                    onChange={
+                      () => setRadius(5)
+                      // setLocation({...currentLocation, radius: 5})
                     }
                   />
                   <span
@@ -243,8 +274,9 @@ const FilterMenu = props => {
                     name='radius'
                     id='10'
                     checked={currentLocation.radius === 10}
-                    onChange={() =>
-                      setLocation({...currentLocation, radius: 10})
+                    onChange={
+                      () => setRadius(10)
+                      // setLocation({...currentLocation, radius: 10})
                     }
                   />
                   <span
@@ -261,8 +293,9 @@ const FilterMenu = props => {
                     name='radius'
                     id='25'
                     checked={currentLocation.radius === 25}
-                    onChange={() =>
-                      setLocation({...currentLocation, radius: 25})
+                    onChange={
+                      () => setRadius(25)
+                      // setLocation({...currentLocation, radius: 25})
                     }
                   />
                   <span
@@ -279,8 +312,9 @@ const FilterMenu = props => {
                     name='radius'
                     id='50'
                     checked={currentLocation.radius === 50}
-                    onChange={() =>
-                      setLocation({...currentLocation, radius: 50})
+                    onChange={
+                      () => setRadius(50)
+                      // setLocation({...currentLocation, radius: 50})
                     }
                   />
                   <span
