@@ -1,4 +1,3 @@
-import {useEffect} from 'react'
 // apollo
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_CACHE} from '../graphql'

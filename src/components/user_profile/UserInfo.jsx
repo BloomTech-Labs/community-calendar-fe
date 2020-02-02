@@ -15,7 +15,6 @@ import {
 } from './UserProfile.module.scss'
 
 const UserInfo = ({first, last, image, attending, saved, created}) => {
-  console.log(image);
   return (
     <div className={userInfo}>  
       <div className={profilePhoto} style={image && {backgroundImage: `url(${image})`}}/>

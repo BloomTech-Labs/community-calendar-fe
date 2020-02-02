@@ -38,9 +38,6 @@ function App() {
     getTokenSilently,
   } = useAuth0()
   const [accessToken, setAccessToken] = useState('')
-  const [profileImage, setProfileImage] = useState(null)
-
-  console.log(profileImage);
 
   const getAccessToken = async () => {
     try {
@@ -118,18 +115,19 @@ function App() {
       userAddress: null,
       maxDistance: null,
       userId: null,
-      recentSearches: null
+      recentSearches: null,
+      profileImage: null
     },
   })
 
   return (
     <ApolloProvider client={client}>
       <GetUserPosition />
-      <Navbar profileImage={profileImage} setProfileImage={setProfileImage}/>
+      <Navbar/>
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/create-event' component={CreateEventPage} />
-        <Route path='/myprofile' render={(props) => <UserProfile {...props} profileImage={profileImage} setProfileImage={setProfileImage}/>} />
+        <Route path='/myprofile' component={UserProfile}/>
         <Route exact path='/events/:id' component={EventView} />
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />

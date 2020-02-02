@@ -14,7 +14,7 @@ import UserIcon from '../icons/UserIcon'
 import CameraIcon from '../icons/CameraIcon'
 
 //graphql
-import {useMutation} from '@apollo/react-hooks'
+import {useMutation, useApolloClient} from '@apollo/react-hooks'
 import {UPDATE_USER} from '../../graphql'
 
 
@@ -39,7 +39,7 @@ import {
   evNum,
   imageInput,
   editNameLabel,
-  hideText
+  saveButton
 } from './UserProfile.module.scss'
 
 //  TODO Add camera Icon and User Icon to image upload
@@ -54,10 +54,11 @@ const EditUserForm = (props) => {
     saved,
     created,
     isEditing,
+    setIsEditing,
     profileImage,
-    setProfileImage,
     setFirstName,
-    setLastName
+    setLastName,
+    updateImage
   } = props;
   
   const [updateUser, {data, error, loading}] = useMutation(UPDATE_USER)
@@ -74,35 +75,37 @@ const EditUserForm = (props) => {
         ...editedName,
         [event.currentTarget.name]: event.currentTarget.value,
       }
-      console.log('updatedValue in EditUSerForm.jsx:', updatedValue)
       setEditName(updatedValue)
     }
 
-
    const updateInfo = () => {
     const {first, last} = editedName;
-    console.log(profilePicture);
+    
     updateUser({variables: {firstName: first, lastName: last, image: profilePicture || undefined}})
     .then(res => {
       setFirstName(res.data.updateUser.firstName)
       setLastName(res.data.updateUser.lastName)
-      setProfileImage(res.data.updateUser.profileImage);
+      if(res.data.updateUser.profileImage !== profileImage){
+        updateImage(res.data.updateUser.profileImage)
+        setProfilePicture(null)
+      }
+      setIsEditing(!isEditing)
+    })
+    .catch(err => {
+      console.log(err)
     })
    }
 
   return (
     <>
-      {/* {isEditing && (
-        <small className={`${profileSmall} ${hideText}`}>
-          save changes
-        </small>
-      )} */}
       <form>
         <div className={editUserForm}>  
-          <input className={imageInput} type="file" onChange={e => {
-            console.log(e.target)
-            setProfilePicture(e.target.files[0])}} id="imageInput" 
-              
+          <input 
+            className={imageInput}
+            type="file"
+            id="imageInput" 
+            onChange={e => {
+              setProfilePicture(e.target.files[0])}}   
             />
           <div className={`${profilePhoto} ${editProfilePhotoWrap}`}>
             <label htmlFor="imageInput">
@@ -112,7 +115,7 @@ const EditUserForm = (props) => {
                   <CameraIcon />
                 </div>
                 <div className={`${profileImg} ${editProfileImg}`} style={
-                  profileImage && {backgroundImage: `url('${profileImage}')`
+                  profileImage && {backgroundImage: `url('${profilePicture ? URL.createObjectURL(profilePicture) : profileImage}')`
                   }}></div>
               </div>
             </label>
@@ -137,10 +140,6 @@ const EditUserForm = (props) => {
           </label>
         </div>
           <h2 className={profileUserTitle}>Event Organizer</h2>
-          {/* <div className={location}>
-            <LocationPin />
-            <small className={profileSmall}>San Francisco, California</small>
-          </div> */}
           <div className={eventNumbers}>
             <div className={`created ${evNum}`}>
               <h4>Events Created</h4>
@@ -154,11 +153,15 @@ const EditUserForm = (props) => {
               <h4>Events Attended</h4>
               <h4>{attending}</h4>
             </div>
-            <button onClick={e => {
+          </div>
+          {(profilePicture || (editedName && fullName && (editedName.first !== fullName.first)) || (editedName && fullName && (editedName.last !== fullName.last))) && <button 
+            className={saveButton}
+            onClick={e => {
               e.preventDefault()
               updateInfo()
-            }}>Submit changes</button>
-          </div>
+          }}>
+            Save Edits
+          </button>}
         </div>
       </form>
     </>

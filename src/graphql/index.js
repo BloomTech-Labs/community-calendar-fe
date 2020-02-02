@@ -30,7 +30,7 @@ import {
 // local state - client GraphQL API typeDefs, resolvers, and queries
 import {typeDefs} from './localState'
 import USER_LOCATION from './userLocation.query.js'
-import {GET_CACHE, GET_RECENT_SEARCHES} from './getCache.query.js'
+import {GET_CACHE, GET_RECENT_SEARCHES, GET_USER_PICTURE_FROM_CACHE} from './getCache.query.js'
 import GET_USER_ID from './getUserId.query'
 
 // re-export as modules
@@ -66,4 +66,5 @@ export {
   GET_CACHE,
   GET_RECENT_SEARCHES,
   GET_USER_ID,
+  GET_USER_PICTURE_FROM_CACHE
 }

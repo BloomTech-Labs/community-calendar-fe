@@ -53,6 +53,7 @@
         height: 175px;
         background-color: $astronaut;
         background-size: cover;
+        background-position: 0 -12px;
         border: solid $bittersweet;
         border-radius: 50%;
         margin-bottom: 20px;
@@ -104,10 +105,13 @@
             height: 100%;
             width: 100%;
             border-radius: 50%;
+            background-color: rgba(170, 170, 170, 0.8);
+            opacity: 0.8;
 
             @media (hover: hover) {
               &:hover {
-                background-color: rgba(83,109,158,0.6);
+                background-color: rgba(170, 170, 170, 0.2);
+                opacity: 0.2;
               }
             }
 
@@ -200,6 +204,20 @@
             font-size: 0.8em;
             margin-bottom: 5px;
             color: $silver;
+          }
+        }
+      }
+
+      .saveButton {
+        color: $white;
+        margin: 15px 0 30px 0;
+        padding: 10px;
+        background-color: inherit;
+        border: solid 1px $white;
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: rgba(83,109,158,0.6);
           }
         }
       }

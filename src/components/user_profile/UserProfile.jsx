@@ -8,7 +8,8 @@ import GearIcon from '../icons/GearIcon'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_USER_AND_EVENTS} from '../../graphql'
+import {GET_USER_AND_EVENTS, GET_USER_PICTURE_FROM_CACHE} from '../../graphql'
+import gql from 'graphql-tag'
 
 import {
   userProfile,
@@ -17,17 +18,33 @@ import {
   gearWrapper
 } from './UserProfile.module.scss'
 
-const UserProfile = ({profileImage, setProfileImage}) => {
+const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false)
   const [firstName, setFirstName] = useState(undefined)
   const [lastName, setLastName] = useState(undefined)
-  console.log(profileImage)
+  const client = useApolloClient()
+
+  const {data: profileImageFromCache, refetch: profileImageRefetch} = useQuery(GET_USER_PICTURE_FROM_CACHE);
+
   const {
     data: userData,
     loading: userLoading,
     error: userError,
     refetch: userRefetch,
   } = useQuery(GET_USER_AND_EVENTS, {variables: {useLocation: false}})
+
+  const updateImage = url => {
+    client.writeQuery({
+      query: gql `
+      query GetUserProfileImage {
+        profileImage @client
+      }
+    `,
+      data: {
+        profileImage: url
+      }
+    })
+  }
   
   const {
     user
@@ -56,9 +73,10 @@ const UserProfile = ({profileImage, setProfileImage}) => {
         </div>
         {isEditing ? (
           <EditUserForm
-            profileImage={profileImage}
-            setProfileImage={setProfileImage}
+            profileImage={profileImageFromCache && profileImageFromCache.profileImage}
+            updateImage={updateImage}
             isEditing={isEditing}
+            setIsEditing={setIsEditing}
             first={firstName}
             last={lastName}
             setFirstName={setFirstName}
@@ -71,7 +89,7 @@ const UserProfile = ({profileImage, setProfileImage}) => {
           <UserInfo
             first={firstName}
             last={lastName}
-            image={profileImage}
+            image={profileImageFromCache && profileImageFromCache.profileImage}
             created={(createdEvents && createdEvents.length) || 0}
             saved={(saved && saved.length) || 0}
             attending={(rsvps && rsvps.length) || 0}

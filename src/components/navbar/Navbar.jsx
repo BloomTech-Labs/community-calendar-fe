@@ -16,18 +16,27 @@ import {navButton, locationContent, closeButton, navatar} from './Navbar.module.
 
 // Apollo
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_CACHE, GET_USER_PICTURE} from '../../graphql'
+import {GET_CACHE, GET_USER_PICTURE, GET_USER_PICTURE_FROM_CACHE} from '../../graphql'
 
-export default function Navbar({setProfileImage, profileImage}) {
+export default function Navbar() {
   const pageLocation = useLocation()
 
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
   const {data: userImage} = useQuery(GET_USER_PICTURE)
+  const {data: profileImageFromCache} = useQuery(GET_USER_PICTURE_FROM_CACHE);
 
-  if(userImage && userImage.user && userImage.user.profileImage){
-    setProfileImage(userImage.user.profileImage)
-  }
+  useEffect(() => {
+    if(userImage && userImage.user && userImage.user.profileImage){
+      client.writeQuery({
+        query: GET_USER_PICTURE_FROM_CACHE,
+        data: {
+          profileImage: userImage.user.profileImage
+        }
+      })
+    }
+  }, [userImage])
+  
 
   const {user, loginWithRedirect, logout} = useAuth0()
 
@@ -50,6 +59,7 @@ export default function Navbar({setProfileImage, profileImage}) {
     if (changes.selectedItem) {
       const place = {...changes.selectedItem}
       //update user data in local cache
+      
       client.writeData({
         data: {
           userAddress: place.place_name.replace(/united states$/i, 'US'),
@@ -255,7 +265,7 @@ export default function Navbar({setProfileImage, profileImage}) {
                   data-id='navbar-profile-dropdown'
                 >
                   <img
-                    src={`${profileImage}`}
+                    src={`${profileImageFromCache && profileImageFromCache.profileImage}`}
                     className={`${navatar} is-round`}
                     width='35'
                     height='35'
