@@ -91,10 +91,10 @@ const FilterMenu = props => {
       const qsObj = createQSObj(qsFilters.index, newFilters, address)
       rccHistory.push(`/search${buildQS(qsObj)}`)
     }
-  }
+  } // end SetUserLocation
 
   // update radius
-  function setRadius(radius) {
+  function setRadius(radius, qsFilters, filterAddress) {
     let newFilters = {
       ...qsFilters,
       location: {
@@ -109,18 +109,11 @@ const FilterMenu = props => {
       radius,
     })
 
-    setRecentSearches([
-      ...recentSearches,
-      {...newFilters, filterAddress: qsFilters.filterAddress},
-    ])
+    setRecentSearches([...recentSearches, {...newFilters, filterAddress}])
 
-    const qsObj = createQSObj(
-      qsFilters.index,
-      newFilters,
-      qsFilters.filterAddress,
-    )
+    const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
     rccHistory.push(`/search${buildQS(qsObj)}`)
-  }
+  } //end setRadius
 
   // DATE RANGE SEARCH HANDLERS
   const [searchDateRange, setSearchDateRange] = useState([
@@ -237,17 +230,11 @@ const FilterMenu = props => {
                     name='radius'
                     checked={currentLocation.radius === 2}
                     id='2'
-                    onChange={
-                      () => setRadius(2)
-                      // setLocation({...currentLocation, radius: 2})
-                    }
+                    onChange={() => setRadius(2, qsFilters, filterAddress)}
                   />
                   <label htmlFor='2'>Nearby</label>
                   <span
-                    onClick={
-                      () => setRadius(2)
-                      // setLocation({...currentLocation, radius: 2})
-                    }
+                    onClick={() => setRadius(2, qsFilters, filterAddress)}
                     className='checkmark is-clickable'
                   ></span>
                 </div>
@@ -257,13 +244,10 @@ const FilterMenu = props => {
                     name='radius'
                     id='5'
                     checked={currentLocation.radius === 5}
-                    onChange={
-                      () => setRadius(5)
-                      // setLocation({...currentLocation, radius: 5})
-                    }
+                    onChange={() => setRadius(5, qsFilters, filterAddress)}
                   />
                   <span
-                    onClick={() => setLocation({...currentLocation, radius: 5})}
+                    onClick={() => setRadius(5, qsFilters, filterAddress)}
                     className='checkmark is-clickable'
                   ></span>
                   <label htmlFor='5'>5 mi</label>
@@ -274,15 +258,10 @@ const FilterMenu = props => {
                     name='radius'
                     id='10'
                     checked={currentLocation.radius === 10}
-                    onChange={
-                      () => setRadius(10)
-                      // setLocation({...currentLocation, radius: 10})
-                    }
+                    onChange={() => setRadius(10, qsFilters, filterAddress)}
                   />
                   <span
-                    onClick={() =>
-                      setLocation({...currentLocation, radius: 10})
-                    }
+                    onClick={() => setRadius(10, qsFilters, filterAddress)}
                     className='checkmark is-clickable'
                   ></span>
                   <label htmlFor='10'>10 mi</label>
@@ -293,15 +272,10 @@ const FilterMenu = props => {
                     name='radius'
                     id='25'
                     checked={currentLocation.radius === 25}
-                    onChange={
-                      () => setRadius(25)
-                      // setLocation({...currentLocation, radius: 25})
-                    }
+                    onChange={() => setRadius(25, qsFilters, filterAddress)}
                   />
                   <span
-                    onClick={() =>
-                      setLocation({...currentLocation, radius: 25})
-                    }
+                    onClick={() => setRadius(25, qsFilters, filterAddress)}
                     className='checkmark is-clickable'
                   ></span>
                   <label htmlFor='25'>25 mi</label>
@@ -312,15 +286,10 @@ const FilterMenu = props => {
                     name='radius'
                     id='50'
                     checked={currentLocation.radius === 50}
-                    onChange={
-                      () => setRadius(50)
-                      // setLocation({...currentLocation, radius: 50})
-                    }
+                    onChange={() => setRadius(50, qsFilters, filterAddress)}
                   />
                   <span
-                    onClick={() =>
-                      setLocation({...currentLocation, radius: 50})
-                    }
+                    onClick={() => setRadius(50, qsFilters, filterAddress)}
                     className='checkmark is-clickable'
                   ></span>
                   <label htmlFor='50'>50 mi</label>
