@@ -66,6 +66,18 @@ export default class SelectedRange extends React.Component {
     this.props.setEventRange && this.props.setEventRange(undefined)
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.start !== prevProps.start ||
+      this.props.end !== prevProps.end
+    ) {
+      this.setState({
+        from: new Date(this.props.start),
+        to: new Date(this.props.end),
+      })
+    }
+  }
+
   render() {
     const {from, to} = this.state
     const modifiers = {start: from, end: to}
