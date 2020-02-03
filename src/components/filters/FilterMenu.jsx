@@ -162,25 +162,47 @@ const FilterMenu = props => {
   // price dropdown
   const [priceIsOpen, setPriceIsOpen] = useDropdown(fakeCb, true)
 
-  function setFilterPrice(price, setPrice, qsFilters, filterAddress) {
+  function setFilterPrice(
+    price,
+    setPrice,
+    minPrice,
+    maxPrice,
+    qsFilters,
+    filterAddress,
+  ) {
     // toggle price
     setPrice(!price)
 
-    // if price is false remove from qs
-    // if price is true add to qs
+    let oldPrices = qsFilters.ticketPrice ? [...qsFilters.ticketPrice] : null
 
-    /*     const updatedPrices = []
+    let ticketPrice = null
+    // if price is false remove from qs
+    if (price) {
+      if (oldPrices) {
+        ticketPrice = oldPrices.filter(
+          priceRange =>
+            priceRange.minPrice !== minPrice &&
+            priceRange.maxPrice !== maxPrice,
+        )
+      }
+    }
+    // if price is true add to qs
+    if (!price) {
+      console.log('adding ticket price')
+      ticketPrice = oldPrices
+        ? [...oldPrices, {minPrice, maxPrice}]
+        : [{minPrice, maxPrice}]
+    }
+    console.log('ticketPrice', ticketPrice)
     let newFilters = {
       ...qsFilters,
-     ticketPrice: updatedPrices 
+      ticketPrice,
     }
-
 
     setRecentSearches([...recentSearches, {...newFilters, filterAddress}])
 
     const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
     rccHistory.push(`/search${buildQS(qsObj)}`)
- */
   } //end setFilterPrice
 
   // fake cb  for close function
@@ -563,10 +585,28 @@ const FilterMenu = props => {
                   name='010'
                   id='010'
                   checked={price010}
-                  onChange={() => setFilterPrice(price010, setPrice010)}
+                  onChange={() =>
+                    setFilterPrice(
+                      price010,
+                      setPrice010,
+                      0,
+                      10,
+                      qsFilters,
+                      filterAddress,
+                    )
+                  }
                 />
                 <span
-                  onClick={() => setFilterPrice(price010, setPrice010)}
+                  onClick={() =>
+                    setFilterPrice(
+                      price010,
+                      setPrice010,
+                      0,
+                      10,
+                      qsFilters,
+                      filterAddress,
+                    )
+                  }
                   className='checkmark is-clickable'
                 ></span>
                 <label htmlFor='010'>&#36;0 &#8208; &#36;10</label>
@@ -578,10 +618,28 @@ const FilterMenu = props => {
                   name='1020'
                   id='1020'
                   checked={price1020}
-                  onChange={() => setFilterPrice(price1020, setPrice1020)}
+                  onChange={() =>
+                    setFilterPrice(
+                      price1020,
+                      setPrice1020,
+                      10,
+                      20,
+                      qsFilters,
+                      filterAddress,
+                    )
+                  }
                 />
                 <span
-                  onClick={() => setFilterPrice(price1020, setPrice1020)}
+                  onClick={() =>
+                    setFilterPrice(
+                      price1020,
+                      setPrice1020,
+                      10,
+                      20,
+                      qsFilters,
+                      filterAddress,
+                    )
+                  }
                   className='checkmark is-clickable'
                 ></span>
                 <label htmlFor='1020'>&#36;10 &#8208; &#36;20</label>
@@ -593,10 +651,28 @@ const FilterMenu = props => {
                   name='2040'
                   id='2040'
                   checked={price2040}
-                  onChange={() => setFilterPrice(price2040, setPrice2040)}
+                  onChange={() =>
+                    setFilterPrice(
+                      price2040,
+                      setPrice2040,
+                      20,
+                      40,
+                      qsFilters,
+                      filterAddress,
+                    )
+                  }
                 />
                 <span
-                  onClick={() => setFilterPrice(price2040, setPrice2040)}
+                  onClick={() =>
+                    setFilterPrice(
+                      price2040,
+                      setPrice2040,
+                      20,
+                      40,
+                      qsFilters,
+                      filterAddress,
+                    )
+                  }
                   className='checkmark is-clickable'
                 ></span>
                 <label htmlFor='2040'>&#36;20 &#8208; &#36;40</label>
@@ -608,10 +684,28 @@ const FilterMenu = props => {
                   name='4080'
                   id='4080'
                   checked={price4080}
-                  onChange={() => setFilterPrice(price4080, setPrice4080)}
+                  onChange={() =>
+                    setFilterPrice(
+                      price4080,
+                      setPrice4080,
+                      40,
+                      80,
+                      qsFilters,
+                      filterAddress,
+                    )
+                  }
                 />
                 <span
-                  onClick={() => setFilterPrice(price4080, setPrice4080)}
+                  onClick={() =>
+                    setFilterPrice(
+                      price4080,
+                      setPrice4080,
+                      40,
+                      80,
+                      qsFilters,
+                      filterAddress,
+                    )
+                  }
                   className='checkmark is-clickable'
                 ></span>
                 <label htmlFor='4080'>&#36;40 &#8208; &#36;80</label>
@@ -623,10 +717,28 @@ const FilterMenu = props => {
                   name='80'
                   checked={price80}
                   id='80'
-                  onChange={() => setFilterPrice(price80, setPrice80)}
+                  onChange={() =>
+                    setFilterPrice(
+                      price80,
+                      setPrice80,
+                      80,
+                      100000000,
+                      qsFilters,
+                      filterAddress,
+                    )
+                  }
                 />
                 <span
-                  onClick={() => setFilterPrice(price80, setPrice80)}
+                  onClick={() =>
+                    setFilterPrice(
+                      price80,
+                      setPrice80,
+                      80,
+                      100000000,
+                      qsFilters,
+                      filterAddress,
+                    )
+                  }
                   className='checkmark is-clickable'
                 ></span>
                 <label htmlFor='80'>&#36;80&#43;</label>

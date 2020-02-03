@@ -53,11 +53,41 @@ const SearchResults = ({history}) => {
   const [tags, setTags] = useState(qsFilters.tags ? qsFilters.tags : [])
 
   // price filter
-  const [price010, setPrice010] = useState(false)
-  const [price1020, setPrice1020] = useState(false)
-  const [price2040, setPrice2040] = useState(false)
-  const [price4080, setPrice4080] = useState(false)
-  const [price80, setPrice80] = useState(false)
+  const [price010, setPrice010] = useState(
+    qsFilters.ticketPrice
+      ? qsFilters.ticketPrice.some(
+          pr => pr.minPrice === 0 && pr.maxPrice === 10,
+        )
+      : false,
+  )
+  const [price1020, setPrice1020] = useState(
+    qsFilters.ticketPrice
+      ? qsFilters.ticketPrice.some(
+          pr => pr.minPrice === 10 && pr.maxPrice === 20,
+        )
+      : false,
+  )
+  const [price2040, setPrice2040] = useState(
+    qsFilters.ticketPrice
+      ? qsFilters.ticketPrice.some(
+          pr => pr.minPrice === 20 && pr.maxPrice === 40,
+        )
+      : false,
+  )
+  const [price4080, setPrice4080] = useState(
+    qsFilters.ticketPrice
+      ? qsFilters.ticketPrice.some(
+          pr => pr.minPrice === 40 && pr.maxPrice === 80,
+        )
+      : false,
+  )
+  const [price80, setPrice80] = useState(
+    qsFilters.ticketPrice
+      ? qsFilters.ticketPrice.some(
+          pr => pr.minPrice === 80 && pr.maxPrice === 100000000,
+        )
+      : false,
+  )
 
   //filter component states  END
 
@@ -108,8 +138,11 @@ const SearchResults = ({history}) => {
     if (price4080) {
       ticketPrice.push({minPrice: 40, maxPrice: 80})
     }
+    if (price80) {
+      ticketPrice.push({minPrice: 80, maxPrice: 100000000})
+    }
 
-    if (price010 || price1020 || price2040 || price4080) {
+    if (price010 || price1020 || price2040 || price4080 || price80) {
       searchFilters['ticketPrice'] = ticketPrice
     }
 
