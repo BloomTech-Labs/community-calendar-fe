@@ -43,7 +43,12 @@ const SearchResults = ({history}) => {
   )
 
   // date range filter
-  const [dateRange, setDateRange] = useState({})
+  const [dateRange, setDateRange] = useState(
+    qsFilters.dateRange
+      ? {start: qsFilters.dateRange.start, end: qsFilters.dateRange.end}
+      : {},
+  )
+
   // tags filter
   const [tags, setTags] = useState([])
 

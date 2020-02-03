@@ -116,17 +116,28 @@ const FilterMenu = props => {
   } //end setRadius
 
   // DATE RANGE SEARCH HANDLERS
-  const [searchDateRange, setSearchDateRange] = useState([
-    new Date(),
-    new Date(),
-  ])
   // date dropdown
   const [dateIsOpen, setDateIsOpen] = useDropdown(fakeCb, true)
 
-  const dateRangeChange = newDateRange => {
-    setSearchDateRange(newDateRange)
-    setDate(newDateRange)
-  }
+  function updateDateRange(start, end, qsFilters, filterAddress) {
+    let newFilters = {
+      ...qsFilters,
+      dateRange: {
+        start,
+        end,
+      },
+    }
+
+    setDate({
+      start,
+      end,
+    })
+
+    setRecentSearches([...recentSearches, {...newFilters, filterAddress}])
+
+    const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
+    rccHistory.push(`/search${buildQS(qsObj)}`)
+  } //end updateDateRange
 
   // TAG SEARCH HANDLERS
   // tags dropdown
@@ -387,7 +398,14 @@ const FilterMenu = props => {
                     </>
                   ))}
               </div>
-              <SelectedRange setDate={setDate} />
+              <SelectedRange
+                setDate={setDate}
+                updateDateRange={updateDateRange}
+                start={currentDate.start}
+                end={currentDate.end}
+                qsFilters={qsFilters}
+                filterAddress={filterAddress}
+              />
             </div>
           </div>
           {/* end dropdown-content*/}

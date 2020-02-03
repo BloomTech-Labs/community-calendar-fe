@@ -17,8 +17,8 @@ export default class SelectedRange extends React.Component {
 
   getInitialState() {
     return {
-      from: undefined,
-      to: undefined,
+      from: this.props.start ? new Date(this.props.start) : undefined,
+      to: this.props.end ? new Date(this.props.end) : undefined,
     }
   }
 
@@ -29,9 +29,9 @@ export default class SelectedRange extends React.Component {
       if (this.props.setStart && this.props.setEnd) {
         this.props.setStart(undefined)
         this.props.setEnd(undefined)
-      }
 
-      this.props.setDate && this.props.setDate({})
+        this.props.setDate && this.props.setDate({})
+      }
 
       this.props.refetch &&
         this.props.refetch({start: undefined, end: undefined})
@@ -49,7 +49,13 @@ export default class SelectedRange extends React.Component {
       }
 
       // for use in FilterMenu
-      this.props.setDate && this.props.setDate({start, end})
+      this.props.updateDateRange &&
+        this.props.updateDateRange(
+          start,
+          end,
+          this.props.qsFilters,
+          this.props.filterAddress,
+        )
 
       this.props.refetch && this.props.refetch({start, end})
     } // end else if
