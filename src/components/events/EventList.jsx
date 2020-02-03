@@ -40,7 +40,7 @@ export default function EventList({
       ></div>
 
       {/* List of events */}
-      <div className={cardWrapper}>
+      <div className={`${cardWrapper}`}>
         <div
           className={` ${
             listView

@@ -244,7 +244,7 @@ const EventView = ({history}) => {
           />
         )}
         <div className={padContent}>
-          <h1 className='is-family-secondary is-size-1 is-size-4-mobile'>
+          <h1 className='is-family-secondary is-size-2 is-size-4-mobile'>
             {title}
           </h1>
           <p
