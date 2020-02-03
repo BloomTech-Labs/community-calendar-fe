@@ -12,16 +12,14 @@ const RecentSearches = ({
   setPrice2040,
   setPrice4080,
   setPrice80,
-  setRecentSearches,
-  setRecentSearchesLimited,
-  setLastSearchFilter,
 }) => {
   const rccHistory = useHistory()
+
   return (
     <div className='is-flex'>
       <p className='has-text-grey-lighter'>
         Recent Searches:&nbsp;
-        {recentSearches.length &&
+        {recentSearches &&
           recentSearches.map((search, ind) => {
             // determine how many filters were applied to search
             let filterCount = Object.keys(search).reduce((acc, curr) => {
@@ -91,7 +89,6 @@ const RecentSearches = ({
                       : false,
                   )
 
-                  // setLastSearchFilter(search)
                   rccHistory.push(`/search${qs}`)
                 }}
                 className='has-text-link is-clickable'

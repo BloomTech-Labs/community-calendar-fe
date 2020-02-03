@@ -31,6 +31,8 @@ import {useObjFromQS} from '../utils'
 const SearchResults = ({history}) => {
   const {filtersObj: qsFilters, filterAddress} = useObjFromQS()
 
+  const [indexText, setIndexText] = useState(qsFilters.index || '')
+
   const [recentSearches, setRecentSearches] = useState([qsFilters])
 
   // limits recentSearches to four
@@ -39,9 +41,12 @@ const SearchResults = ({history}) => {
     setRecentSearches,
     newSearch,
   ) {
-    recentSearches.length > 3
-      ? setRecentSearches([...recentSearches.slice(1, 4), newSearch])
-      : setRecentSearches([...recentSearches, newSearch])
+    //only update search history if there is an index word.
+    if (newSearch.index) {
+      recentSearches.length > 3
+        ? setRecentSearches([...recentSearches.slice(1, 4), newSearch])
+        : setRecentSearches([...recentSearches, newSearch])
+    }
   }
 
   //filter component states  START
@@ -199,7 +204,7 @@ const SearchResults = ({history}) => {
           setRecentSearches={setRecentSearches}
           setRecentSearchesLimited={setRecentSearchesLimited}
           recentSearches={recentSearches}
-          initialText={qsFilters.index}
+          initialText={indexText}
           address={filterAddress}
         />
         {recentSearches[0].index && (
@@ -275,6 +280,7 @@ const SearchResults = ({history}) => {
               setRecentSearches={setRecentSearches}
               setRecentSearchesLimited={setRecentSearchesLimited}
               filterAddress={filterAddress}
+              setIndexText={setIndexText}
             />
           </div>
         </div>
@@ -303,6 +309,7 @@ const SearchResults = ({history}) => {
               setRecentSearches={setRecentSearches}
               setRecentSearchesLimited={setRecentSearchesLimited}
               filterAddress={filterAddress}
+              setIndexText={setIndexText}
             />
           </div>
           <div>

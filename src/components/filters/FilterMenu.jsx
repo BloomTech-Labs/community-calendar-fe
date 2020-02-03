@@ -51,6 +51,7 @@ const FilterMenu = props => {
     setRecentSearches,
     setRecentSearchesLimited,
     filterAddress,
+    setIndexText,
   } = props
 
   const rccHistory = useHistory()
@@ -228,9 +229,9 @@ const FilterMenu = props => {
     setPrice2040(false)
     setPrice4080(false)
     setPrice80(false)
-    rccHistory.push(
-      `/search${buildQS({index: qsFilters.index ? qsFilters.index : ''})}`,
-    )
+    setIndexText('')
+    // rccHistory.push(`/search${buildQS({index: ''})}`)
+    rccHistory.push(`/search`)
   }
   return (
     <div className={`${filterWrapper} ${props.mobile ? mobile : ''}`}>

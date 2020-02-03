@@ -1,5 +1,7 @@
 export default function createQSObj(text, filters = null, address = null) {
-  let qsObj = {index: text}
+  // let qsObj = {index: text}
+  let qsObj = {}
+  if (text) qsObj.index = text
 
   // used in FilterMenu.jsx to display 'Event Location'
   // when SearchResults page first mounts
