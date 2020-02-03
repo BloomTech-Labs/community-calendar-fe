@@ -15,6 +15,7 @@ import {
   space_letters,
   event_image,
   descriptionUnderline,
+  title
 } from './styles/EventListCard.module.scss'
 
 /* 
@@ -66,7 +67,7 @@ export default function EventListCard(props) {
         <p
           data-id='event_title'
           data-testid='event_title'
-          className='is-size-5 has-text-weight-bold color_black'
+          className={`is-size-5 has-text-weight-bold color_black`}
         >
           {item.title}
         </p>
@@ -96,7 +97,9 @@ export default function EventListCard(props) {
           &nbsp;
           <span>&#8226;</span>
           &nbsp;
-          <span className='color_chalice'>Free</span>
+          <span className='color_chalice'>
+            {item.ticketPrice ? `$${item.ticketPrice}` : 'FREE'}
+          </span>
         </p>
         <p
           data-id='event_description'
