@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react'
-import {useQuery, useApolloClient} from '@apollo/react-hooks'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import {GET_EVENTS_FILTERED, GET_CACHE, GET_RECENT_SEARCHES} from '../../graphql'
+import {useHistory} from 'react-router-dom'
+
 import {
   searchbar,
   searchbarInput,
@@ -9,106 +9,42 @@ import {
   large,
   searchbarInputSmall,
 } from './Searchbar.module.scss'
-import {useHistory} from 'react-router-dom'
-import {buildQS} from '../../utils'
+
+import {buildQS, createQSObj} from '../../utils'
 import {SearchIcon} from 'icons'
 
-const Searchbar = ({isLarge, cb, filters = null, setRecentSearches, recentSearches}) => {
-  const [searchText, setSearchText] = useState('')
-  const client = useApolloClient();
+const Searchbar = ({
+  isLarge,
+  cb,
+  filters = null,
+  setRecentSearches = null,
+  setRecentSearchesLimited = null,
+  recentSearches = null,
+  initialText = '',
+  address = null,
+}) => {
+  const [index, setIndex] = useState(initialText)
   const rccHistory = useHistory()
-  // const {data: recentSearchesData, refetch: recentSearchesRefetch} = useQuery(
-  //   GET_RECENT_SEARCHES
-  // )
-  
+
   const handleChange = e => {
-    setSearchText(e.target.value)
+    setIndex(e.target.value)
   }
 
   const handleSearch = () => {
     //encode text and filters to query string
-    let qsObj = {
-      searchText,
-    }
+    let qsObj = createQSObj(index, filters, address)
 
-    // if filters exist flatten into new object
-    if (filters) {
-      // if "tags" exist add to qs
-      if (filters.tags) {
-        filters.tags.forEach((tag, ind) => {
-          qsObj[`tag${ind}`] = tag
-        })
-      }
-      // if "locations" exist add to qs
-      if (filters.location) {
-        Object.keys(filters.location).forEach(k => {
-          if (!/^__typename/.test(k)) qsObj[k] = filters.location[k]
-        })
-      }
-      // if "dateRange" exist add to qs
-      if (filters.dateRange) {
-        Object.keys(filters.dateRange).forEach(k => {
-          if (!/^__typename/i.test(k)) qsObj[k] = filters.dateRange[k]
-        })
-      }
-      // if "ticketPrice" exist add to qs
-      if (filters.ticketPrice) {
-        filters.ticketPrice.forEach((priceRange, ind) => {
-          qsObj[`minPrice-${ind}`] = priceRange.minPrice
-          qsObj[`maxPrice-${ind}`] = priceRange.maxPrice
-        })
-      }
-    }
+    // if use is on SearchResult page update the list of recent searches
+    setRecentSearchesLimited &&
+      setRecentSearchesLimited(recentSearches, setRecentSearches, {
+        ...filters,
+        index,
+        filterAddress: address,
+      })
 
-    
-      if(filters && Object.keys(filters).length){
-        if(searchText){
-          filters['index'] = searchText
-        }
-
-        // add __typename to filters
-        filters['__typename'] =  'SearchFilters'
-
-        if(filters.location) filters.location['__typename'] = 'LocationFilters'
-
-
-        if(filters.dateRange) filters.dateRange['__typename'] = 'DateFilters'
-
-
-        if(filters.ticketPrice) filters.ticketPrice.forEach( range =>range['__typename'] = 'PriceFilters')
-
-        let arr = [];
-
-        console.log(filters);
-        // console.log([{...filters}])
-        // client.writeData({
-        //   data: {
-        //     recentSearches: [{...filters}],
-        //   },
-        // })    
-        
-        // recentSearchesRefetch().then(res => {
-        //   console.log(res);
-        // })
-          
-
-        
-        setRecentSearches([...recentSearches, {...filters}])
-        console.log(recentSearches);
-    }
-    
-
-    const qs = buildQS(qsObj)
-
-    // console.log('qsObj in Searchbar', qsObj)
-    // console.log('qs is', qs);
-    // console.log('filters is', filters)
-
-    
     // push to /search with query string
-    rccHistory.push(`/search${qs}`)
-    // clear search text
-    setSearchText('')
+    rccHistory.push(`/search${buildQS(qsObj)}`)
+
     // execute callback if provided
     cb && cb()
   }
@@ -127,19 +63,19 @@ const Searchbar = ({isLarge, cb, filters = null, setRecentSearches, recentSearch
         type='text'
         placeholder='Search'
         onChange={e => handleChange(e)}
-        value={searchText}
+        value={index}
         onKeyDown={e => {
-          if (e.keyCode === 13 && searchText.length) {
+          if (e.keyCode === 13 && index.length) {
             handleSearch()
           }
         }}
       />
       <button
         className={`button small-btn  is-primary   ${
-          !searchText.length && !isLarge ? 'willFadeIn' : 'fadeIn'
+          !index.length && !isLarge ? 'willFadeIn' : 'fadeIn'
         }`}
         onClick={() => {
-          if (searchText.length) handleSearch()
+          if (index.length) handleSearch()
         }}
       >
         Search
@@ -151,5 +87,6 @@ const Searchbar = ({isLarge, cb, filters = null, setRecentSearches, recentSearch
 Searchbar.propTypes = {
   isLarge: PropTypes.bool,
   cb: PropTypes.func,
+  initialText: PropTypes.string,
 }
 export default Searchbar

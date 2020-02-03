@@ -3,7 +3,7 @@ import {useLocation} from 'react-router-dom'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_EVENTS_FILTERED, GET_CACHE, GET_RECENT_SEARCHES} from '../graphql'
+import {GET_EVENTS_FILTERED, GET_CACHE} from '../graphql'
 
 // Components
 import EventList from 'events/EventList'
@@ -29,44 +29,81 @@ import GoBack from 'go_back/GoBack'
 import {useObjFromQS} from '../utils'
 
 const SearchResults = ({history}) => {
-  const [recentSearches, setRecentSearches] = useState([])
+  const {filtersObj: qsFilters, filterAddress} = useObjFromQS()
+
+  const [recentSearches, setRecentSearches] = useState([qsFilters])
+
+  // limits recentSearches to four
+  function setRecentSearchesLimited(
+    recentSearches,
+    setRecentSearches,
+    newSearch,
+  ) {
+    recentSearches.length > 3
+      ? setRecentSearches([...recentSearches.slice(1, 4), newSearch])
+      : setRecentSearches([...recentSearches, newSearch])
+  }
 
   //filter component states  START
-  const [lastSearchFilter, setLastSearchFilter] = useState({})
-  const [currentSearch, setCurrentSearch] = useState({})
-
   // location filter
-  const [location, setLocation] = useState({})
+  const [location, setLocation] = useState(
+    qsFilters.location ? {...qsFilters.location} : {},
+  )
 
   // date range filter
-  const [dateRange, setDateRange] = useState({})
+  const [dateRange, setDateRange] = useState(
+    qsFilters.dateRange
+      ? {start: qsFilters.dateRange.start, end: qsFilters.dateRange.end}
+      : {},
+  )
+
   // tags filter
-  const [tags, setTags] = useState([])
+  const [tags, setTags] = useState(qsFilters.tags ? qsFilters.tags : [])
 
   // price filter
-  const [price010, setPrice010] = useState(false)
-  const [price1020, setPrice1020] = useState(false)
-  const [price2040, setPrice2040] = useState(false)
-  const [price4080, setPrice4080] = useState(false)
-  const [price80, setPrice80] = useState(false)
+  const [price010, setPrice010] = useState(
+    qsFilters.ticketPrice
+      ? qsFilters.ticketPrice.some(
+          pr => pr.minPrice === 0 && pr.maxPrice === 10,
+        )
+      : false,
+  )
+  const [price1020, setPrice1020] = useState(
+    qsFilters.ticketPrice
+      ? qsFilters.ticketPrice.some(
+          pr => pr.minPrice === 10 && pr.maxPrice === 20,
+        )
+      : false,
+  )
+  const [price2040, setPrice2040] = useState(
+    qsFilters.ticketPrice
+      ? qsFilters.ticketPrice.some(
+          pr => pr.minPrice === 20 && pr.maxPrice === 40,
+        )
+      : false,
+  )
+  const [price4080, setPrice4080] = useState(
+    qsFilters.ticketPrice
+      ? qsFilters.ticketPrice.some(
+          pr => pr.minPrice === 40 && pr.maxPrice === 80,
+        )
+      : false,
+  )
+  const [price80, setPrice80] = useState(
+    qsFilters.ticketPrice
+      ? qsFilters.ticketPrice.some(
+          pr => pr.minPrice === 80 && pr.maxPrice === 100000000,
+        )
+      : false,
+  )
 
   //filter component states  END
 
   // local cache data
-  const client = useApolloClient()
   const {
     data: {userLatitude, userLongitude, maxDistance},
   } = useQuery(GET_CACHE)
 
-  const {data: recentSearchesData, refetch: recentSearchesRefetch} = useQuery(
-    GET_RECENT_SEARCHES,
-  )
-
-  const qsFilters = useObjFromQS()
-  console.log(qsFilters);
-  let qsLocation = qsFilters.location || {}
-  // console.log('qsFilters', qsFilters)
-    // console.log(qsFilters);
   // gql
   const {loading, error, data, refetch} = useQuery(GET_EVENTS_FILTERED, {
     variables: {
@@ -93,25 +130,8 @@ const SearchResults = ({history}) => {
   // toggle the Filters menu open/closed
   const [filtersIsOpen, setFiltersIsOpen] = useState(false)
 
-  const getRecentSearches = () => {
-    recentSearchesRefetch().then(({data: {recentSearches}}) => {
-      setRecentSearches([...recentSearches])
-    })
-  }
-
-  const addASearch = recentSearches => {
-    if(Object.keys(recentSearches).length){
-
-    client.writeData({
-      data: {
-        recentSearches: [...recentSearches],
-      },
-    })
-  }
-  }
-
   useEffect(() => {
-    const searchFilters = {}
+    const searchFilters = {index: qsFilters.index}
     const ticketPrice = []
 
     if (price010) {
@@ -126,8 +146,11 @@ const SearchResults = ({history}) => {
     if (price4080) {
       ticketPrice.push({minPrice: 40, maxPrice: 80})
     }
+    if (price80) {
+      ticketPrice.push({minPrice: 80, maxPrice: 100000000})
+    }
 
-    if (price010 || price1020 || price2040 || price4080) {
+    if (price010 || price1020 || price2040 || price4080 || price80) {
       searchFilters['ticketPrice'] = ticketPrice
     }
 
@@ -138,7 +161,7 @@ const SearchResults = ({history}) => {
     if (dateRange && dateRange.start && dateRange.end) {
       searchFilters['dateRange'] = {
         start: dateRange.start,
-        end: dateRange.end
+        end: dateRange.end,
       }
     }
 
@@ -149,89 +172,57 @@ const SearchResults = ({history}) => {
       location.radius
     ) {
       searchFilters['location'] = {
-        userLatitude: location.radius,
-        userLongitude: location.radius,
-        radius: location.radius
+        userLatitude: location.userLatitude,
+        userLongitude: location.userLongitude,
+        radius: location.radius,
       }
     }
 
     if (Object.keys(searchFilters).length) {
-      // console.log(searchFilters)
       refetch({
         userLatitude: userLatitude || undefined,
         userLongitude: userLongitude || undefined,
         useLocation: !!(userLatitude && userLongitude),
         searchFilters: searchFilters,
-        // searchFilters: {index: searchTxt ? searchTxt : undefined, ...searchFilters}
-      }).then(res => {
-        // console.log(res)
       })
     }
-    setLastSearchFilter(searchFilters)
+    // setLastSearchFilter(searchFilters)
   }, [price010, price1020, price2040, price4080, tags, dateRange, location])
 
   return (
     <div className='page-wrapper'>
       <GoBack />
       <section className='section mobile-section'>
-        <Searchbar isLarge filters={lastSearchFilter} setRecentSearches={setRecentSearches} recentSearches={recentSearches}/>
-        {/* DUMMY BUTTONS FOR TESTING */}
-        <button
-          onClick={() =>
-            setDateRange({
-              start: '2020-01-23T17:00:00.000Z',
-              end: '2020-01-24T17:00:00.000Z',
-            })
-          }
-        >
-          Test Date
-        </button>
-        <button
-          onClick={() => setTags(['corn', 'milk', 'eggs', 'fruit roll ups'])}
-        >
-          Test Tags
-        </button>
-        <button onClick={() => setPrice010(!price010)}>Price $0-$10</button>
-        <button onClick={() => setPrice1020(!price1020)}>Price $10-$20</button>
-        <button onClick={() => setPrice2040(!price2040)}>Price $20-$40</button>
-        <button onClick={() => setPrice4080(!price4080)}>Price $40-$80</button>
-        <button onClick={() => setPrice80(!price80)}>Price $80+</button>
-        <button
-          onClick={() =>
-            setLocation({
-              userLatitude: 33.999,
-              userLongitude: 29.999,
-              radius: 30,
-            })
-          }
-        >
-          Test Location
-        </button>
-        <button
-          onClick={() => {
-            setPrice010(false)
-            setPrice1020(false)
-            setPrice2040(false)
-            setPrice4080(false)
-            setPrice80(false)
-            setLocation({})
-            setTags([])
-            setLastSearchFilter({})
-          }}
-        >
-          Reset filters
-        </button>
-        {/* DUMMY BUTTONS FOR TESTING */}
-        <button onClick={() => getRecentSearches()}>Get recent searches</button>
-        {recentSearches.length && <RecentSearches recentSearches={recentSearches}/>
-        
-        }
+        <Searchbar
+          isLarge
+          filters={qsFilters}
+          setRecentSearches={setRecentSearches}
+          setRecentSearchesLimited={setRecentSearchesLimited}
+          recentSearches={recentSearches}
+          initialText={qsFilters.index}
+          address={filterAddress}
+        />
+        {recentSearches[0].index && (
+          <RecentSearches
+            recentSearches={recentSearches}
+            setRecentSearches={setRecentSearches}
+            setRecentSearchesLimited={setRecentSearchesLimited}
+            setTags={setTags}
+            setLocation={setLocation}
+            setDateRange={setDateRange}
+            setPrice010={setPrice010}
+            setPrice1020={setPrice1020}
+            setPrice2040={setPrice2040}
+            setPrice4080={setPrice4080}
+            setPrice80={setPrice80}
+          />
+        )}
         <div className='is-flex level justify-between is-dark '>
           <h3
             className={`is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis ${pageTitle}`}
           >
             Search Results&nbsp;:&nbsp;
-            {qsFilters.index.replace(/ /g, ', ')}
+            {qsFilters.index ? qsFilters.index.replace(/ /g, ', ') : ''}
           </h3>
           <div className='is-hidden-mobile'>
             <ViewToggle toggleFunc={setShowListView} viewState={useListView} />
@@ -258,13 +249,61 @@ const SearchResults = ({history}) => {
             className={`${hiddenMenu} is-hidden-tablet ${
               filtersIsOpen ? 'slideInL2R ' : 'willSlideInL2R'
             }`}
+            style={{zIndex: 1, width: '280px'}}
           >
-            <FilterMenu mobile />
+            <FilterMenu
+              mobile
+              setLocation={setLocation}
+              currentLocation={location}
+              setPrice010={setPrice010}
+              price010={price010}
+              setPrice1020={setPrice1020}
+              price1020={price1020}
+              setPrice2040={setPrice2040}
+              price2040={price2040}
+              setPrice4080={setPrice4080}
+              price4080={price4080}
+              setPrice80={setPrice80}
+              price80={price80}
+              setTags={setTags}
+              currentTags={tags}
+              setDate={setDateRange}
+              currentDate={dateRange}
+              refetch={refetch}
+              qsFilters={qsFilters}
+              recentSearches={recentSearches}
+              setRecentSearches={setRecentSearches}
+              setRecentSearchesLimited={setRecentSearchesLimited}
+              filterAddress={filterAddress}
+            />
           </div>
         </div>
         <div className={filtersEventsWrap}>
           <div className='is-hidden-mobile'>
-            <FilterMenu />
+            <FilterMenu
+              setLocation={setLocation}
+              currentLocation={location}
+              setPrice010={setPrice010}
+              price010={price010}
+              setPrice1020={setPrice1020}
+              price1020={price1020}
+              setPrice2040={setPrice2040}
+              price2040={price2040}
+              setPrice4080={setPrice4080}
+              price4080={price4080}
+              setPrice80={setPrice80}
+              price80={price80}
+              setTags={setTags}
+              currentTags={tags}
+              setDate={setDateRange}
+              currentDate={dateRange}
+              refetch={refetch}
+              qsFilters={qsFilters}
+              recentSearches={recentSearches}
+              setRecentSearches={setRecentSearches}
+              setRecentSearchesLimited={setRecentSearchesLimited}
+              filterAddress={filterAddress}
+            />
           </div>
           <div>
             <EventList

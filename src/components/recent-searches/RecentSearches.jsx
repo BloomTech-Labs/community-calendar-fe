@@ -1,60 +1,104 @@
 import React from 'react'
-import {buildQS} from '../../utils'
+import {buildQS, createQSObj} from '../../utils'
 import {useHistory} from 'react-router-dom'
 
-const RecentSearches = ({recentSearches = null}) => {
+const RecentSearches = ({
+  recentSearches = null,
+  setTags,
+  setLocation,
+  setDateRange,
+  setPrice010,
+  setPrice1020,
+  setPrice2040,
+  setPrice4080,
+  setPrice80,
+  setRecentSearches,
+  setRecentSearchesLimited,
+  setLastSearchFilter,
+}) => {
   const rccHistory = useHistory()
   return (
     <div className='is-flex'>
       <p className='has-text-grey-lighter'>
         Recent Searches:&nbsp;
         {recentSearches.length &&
-          recentSearches.map(search => {
-            let filterCount = Object.keys(search).length - 1
+          recentSearches.map((search, ind) => {
+            // determine how many filters were applied to search
+            let filterCount = Object.keys(search).reduce((acc, curr) => {
+              return !/(index)|(__typename)/i.test(curr) && search[curr]
+                ? (acc += 1)
+                : acc
+            }, 0)
+
+            let qs = buildQS(
+              createQSObj(search.index, search, search.filterAddress),
+            )
+
             return (
               <span
-                key={JSON.stringify(search)}
+                key={`${JSON.stringify(search)}-${ind} `}
                 onClick={() => {
-                  let qsObj = {
-                    searchText: search.index,
-                  }
+                  setLocation(search.location ? {...search.location} : {})
 
-                  // if filters exist flatten into new object
-                  if (search) {
-                    // if "tags" exist add to qs
-                    if (search.tags) {
-                      search.tags.forEach((tag, ind) => {
-                        qsObj[`tag${ind}`] = tag
-                      })
-                    }
-                    // if "locations" exist add to qs
-                    if (search.location) {
-                      Object.keys(search.location).forEach(k => {
-                        if (!/^__typename/.test(k))
-                          qsObj[k] = search.location[k]
-                      })
-                    }
-                    // if "dateRange" exist add to qs
-                    if (search.dateRange) {
-                      Object.keys(search.dateRange).forEach(k => {
-                        if (!/^__typename/i.test(k))
-                          qsObj[k] = search.dateRange[k]
-                      })
-                    }
-                    // if "ticketPrice" exist add to qs
-                    if (search.ticketPrice) {
-                      search.ticketPrice.forEach((priceRange, ind) => {
-                        qsObj[`minPrice-${ind}`] = priceRange.minPrice
-                        qsObj[`maxPrice-${ind}`] = priceRange.maxPrice
-                      })
-                    }
-                  }
-                  rccHistory.push(`/search${buildQS(qsObj)}`)
+                  setDateRange(
+                    search.dateRange
+                      ? {
+                          start: search.dateRange.start,
+                          end: search.dateRange.end,
+                        }
+                      : {},
+                  )
+
+                  setTags(search.tags ? search.tags : [])
+
+                  setPrice010(
+                    search.ticketPrice
+                      ? search.ticketPrice.some(
+                          pr => pr.minPrice === 0 && pr.maxPrice === 10,
+                        )
+                      : false,
+                  )
+
+                  setPrice1020(
+                    search.ticketPrice
+                      ? search.ticketPrice.some(
+                          pr => pr.minPrice === 10 && pr.maxPrice === 20,
+                        )
+                      : false,
+                  )
+
+                  setPrice2040(
+                    search.ticketPrice
+                      ? search.ticketPrice.some(
+                          pr => pr.minPrice === 20 && pr.maxPrice === 40,
+                        )
+                      : false,
+                  )
+
+                  setPrice4080(
+                    search.ticketPrice
+                      ? search.ticketPrice.some(
+                          pr => pr.minPrice === 40 && pr.maxPrice === 80,
+                        )
+                      : false,
+                  )
+
+                  setPrice80(
+                    search.ticketPrice
+                      ? search.ticketPrice.some(
+                          pr => pr.minPrice === 80 && pr.maxPrice === 100000000,
+                        )
+                      : false,
+                  )
+
+                  // setLastSearchFilter(search)
+                  rccHistory.push(`/search${qs}`)
                 }}
-                className='has-text-link'
-              >{`${search.index}${
-                filterCount ? `(${filterCount})` : ''
-              }`}</span>
+                className='has-text-link is-clickable'
+              >
+                {`${search.index}${filterCount ? `(${filterCount})` : ''}`}
+                {ind !== recentSearches.length - 1 && ', '}
+              </span>
             )
           })}
       </p>

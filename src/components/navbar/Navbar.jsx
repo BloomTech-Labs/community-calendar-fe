@@ -156,9 +156,9 @@ export default function Navbar() {
               onClick={() => setLocationIsOpen(!locationIsOpen)}
             >
               <span
-                className={` is-size-5-tablet no-outline-focus no-pointer-events`}
+                className={` is-size-5-desktop is-size-6-tablet no-outline-focus no-pointer-events`}
               >
-                Location
+                My Location
               </span>
               <span
                 className={`${
@@ -175,6 +175,7 @@ export default function Navbar() {
               }`}
               id='location-dropdown-menu '
               role='menu'
+              style={{minWidth: '250px'}}
             >
               <div
                 className='dropdown-content '
@@ -212,11 +213,10 @@ export default function Navbar() {
             </div>
             {/* end dropdown-menu*/}
           </div>
-
           <Link
             to='/'
             role='button'
-            className={`has-text-centered is-size-5-tablet ${navButton} no-outline-focus`}
+            className={`has-text-centered is-size-6-tablet  is-size-5-desktop ${navButton} no-outline-focus`}
             onClick={() => setNavMenuIsOpen(false)}
           >
             Events
@@ -227,7 +227,7 @@ export default function Navbar() {
             <>
               <Link to='/create-event' className={`   color_shark`}>
                 <button
-                  className={`${navButton} is-size-5-tablet  no-border no-outline-focus`}
+                  className={`${navButton} is-size-6-tablet is-size-5-desktop no-border no-outline-focus`}
                   onClick={() => setNavMenuIsOpen(false)}
                 >
                   Create Event
@@ -305,13 +305,13 @@ export default function Navbar() {
             <>
               <button
                 onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
-                className={`${navButton} has-text-weight-bold is-size-5-tablet no-outline-focus `}
+                className={`${navButton} has-text-weight-bold is-size-6-tablet is-size-5-desktop no-outline-focus `}
               >
                 Sign In
               </button>
               <button
                 onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
-                className={`${navButton}  is-size-5-tablet no-outline-focus `}
+                className={`${navButton}  is-size-6-tablet  is-size-5-desktop no-outline-focus `}
               >
                 Sign Up
               </button>

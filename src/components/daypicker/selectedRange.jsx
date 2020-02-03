@@ -17,8 +17,8 @@ export default class SelectedRange extends React.Component {
 
   getInitialState() {
     return {
-      from: undefined,
-      to: undefined,
+      from: this.props.start ? new Date(this.props.start) : undefined,
+      to: this.props.end ? new Date(this.props.end) : undefined,
     }
   }
 
@@ -26,9 +26,15 @@ export default class SelectedRange extends React.Component {
     const range = DateUtils.addDayToRange(day, this.state)
     const {from, to} = range
     if (!from && !to) {
-      this.props.setStart(undefined)
-      this.props.setEnd(undefined)
-      this.props.refetch({start: undefined, end: undefined})
+      if (this.props.setStart && this.props.setEnd) {
+        this.props.setStart(undefined)
+        this.props.setEnd(undefined)
+
+        this.props.setDate && this.props.setDate({})
+      }
+
+      this.props.refetch &&
+        this.props.refetch({start: undefined, end: undefined})
     } else if (from && to) {
       const start = moment(from.toISOString())
         .startOf('day')
@@ -36,12 +42,28 @@ export default class SelectedRange extends React.Component {
       const end = moment(to.toISOString())
         .endOf('day')
         .toISOString()
-      this.props.setStart(start)
-      this.props.setEnd(end)
-      this.props.refetch({start, end})
-    }
+      // for use on Home page
+      if (this.props.setStart && this.props.setEnd) {
+        this.props.setStart(start)
+        this.props.setEnd(end)
+      }
+
+      // for use in FilterMenu
+      this.props.updateDateRange &&
+        this.props.updateDateRange(
+          start,
+          end,
+          this.props.qsFilters,
+          this.props.filterAddress,
+        )
+
+      this.props.refetch && this.props.refetch({start, end})
+    } // end else if
+
     this.setState(range)
-    this.props.setEventRange(undefined)
+
+    // for use on Home page
+    this.props.setEventRange && this.props.setEventRange(undefined)
   }
 
   render() {
@@ -62,6 +84,11 @@ export default class SelectedRange extends React.Component {
     background-color: rgba(255, 75, 77, 0.2) !important;
     color: #21242c;
   }
+
+  .Selectable .DayPicker-Month{
+    margin: 0;
+  }
+
   .Selectable .DayPicker-Day {
     border-radius: 0 !important;
   }

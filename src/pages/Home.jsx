@@ -43,6 +43,7 @@ const Home = () => {
                 radius: localCache.maxDistance,
               }
             : undefined,
+        dateRange: start && end ? {start, end} : undefined,
       },
     },
   })
@@ -65,6 +66,7 @@ const Home = () => {
                 radius: localCache.maxDistance,
               }
             : undefined,
+        dateRange: start && end ? {start, end} : undefined,
       },
     })
   }, [

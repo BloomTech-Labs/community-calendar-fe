@@ -39,7 +39,7 @@ import {
   row,
   eventImage,
   padContent,
-  userImage
+  userImage,
 } from './styles/EventView.module.scss'
 
 import {set} from 'react-ga'
@@ -335,22 +335,21 @@ const EventView = ({history}) => {
             {/* container which separates social links/tags from event info  */}
             <div className={`columns is-mobile ${horizontalBar}`}>
               {/* Host Name, Time, Type */}
-              {/* <div className='column has-text-centered-mobile'>
-                <p className='color_chalice is-size-6half-mobile'>Hosted by:</p>
-              </div> */}
-              {/* <p className="color_shark">{creator}</p> */}
               <div className='column has-text-centered-mobile'>
-              <div className={`columns is-mobile ${horizontalBar}`}>
-              <div className={`${userImage}`} style={{backgroundImage: `url(${creator.profileImage})`}}/>
-                <div>
-                <p className='color_chalice is-size-6half-mobile'>
-                  Hosted by:
-                </p>
-                <p className='color_chalice is-size-6half-mobile'>
-                {console.log(creator)}
-                  {creator.firstName}
-                </p>
-                </div>
+                <div className={`columns is-mobile ${horizontalBar}`}>
+                  <div
+                    className={`${userImage}`}
+                    style={{backgroundImage: `url(${creator.profileImage})`}}
+                  />
+                  <div>
+                    <p className='color_chalice is-size-6half-mobile'>
+                      Hosted By:
+                    </p>
+                    <p className='color_chalice is-size-6half-mobile'>
+                      {console.log(creator)}
+                      {creator.firstName}
+                    </p>
+                  </div>
                 </div>
               </div>
               <div
@@ -444,7 +443,7 @@ const EventView = ({history}) => {
               {tags &&
                 tags.map(tag => (
                   <Link
-                    to={`/search/${buildQS({searchText: tag.title})}`}
+                    to={`/search/${buildQS({index: tag.title})}`}
                     className='tag is-small is-white color_shark tag-hover'
                     key={tag.title}
                   >

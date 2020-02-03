@@ -1,14 +1,16 @@
 import React, {useState} from 'react'
 import {useCombobox} from 'downshift'
 import {fetchGeocode} from '../../utils'
-import {geocoder, geocoderReset, hide} from './Geocoder.module'
+import {geocoder, geocoderReset, hide, filterMenu} from './Geocoder.module.scss'
 import PropTypes from 'prop-types'
+import {SearchIcon, CloseIconSquare} from 'icons'
 
 export default function Geocoder({
   labelText,
   onSelectedItemChange,
   placeholder,
   dataIdPrefix = 'geocoder',
+  isFilterMenu,
 }) {
   const [mbResults, setMbResults] = useState([])
 
@@ -49,7 +51,7 @@ export default function Geocoder({
     <>
       {labelText && (
         <label
-          {...getLabelProps({className: 'is-family-secondary color_shark'})}
+          {...getLabelProps({className: ' color_shark'})}
           data-id={`${dataIdPrefix}-label`}
         >
           {labelText}
@@ -57,10 +59,21 @@ export default function Geocoder({
       )}
       <div
         {...getComboboxProps({
-          className: ` is-flex control has-icons-right ${geocoder}`,
+          className: ` is-flex control  has-icons-right ${geocoder} ${
+            isFilterMenu ? `${filterMenu} has-icons-left` : ''
+          }`,
         })}
         data-id={`${dataIdPrefix}-container`}
       >
+        {isFilterMenu && (
+          <span
+            className={` icon  is-left`}
+            data-id={`${dataIdPrefix}-search-icon`}
+            style={{top: '12px', left: '2px', width: '20px'}}
+          >
+            <SearchIcon dimensions={20} />
+          </span>
+        )}
         <input
           {...getInputProps({
             className: `input`,
@@ -72,10 +85,11 @@ export default function Geocoder({
           className={`${geocoderReset} ${
             inputValue.length > 2 ? '' : hide
           } icon is-small is-right`}
+          style={{right: '2px'}}
           onClick={() => reset()}
           data-id={`${dataIdPrefix}-reset`}
         >
-          &#127335;
+          <CloseIconSquare ignorePointer />
         </span>
       </div>
       <ul

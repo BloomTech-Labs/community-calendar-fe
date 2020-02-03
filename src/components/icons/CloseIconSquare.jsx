@@ -2,14 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {darkFill, lightFill} from './Icons.module.scss'
 
-const CloseIconSquare = ({isLight, dimensions, dataId}) => {
+const CloseIconSquare = ({isLight, dimensions, dataId, ignorePointer}) => {
   return (
     <svg
       data-id={dataId}
       width={dimensions ? dimensions : 24}
       height={dimensions ? dimensions : 24}
       viewBox='0 0 24 24'
-      className={`dropdown ${isLight ? lightFill : darkFill}`}
+      className={`dropdown ${isLight ? lightFill : darkFill} ${
+        ignorePointer ? 'no-pointer-events' : ''
+      }`}
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
