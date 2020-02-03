@@ -33,12 +33,13 @@ const SearchResults = ({history}) => {
 
   const [recentSearches, setRecentSearches] = useState([qsFilters])
 
+  // limits recentSearches to four
   function setRecentSearchesLimited(
     recentSearches,
     setRecentSearches,
     newSearch,
   ) {
-    recentSearches.length > 4
+    recentSearches.length > 3
       ? setRecentSearches([...recentSearches.slice(1, 4), newSearch])
       : setRecentSearches([...recentSearches, newSearch])
   }
@@ -198,6 +199,7 @@ const SearchResults = ({history}) => {
           isLarge
           filters={lastSearchFilter}
           setRecentSearches={setRecentSearches}
+          setRecentSearchesLimited={setRecentSearchesLimited}
           recentSearches={recentSearches}
           initialText={qsFilters.index}
           address={filterAddress}

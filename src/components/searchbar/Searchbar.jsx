@@ -1,11 +1,7 @@
-import React, {useState, useEffect} from 'react'
-import {useQuery, useApolloClient} from '@apollo/react-hooks'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import {
-  GET_EVENTS_FILTERED,
-  GET_CACHE,
-  GET_RECENT_SEARCHES,
-} from '../../graphql'
+import {useHistory} from 'react-router-dom'
+
 import {
   searchbar,
   searchbarInput,
@@ -13,7 +9,7 @@ import {
   large,
   searchbarInputSmall,
 } from './Searchbar.module.scss'
-import {useHistory} from 'react-router-dom'
+
 import {buildQS, createQSObj} from '../../utils'
 import {SearchIcon} from 'icons'
 
@@ -22,6 +18,7 @@ const Searchbar = ({
   cb,
   filters = null,
   setRecentSearches = null,
+  setRecentSearchesLimited = null,
   recentSearches = null,
   initialText = '',
   address = null,
@@ -38,7 +35,8 @@ const Searchbar = ({
     let qsObj = createQSObj(index, filters, address)
 
     // if use is on SearchResult page update the list of recent searches
-    setRecentSearches && setRecentSearches([...recentSearches, qsObj])
+    setRecentSearchesLimited &&
+      setRecentSearchesLimited(recentSearches, setRecentSearches, qsObj)
 
     // push to /search with query string
     rccHistory.push(`/search${buildQS(qsObj)}`)

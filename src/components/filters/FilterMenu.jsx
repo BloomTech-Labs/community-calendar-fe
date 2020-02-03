@@ -50,6 +50,7 @@ const FilterMenu = props => {
     qsFilters,
     recentSearches,
     setRecentSearches,
+    setRecentSearchesLimited,
     filterAddress,
   } = props
 
@@ -83,10 +84,10 @@ const FilterMenu = props => {
         radius: currentLocation.radius || 10,
       })
 
-      setRecentSearches([
-        ...recentSearches,
-        {...newFilters, filterAddress: address},
-      ])
+      setRecentSearchesLimited(recentSearches, setRecentSearches, {
+        ...newFilters,
+        filterAddress: address,
+      })
 
       const qsObj = createQSObj(qsFilters.index, newFilters, address)
       rccHistory.push(`/search${buildQS(qsObj)}`)
@@ -109,7 +110,10 @@ const FilterMenu = props => {
       radius,
     })
 
-    setRecentSearches([...recentSearches, {...newFilters, filterAddress}])
+    setRecentSearchesLimited(recentSearches, setRecentSearches, {
+      ...newFilters,
+      filterAddress,
+    })
 
     const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
     rccHistory.push(`/search${buildQS(qsObj)}`)
@@ -133,7 +137,10 @@ const FilterMenu = props => {
       end,
     })
 
-    setRecentSearches([...recentSearches, {...newFilters, filterAddress}])
+    setRecentSearchesLimited(recentSearches, setRecentSearches, {
+      ...newFilters,
+      filterAddress,
+    })
 
     const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
     rccHistory.push(`/search${buildQS(qsObj)}`)
@@ -149,7 +156,10 @@ const FilterMenu = props => {
 
     setTags(tags)
 
-    setRecentSearches([...recentSearches, {...newFilters, filterAddress}])
+    setRecentSearchesLimited(recentSearches, setRecentSearches, {
+      ...newFilters,
+      filterAddress,
+    })
 
     const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
     rccHistory.push(`/search${buildQS(qsObj)}`)
@@ -188,18 +198,19 @@ const FilterMenu = props => {
     }
     // if price is true add to qs
     if (!price) {
-      console.log('adding ticket price')
       ticketPrice = oldPrices
         ? [...oldPrices, {minPrice, maxPrice}]
         : [{minPrice, maxPrice}]
     }
-    console.log('ticketPrice', ticketPrice)
     let newFilters = {
       ...qsFilters,
       ticketPrice,
     }
 
-    setRecentSearches([...recentSearches, {...newFilters, filterAddress}])
+    setRecentSearchesLimited(recentSearches, setRecentSearches, {
+      ...newFilters,
+      filterAddress,
+    })
 
     const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
     rccHistory.push(`/search${buildQS(qsObj)}`)

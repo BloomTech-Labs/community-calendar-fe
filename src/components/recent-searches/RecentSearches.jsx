@@ -21,7 +21,6 @@ const RecentSearches = ({recentSearches = null}) => {
               <span
                 key={`${JSON.stringify(search)}-${ind} `}
                 onClick={() => {
-                  console.log('search in RecentSearches', search)
                   let qsObj = createQSObj(
                     search.index,
                     search,
