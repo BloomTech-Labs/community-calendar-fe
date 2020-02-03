@@ -140,6 +140,21 @@ const FilterMenu = props => {
   } //end updateDateRange
 
   // TAG SEARCH HANDLERS
+  // update tags
+  function setFilterTags(tags, setTags, qsFilters, filterAddress) {
+    let newFilters = {
+      ...qsFilters,
+      tags,
+    }
+
+    setTags(tags)
+
+    setRecentSearches([...recentSearches, {...newFilters, filterAddress}])
+
+    const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
+    rccHistory.push(`/search${buildQS(qsObj)}`)
+  } //end setFilterTags
+
   // tags dropdown
   const [tagsIsOpen, setTagsIsOpen] = useDropdown(fakeCb, true)
 
@@ -460,7 +475,13 @@ const FilterMenu = props => {
               className={locationContent}
               data-id='tag-picker-dropdown-content'
             >
-              <TagInput selectedTags={currentTags} setSelectedTags={setTags} />
+              <TagInput
+                selectedTags={currentTags}
+                setSelectedTags={setTags}
+                qsFilters={qsFilters}
+                setFilterTags={setFilterTags}
+                filterAddress={filterAddress}
+              />
             </div>
           </div>
           {/* end dropdown-content*/}

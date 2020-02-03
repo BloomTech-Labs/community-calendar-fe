@@ -50,7 +50,7 @@ const SearchResults = ({history}) => {
   )
 
   // tags filter
-  const [tags, setTags] = useState([])
+  const [tags, setTags] = useState(qsFilters.tags ? qsFilters.tags : [])
 
   // price filter
   const [price010, setPrice010] = useState(false)
@@ -160,7 +160,7 @@ const SearchResults = ({history}) => {
           initialText={qsFilters.index}
           address={filterAddress}
         />
-        {recentSearches[0] && (
+        {recentSearches[0].index && (
           <RecentSearches recentSearches={recentSearches} />
         )}
         <div className='is-flex level justify-between is-dark '>
@@ -168,7 +168,7 @@ const SearchResults = ({history}) => {
             className={`is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis ${pageTitle}`}
           >
             Search Results&nbsp;:&nbsp;
-            {qsFilters.index.replace(/ /g, ', ')}
+            {qsFilters.index ? qsFilters.index.replace(/ /g, ', ') : ''}
           </h3>
           <div className='is-hidden-mobile'>
             <ViewToggle toggleFunc={setShowListView} viewState={useListView} />
