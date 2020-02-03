@@ -46,7 +46,6 @@ const FilterMenu = props => {
     price4080,
     setPrice80,
     price80,
-    refetch,
     qsFilters,
     recentSearches,
     setRecentSearches,
@@ -57,7 +56,6 @@ const FilterMenu = props => {
   const rccHistory = useHistory()
 
   // EVENT LOCATION SEARCH HANDLERS
-  const [eventSearchAddress, setEventSearchAddress] = useState('')
 
   // event location dropdown
   const [locationIsOpen, setLocationIsOpen] = useDropdown(fakeCb, true)

@@ -45,8 +45,6 @@ const SearchResults = ({history}) => {
   }
 
   //filter component states  START
-  const [lastSearchFilter, setLastSearchFilter] = useState(qsFilters || {})
-
   // location filter
   const [location, setLocation] = useState(
     qsFilters.location ? {...qsFilters.location} : {},
@@ -188,7 +186,7 @@ const SearchResults = ({history}) => {
         searchFilters: searchFilters,
       })
     }
-    setLastSearchFilter(searchFilters)
+    // setLastSearchFilter(searchFilters)
   }, [price010, price1020, price2040, price4080, tags, dateRange, location])
 
   return (
@@ -197,7 +195,7 @@ const SearchResults = ({history}) => {
       <section className='section mobile-section'>
         <Searchbar
           isLarge
-          filters={lastSearchFilter}
+          filters={qsFilters}
           setRecentSearches={setRecentSearches}
           setRecentSearchesLimited={setRecentSearchesLimited}
           recentSearches={recentSearches}
@@ -205,7 +203,19 @@ const SearchResults = ({history}) => {
           address={filterAddress}
         />
         {recentSearches[0].index && (
-          <RecentSearches recentSearches={recentSearches} />
+          <RecentSearches
+            recentSearches={recentSearches}
+            setRecentSearches={setRecentSearches}
+            setRecentSearchesLimited={setRecentSearchesLimited}
+            setTags={setTags}
+            setLocation={setLocation}
+            setDateRange={setDateRange}
+            setPrice010={setPrice010}
+            setPrice1020={setPrice1020}
+            setPrice2040={setPrice2040}
+            setPrice4080={setPrice4080}
+            setPrice80={setPrice80}
+          />
         )}
         <div className='is-flex level justify-between is-dark '>
           <h3

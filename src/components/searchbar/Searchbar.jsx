@@ -36,7 +36,11 @@ const Searchbar = ({
 
     // if use is on SearchResult page update the list of recent searches
     setRecentSearchesLimited &&
-      setRecentSearchesLimited(recentSearches, setRecentSearches, qsObj)
+      setRecentSearchesLimited(recentSearches, setRecentSearches, {
+        ...filters,
+        index,
+        filterAddress: address,
+      })
 
     // push to /search with query string
     rccHistory.push(`/search${buildQS(qsObj)}`)

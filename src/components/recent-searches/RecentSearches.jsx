@@ -2,7 +2,20 @@ import React from 'react'
 import {buildQS, createQSObj} from '../../utils'
 import {useHistory} from 'react-router-dom'
 
-const RecentSearches = ({recentSearches = null}) => {
+const RecentSearches = ({
+  recentSearches = null,
+  setTags,
+  setLocation,
+  setDateRange,
+  setPrice010,
+  setPrice1020,
+  setPrice2040,
+  setPrice4080,
+  setPrice80,
+  setRecentSearches,
+  setRecentSearchesLimited,
+  setLastSearchFilter,
+}) => {
   const rccHistory = useHistory()
   return (
     <div className='is-flex'>
@@ -17,16 +30,69 @@ const RecentSearches = ({recentSearches = null}) => {
                 : acc
             }, 0)
 
+            let qs = buildQS(
+              createQSObj(search.index, search, search.filterAddress),
+            )
+
             return (
               <span
                 key={`${JSON.stringify(search)}-${ind} `}
                 onClick={() => {
-                  let qsObj = createQSObj(
-                    search.index,
-                    search,
-                    search.filterAddress,
+                  setLocation(search.location ? {...search.location} : {})
+
+                  setDateRange(
+                    search.dateRange
+                      ? {
+                          start: search.dateRange.start,
+                          end: search.dateRange.end,
+                        }
+                      : {},
                   )
-                  rccHistory.push(`/search${buildQS(qsObj)}`)
+
+                  setTags(search.tags ? search.tags : [])
+
+                  setPrice010(
+                    search.ticketPrice
+                      ? search.ticketPrice.some(
+                          pr => pr.minPrice === 0 && pr.maxPrice === 10,
+                        )
+                      : false,
+                  )
+
+                  setPrice1020(
+                    search.ticketPrice
+                      ? search.ticketPrice.some(
+                          pr => pr.minPrice === 10 && pr.maxPrice === 20,
+                        )
+                      : false,
+                  )
+
+                  setPrice2040(
+                    search.ticketPrice
+                      ? search.ticketPrice.some(
+                          pr => pr.minPrice === 20 && pr.maxPrice === 40,
+                        )
+                      : false,
+                  )
+
+                  setPrice4080(
+                    search.ticketPrice
+                      ? search.ticketPrice.some(
+                          pr => pr.minPrice === 40 && pr.maxPrice === 80,
+                        )
+                      : false,
+                  )
+
+                  setPrice80(
+                    search.ticketPrice
+                      ? search.ticketPrice.some(
+                          pr => pr.minPrice === 80 && pr.maxPrice === 100000000,
+                        )
+                      : false,
+                  )
+
+                  // setLastSearchFilter(search)
+                  rccHistory.push(`/search${qs}`)
                 }}
                 className='has-text-link is-clickable'
               >
