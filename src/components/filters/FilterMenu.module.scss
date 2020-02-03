@@ -6,6 +6,22 @@
   width: 100%;
   max-width: 300px;
 
+  button:first-of-type() {
+    border: none !important;
+    background-color: transparent;
+
+    &:active,
+    &:hover,
+    &:focus {
+      color: $shark !important;
+      outline: none;
+    }
+  }
+
+  & > div:first-of-type() {
+    margin-bottom: $gap-sm;
+  }
+
   @include tablet {
     padding-right: $gap-md;
     margin-right: $gap-md;

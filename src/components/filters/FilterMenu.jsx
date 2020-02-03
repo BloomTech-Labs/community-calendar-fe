@@ -219,9 +219,27 @@ const FilterMenu = props => {
     return
   }
 
+  const clearFilters = () => {
+    setTags([])
+    setDate({})
+    setLocation({})
+    setPrice010(false)
+    setPrice1020(false)
+    setPrice2040(false)
+    setPrice4080(false)
+    setPrice80(false)
+    rccHistory.push(
+      `/search${buildQS({index: qsFilters.index ? qsFilters.index : ''})}`,
+    )
+  }
   return (
     <div className={`${filterWrapper} ${props.mobile ? mobile : ''}`}>
-      <p className='is-size-4'>Filters</p>
+      <div className='level is-flex justify-between'>
+        <p className='is-size-4 has-text-weight-bold'>Filters</p>
+        <button className={` has-text-link `} onClick={clearFilters}>
+          clear filters
+        </button>
+      </div>
       {/* Select event location filter dropdown menu */}
       <div
         className={`dropdown is-block navDropdown ${

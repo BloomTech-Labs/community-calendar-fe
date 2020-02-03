@@ -222,7 +222,7 @@ const SearchResults = ({history}) => {
             className={`is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis ${pageTitle}`}
           >
             Search Results&nbsp;:&nbsp;
-            {qsFilters.index ? qsFilters.index.replace(/ /g, ', ') : ''}
+            {qsFilters.index ? qsFilters.index.replace(/\s+/g, ', ') : ''}
           </h3>
           <div className='is-hidden-mobile'>
             <ViewToggle toggleFunc={setShowListView} viewState={useListView} />
