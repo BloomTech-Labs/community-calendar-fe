@@ -194,6 +194,10 @@ const SearchResults = ({history}) => {
     // setLastSearchFilter(searchFilters)
   }, [price010, price1020, price2040, price4080, tags, dateRange, location])
 
+  useEffect(() => {
+    setIndexText(qsFilters.index || '')
+  }, [qsFilters.index])
+
   return (
     <div className='page-wrapper'>
       <GoBack />
