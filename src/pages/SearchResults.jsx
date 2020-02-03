@@ -32,7 +32,16 @@ const SearchResults = ({history}) => {
   const {filtersObj: qsFilters, filterAddress} = useObjFromQS()
 
   const [recentSearches, setRecentSearches] = useState([qsFilters])
-  console.log('recentSearches in SearchResults', recentSearches)
+
+  function setRecentSearchesLimited(
+    recentSearches,
+    setRecentSearches,
+    newSearch,
+  ) {
+    recentSearches.length > 4
+      ? setRecentSearches([...recentSearches.slice(1, 4), newSearch])
+      : setRecentSearches([...recentSearches, newSearch])
+  }
 
   //filter component states  START
   const [lastSearchFilter, setLastSearchFilter] = useState(qsFilters || {})
@@ -252,6 +261,7 @@ const SearchResults = ({history}) => {
               qsFilters={qsFilters}
               recentSearches={recentSearches}
               setRecentSearches={setRecentSearches}
+              setRecentSearchesLimited={setRecentSearchesLimited}
               filterAddress={filterAddress}
             />
           </div>
@@ -279,6 +289,7 @@ const SearchResults = ({history}) => {
               qsFilters={qsFilters}
               recentSearches={recentSearches}
               setRecentSearches={setRecentSearches}
+              setRecentSearchesLimited={setRecentSearchesLimited}
               filterAddress={filterAddress}
             />
           </div>

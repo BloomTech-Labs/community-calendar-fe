@@ -335,10 +335,6 @@ const EventView = ({history}) => {
             {/* container which separates social links/tags from event info  */}
             <div className={`columns is-mobile ${horizontalBar}`}>
               {/* Host Name, Time, Type */}
-              {/* <div className='column has-text-centered-mobile'>
-                <p className='color_chalice is-size-6half-mobile'>Hosted by:</p>
-              </div> */}
-              {/* <p className="color_shark">{creator}</p> */}
               <div className='column has-text-centered-mobile'>
                 <div className={`columns is-mobile ${horizontalBar}`}>
                   <div
@@ -347,7 +343,7 @@ const EventView = ({history}) => {
                   />
                   <div>
                     <p className='color_chalice is-size-6half-mobile'>
-                      Hosted by:
+                      Hosted By:
                     </p>
                     <p className='color_chalice is-size-6half-mobile'>
                       {console.log(creator)}
