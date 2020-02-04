@@ -1,0 +1,115 @@
+@import '_variables.scss';
+
+#section1 {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    align-items: center;
+    padding: 3rem 0;
+
+    div {
+        width: 50%;
+    }
+}
+
+#section2 {
+    width: 80vw;
+    margin: 0 auto;
+    background-color: $shark;
+    padding: 2rem 0;
+    padding-right: 9vw;
+
+    div {
+        background-color: $bittersweet;
+        height: 48rem;
+        margin-left: -10vw;
+
+        padding-top: 4rem;
+
+        div {
+            height: 40rem;
+            width: 70vw;
+            background-image: url("../../assets/images/our-mission-park.png");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            margin-left: 15vw;
+        }
+    }
+}
+
+#section3 {
+    margin-top: 3rem;
+    margin-left: 9.5%;
+    display: flex;
+    align-items: center;
+
+    .div1 {
+        background-image: url("../../assets/images/our-mission-hands.png");
+        background-repeat: no-repeat;
+        height: 48rem;
+        width: 40%;
+        background-size: 100% 100%;
+        display: inline-block;
+    }
+    
+    .div2 {
+        display: flex;
+        flex-wrap: wrap;
+        height: 24rem;
+        position: relative;
+        background-color: $shark;
+        color: #FCFCFC;
+        align-content: space-evenly;
+        width: 60%;
+        z-index: 1;
+
+        p, h3 {
+            width: 100%;
+            text-align: center;
+            padding-right: 9rem;
+        }
+    }
+
+    .div3 {
+        position: absolute;
+        background-color: $bittersweet;
+        height: 27rem;
+        width: 50%;
+        right: 0%;
+    }
+}
+
+#section4 {
+    background-color: $shark;
+    margin: 10rem 0 5rem 9.5%;
+    padding: 12rem 0;
+    position: relative;
+
+    .div1 {
+        height: 24rem;
+        background-color: $bittersweet;
+        margin-left: -10vw;
+        display: flex;
+        flex-direction: column;
+        color: #FCFCFC;
+        justify-content: space-evenly;
+        
+        h3, p {
+            width: 25rem;
+            text-align: center;
+            margin-left: 15vw;
+        }
+
+    }
+
+    .div2 {
+        background-image: url("../../assets/images/our-mission-classroom.png");
+        background-repeat: no-repeat;
+        height: 48rem;
+        width: 25%;
+        background-size: 100% 100%;
+        position: absolute;
+        bottom: 12rem;
+        left: 40vw;
+    }
+}
