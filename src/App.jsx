@@ -22,6 +22,7 @@ import UpdateEventPage from './pages/UpdateEventPage'
 import CreateEventPage from './pages/CreateEventPage'
 import SearchResults from './pages/SearchResults'
 import UserProfile from './pages/UserProfilePage'
+import AboutUs from './pages/AboutUs'
 
 //components
 import Navbar from 'navbar/Navbar'
@@ -131,6 +132,7 @@ function App() {
         <Route exact path='/events/:id' component={EventView} />
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />
+        <Route path='/about-us' component={AboutUs} />
       </Switch>
     </ApolloProvider>
   )

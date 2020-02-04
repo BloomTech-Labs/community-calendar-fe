@@ -31,7 +31,7 @@ const UserProfile = () => {
     loading: userLoading,
     error: userError,
     refetch: userRefetch,
-  } = useQuery(GET_USER_AND_EVENTS, {variables: {useLocation: false}})
+  } = useQuery(GET_USER_AND_EVENTS, {variables: {useLocation: false}, fetchPolicy: 'no-cache'})
 
   const updateImage = url => {
     client.writeQuery({

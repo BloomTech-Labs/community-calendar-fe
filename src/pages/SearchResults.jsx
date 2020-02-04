@@ -31,6 +31,8 @@ import {useObjFromQS} from '../utils'
 const SearchResults = ({history}) => {
   const {filtersObj: qsFilters, filterAddress} = useObjFromQS()
 
+  const [indexText, setIndexText] = useState(qsFilters.index || '')
+
   const [recentSearches, setRecentSearches] = useState([qsFilters])
 
   // limits recentSearches to four
@@ -39,9 +41,12 @@ const SearchResults = ({history}) => {
     setRecentSearches,
     newSearch,
   ) {
-    recentSearches.length > 3
-      ? setRecentSearches([...recentSearches.slice(1, 4), newSearch])
-      : setRecentSearches([...recentSearches, newSearch])
+    //only update search history if there is an index word.
+    if (newSearch.index) {
+      recentSearches.length > 3
+        ? setRecentSearches([...recentSearches.slice(1, 4), newSearch])
+        : setRecentSearches([...recentSearches, newSearch])
+    }
   }
 
   //filter component states  START
@@ -189,6 +194,10 @@ const SearchResults = ({history}) => {
     // setLastSearchFilter(searchFilters)
   }, [price010, price1020, price2040, price4080, tags, dateRange, location])
 
+  useEffect(() => {
+    setIndexText(qsFilters.index || '')
+  }, [qsFilters.index])
+
   return (
     <div className='page-wrapper'>
       <GoBack />
@@ -199,7 +208,7 @@ const SearchResults = ({history}) => {
           setRecentSearches={setRecentSearches}
           setRecentSearchesLimited={setRecentSearchesLimited}
           recentSearches={recentSearches}
-          initialText={qsFilters.index}
+          initialText={indexText}
           address={filterAddress}
         />
         {recentSearches[0].index && (
@@ -222,7 +231,7 @@ const SearchResults = ({history}) => {
             className={`is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis ${pageTitle}`}
           >
             Search Results&nbsp;:&nbsp;
-            {qsFilters.index ? qsFilters.index.replace(/ /g, ', ') : ''}
+            {qsFilters.index ? qsFilters.index.replace(/\s+/g, ', ') : ''}
           </h3>
           <div className='is-hidden-mobile'>
             <ViewToggle toggleFunc={setShowListView} viewState={useListView} />
@@ -275,6 +284,7 @@ const SearchResults = ({history}) => {
               setRecentSearches={setRecentSearches}
               setRecentSearchesLimited={setRecentSearchesLimited}
               filterAddress={filterAddress}
+              setIndexText={setIndexText}
             />
           </div>
         </div>
@@ -303,6 +313,7 @@ const SearchResults = ({history}) => {
               setRecentSearches={setRecentSearches}
               setRecentSearchesLimited={setRecentSearchesLimited}
               filterAddress={filterAddress}
+              setIndexText={setIndexText}
             />
           </div>
           <div>

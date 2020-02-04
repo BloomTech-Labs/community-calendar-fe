@@ -108,7 +108,7 @@ const EventForm = props => {
 
   const [startDatetime, setStartDatetime] =
     formType === 'update' && item.start
-      ? useState(item.start)
+      ? useState(new Date(item.start))
       : useState(nextNoon)
 
   const startChange = datetime => {
@@ -124,7 +124,7 @@ const EventForm = props => {
 
   const [endDatetime, setEndDatetime] =
     formType === 'update' && item.end
-      ? useState(item.end)
+      ? useState(new Date(item.end))
       : useState(nextAfternoon)
 
   const endChange = datetime => {

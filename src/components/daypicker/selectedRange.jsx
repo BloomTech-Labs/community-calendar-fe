@@ -36,6 +36,8 @@ export default class SelectedRange extends React.Component {
       this.props.refetch &&
         this.props.refetch({start: undefined, end: undefined})
     } else if (from && to) {
+      console.log('from', from)
+      console.log('to', to)
       const start = moment(from.toISOString())
         .startOf('day')
         .toISOString()
@@ -64,6 +66,18 @@ export default class SelectedRange extends React.Component {
 
     // for use on Home page
     this.props.setEventRange && this.props.setEventRange(undefined)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.start !== prevProps.start ||
+      this.props.end !== prevProps.end
+    ) {
+      this.setState({
+        from: this.props.start ? new Date(this.props.start) : undefined,
+        to: this.props.end ? new Date(this.props.end) : undefined,
+      })
+    }
   }
 
   render() {
