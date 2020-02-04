@@ -126,7 +126,7 @@ const SearchResults = ({history}) => {
             : undefined,
         index: qsFilters.index,
       },
-    },
+    }, 
   })
 
   // used to set cards to list or grid
