@@ -338,7 +338,7 @@ const EventView = ({history}) => {
             <div className={`columns is-mobile ${horizontalBar}`}>
               {/* Host Name, Time, Type */}
               <div className='column has-text-centered-mobile'>
-                <div className={`columns is-mobile ${horizontalBar}`}>
+                <div className={`columns is-mobile ${horizontalBar}`} style={{minWidth: '280px'}}>
                   <div
                     className={`${userImage}`}
                     style={{backgroundImage: `url(${creator.profileImage})`}}
