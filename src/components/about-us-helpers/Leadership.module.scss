@@ -48,17 +48,22 @@
         width: 100%;
         margin-bottom: 10rem;
     }
-    > div {
+        
+    .card {
         display: inline-block;
-      //  width: 30%;
         margin-bottom: 3rem;
         text-align: center;
         padding-bottom: 1rem;
+        background-color: white;
 
-        img {
+        img, div {
             margin-bottom: 1rem;
             width: 20vw;
             height: 20vw;
+        }
+
+        div {
+            background-color: $chalice;
         }
     }
 }

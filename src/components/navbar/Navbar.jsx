@@ -294,6 +294,14 @@ export default function Navbar() {
               </button>
             </>
           )}
+          <Link
+            to='/about-us'
+            role='button'
+            className={`has-text-centered is-size-5-tablet ${navButton} no-outline-focus`}
+            onClick={() => setNavMenuIsOpen(false)}
+          >
+            About
+          </Link>
         </div>
         {/* navbar-end */}
       </div>
