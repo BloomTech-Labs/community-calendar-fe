@@ -5,6 +5,7 @@
 
 .event_list {
   @include mx-auto;
+  width: 100%;
 }
 
 .iconDivider {
@@ -27,6 +28,7 @@ $lgGrid: $smallGrid * 3;
 
 .list_container {
   @include mx-auto;
+  max-width: 100%;
   a:first-of-type {
     margin-top: 0 !important;
   }
@@ -39,7 +41,7 @@ $lgGrid: $smallGrid * 3;
   @include mx-auto;
 
   @media screen and (min-width: 650px) {
-    grid-template-columns: repeat(2, minmax(200px, 250px));
+    grid-template-columns: repeat(2, minmax(200px, 50%));
   }
 
   @media screen and (min-width: 971px) {

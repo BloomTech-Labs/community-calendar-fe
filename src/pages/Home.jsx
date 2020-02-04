@@ -172,7 +172,7 @@ const Home = () => {
           <ViewToggle toggleFunc={setShowListView} viewState={useListView} />
         </div>
         <EventList
-          apolloData={{data, loading, error}}
+          apolloData={{data: data && data.events, loading, error}}
           listView={useListView}
           setListType={setShowListView}
         />

@@ -318,7 +318,7 @@ const SearchResults = ({history}) => {
           </div>
           <div>
             <EventList
-              apolloData={{loading, error, data}}
+              apolloData={{loading, error, data: data && data.events}}
               listView={useListView}
               setListType={setShowListView}
             />

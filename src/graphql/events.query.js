@@ -270,80 +270,86 @@ export const GET_EVENTS_FILTERED = gql`
   ${ADDRESS_DETAIL_DATA}
 `
 
-export const GET_USER_SAVED = gql`
-  query GetUserSaved(
-    $userLatitude: Float
-    $userLongitude: Float
-    $useLocation: Boolean!
-  ) {
-    user {
-      saved {
-        id
-        title
-        start
-        end
-        ticketPrice
-        eventImages {
-          url
-        }
-        locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
-          distanceFromUser @include(if: $useLocation)
-          distanceUnit @include(if: $useLocation)
-          city
-        }
-      }
-    }
-  }
-`
-
-export const GET_USER_ATTENDING = gql`
+export const GET_USER_AND_EVENTS = gql `
   query GetUserAttending(
     $userLatitude: Float
     $userLongitude: Float
     $useLocation: Boolean!
-  ) {
-    user {
+    ){
+    user{
+      firstName
+      lastName
       rsvps {
-        id
-        title
-        start
-        end
-        ticketPrice
+        ...EventDetail
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+          id
+          name
+          latitude
+          longitude
+          distanceFromUser @include(if: $useLocation)
+          distanceUnit @include(if: $useLocation)
+          ...AddressDetail
+        }
         eventImages {
           url
         }
-        locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
-          distanceFromUser @include(if: $useLocation)
-          distanceUnit @include(if: $useLocation)
-          city
+        tags {
+          title
+        }
+        rsvps {
+          id
+          firstName
+          lastName
         }
       }
-    }
-  }
-`
-
-export const GET_USER_CREATED = gql`
-  query GetUserCreated(
-    $userLatitude: Float
-    $userLongitude: Float
-    $useLocation: Boolean!
-  ) {
-    user {
+      saved {
+        ...EventDetail
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+          id
+          name
+          latitude
+          longitude
+          distanceFromUser @include(if: $useLocation)
+          distanceUnit @include(if: $useLocation)
+          ...AddressDetail
+        }
+        eventImages {
+          url
+        }
+        tags {
+          title
+        }
+        rsvps {
+          id
+          firstName
+          lastName
+        }
+      }
       createdEvents {
-        id
-        title
-        start
-        end
-        ticketPrice
+        ...EventDetail
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+          id
+          name
+          latitude
+          longitude
+          distanceFromUser @include(if: $useLocation)
+          distanceUnit @include(if: $useLocation)
+          ...AddressDetail
+        }
         eventImages {
           url
         }
-        locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
-          distanceFromUser @include(if: $useLocation)
-          distanceUnit @include(if: $useLocation)
-          city
+        tags {
+          title
+        }
+        rsvps {
+          id
+          firstName
+          lastName
         }
       }
     }
   }
+  ${EVENT_DETAIL_DATA}
+  ${ADDRESS_DETAIL_DATA}
 `

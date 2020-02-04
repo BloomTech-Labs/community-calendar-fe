@@ -6,7 +6,7 @@ import {Route, Switch} from 'react-router-dom'
 import {useAuth0} from './contexts/auth0-context.jsx'
 
 //apollo
-import {ApolloProvider} from '@apollo/react-hooks'
+import {ApolloProvider, useQuery} from '@apollo/react-hooks'
 import {ApolloClient} from 'apollo-client'
 import {ApolloLink} from 'apollo-link'
 import {setContext} from 'apollo-link-context'
@@ -117,17 +117,18 @@ function App() {
       maxDistance: null,
       userId: null,
       recentSearches: null,
+      profileImage: null
     },
   })
 
   return (
     <ApolloProvider client={client}>
       <GetUserPosition />
-      <Navbar />
+      <Navbar/>
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/create-event' component={CreateEventPage} />
-        <Route path='/myprofile' component={UserProfile} />
+        <Route path='/myprofile' component={UserProfile}/>
         <Route exact path='/events/:id' component={EventView} />
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />

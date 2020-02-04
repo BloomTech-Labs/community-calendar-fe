@@ -39,7 +39,9 @@ import {
   row,
   eventImage,
   padContent,
+  padDivContent,
   userImage,
+  titleH1,
 } from './styles/EventView.module.scss'
 
 import {set} from 'react-ga'
@@ -243,8 +245,8 @@ const EventView = ({history}) => {
             alt='banner'
           />
         )}
-        <div className={padContent}>
-          <h1 className='is-family-secondary is-size-1 is-size-4-mobile'>
+        <div className={padDivContent}>
+          <h1 className={`${titleH1 } is-family-secondary is-size-1 is-size-4-mobile`} alt={title}>
             {title}
           </h1>
           <p
@@ -336,7 +338,7 @@ const EventView = ({history}) => {
             <div className={`columns is-mobile ${horizontalBar}`}>
               {/* Host Name, Time, Type */}
               <div className='column has-text-centered-mobile'>
-                <div className={`columns is-mobile ${horizontalBar}`}>
+                <div className={`columns is-mobile ${horizontalBar}`} style={{minWidth: '280px'}}>
                   <div
                     className={`${userImage}`}
                     style={{backgroundImage: `url(${creator.profileImage})`}}
@@ -404,7 +406,7 @@ const EventView = ({history}) => {
                   </span>
                 )}
               </div>
-              <p className={` is-size-7-mobile`}>{description}</p>
+              <p className={`${descriptionText} is-size-7-mobile`}>{description}</p>
               {cacheUserId.userId && (
                 <button
                   className={`button  level ${
