@@ -97,10 +97,10 @@ const DistanceDropdown = (client, userLat, userLong, maxDistance) => {
             className='dropdown-item has-text-centered'
             onClick={() => {
               setMaxDistance(null, localCache)
-              setSelectedDistance('30+ mi')
+              setSelectedDistance('Anywhere')
             }}
           >
-            30+ mi
+            Anywhere
           </div>
         </div>
       </div>
