@@ -19,6 +19,7 @@ import {
   description,
   tileTitle,
   dont_break_out,
+  descriptionFade,
 } from './styles/EventListCard.module.scss'
 
 import {TimeIcon, CalendarIcon} from 'icons'
@@ -133,6 +134,7 @@ export default function EventListCard(props) {
         >
           {item.description}
         </p>
+        <div className={descriptionFade}></div>
         <div className={descriptionUnderline}></div>
       </div>
     </Link>
