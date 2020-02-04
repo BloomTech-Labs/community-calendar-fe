@@ -11,6 +11,7 @@ import {
   GET_EVENT_BY_ID,
   GET_EVENT_BY_ID_WITH_DISTANCE,
   GET_EVENTS_FILTERED,
+  GET_FEATURED_EVENTS,
   GET_USER_AND_EVENTS
 } from './events.query.js'
 import {USERS, GET_USER_PICTURE} from './users.query.js'
@@ -49,6 +50,7 @@ export {
   LOCATION_FILTER,
   DATE_FILTER,
   GET_EVENTS_FILTERED,
+  GET_FEATURED_EVENTS,
   GET_USER_AND_EVENTS,
   // server mutations
   ADD_EVENT,
