@@ -22,27 +22,28 @@ $lgGrid: $smallGrid * 3;
 .cardWrapper {
   display: flex;
   justify-content: center;
+  margin-top: $gap;
 }
 
 .list_container {
   @include mx-auto;
   a:first-of-type {
-    margin-top: $gap-md !important;
+    margin-top: 0 !important;
   }
 }
 
 .grid_container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-gap: $gap-xs;
   @include mx-auto;
-  max-width: min-content;
 
-  @media screen and (min-width: 652px) {
-    max-width: 592px;
+  @media screen and (min-width: 650px) {
+    grid-template-columns: repeat(2, minmax(200px, 250px));
   }
 
-  @media screen and (min-width: 900px) {
-    max-width: 888px;
+  @media screen and (min-width: 971px) {
+    grid-template-columns: repeat(3, minmax(200px, 33%));
   }
 }
 

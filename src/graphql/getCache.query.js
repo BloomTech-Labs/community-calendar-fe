@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-const GET_CACHE = gql`
+export const GET_CACHE = gql`
   query GetCache {
     locationPermission @client
     userLatitude @client
@@ -10,4 +10,46 @@ const GET_CACHE = gql`
   }
 `
 
-export default GET_CACHE
+export const GET_RECENT_SEARCHES = gql`
+  query GetRecentSearches {
+    recentSearches @client {
+      index
+      location {
+        userLatitude
+        userLongitude
+        radius
+      }
+      tags
+      ticketPrice {
+        minPrice
+        maxPrice
+      }
+      dateRange {
+        start
+        end
+      }
+    }
+  }
+`
+
+export const GET_CURRENT_FILTERS = gql`
+  query GetRecentFilters {
+    currentFilters @client {
+      index
+      location {
+        userLatitude
+        userLongitude
+        radius
+      }
+      tags
+      ticketPrice {
+        minPrice
+        maxPrice
+      }
+      dateRange {
+        start
+        end
+      }
+    }
+  }
+`

@@ -26,4 +26,15 @@
       visibility: hidden;
     }
   }
+
+  &.filterMenu {
+    input {
+      margin-top: $gap-xs;
+      min-width: 100%;
+      border-radius: $radius;
+      padding-left: $gap-xxs / 2;
+      border: 1px solid black !important;
+      padding-left: 20px !important;
+    }
+  }
 }

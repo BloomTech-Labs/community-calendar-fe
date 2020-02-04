@@ -96,7 +96,9 @@ export default function EventListCard(props) {
           &nbsp;
           <span>&#8226;</span>
           &nbsp;
-          <span className='color_chalice'>Free</span>
+          <span className='color_chalice'>
+            {item.ticketPrice ? `$${item.ticketPrice}` : 'FREE'}
+          </span>
         </p>
         <p
           data-id='event_description'

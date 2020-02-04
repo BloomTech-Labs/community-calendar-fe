@@ -36,3 +36,20 @@
     top: 0;
   }
 }
+
+@keyframes slideDownAnim {
+  0% {
+    display: none;
+  }
+  1% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  99% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  100% {
+    display: block;
+  }
+}

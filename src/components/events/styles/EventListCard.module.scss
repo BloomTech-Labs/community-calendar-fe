@@ -64,19 +64,11 @@ a.list-card {
 a.grid-card {
   display: inline-flex;
   flex-direction: column;
-  width: 280px;
-  // max-width: 320px;
+  width: 100%;
+  max-width: 307px;
   min-height: 401px;
   border-radius: $radius-small;
-  margin: $gap-md $gap-xxs;
-  // margin: $gap-md auto;
-  /*   margin: {
-    top: $gap-md !important;
-    right: $gap-md !important;
-    left: $gap-md !important;
-    bottom: $gap-md !important;
-  }
- */
+
   color: inherit;
   @include is-clickable;
   @include hover-shadow;
@@ -111,11 +103,7 @@ a.grid-card {
   .community {
     color: $chalice;
   }
-
-  // @include tablet {
-  // margin: $gap-md 10px;
-  // }
-} //end grid-card
+}
 
 // ===== Bulma Overrides: Columns =====
 .is-multiline {

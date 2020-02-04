@@ -1,5 +1,29 @@
 @import '_variables.scss';
+@import '_mixins.scss';
 @import '~bulma/sass/utilities/_all.sass';
+
+.filtersEventsWrap {
+  display: grid;
+  grid-template-columns: 100%;
+  @include tablet {
+    grid-template-columns: 250px 70%;
+    gap: $gap-md;
+  }
+}
+
+.pageTitle {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: $gap-md;
+}
+
+.hiddenMenu {
+  position: absolute;
+  border-radius: $radius;
+  background-color: white;
+  transition: left $duration-short;
+}
 
 .gobackPadding {
   padding-top: 36px !important;

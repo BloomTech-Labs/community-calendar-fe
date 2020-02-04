@@ -3,12 +3,9 @@ import PropTypes from 'prop-types'
 
 // Components
 import EventListCard from './EventListCard'
-import ListIcon from 'icons/ListIcon'
-import GridIcon from 'icons/GridIcon'
 import LoadingLogo from '../loading/LoadingLogo'
-
+import ViewToggle from './ViewToggle'
 //utils
-import {filterByDistance} from '../../utils'
 
 //styles
 import {
@@ -30,39 +27,23 @@ EventList shows events passed in on the apolloData prop to the user
 -Filtering by distance happens when parent component passes `maxDistance` prop
 */
 
-export default function EventList({apolloData: {data, loading, error}}) {
-  // useListView determines if the cards should be displayed as list or grid
-  const [useListView, setShowListView] = useState(true)
-
+export default function EventList({
+  apolloData: {data, loading, error},
+  listView,
+}) {
   return (
     <>
       {/* List and Grid view toggle buttons */}
       <div
         className={`${columns} ${isMobile}`}
         style={{justifyContent: 'flex-end'}}
-      >
-        <div className={` is-flex level `}>
-          <div
-            className='is-flex is-clickable'
-            onClick={() => setShowListView(true)}
-          >
-            <ListIcon isActive={useListView} />
-          </div>
-          <span className={iconDivider}></span>
-          <div
-            className='is-flex is-clickable'
-            onClick={() => setShowListView(false)}
-          >
-            <GridIcon isActive={!useListView} />
-          </div>
-        </div>
-      </div>
+      ></div>
 
       {/* List of events */}
       <div className={cardWrapper}>
         <div
           className={` ${
-            useListView
+            listView
               ? `${list_container} ${columns} ${isMultiline}`
               : grid_container
           }`}
@@ -76,12 +57,9 @@ export default function EventList({apolloData: {data, loading, error}}) {
           {/* Render EventListCards for each item in `eventsToDisplay` array */}
           {!loading &&
             !error &&
+            data &&
             data.events.map(item => (
-              <EventListCard
-                item={item}
-                key={item.id}
-                useListView={useListView}
-              />
+              <EventListCard item={item} key={item.id} useListView={listView} />
             ))}
 
           {/* Inform user if query/filtering resolves to empty array with no error */}
@@ -100,5 +78,5 @@ export default function EventList({apolloData: {data, loading, error}}) {
 
 EventList.propTypes = {
   apolloData: PropTypes.object,
-  maxDistance: PropTypes.number,
+  listView: PropTypes.bool,
 }

@@ -1,20 +1,16 @@
 @import '_variables.scss';
+@import '_mixins.scss';
 @import '~bulma/sass/utilities/_all.sass';
 
 .eventView {
   .eventImage {
     width: 20rem;
-    height: 20rem;
+    height: auto;
+    object-fit: cover;
   }
-
-  width: 80%;
-  margin: 0 auto;
 
   .padContent {
     padding: $gap-xxs;
-    @include tablet {
-      padding: $gap;
-    }
   }
 
   .banner {
@@ -113,7 +109,6 @@
 
     @include tablet {
       margin-top: $gap-sm;
-      max-width: 700px;
       p:nth-of-type(2) {
         margin-top: 0;
         padding: {
@@ -154,5 +149,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  .userImage {
+    width: 50px !important;
+    height: 50px !important;
+    margin: 0 1rem;;
+    border-radius: 50%;
+    background: no-repeat;
+    background-position: center;
+    
   }
 }

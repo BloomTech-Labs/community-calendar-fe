@@ -51,6 +51,10 @@
   } // end -input
   &-inputLarge {
     padding-left: 50px !important;
+
+    @include tablet {
+      height: 60px !important;
+    }
   }
 
   &-inputSmall {
