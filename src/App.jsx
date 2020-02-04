@@ -6,7 +6,7 @@ import {Route, Switch} from 'react-router-dom'
 import {useAuth0} from './contexts/auth0-context.jsx'
 
 //apollo
-import {ApolloProvider} from '@apollo/react-hooks'
+import {ApolloProvider, useQuery} from '@apollo/react-hooks'
 import {ApolloClient} from 'apollo-client'
 import {ApolloLink} from 'apollo-link'
 import {setContext} from 'apollo-link-context'
@@ -21,7 +21,8 @@ import EventView from './pages/EventView'
 import UpdateEventPage from './pages/UpdateEventPage'
 import CreateEventPage from './pages/CreateEventPage'
 import SearchResults from './pages/SearchResults'
-import AboutUs from "./pages/AboutUs"
+import UserProfile from './pages/UserProfilePage'
+import AboutUs from './pages/AboutUs'
 
 //components
 import Navbar from 'navbar/Navbar'
@@ -103,6 +104,7 @@ function App() {
     cache,
     // add typedefs and resolvers for local state
     typeDefs,
+    resolvers: {},
   })
 
   // initialize apollo client in-memory cache of local state
@@ -114,20 +116,23 @@ function App() {
       userAddress: null,
       maxDistance: null,
       userId: null,
+      recentSearches: null,
+      profileImage: null
     },
   })
 
   return (
     <ApolloProvider client={client}>
       <GetUserPosition />
-      <Navbar />
+      <Navbar/>
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/create-event' component={CreateEventPage} />
+        <Route path='/myprofile' component={UserProfile}/>
         <Route exact path='/events/:id' component={EventView} />
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />
-        <Route path="/about-us" component={AboutUs}/>
+        <Route path='/about-us' component={AboutUs} />
       </Switch>
     </ApolloProvider>
   )

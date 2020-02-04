@@ -14,7 +14,22 @@
 .color_shark {
   color: $shark;
 }
+.color_iconlight {
+  color: $iconLight;
+}
 
+// ===== Media Query Breakpoints =====
+.visible-xs-up {
+  @include mobile-xs-up {
+    display: block;
+  }
+}
+
+.hidden-xs {
+  @include mobile-xs-only {
+    display: none !important;
+  }
+}
 // ===== Palette =====
 
 // is-size-5 resolves to 20px, is-size-6 resolves to 16px, is-size-7 resolves to 12px
@@ -106,8 +121,8 @@
   @include mx-auto;
   max-width: $container-width;
   padding: {
-    left: $gap-md;
-    right: $gap-md;
+    left: $gap-xxs;
+    right: $gap-xxs;
   }
 
   @include tablet-up {
@@ -177,4 +192,76 @@ a.tag.tag-hover,
 .fadeIn {
   opacity: 1;
   visibility: visible;
+}
+
+.willSlideInL2R {
+  left: -150%;
+}
+.slideInL2R {
+  left: 0;
+}
+
+// ===== Forms =====
+.checkmarkContainer {
+  display: block;
+  position: relative;
+  margin-bottom: $gap-xs;
+
+  // hide default checkbox
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  label {
+    margin-left: 40px;
+  }
+
+  //add
+  &:hover input ~ .checkmark {
+    background-color: #ff9f9f;
+    border-color: #ff9f9f;
+  }
+
+  // show checkmark
+  & input:checked ~ .checkmark {
+    background-color: $primary;
+    border-color: $primary;
+    &:after {
+      // display: block;
+      opacity: 1;
+    }
+  }
+
+  // custom checkbox
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    border: 1px solid $shark;
+    border-radius: $radius-small;
+    transition: background-color $duration-short, border-color $duration-short;
+
+    // checkmark icon
+    &:after {
+      // display: none;
+      opacity: 0;
+      content: '';
+      position: absolute;
+      left: 9px;
+      top: 5px;
+      width: 5px;
+      height: 12px;
+      border: solid $white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      transition: opacity $duration-short;
+    }
+  }
 }

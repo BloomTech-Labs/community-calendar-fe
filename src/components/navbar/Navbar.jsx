@@ -12,17 +12,31 @@ import Searchbar from 'searchbar/Searchbar'
 import Geocoder from 'geocoder/Geocoder'
 
 //styles
-import {navButton, locationContent, closeButton} from './Navbar.module.scss'
+import {navButton, locationContent, closeButton, navatar} from './Navbar.module.scss'
 
 // Apollo
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_CACHE} from '../../graphql'
+import {GET_CACHE, GET_USER_PICTURE, GET_USER_PICTURE_FROM_CACHE} from '../../graphql'
 
 export default function Navbar() {
   const pageLocation = useLocation()
 
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
+  const {data: userImage} = useQuery(GET_USER_PICTURE)
+  const {data: profileImageFromCache} = useQuery(GET_USER_PICTURE_FROM_CACHE);
+
+  useEffect(() => {
+    if(userImage && userImage.user && userImage.user.profileImage){
+      client.writeQuery({
+        query: GET_USER_PICTURE_FROM_CACHE,
+        data: {
+          profileImage: userImage.user.profileImage
+        }
+      })
+    }
+  }, [userImage])
+  
 
   const {user, loginWithRedirect, logout} = useAuth0()
 
@@ -45,6 +59,7 @@ export default function Navbar() {
     if (changes.selectedItem) {
       const place = {...changes.selectedItem}
       //update user data in local cache
+      
       client.writeData({
         data: {
           userAddress: place.place_name.replace(/united states$/i, 'US'),
@@ -141,9 +156,9 @@ export default function Navbar() {
               onClick={() => setLocationIsOpen(!locationIsOpen)}
             >
               <span
-                className={` is-size-5-tablet no-outline-focus no-pointer-events`}
+                className={` is-size-5-desktop is-size-6-tablet no-outline-focus no-pointer-events`}
               >
-                Location
+                My Location
               </span>
               <span
                 className={`${
@@ -160,6 +175,7 @@ export default function Navbar() {
               }`}
               id='location-dropdown-menu '
               role='menu'
+              style={{minWidth: '250px'}}
             >
               <div
                 className='dropdown-content '
@@ -197,11 +213,10 @@ export default function Navbar() {
             </div>
             {/* end dropdown-menu*/}
           </div>
-
           <Link
             to='/'
             role='button'
-            className={`has-text-centered is-size-5-tablet ${navButton} no-outline-focus`}
+            className={`has-text-centered is-size-6-tablet  is-size-5-desktop ${navButton} no-outline-focus`}
             onClick={() => setNavMenuIsOpen(false)}
           >
             Events
@@ -212,22 +227,22 @@ export default function Navbar() {
             <>
               <Link to='/create-event' className={`   color_shark`}>
                 <button
-                  className={`${navButton} is-size-5-tablet  no-border no-outline-focus`}
+                  className={`${navButton} is-size-6-tablet is-size-5-desktop no-border no-outline-focus`}
                   onClick={() => setNavMenuIsOpen(false)}
                 >
                   Create Event
                 </button>
               </Link>
-              {/*  
+               
               <Link
-                to='#'
+                to={'/myprofile'}
                 role='button'
                 className={` is-hidden-tablet  is-flex has-text-centered ${navButton} no-outline-focus`}
                 onClick={() => setNavMenuIsOpen(false)}
               >
-                Profile
+                My Profile
               </Link>
- */}
+
               <div
                 role='button'
                 className={` is-hidden-tablet  is-flex has-text-centered ${navButton} is-clickable no-outline-focus`}
@@ -238,19 +253,20 @@ export default function Navbar() {
               >
                 Log Out
               </div>
+              
               <div
                 className={`dropdown is-right is-hidden-mobile is-clickable`}
               >
                 <div
-                  className='dropdown-trigger is-flex'
+                  className='dropdown-trigger is-round'
                   aria-haspopup='true'
                   aria-controls='dropdown-menu2'
                   data-testid='nav-dropdown-trigger'
                   data-id='navbar-profile-dropdown'
                 >
                   <img
-                    src={`${user.picture}`}
-                    className='is-round'
+                    src={`${profileImageFromCache && profileImageFromCache.profileImage}`}
+                    className={`${navatar} is-round`}
                     width='35'
                     height='35'
                     alt=''
@@ -264,6 +280,12 @@ export default function Navbar() {
                 >
                   <div className='dropdown-content'>
                     {/* <div className='dropdown-item'>Profile</div> */}
+                    <Link
+                      to='/myprofile'
+                      className='dropdown-item is-clickable'
+                    >
+                      My Profile
+                    </Link>
                     <div
                       className='dropdown-item is-clickable'
                       onClick={e => {
@@ -273,6 +295,7 @@ export default function Navbar() {
                     >
                       Log Out
                     </div>
+                    
                   </div>
                 </div>
               </div>
@@ -282,13 +305,13 @@ export default function Navbar() {
             <>
               <button
                 onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
-                className={`${navButton} has-text-weight-bold is-size-5-tablet no-outline-focus `}
+                className={`${navButton} has-text-weight-bold is-size-6-tablet is-size-5-desktop no-outline-focus `}
               >
                 Sign In
               </button>
               <button
                 onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
-                className={`${navButton}  is-size-5-tablet no-outline-focus `}
+                className={`${navButton}  is-size-6-tablet  is-size-5-desktop no-outline-focus `}
               >
                 Sign Up
               </button>

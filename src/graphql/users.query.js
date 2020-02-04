@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-const GET_USERS = gql`
+export const GET_USERS = gql`
   {
     users {
       id
@@ -8,4 +8,10 @@ const GET_USERS = gql`
   }
 `
 
-export default GET_USERS
+export const GET_USER_PICTURE = gql`
+  query{
+    user{
+      profileImage
+    }
+  }
+`

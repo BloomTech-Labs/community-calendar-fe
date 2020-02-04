@@ -21,7 +21,7 @@ import {
   RSVP_EVENT,
 } from '../graphql'
 
-import {months, weekDays, buildQS, useDropdown} from '../utils'
+import {months, weekDays, buildQS, createQSObj, useDropdown} from '../utils'
 
 //styles
 import {
@@ -38,7 +38,10 @@ import {
   socialOptions,
   row,
   eventImage,
-  padContent
+  padContent,
+  padDivContent,
+  userImage,
+  titleH1,
 } from './styles/EventView.module.scss'
 
 import {set} from 'react-ga'
@@ -228,7 +231,7 @@ const EventView = ({history}) => {
   }
 
   return (
-    <div className={eventView}>
+    <div className={`${eventView} page-wrapper`}>
       {/* Event title, location, RSVP info */}
       <section className={top_sec}>
         <GoBack />
@@ -236,14 +239,15 @@ const EventView = ({history}) => {
         {eventImages.length > 0 && (
           <img
             className={`${eventImage}`}
-            // className={`${banner} is-block mx-auto`}
-            // className='mx-auto'
             src={eventImages[0].url}
             alt='banner'
           />
         )}
-        <div className={padContent}>
-          <h1 className='is-family-secondary is-size-1 is-size-4-mobile'>
+        <div className={padDivContent}>
+          <h1
+            className={`${titleH1} is-family-secondary is-size-1 is-size-4-mobile`}
+            alt={title}
+          >
             {title}
           </h1>
           <p
@@ -332,18 +336,31 @@ const EventView = ({history}) => {
           <div>
             {' '}
             {/* container which separates social links/tags from event info  */}
-            <div className={`columns is-mobile ${horizontalBar}`}>
+            <div className={`columns  ${horizontalBar}`}>
               {/* Host Name, Time, Type */}
-              {/* <div className='column has-text-centered-mobile'>
-                <p className='color_chalice is-size-6half-mobile'>Hosted by:</p>
-              </div> */}
-              {/* <p className="color_shark">{creator}</p> */}
-              <div
-                className='column has-text-centered-mobile'
-                style={{paddingLeft: 0}} //remove this style when Hosted By is implemented
-              >
-                <p className='color_chalice is-size-6half-mobile'>Time:</p>
-                <p className='color_shark is-size-6half-mobile has-text-weight-bold'>
+              <div className='column has-text-centered-mobile'>
+                <div
+                  className={`columns justify-center is-mobile ${horizontalBar}`}
+                >
+                  <div
+                    className={`${userImage}`}
+                    style={{backgroundImage: `url(${creator.profileImage})`}}
+                  />
+                  <div style={{marginLeft: '16px'}}>
+                    <p className='color_chalice is-size-6half-mobile'>
+                      Hosted By:
+                    </p>
+                    <p className='color_shark is-size-6half-mobile'>
+                      {creator.firstName}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className='column has-text-centered-mobile'>
+                <p className='color_chalice is-size-6half-mobile has-text-centered'>
+                  Time:
+                </p>
+                <p className='color_shark is-size-6half-mobile has-text-weight-bold has-text-centered'>
                   {Math.ceil(
                     moment.duration(moment(end).diff(moment(start))).asDays(),
                   ) === 1
@@ -353,11 +370,11 @@ const EventView = ({history}) => {
                       ).format('MMM Do h:mm a')}`}
                 </p>
               </div>
-              <div className='column has-text-centered-mobile'>
-                <p className='color_chalice is-size-6half-mobile'>
+              <div className='column has-text-centered-mobile '>
+                <p className='color_chalice is-size-6half-mobile has-text-centered'>
                   Ticket Price:
                 </p>
-                <p className='has-text-danger is-size-6half-mobile'>
+                <p className='has-text-danger is-size-6half-mobile has-text-centered'>
                   {ticketPrice ? '$' + ticketPrice.toFixed(2) : 'FREE'}
                 </p>
               </div>
@@ -386,11 +403,13 @@ const EventView = ({history}) => {
                         : {}
                     }
                   >
-                    <HeartIcon isLiked={savedHeart} />
+                    <HeartIcon isLiked={!!savedHeart} />
                   </span>
                 )}
               </div>
-              <p className={` is-size-7-mobile`}>{description}</p>
+              <p className={`${descriptionText} is-size-7-mobile`}>
+                {description}
+              </p>
               {cacheUserId.userId && (
                 <button
                   className={`button  level ${
@@ -429,7 +448,9 @@ const EventView = ({history}) => {
               {tags &&
                 tags.map(tag => (
                   <Link
-                    to={`/search/${buildQS({searchText: tag.title})}`}
+                    to={`/search${buildQS(
+                      createQSObj(null, {tags: [tag.title]}),
+                    )}`}
                     className='tag is-small is-white color_shark tag-hover'
                     key={tag.title}
                   >

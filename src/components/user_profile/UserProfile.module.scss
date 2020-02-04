@@ -1,0 +1,345 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/_all.sass';
+
+
+.userProfile {
+  margin: 0 auto;
+  min-height: 100vh;
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  flex-flow: row wrap;
+
+
+  @include tablet {
+    max-width: 90vw;
+  }
+  
+  .profileInfo {
+    background-color: $shark;
+    color: $white;
+    width: 100%;
+    
+    @include tablet {
+      max-width: 25.6vw;
+    }
+
+    .gearWrapper {
+      display: flex;
+      align-items: center;
+      width: 25px;
+      cursor: pointer;
+      margin-right: 0;
+
+      .hideText {
+        color: $white;
+        cursor: pointer;
+      }
+    }
+
+    .userInfo,
+    .editUserForm {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+    }
+
+    .userInfo,
+    .editUserForm {
+
+      .profilePhoto {
+        width: 175px;
+        height: 175px;
+        background-color: $astronaut;
+        background-size: cover;
+        background-position: 0 -12px;
+        border: solid $bittersweet;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        @include mobile-xs-to-tablet {
+          width: 23vw;
+          height: 23vw;
+          margin-bottom: 25px;
+        }
+        @include tablet {
+          width: 8vw;
+          height: 8vw;
+          margin-bottom: 30px;
+        }
+      }
+
+      .imageInput {
+        opacity: 0;
+        pointer-events: none;
+        width: 1px;
+        height: 1px;
+        z-index: 2;
+      }
+      
+      .editProfilePhotoWrap {
+        margin-top: -18px;
+        z-index: 2;
+
+        .editProfilePhotoFilter {
+          z-index: 2;
+          cursor: pointer;
+          height: 100%;
+          width: 100%;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 3rem;
+
+          @include tablet {
+            font-size: inherit;
+          }
+
+          .editPhoto {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            z-index: 2;
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+            background-color: rgba(170, 170, 170, 0.8);
+            opacity: 0.8;
+
+            @media (hover: hover) {
+              &:hover {
+                background-color: rgba(170, 170, 170, 0.2);
+                opacity: 0.2;
+              }
+            }
+
+            svg {
+              width: 48px;
+              height: 48px;
+
+              @include tablet {
+                width: 24px;
+                height: 24px;
+              }
+            }
+          }
+
+          .profileImg {
+            position: absolute;
+            border-radius: 50%;
+            border: solid $bittersweet;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            width: 175px;
+            height: 175px;
+            @include mobile-xs-to-tablet {
+              width: 23vw;
+              height: 23vw;
+              margin-bottom: 25px;
+            }
+            @include tablet {
+              width: 8vw;
+              height: 8vw;
+              margin-bottom: 30px;
+            }
+          }
+
+          .editProfileImg {
+            position: absolute;
+            z-index: 1;
+            width: 175px;
+            height: 175px;
+
+            @include mobile-xs-to-tablet {
+              width: 23vw;
+              height: 23vw;
+              margin-bottom: 25px;
+            }
+            @include tablet {
+              width: 8vw;
+              height: 8vw;
+            }
+
+          }
+        }
+      }
+
+      .profileUserName {
+        font-family: $family-secondary;
+        font-size: 2em;
+        @include tablet {
+          font-size: 1.25em;
+        }
+      }
+
+      .profileUserTitle {
+        color: $silver;
+        font-size: 1em;
+      }
+
+      .location {
+        margin-top: 15px;
+        margin-left: -5%;
+        display: flex;
+        align-items: center;
+
+        svg {
+          height: 12px;
+        }
+      }
+
+      .eventNumbers {
+        margin-top: 10px;
+        width: 95%;
+
+        .evNum {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+
+          h4 {
+            font-size: 0.8em;
+            margin-bottom: 5px;
+            color: $silver;
+          }
+        }
+      }
+
+      .saveButton {
+        color: $white;
+        margin: 15px 0 30px 0;
+        padding: 10px;
+        background-color: inherit;
+        border: solid 1px $white;
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: rgba(83,109,158,0.6);
+          }
+        }
+      }
+
+
+    }
+
+    .editNameWrap {
+      width: 80%;
+      margin-bottom: 0 !important; 
+
+      @include mobile-xs-to-tablet {
+        width: 40%;
+      }
+
+      @include tablet {
+        width: 95%;
+      }
+
+      .editNameLabel {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        color: $silver;
+        font-size: 0.8em;
+
+        .formFlex {
+          display: flex;
+          justify-content: space-around;
+
+          .editFirstNameField,
+          .editLastNameField {
+            border: none;
+            background-color: $shark;
+            padding-left: 5px;
+            border-bottom: solid 1px $silver;
+            font-family: $family-secondary;
+            color: $white;
+            box-shadow: none;
+
+            &::selection {
+              background-color: $silver;
+              color: $astronaut;
+            }
+          }
+          
+          .editFirstNameField,
+          .editLastNameField {
+            height: 20px;
+            width: 40%;
+            margin: 14px 0;
+            @include tablet {
+              margin: 5px 0;
+            }
+          }
+          
+          .editTitleField {
+            height: 20px;
+          }
+        }
+      }
+    }
+
+  }
+  
+  .userEvents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $offwhite;
+    width: 100vw;
+    height: 100%;
+    
+    @include tablet {
+      max-width: 64.25vw;
+    }
+
+    .userEventStage {
+      background-color: $white;
+      width: 100%;
+      height: 100%;
+
+      @include tablet {
+        margin: 2%;
+        width: 100%;
+        height: 95%;
+      }
+
+      .userEventTabs {
+        height: 72px;
+        
+        .userEventTabsUl {
+          justify-content: space-around;
+          border: none;
+
+          .userEventTab {
+            width: 30%;
+            
+            .userEventTabAnchor {
+              color: $silver;
+              padding: 1em;
+              &:hover {
+                color: $shark;
+              }
+            }
+          }
+        }
+      }
+
+      .userEventGrid {
+        padding: 2%;
+
+        .userEventCards {
+
+        }
+      }
+    }
+  }
+}
+
+.profileSmall {
+  color: $white;
+  font-size: 0.7em;
+  margin-top: -24px;
+}

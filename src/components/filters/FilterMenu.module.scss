@@ -1,0 +1,53 @@
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '~bulma/sass/utilities/_all.sass';
+
+.filterWrapper {
+  width: 100%;
+  max-width: 300px;
+
+  button:first-of-type() {
+    border: none !important;
+    background-color: transparent;
+
+    &:active,
+    &:hover,
+    &:focus {
+      color: $shark !important;
+      outline: none;
+    }
+  }
+
+  & > div:first-of-type() {
+    margin-bottom: $gap-sm;
+  }
+
+  @include tablet {
+    padding-right: $gap-md;
+    margin-right: $gap-md;
+    min-height: 500px;
+    border-right: 1px solid $iconLight;
+    margin-top: $gap-md + 6px;
+  }
+
+  &.mobile {
+    border: 1px solid $shark;
+    padding: $gap-xxs;
+    border-radius: $radius;
+    @include shadow-br;
+  }
+}
+
+.picker {
+  border: 2px solid black;
+  border-radius: 4px;
+  resize: none;
+  text-align: center;
+
+  .datePickerDropdown {
+    transform: translateX(0) !important;
+    border: 1px solid $shark;
+    border-radius: $radius;
+    left: 0 !important;
+  }
+}

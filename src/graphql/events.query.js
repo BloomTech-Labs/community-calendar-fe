@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 
+// fragment for use in events queries
 export const EVENT_DETAIL_DATA = gql`
   fragment EventDetail on Event {
     id
@@ -11,6 +12,7 @@ export const EVENT_DETAIL_DATA = gql`
   }
 `
 
+// fragment for use in location queries
 export const ADDRESS_DETAIL_DATA = gql`
   fragment AddressDetail on Location {
     streetAddress
@@ -21,6 +23,17 @@ export const ADDRESS_DETAIL_DATA = gql`
   }
 `
 
+// query for building the tag dropdown on the create/update event form
+export const GET_ALL_TAGS = gql`
+  query {
+    tags (orderBy: title_ASC){
+      id
+      title
+    }
+  }
+`
+
+// queries for `../pages/SearchResults.jsx` for filtering results
 export const SEARCH_FILTERS = gql`
   input SearchFilters {
     index: String
@@ -51,74 +64,19 @@ export const LOCATION_FILTER = gql`
   }
 `
 
-export const GET_EVENTS = gql`
-  query EventsByRange($start: DateTime, $end: DateTime) {
-    events(
-      where: {
-        OR: [
-          {AND: [{start_lte: $start}, {end_gte: $end}]}
-          {AND: [{start_gte: $start}, {end_lte: $end}]}
-          {
-            AND: [
-              {AND: [{start_gte: $start}, {start_lte: $end}]}
-              {end_gte: $end}
-            ]
-          }
-          {
-            AND: [
-              {start_lte: $start}
-              {AND: [{end_lte: $end}, {end_gte: $start}]}
-            ]
-          }
-        ]
-      }
-    ) {
-      ...EventDetail
-      creator {
-        id
-      }
-      locations {
-        id
-        name
-        ...AddressDetail
-      }
-      eventImages {
-        url
-      }
-      tags {
-        title
-      }
-    }
-  }
-  ${EVENT_DETAIL_DATA}
-  ${ADDRESS_DETAIL_DATA}
-`
-export const GET_EVENTS_WITH_DISTANCE = gql`
-  query EventsByRange(
-    $start: DateTime
-    $end: DateTime
+// query used by `../pages/Home.jsx` for EventList
+export const GET_EVENTS_FILTERED = gql`
+  query EventsFiltered(
+    $id: ID
     $userLatitude: Float
     $userLongitude: Float
+    $searchFilters: SearchFilters
+    $useLocation: Boolean!
   ) {
     events(
-      where: {
-        OR: [
-          {AND: [{start_lte: $start}, {end_gte: $end}]}
-          {AND: [{start_gte: $start}, {end_lte: $end}]}
-          {
-            AND: [
-              {AND: [{start_gte: $start}, {start_lte: $end}]}
-              {end_gte: $end}
-            ]
-          }
-          {
-            AND: [
-              {start_lte: $start}
-              {AND: [{end_lte: $end}, {end_gte: $start}]}
-            ]
-          }
-        ]
-      }
+      where: {id: $id}, 
+      orderBy: start_ASC, 
+      searchFilters: $searchFilters
     ) {
       ...EventDetail
       creator {
@@ -129,10 +87,11 @@ export const GET_EVENTS_WITH_DISTANCE = gql`
         name
         latitude
         longitude
-        distanceFromUser
-        distanceUnit
+        distanceFromUser @include(if: $useLocation)
+        distanceUnit @include(if: $useLocation)
         ...AddressDetail
       }
+
       eventImages {
         url
       }
@@ -150,42 +109,117 @@ export const GET_EVENTS_WITH_DISTANCE = gql`
   ${ADDRESS_DETAIL_DATA}
 `
 
-export const GET_ALL_TAGS = gql`
+// query used by `../pages/Home.jsx` for FeaturedCarousel
+// no filters and no location, returns events in chronological order
+export const GET_FEATURED_EVENTS = gql`
   query {
-    tags {
-      id
-      title
-    }
-  }
-`
-
-export const GET_EVENT_BY_ID = gql`
-  query EventById($id: ID) {
-    events(where: {id: $id}) {
+    events(
+      orderBy: start_ASC, 
+    ) {
       ...EventDetail
-      creator {
-        id
-      }
       locations {
         id
         name
+        latitude
+        longitude
         ...AddressDetail
       }
+
       eventImages {
         url
       }
-      tags {
-        title
-      }
-    }
-    tags {
-      title
     }
   }
   ${EVENT_DETAIL_DATA}
   ${ADDRESS_DETAIL_DATA}
 `
 
+// query used by `../components/user_profile/UserProfile.jsx` for dashboard
+export const GET_USER_AND_EVENTS = gql `
+  query GetUserAttending(
+    $userLatitude: Float
+    $userLongitude: Float
+    $useLocation: Boolean!
+    ){
+    user{
+      firstName
+      lastName
+      rsvps {
+        ...EventDetail
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+          id
+          name
+          latitude
+          longitude
+          distanceFromUser @include(if: $useLocation)
+          distanceUnit @include(if: $useLocation)
+          ...AddressDetail
+        }
+        eventImages {
+          url
+        }
+        tags {
+          title
+        }
+        rsvps {
+          id
+          firstName
+          lastName
+        }
+      }
+      saved {
+        ...EventDetail
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+          id
+          name
+          latitude
+          longitude
+          distanceFromUser @include(if: $useLocation)
+          distanceUnit @include(if: $useLocation)
+          ...AddressDetail
+        }
+        eventImages {
+          url
+        }
+        tags {
+          title
+        }
+        rsvps {
+          id
+          firstName
+          lastName
+        }
+      }
+      createdEvents {
+        ...EventDetail
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+          id
+          name
+          latitude
+          longitude
+          distanceFromUser @include(if: $useLocation)
+          distanceUnit @include(if: $useLocation)
+          ...AddressDetail
+        }
+        eventImages {
+          url
+        }
+        tags {
+          title
+        }
+        rsvps {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+  ${EVENT_DETAIL_DATA}
+  ${ADDRESS_DETAIL_DATA}
+`
+
+// query used in `../pages/EventView.jsx` for viewing single event
 export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
   query EventByIdWithDistance(
     $id: ID
@@ -198,6 +232,8 @@ export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
       ...EventDetail
       creator {
         id
+        firstName
+        profileImage
       }
       locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
         id
@@ -228,15 +264,36 @@ export const GET_EVENT_BY_ID_WITH_DISTANCE = gql`
   ${EVENT_DETAIL_DATA}
   ${ADDRESS_DETAIL_DATA}
 `
-export const GET_EVENTS_FILTERED = gql`
-  query EventsFiltered(
-    $id: ID
+
+// not used in app -- replaced by `GET_EVENTS_FILTERED`
+export const GET_EVENTS_WITH_DISTANCE = gql`
+  query EventsByRange(
+    $start: DateTime
+    $end: DateTime
     $userLatitude: Float
     $userLongitude: Float
-    $searchFilters: SearchFilters
-    $useLocation: Boolean!
   ) {
-    events(where: {id: $id}, searchFilters: $searchFilters) {
+    events(
+      where: {
+        OR: [
+          {AND: [{start_lte: $start}, {end_gte: $end}]}
+          {AND: [{start_gte: $start}, {end_lte: $end}]}
+          {
+            AND: [
+              {AND: [{start_gte: $start}, {start_lte: $end}]}
+              {end_gte: $end}
+            ]
+          }
+          {
+            AND: [
+              {start_lte: $start}
+              {AND: [{end_lte: $end}, {end_gte: $start}]}
+            ]
+          }
+        ]
+      }
+      orderBy: start_ASC
+    ) {
       ...EventDetail
       creator {
         id
@@ -246,11 +303,10 @@ export const GET_EVENTS_FILTERED = gql`
         name
         latitude
         longitude
-        distanceFromUser @include(if: $useLocation)
-        distanceUnit @include(if: $useLocation)
+        distanceFromUser
+        distanceUnit
         ...AddressDetail
       }
-
       eventImages {
         url
       }
@@ -262,6 +318,79 @@ export const GET_EVENTS_FILTERED = gql`
         firstName
         lastName
       }
+    }
+  }
+  ${EVENT_DETAIL_DATA}
+  ${ADDRESS_DETAIL_DATA}
+`
+
+// not used in app -- replaced by GET_EVENTS_WITH_DISTANCE
+export const GET_EVENTS = gql`
+  query EventsByRange($start: DateTime, $end: DateTime) {
+    events(
+      where: {
+        OR: [
+          {AND: [{start_lte: $start}, {end_gte: $end}]}
+          {AND: [{start_gte: $start}, {end_lte: $end}]}
+          {
+            AND: [
+              {AND: [{start_gte: $start}, {start_lte: $end}]}
+              {end_gte: $end}
+            ]
+          }
+          {
+            AND: [
+              {start_lte: $start}
+              {AND: [{end_lte: $end}, {end_gte: $start}]}
+            ]
+          }
+        ]
+      }
+      orderBy: start_ASC
+    ) {
+      ...EventDetail
+      creator {
+        id
+      }
+      locations {
+        id
+        name
+        ...AddressDetail
+      }
+      eventImages {
+        url
+      }
+      tags {
+        title
+      }
+    }
+  }
+  ${EVENT_DETAIL_DATA}
+  ${ADDRESS_DETAIL_DATA}
+`
+
+// not used in app -- replaced by GET_EVENT_BY_ID_WITH_DISTANCE
+export const GET_EVENT_BY_ID = gql`
+  query EventById($id: ID) {
+    events(where: {id: $id}) {
+      ...EventDetail
+      creator {
+        id
+      }
+      locations {
+        id
+        name
+        ...AddressDetail
+      }
+      eventImages {
+        url
+      }
+      tags {
+        title
+      }
+    }
+    tags {
+      title
     }
   }
   ${EVENT_DETAIL_DATA}

@@ -8,7 +8,7 @@
 .navbar {
   display: flex;
   flex-direction: column;
-  padding: 0 $gap-sm;
+  padding: 0 $gap-xxs;
   border-bottom: 2px solid $black-bis;
   margin-top: 0 !important;
 
@@ -23,7 +23,7 @@
   }
 
   @include tablet-up {
-    padding: 0 $bodyPaddingX-hd;
+    padding: 0 $gap;
     flex-direction: row;
     height: 72px;
   }
@@ -72,8 +72,10 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    max-width: calc(100vw - 16px);
     @include tablet {
       width: max-content;
+      max-width: calc(100vw - 64px);
     }
   }
 
@@ -100,18 +102,6 @@
 
     &.is-active {
       display: flex;
-      /* 
-      &:after {
-        content: '';
-        width: 150%;
-        height: 100vh;
-        position: absolute;
-        bottom: -100vh;
-        z-index: 0;
-        margin-left: -15%;
-        background-color: rgba(0, 0, 0, 0.8);
-      }
- */
     }
   }
 
@@ -128,48 +118,6 @@
       pointer-events: none;
     }
   }
-
-  /*   &-search {
-    margin-left: $gap-xs;
-    margin-right: $gap-xs;
-    display: flex;
-    align-items: center !important;
-    border-radius: $radius;
-    max-width: 300px;
-    transition: width 0.4s;
-
-    button {
-      display: none;
-      position: absolute;
-      right: 8px;
-      transition: all $duration-short !important;
-    }
-
-    @include tablet {
-      margin-left: $gap-md;
-      width: 350px;
-      button {
-        display: inline-block;
-      }
-    }
-
-    @include desktop {
-      width: 400px;
-    }
-
-    &-input {
-      padding-left: $gap-xxs !important;
-      border-radius: $radius !important;
-      border: none !important;
-      box-shadow: 0.3px 0.3px 4px rgba(0, 0, 0, 0.1),
-        -0.3px -0.3px 4px rgba(0, 0, 0, 0.1) !important;
-      &:focus {
-        box-shadow: 0.3px 0.3px 4px rgba(0, 0, 0, 0.6),
-          -0.3px -0.3px 4px rgba(0, 0, 0, 0.6) !important;
-      }
-    }
-  }
- */
 }
 
 // ===== Dropdown =====
@@ -337,4 +285,14 @@ div.select.is-rounded select {
 // ==== Spacing for <select> ====
 .left-margin {
   margin-left: $gap-sm;
+}
+
+// ==== Typography ====
+.has-text-grey-lighter {
+  color: $silver !important;
+}
+// ==== User Profile Event Tabs ====
+.tabs .is-active a {
+  border-bottom-color: $bittersweet !important;
+  color: $bittersweet !important;
 }

@@ -1,19 +1,37 @@
 @import '_variables.scss';
+@import '_mixins.scss';
 @import '~bulma/sass/utilities/_all.sass';
 
 .eventView {
   .eventImage {
     width: 20rem;
-    height: 20rem;
-  }
+    height: auto;
+    object-fit: cover;
+    align-self: center;
 
-  width: 80%;
-  margin: 0 auto;
+    @include tablet {
+      align-self: stretch;
+    }
+  }
 
   .padContent {
     padding: $gap-xxs;
     @include tablet {
-      padding: $gap;
+      padding: 0;
+    }
+  }
+
+  .padDivContent {
+    padding: $gap-xxs;
+
+    .titleH1 {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      hyphens: auto;
     }
   }
 
@@ -113,7 +131,6 @@
 
     @include tablet {
       margin-top: $gap-sm;
-      max-width: 700px;
       p:nth-of-type(2) {
         margin-top: 0;
         padding: {
@@ -132,6 +149,9 @@
 
   .descriptionText {
     padding-bottom: 0;
+    width: 100%;
+    word-wrap: break-word;
+    hyphens: auto;
   }
 
   .socialOptions {
@@ -154,5 +174,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  .userImage {
+    width: 50px !important;
+    height: 50px !important;
+
+    border-radius: 50%;
+    background: no-repeat;
+    background-size: cover;
+    background-position: center;
   }
 }

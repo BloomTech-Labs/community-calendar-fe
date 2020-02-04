@@ -9,10 +9,11 @@ import FeatCarousel from '../components/featured/FeaturedCarousel'
 import {DropdownIcon} from 'icons'
 import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
 import SelectedRange from '../components/daypicker/selectedRange'
+import ViewToggle from 'events/ViewToggle'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_EVENTS_FILTERED, GET_CACHE} from '../graphql'
+import {GET_EVENTS_FILTERED, GET_FEATURED_EVENTS, GET_CACHE} from '../graphql'
 
 /* The first page user's see when opening the app */
 const Home = () => {
@@ -26,6 +27,11 @@ const Home = () => {
   // local cache data
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
+
+  // FeaturedCarousel data (returns chronological list with few event fields for carousel)
+  const featuredApolloData = useQuery(GET_FEATURED_EVENTS);
+
+  // EventList data (refetches and updates results based on filters and user location)
   const apolloData = useQuery(GET_EVENTS_FILTERED, {
     variables: {
       userLatitude: localCache.userLatitude || undefined,
@@ -42,10 +48,10 @@ const Home = () => {
                 radius: localCache.maxDistance,
               }
             : undefined,
+        dateRange: start && end ? {start, end} : undefined,
       },
     },
   })
-
   const {data, loading, error, refetch} = apolloData
   // find distance from user and update events with results if user location changes
   useEffect(() => {
@@ -64,6 +70,7 @@ const Home = () => {
                 radius: localCache.maxDistance,
               }
             : undefined,
+        dateRange: start && end ? {start, end} : undefined,
       },
     })
   }, [
@@ -72,12 +79,15 @@ const Home = () => {
     localCache.maxDistance,
   ])
 
+  // used to set cards to list or grid
+  const [useListView, setShowListView] = useState(true)
+
   return (
     <div className='page-wrapper'>
       {/* Featured Events carousel */}
-      {data && data.events.length > 0 ? (
+      {featuredApolloData.data && featuredApolloData.data.events.length > 0 ? (
         <>
-          <FeatCarousel apolloData={apolloData} />
+          <FeatCarousel apolloData={featuredApolloData} />
           <div className='content-divider-x'></div>
         </>
       ) : null}
@@ -107,59 +117,69 @@ const Home = () => {
           setEnd={setEnd}
           setDatePickerIsOpen={setDatePickerIsOpen}
         />
-        {/*yes*/}
-        <div
-          className={`dropdown  navDropdown ${
-            datePickerIsOpen ? 'is-active' : ''
-          }`}
-        >
+        <div className='is-flex justify-between'>
           <div
-            role='button'
-            className='dropdown-trigger level is-clickable hover-underline'
-            aria-haspopup='true'
-            aria-controls='dropdown-menu2'
-            data-testid='location-dropdown-trigger'
-            data-id='location-dropdown'
-            onClick={() => setDatePickerIsOpen(!datePickerIsOpen)}
+            className={`dropdown  navDropdown ${
+              datePickerIsOpen ? 'is-active' : ''
+            }`}
           >
-            <span
-              className={` is-size-5-tablet no-outline-focus no-pointer-events`}
+            <div
+              role='button'
+              className='dropdown-trigger level is-clickable hover-underline is-size-7-mobile'
+              aria-haspopup='true'
+              aria-controls='dropdown-menu2'
+              data-testid='location-dropdown-trigger'
+              data-id='location-dropdown'
+              onClick={() => setDatePickerIsOpen(!datePickerIsOpen)}
             >
-              {start && end
-                ? Math.ceil(
-                    moment.duration(moment(end).diff(moment(start))).asDays(),
-                  ) === 1
-                  ? moment(start).format('ddd, MMM Do YYYY')
-                  : `${moment(start).format('ddd, MMM Do YYYY')} - ${moment(
-                      end,
-                    ).format('ddd, MMM Do YYYY')}`
-                : 'Select a date range'}
-            </span>
-            <span
-              className={`${
-                datePickerIsOpen ? 'flip' : ''
-              } no-pointer-events icon`}
-              style={{transition: 'transform 0.2s'}}
+              <span
+                className={` is-size-5-tablet no-outline-focus no-pointer-events`}
+              >
+                {start && end
+                  ? Math.ceil(
+                      moment.duration(moment(end).diff(moment(start))).asDays(),
+                    ) === 1
+                    ? moment(start).format('ddd, MMM Do YYYY')
+                    : `${moment(start).format('ddd, MMM Do YYYY')} - ${moment(
+                        end,
+                      ).format('ddd, MMM Do YYYY')}`
+                  : 'Select a date range'}
+              </span>
+              <span
+                className={`${
+                  datePickerIsOpen ? 'flip' : ''
+                } no-pointer-events icon`}
+                style={{transition: 'transform 0.2s'}}
+              >
+                <DropdownIcon />
+              </span>
+            </div>
+            <div
+              className={` dropdown-menu drop-center has-background-white border-radius`}
+              id='location-dropdown-menu '
+              role='menu'
+              style={{
+                border: '1px solid #21242c',
+                position: 'absolute',
+                top: '32px',
+              }}
             >
-              <DropdownIcon />
-            </span>
+              <SelectedRange
+                refetch={refetch}
+                setStart={setStart}
+                setEnd={setEnd}
+                setEventRange={setEventRange}
+              />
+            </div>
+            {/* end dropdown-menu*/}
           </div>
-          <div
-            className={` dropdown-menu drop-center `}
-            id='location-dropdown-menu '
-            role='menu'
-          ></div>
-          {/* end dropdown-menu*/}
+          <ViewToggle toggleFunc={setShowListView} viewState={useListView} />
         </div>
-        {datePickerIsOpen && (
-          <SelectedRange
-            refetch={refetch}
-            setStart={setStart}
-            setEnd={setEnd}
-            setEventRange={setEventRange}
-          />
-        )}
-        <EventList apolloData={{data, loading, error}} />
+        <EventList
+          apolloData={{data: data && data.events, loading, error}}
+          listView={useListView}
+          setListType={setShowListView}
+        />
       </section>
     </div>
   )
