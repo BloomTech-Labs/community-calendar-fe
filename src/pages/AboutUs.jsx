@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import OurMission from "../components/about-us-helpers/OurMission";
+import Leadership from "../components/about-us-helpers/Leadership";
 
 import {
     banner,
@@ -27,7 +28,7 @@ const AboutUs = () => {
                 <div style={{borderBottom: selectedPage === ourMission ? "1px solid red" : "none"}} onClick={() => setSelectedPage(ourMission)}><span>OUR MISSION</span></div>
                 <div style={{borderBottom: selectedPage === leadership ? "1px solid red" : "none"}} onClick={() => setSelectedPage(leadership)}><span>LEADERSHIP</span></div>
             </div>
-            {selectedPage === ourMission ? <OurMission/> : null}
+            {selectedPage === ourMission ? <OurMission/> : <Leadership/>}
         </div>
     )
 }

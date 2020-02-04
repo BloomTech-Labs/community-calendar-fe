@@ -27,14 +27,6 @@ const OurMission = () => {
             </section>
 
             <section id={section2}>
-                {/* <div className={botDiv}>
-                    <div className={midDiv}>
-                        <div className={topDiv}/>
-                    </div>
-                </div> */}
-                {/* <div className={botDiv}/> */}
-                {/* <div className={midDiv}/>
-                <div className={topDiv}/>  */}
                 <div>
                     <div/>
                 </div>
