@@ -239,14 +239,15 @@ const EventView = ({history}) => {
         {eventImages.length > 0 && (
           <img
             className={`${eventImage}`}
-            // className={`${banner} is-block mx-auto`}
-            // className='mx-auto'
             src={eventImages[0].url}
             alt='banner'
           />
         )}
         <div className={padDivContent}>
-          <h1 className={`${titleH1 } is-family-secondary is-size-1 is-size-4-mobile`} alt={title}>
+          <h1
+            className={`${titleH1} is-family-secondary is-size-1 is-size-4-mobile`}
+            alt={title}
+          >
             {title}
           </h1>
           <p
@@ -335,31 +336,31 @@ const EventView = ({history}) => {
           <div>
             {' '}
             {/* container which separates social links/tags from event info  */}
-            <div className={`columns is-mobile ${horizontalBar}`}>
+            <div className={`columns  ${horizontalBar}`}>
               {/* Host Name, Time, Type */}
               <div className='column has-text-centered-mobile'>
-                <div className={`columns is-mobile ${horizontalBar}`} style={{minWidth: '280px'}}>
+                <div
+                  className={`columns justify-center is-mobile ${horizontalBar}`}
+                >
                   <div
                     className={`${userImage}`}
                     style={{backgroundImage: `url(${creator.profileImage})`}}
                   />
-                  <div>
+                  <div style={{marginLeft: '16px'}}>
                     <p className='color_chalice is-size-6half-mobile'>
                       Hosted By:
                     </p>
-                    <p className='color_chalice is-size-6half-mobile'>
-                      {console.log(creator)}
+                    <p className='color_shark is-size-6half-mobile'>
                       {creator.firstName}
                     </p>
                   </div>
                 </div>
               </div>
-              <div
-                className='column has-text-centered-mobile'
-                style={{paddingLeft: 0}} //remove this style when Hosted By is implemented
-              >
-                <p className='color_chalice is-size-6half-mobile'>Time:</p>
-                <p className='color_shark is-size-6half-mobile has-text-weight-bold'>
+              <div className='column has-text-centered-mobile'>
+                <p className='color_chalice is-size-6half-mobile has-text-centered'>
+                  Time:
+                </p>
+                <p className='color_shark is-size-6half-mobile has-text-weight-bold has-text-centered'>
                   {Math.ceil(
                     moment.duration(moment(end).diff(moment(start))).asDays(),
                   ) === 1
@@ -369,11 +370,11 @@ const EventView = ({history}) => {
                       ).format('MMM Do h:mm a')}`}
                 </p>
               </div>
-              <div className='column has-text-centered-mobile'>
-                <p className='color_chalice is-size-6half-mobile'>
+              <div className='column has-text-centered-mobile '>
+                <p className='color_chalice is-size-6half-mobile has-text-centered'>
                   Ticket Price:
                 </p>
-                <p className='has-text-danger is-size-6half-mobile'>
+                <p className='has-text-danger is-size-6half-mobile has-text-centered'>
                   {ticketPrice ? '$' + ticketPrice.toFixed(2) : 'FREE'}
                 </p>
               </div>
@@ -406,7 +407,9 @@ const EventView = ({history}) => {
                   </span>
                 )}
               </div>
-              <p className={`${descriptionText} is-size-7-mobile`}>{description}</p>
+              <p className={`${descriptionText} is-size-7-mobile`}>
+                {description}
+              </p>
               {cacheUserId.userId && (
                 <button
                   className={`button  level ${
