@@ -2,11 +2,13 @@ import React, {useState, useRef, useEffect} from 'react'
 import LoadingDots from '../loading/LoadingDots'
 
 import {
+  tagWrapper,
   tagDisplayClass,
   suggestedTags,
   tagClass,
   removeTagBtn,
   tagNameClass,
+  filter,
 } from './styles/TagInput.module.scss'
 
 //graphql
@@ -19,6 +21,7 @@ const TagInput = ({
   setFilterTags,
   qsFilters,
   filterAddress,
+  filterMenu,
 }) => {
   const {data, loading, error} = useQuery(GET_ALL_TAGS)
 
@@ -174,7 +177,7 @@ const TagInput = ({
   }
 
   return (
-    <div onFocus={showTags} onKeyDown={handleKeyDown}>
+    <div onFocus={showTags} onKeyDown={handleKeyDown} className={tagWrapper}>
       {/* where selected tags are displayed */}
       <div className={tagDisplayClass}>
         {selectedTags.map((tagName, idx) => (
@@ -195,11 +198,13 @@ const TagInput = ({
         ref={tagInputRef}
         value={tagInput}
         placeholder='Enter tags'
-        className='is-size-6half no-outline-focus'
+        className={`is-size-6half no-outline-focus ${
+          filterMenu ? 'w-100' : ''
+        }`}
       />
       {/* where suggested tags are displayed */}
       <div
-        className={suggestedTags}
+        className={`${suggestedTags} ${filterMenu ? filter : ''}`}
         ref={suggestedTagsRef}
         style={{visibility: 'hidden'}}
       >

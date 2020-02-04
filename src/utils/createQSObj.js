@@ -1,5 +1,6 @@
 export default function createQSObj(text, filters = null, address = null) {
-  // let qsObj = {index: text}
+  // used to create a flattened object that is passed to buildQS()
+
   let qsObj = {}
   if (text) qsObj.index = text
 
