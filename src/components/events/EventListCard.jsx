@@ -48,26 +48,35 @@ export default function EventListCard(props) {
         />
       )}
       <div className={`${column} ${event_details}`}>
-        <p
+        <div
           data-id='event_location'
           data-testid='event_location'
-          className='has-text-weight-bold color_chalice'
+          className='has-text-weight-bold color_chalice is-flex justify-between'
         >
           {/* display neighborhood if defined, otherwise city */}
-          <span className='is-size-7-mobile is-size-6-tablet is-uppercase'>
-            {location.neighborhood ? location.neighborhood : location.city}
-          </span>
-          {/* display distanceFromUser if defined */}
-          {location && location.distanceFromUser && (
-            <span className={`is-size-7`}>
-              <span className='color_shark'>&nbsp; &#8226; &nbsp;</span>
-              <span
-                className={space_letters}
-              >{`${location.distanceFromUser.toFixed(1)}`}</span>
-              &nbsp;
-              {`${location.distanceUnit === 'miles' ? 'mi' : 'km'} away`}
+          <p className='is-size-7-mobile is-size-6-tablet '>
+            <span className='is-uppercase'>
+              {location.neighborhood ? location.neighborhood : location.city}
             </span>
-          )}
+            {/* display distanceFromUser if defined */}
+            {location && location.distanceFromUser && (
+              <>
+                <span className='color_shark is-size-7 '>
+                  &nbsp; &#8226; &nbsp;
+                </span>
+                <span
+                  className={`${space_letters} is-size-7 has-text-weight-normal`}
+                >
+                  {`${location.distanceFromUser.toFixed(1)}`}
+                  &nbsp;
+                  {`${location.distanceUnit === 'miles' ? 'mi' : 'km'}`}
+                </span>
+                <span className='hidden-xs has-text-weight-normal is-size-7'>
+                  &nbsp;away
+                </span>
+              </>
+            )}
+          </p>
           {Math.ceil(
             moment.duration(moment(item.end).diff(moment(item.start))).asDays(),
           ) === 1 && (
@@ -77,7 +86,7 @@ export default function EventListCard(props) {
               </span>
             </p>
           )}
-        </p>
+        </div>
         <p
           data-id='event_title'
           data-testid='event_title'
