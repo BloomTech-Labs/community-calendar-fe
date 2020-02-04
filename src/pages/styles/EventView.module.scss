@@ -33,25 +33,6 @@
       -webkit-line-clamp: 2;
       hyphens: auto;
     }
-
-    .titleH1[data-alt] {
-      position: relative;
-    }
-    
-    .titleH1[data-alt]:hover::after,
-    .titleH1[data-alt]:focus::after {
-      content: attr(data-alt);
-      position: absolute;
-      left: -7px;
-      top: 0;
-      min-width: 100%;
-      min-height: 100%;
-      background-color: $shark;
-      padding: 10px;
-      color: $white;
-      font-size: 0.5em;
-      z-index: 2;
-    }
   }
 
   .banner {

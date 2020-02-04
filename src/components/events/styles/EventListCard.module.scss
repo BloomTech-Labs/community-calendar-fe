@@ -140,28 +140,6 @@ a.grid-card {
   text-overflow: ellipsis;
 }
 
-.title[data-desc] {
-  position: relative;
-}
-
-.title[data-desc]:hover::after,
-.title[data-desc]:focus::after {
-  content: attr(data-desc);
-  position: absolute;
-  left: -7px;
-  top: -7px;
-  min-width: 100%;
-  background-color: $white;
-  padding: 10px;
-  color: inherit;
-  font-size: 0.65em;
-  z-index: 2;
-}
-
-.zIndex1 {
-  z-index: 3;
-}
-
 .description {
   max-width: 100%;
   word-wrap: break-word;
