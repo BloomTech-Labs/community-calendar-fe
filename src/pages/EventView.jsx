@@ -21,7 +21,7 @@ import {
   RSVP_EVENT,
 } from '../graphql'
 
-import {months, weekDays, buildQS, useDropdown} from '../utils'
+import {months, weekDays, buildQS, createQSObj, useDropdown} from '../utils'
 
 //styles
 import {
@@ -443,7 +443,9 @@ const EventView = ({history}) => {
               {tags &&
                 tags.map(tag => (
                   <Link
-                    to={`/search/${buildQS({index: tag.title})}`}
+                    to={`/search${buildQS(
+                      createQSObj(null, {tags: [tag.title]}),
+                    )}`}
                     className='tag is-small is-white color_shark tag-hover'
                     key={tag.title}
                   >
