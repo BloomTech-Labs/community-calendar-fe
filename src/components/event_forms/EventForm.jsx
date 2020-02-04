@@ -456,11 +456,13 @@ const EventForm = props => {
                       2. If an "update" and the user has added a new image to upload state, preview the new image
                       3. If an "add" and NO image in upload state, show upload icon
                       4. If an "add" and the user has added a new image to upload state, preview the new image */}
-                      {formType === 'update' && !images ? (
-                        <img
+                      {formType === 'update' && !images ? (!(item.eventImages[0] && item.eventImages[0].url) ? (
+                        <UploadIcon />
+                      ) :
+                        (<img
                           src={item.eventImages[0].url}
                           className={imagePreview}
-                        />
+                        />)
                       ) : formType === 'update' && images ? (
                         <img
                           src={URL.createObjectURL(images[0])}
