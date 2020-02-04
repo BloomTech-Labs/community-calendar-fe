@@ -13,7 +13,7 @@ import ViewToggle from 'events/ViewToggle'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_EVENTS_FILTERED, GET_CACHE} from '../graphql'
+import {GET_EVENTS_FILTERED, GET_FEATURED_EVENTS, GET_CACHE} from '../graphql'
 
 /* The first page user's see when opening the app */
 const Home = () => {
@@ -27,6 +27,11 @@ const Home = () => {
   // local cache data
   const client = useApolloClient()
   const {data: localCache} = useQuery(GET_CACHE)
+
+  // FeaturedCarousel data (returns chronological list with few event fields for carousel)
+  const featuredApolloData = useQuery(GET_FEATURED_EVENTS);
+
+  // EventList data (refetches and updates results based on filters and user location)
   const apolloData = useQuery(GET_EVENTS_FILTERED, {
     variables: {
       userLatitude: localCache.userLatitude || undefined,
@@ -47,7 +52,6 @@ const Home = () => {
       },
     },
   })
-
   const {data, loading, error, refetch} = apolloData
   // find distance from user and update events with results if user location changes
   useEffect(() => {
@@ -81,9 +85,9 @@ const Home = () => {
   return (
     <div className='page-wrapper'>
       {/* Featured Events carousel */}
-      {data && data.events.length > 0 ? (
+      {featuredApolloData.data && featuredApolloData.data.events.length > 0 ? (
         <>
-          <FeatCarousel apolloData={apolloData} />
+          <FeatCarousel apolloData={featuredApolloData} />
           <div className='content-divider-x'></div>
         </>
       ) : null}
