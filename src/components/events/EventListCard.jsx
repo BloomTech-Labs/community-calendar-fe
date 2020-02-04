@@ -54,13 +54,13 @@ export default function EventListCard(props) {
           className='has-text-weight-bold color_chalice'
         >
           {/* display neighborhood if defined, otherwise city */}
-          <span className='is-size-6 is-uppercase'>
+          <span className='is-size-7-mobile is-size-6-tablet is-uppercase'>
             {location.neighborhood ? location.neighborhood : location.city}
           </span>
           {/* display distanceFromUser if defined */}
           {location && location.distanceFromUser && (
             <span className={`is-size-7`}>
-              &nbsp; &#8226; &nbsp;
+              <span className='color_shark'>&nbsp; &#8226; &nbsp;</span>
               <span
                 className={space_letters}
               >{`${location.distanceFromUser.toFixed(1)}`}</span>
@@ -68,11 +68,20 @@ export default function EventListCard(props) {
               {`${location.distanceUnit === 'miles' ? 'mi' : 'km'} away`}
             </span>
           )}
+          {Math.ceil(
+            moment.duration(moment(item.end).diff(moment(item.start))).asDays(),
+          ) === 1 && (
+            <p className='is-hidden-tablet is-size-6-tablet is-size-7-mobile is-inline-block'>
+              <span data-id='event_time_mobile' className='color_chalice'>
+                {`${moment(item.start).format('ll')}`}
+              </span>
+            </p>
+          )}
         </p>
         <p
           data-id='event_title'
           data-testid='event_title'
-          className={`is-size-5 has-text-weight-bold color_black ${title} ${
+          className={`is-size-5-tablet is-size-6-mobile has-text-weight-bold color_black ${title} ${
             !useListView ? tileTitle : ''
           }`}
         >
@@ -81,14 +90,14 @@ export default function EventListCard(props) {
         {Math.ceil(
           moment.duration(moment(item.end).diff(moment(item.start))).asDays(),
         ) === 1 && (
-          <p className='is-size-6'>
+          <p className='is-hidden-mobile is-size-6-tablet is-size-7-mobile'>
             <span data-id='event_time' className='color_chalice'>
               {`${moment(item.start).format('ddd, MMMM Do YYYY')}`}
             </span>
           </p>
         )}
-        <p className='is-size-6'>
-          <span data-id='event_time' className='color_chalice'>
+        <p className='is-size-6-tablet is-size-7-mobile '>
+          <span data-id='event_time' className='color_chalice hidden-xs'>
             {Math.ceil(
               moment
                 .duration(moment(item.end).diff(moment(item.start)))
@@ -101,11 +110,10 @@ export default function EventListCard(props) {
                   item.end,
                 ).format('MMM Do YYYY h:mm a')}`}
           </span>
-          {/* &nbsp; */}
-          {/* <span>&#8226;</span> */}
-          {/* &nbsp; */}
-          <span className='color_chalice is-hidden-mobile'>
-            <span className='color_shark'>&nbsp;&#8226;&nbsp;</span>
+          <span className='color_chalice hidden-xs'>
+            <span className='color_shark is-size-6-tablet hidden-xs'>
+              &nbsp;&#8226;&nbsp;
+            </span>
             {item.ticketPrice ? `$${item.ticketPrice}` : 'FREE'}
           </span>
         </p>

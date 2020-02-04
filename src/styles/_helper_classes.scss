@@ -18,6 +18,18 @@
   color: $iconLight;
 }
 
+// ===== Media Query Breakpoints =====
+.visible-xs-up {
+  @include mobile-xs-up {
+    display: block;
+  }
+}
+
+.hidden-xs {
+  @include mobile-xs-only {
+    display: none !important;
+  }
+}
 // ===== Palette =====
 
 // is-size-5 resolves to 20px, is-size-6 resolves to 16px, is-size-7 resolves to 12px
