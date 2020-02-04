@@ -1,0 +1,44 @@
+.container {
+    // position: absolute;
+    // top: 0;
+}
+
+//div containing "our mission" and "leadership" buttons
+.buttonContainer {
+    width: 80%;
+    margin: 0 auto;
+
+    :hover {
+        cursor: pointer;
+    }
+
+    div {
+        width: 50%;
+        height: 5rem;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            display: inline-block;
+        }
+    }
+}
+
+.banner {
+    width: 100%;
+    height: 22rem;
+    background-image: url('../../assets/images/wooden-pawn-figurine.jpg'); 
+    background-size: 100% 50rem;
+    -webkit-background-size: 100% 50rem;
+    -moz-background-size: 100% 50rem;
+    -o-background-size: 100% 50rem;
+    background-position-y: -15rem;
+    padding-top: 9rem;
+
+    h1 {
+        text-align: center;
+        color: white;
+        font-size: 3.1rem;
+    }
+}
