@@ -18,7 +18,7 @@ import {
   title,
   description,
   tileTitle,
-  dont_break_out
+  zIndex1,
 } from './styles/EventListCard.module.scss'
 
 /* 
@@ -49,7 +49,7 @@ export default function EventListCard(props) {
         <p
           data-id='event_location'
           data-testid='event_location'
-          className='has-text-weight-bold color_chalice'
+          className={`${zIndex1} has-text-weight-bold color_chalice`}
         >
           {/* display neighborhood if defined, otherwise city */}
           <span className='is-size-6 is-uppercase'>
@@ -71,6 +71,7 @@ export default function EventListCard(props) {
           data-id='event_title'
           data-testid='event_title'
           className={`is-size-5 has-text-weight-bold color_black ${title} ${!useListView ? tileTitle : ''}`}
+          data-desc={`${item.title}`}
         >
           {item.title}
         </p>
