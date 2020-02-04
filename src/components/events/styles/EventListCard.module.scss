@@ -5,10 +5,11 @@
 
 a.list-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-top: $gap-md * 2 !important;
   border-radius: $radius-small;
   width: 100%;
+  overflow: hidden;
   color: inherit;
   @include is-clickable;
   @include hover-shadow;
@@ -18,24 +19,31 @@ a.list-card {
   }
 
   @include tablet {
-    flex-direction: row;
   }
 
   .event_image {
-    width: 194px;
-    height: 194px;
+    width: 70px;
+    height: 70px;
     object-fit: cover;
     border-radius: $radius-small;
-    @include mx-auto;
+
+    @include mobile-xs-to-tablet {
+      width: 100px;
+      height: 100px;
+    }
+
     @include tablet {
+      width: 194px;
+      height: 194px;
       margin-top: 0 !important;
     }
   }
 
   .event_details {
-    margin-top: $gap-md;
     position: relative;
-    max-width: calc(100% - 252px);
+    margin: {
+      left: $gap-xxs;
+    }
 
     @include tablet {
       margin: {

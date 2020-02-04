@@ -18,8 +18,10 @@ import {
   title,
   description,
   tileTitle,
-  dont_break_out
+  dont_break_out,
 } from './styles/EventListCard.module.scss'
+
+import {TimeIcon, CalendarIcon} from 'icons'
 
 /* 
 The cards shown on the EventList component.
@@ -70,7 +72,9 @@ export default function EventListCard(props) {
         <p
           data-id='event_title'
           data-testid='event_title'
-          className={`is-size-5 has-text-weight-bold color_black ${title} ${!useListView ? tileTitle : ''}`}
+          className={`is-size-5 has-text-weight-bold color_black ${title} ${
+            !useListView ? tileTitle : ''
+          }`}
         >
           {item.title}
         </p>
@@ -97,10 +101,11 @@ export default function EventListCard(props) {
                   item.end,
                 ).format('MMM Do YYYY h:mm a')}`}
           </span>
-          &nbsp;
-          <span>&#8226;</span>
-          &nbsp;
-          <span className='color_chalice'>
+          {/* &nbsp; */}
+          {/* <span>&#8226;</span> */}
+          {/* &nbsp; */}
+          <span className='color_chalice is-hidden-mobile'>
+            <span className='color_shark'>&nbsp;&#8226;&nbsp;</span>
             {item.ticketPrice ? `$${item.ticketPrice}` : 'FREE'}
           </span>
         </p>

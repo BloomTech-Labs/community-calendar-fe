@@ -9,9 +9,11 @@ import ShareIcon from './ShareIcon'
 import SearchIcon from './SearchIcon'
 import MapMarkerCircle from './MapMarkerCircle'
 import UploadIcon from './UploadIcon'
+import TimeIcon from './TimeIcon'
 import FilterIcon from './FilterIcon'
 import CloseIconSquare from './CloseIconSquare'
 import CheckmarkIcon from './CheckmarkIcon'
+import CalendarIcon from './CalendarIcon'
 
 export {
   ArrowIcon,
@@ -25,7 +27,9 @@ export {
   DropdownIcon,
   MapMarkerCircle,
   UploadIcon,
-  FilterIcon,
+  TimeIcon,
   CloseIconSquare,
   CheckmarkIcon,
+  CalendarIcon,
+  FilterIcon,
 }

@@ -109,8 +109,8 @@
   @include mx-auto;
   max-width: $container-width;
   padding: {
-    left: $gap-md;
-    right: $gap-md;
+    left: $gap-xxs;
+    right: $gap-xxs;
   }
 
   @include tablet-up {
