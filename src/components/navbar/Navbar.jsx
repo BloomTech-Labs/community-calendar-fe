@@ -233,16 +233,16 @@ export default function Navbar() {
                   Create Event
                 </button>
               </Link>
-              {/*  
+               
               <Link
-                to='#'
+                to={'/myprofile'}
                 role='button'
                 className={` is-hidden-tablet  is-flex has-text-centered ${navButton} no-outline-focus`}
                 onClick={() => setNavMenuIsOpen(false)}
               >
-                Profile
+                My Profile
               </Link>
- */}
+
               <div
                 role='button'
                 className={` is-hidden-tablet  is-flex has-text-centered ${navButton} is-clickable no-outline-focus`}
@@ -284,7 +284,7 @@ export default function Navbar() {
                       to='/myprofile'
                       className='dropdown-item is-clickable'
                     >
-                      My profile
+                      My Profile
                     </Link>
                     <div
                       className='dropdown-item is-clickable'
