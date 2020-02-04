@@ -168,11 +168,13 @@ a.grid-card {
 }
 
 .descriptionFade {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3rem;
-  background: rgba(255, 0, 0, 0);
-  background: linear-gradient(180deg, rgba(255, 0, 0, 0) 20%, #ffffff 100%);
+  @include mobile-xs-up {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3rem;
+    background: rgba(255, 0, 0, 0);
+    background: linear-gradient(180deg, rgba(255, 0, 0, 0) 20%, #ffffff 100%);
+  }
 }
