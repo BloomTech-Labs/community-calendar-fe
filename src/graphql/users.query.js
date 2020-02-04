@@ -7,3 +7,11 @@ export const GET_USERS = gql`
     }
   }
 `
+
+export const GET_USER_PICTURE = gql`
+  query{
+    user{
+      profileImage
+    }
+  }
+`

@@ -6,7 +6,7 @@ import UserProfile from '../components/user_profile/UserProfile'
 
 
 const UserProfilePage = () => {
-  return <UserProfile />
+  return <UserProfile/>
 }
 
 export default UserProfilePage

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import EventListCard from '../events/EventListCard'
+import EventList from '../events/EventList'
 
 import {
   userEvents,
@@ -13,48 +13,43 @@ import {
   userEventCards
 } from './UserProfile.module.scss'
 
-import {useLazyQuery, useQuery, useApolloClient} from '@apollo/react-hooks'
-import {
-  GET_USER_ATTENDING,
-  GET_USER_CREATED,
-  GET_USER_SAVED
-} from '../../graphql'
-
-
-
-
-const UserEvents = () => {
+const UserEvents = ({created, attending, saved, loading, error}) => {
 
   const [activeTab, setActiveTab] = useState('1');
-  const {data: attendingData, loading: attendingLoading, error: attendingError, refetch: attendingRefetch} = useQuery(GET_USER_ATTENDING, {variables: {useLocation: false, userLatitude: undefined, userLongitude: undefined}})
-  const {data: createdData, loading: createdLoading, error: createdError, refetch: createdRefetch} = useLazyQuery(GET_USER_CREATED, {variables: {useLocation: false, userLatitude: undefined, userLongitude: undefined}})
-  const {data: savedData, loading: savedLoading, error: savedError, refetch: savedRefetch} = useLazyQuery(GET_USER_SAVED, {variables: {useLocation: false, userLatitude: undefined, userLongitude: undefined}})
-  
+ 
   // replace switch statement with following commented-out function
   const tabContentSwitch = (tabIndex) => {
     switch(tabIndex) {
       case '1':
         return (
         <div className={`1 ${userEventCards}`}>
-            Attending
+            {(attending && attending.length) ? (
+              <EventList apolloData={{data: attending, loading, error}}/>
+            ) : (<p>You are not currently RSVP'd to any events.</p>)}
           </div>
           );
       case '2':
         return (
         <div className={`2 ${userEventCards}`}>
-          Saved
+          {(saved && saved.length) ? (
+              <EventList apolloData={{data: saved, loading, error}}/>
+            ) : (<p>You have not saved any events yet.</p>)}
         </div>
         );
       case '3':
         return (
         <div className={`3 ${userEventCards}`}>
-          Created
+          {(created && created.length) ? (
+              <EventList apolloData={{data: created, loading, error}}/>
+            ) : (<p>You have not created any events yet.</p>)}
         </div>
         );
       default:
         return (
         <div className={`1 ${userEventCards}`}>
-
+          {(attending && attending.length) ? (
+            <EventList apolloData={{data: attending, loading, error}}/>
+            ) : (<p>You are not currently RSVP'd to any events.</p>)}
         </div>
         );
     }
@@ -73,19 +68,16 @@ const UserEvents = () => {
         <div className={`${userEventTabs} tabs is-centered`}>
           <ul className={userEventTabsUl}>
             <li className={activeTab == '1' ? `is-active ${userEventTab}` : userEventTab} onClick={() => {
-              attendingRefetch()
               setActiveTab('1')
               }}>
               <a className={userEventTabAnchor}>Attending</a>
             </li>
             <li className={activeTab == '2' ? `is-active ${userEventTab}` : userEventTab} onClick={() => {
-              savedRefetch()
               setActiveTab('2')
               }}>
               <a className={userEventTabAnchor}>Saved</a>
             </li>
             <li className={activeTab == '3' ? `is-active ${userEventTab}` : userEventTab} onClick={() => {
-              createdRefetch()
               setActiveTab('3')
             }}>
               <a className={userEventTabAnchor}>Created</a>

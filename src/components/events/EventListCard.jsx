@@ -15,6 +15,10 @@ import {
   space_letters,
   event_image,
   descriptionUnderline,
+  title,
+  description,
+  tileTitle,
+  dont_break_out
 } from './styles/EventListCard.module.scss'
 
 /* 
@@ -35,7 +39,7 @@ export default function EventListCard(props) {
       className={useListView ? `${listCard}  ${columns}` : gridCard}
       to={`/events/${item.id}`}
     >
-      {item.eventImages.length > 0 && (
+      {item.eventImages && item.eventImages.length > 0 && (
         <img
           src={item.eventImages[0].url}
           className={(column, isNarrow, event_image)}
@@ -66,7 +70,7 @@ export default function EventListCard(props) {
         <p
           data-id='event_title'
           data-testid='event_title'
-          className='is-size-5 has-text-weight-bold color_black'
+          className={`is-size-5 has-text-weight-bold color_black ${title} ${!useListView ? tileTitle : ''}`}
         >
           {item.title}
         </p>
@@ -103,7 +107,7 @@ export default function EventListCard(props) {
         <p
           data-id='event_description'
           data-testid='event_description'
-          className={`${eventDescription} is-size-7 color_black is-hidden-mobile`}
+          className={`${eventDescription} ${description} is-size-7 color_black is-hidden-mobile`}
         >
           {item.description}
         </p>

@@ -54,5 +54,10 @@ export const typeDefs = gql`
     userId: String
     recentSearches: [RecentSearches!]
     currentFilters: CurrentFilters
+    profileImage: String!
+  }
+
+  extend type Mutation {
+    updateProfileImage(url: String!): ProfileImage
   }
 `

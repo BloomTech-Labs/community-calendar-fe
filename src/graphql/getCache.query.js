@@ -53,3 +53,9 @@ export const GET_CURRENT_FILTERS = gql`
     }
   }
 `
+
+export const GET_USER_PICTURE_FROM_CACHE = gql `
+  query GetUserProfileImage {
+    profileImage @client
+  }
+`

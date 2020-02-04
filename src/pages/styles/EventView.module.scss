@@ -11,6 +11,23 @@
 
   .padContent {
     padding: $gap-xxs;
+
+  }
+
+  .padDivContent{
+    padding: $gap-xxs;
+    max-width: calc(100% - 520px);
+
+    .titleH1 {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      hyphens: auto;
+
+    }
   }
 
   .banner {
@@ -127,6 +144,9 @@
 
   .descriptionText {
     padding-bottom: 0;
+    width: 100%;
+    word-wrap: break-word;
+    hyphens: auto;
   }
 
   .socialOptions {
@@ -154,9 +174,10 @@
   .userImage {
     width: 50px !important;
     height: 50px !important;
-    margin: 0 1rem;;
+    
     border-radius: 50%;
     background: no-repeat;
+    background-size: cover;
     background-position: center;
     
   }
