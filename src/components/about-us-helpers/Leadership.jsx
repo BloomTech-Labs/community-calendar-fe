@@ -27,16 +27,12 @@ const Leadership = () => {
     return (
         <div id={container}>
             <section id={section1}>
-                {/* <div> */}
-                    <h2 className="is-bold is-size-3 is-family-secondary">
-                        OUR<br/>LEADERSHIP
-                    </h2>
-                {/* </div> */}
-                {/* <div> */}
-                    <p>
-                        Our strength stems from individuality of the team that collides with great communication and deliverence.
-                    </p>
-                {/* </div> */}
+                <h2 className="is-bold is-size-3 is-family-secondary">
+                    OUR<br/>LEADERSHIP
+                </h2>
+                <p>
+                    Our strength stems from individuality of the team that collides with great communication and deliverence.
+                </p>
             </section>
             <section id={section2}>
                 <div id={bgSquare1}/>
