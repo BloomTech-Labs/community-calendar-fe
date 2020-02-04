@@ -552,6 +552,7 @@ const FilterMenu = props => {
                 qsFilters={qsFilters}
                 setFilterTags={setFilterTags}
                 filterAddress={filterAddress}
+                filterMenu
               />
             </div>
           </div>
@@ -596,6 +597,7 @@ const FilterMenu = props => {
             position: 'relative',
             height: `${priceIsOpen ? 'initial' : 0}`,
             paddingTop: 0,
+            zIndex: 0,
           }}
         >
           <div

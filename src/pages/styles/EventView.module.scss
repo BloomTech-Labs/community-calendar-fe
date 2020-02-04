@@ -7,16 +7,22 @@
     width: 20rem;
     height: auto;
     object-fit: cover;
+    align-self: center;
+
+    @include tablet {
+      align-self: stretch;
+    }
   }
 
   .padContent {
     padding: $gap-xxs;
-
+    @include tablet {
+      padding: 0;
+    }
   }
 
-  .padDivContent{
+  .padDivContent {
     padding: $gap-xxs;
-    max-width: calc(100% - 520px);
 
     .titleH1 {
       width: 100%;
@@ -26,7 +32,6 @@
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       hyphens: auto;
-
     }
   }
 
@@ -174,11 +179,10 @@
   .userImage {
     width: 50px !important;
     height: 50px !important;
-    
+
     border-radius: 50%;
     background: no-repeat;
     background-size: cover;
     background-position: center;
-    
   }
 }
