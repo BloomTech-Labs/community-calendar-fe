@@ -8,7 +8,7 @@
 .navbar {
   display: flex;
   flex-direction: column;
-  padding: 0 $gap-sm;
+  padding: 0 $gap-xxs;
   border-bottom: 2px solid $black-bis;
   margin-top: 0 !important;
 
@@ -23,7 +23,7 @@
   }
 
   @include tablet-up {
-    padding: 0 $bodyPaddingX-hd;
+    padding: 0 $gap;
     flex-direction: row;
     height: 72px;
   }
@@ -72,8 +72,10 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    max-width: calc(100vw - 16px);
     @include tablet {
       width: max-content;
+      max-width: calc(100vw - 64px);
     }
   }
 

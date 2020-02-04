@@ -93,7 +93,10 @@ const RecentSearches = ({
                 }}
                 className='has-text-link is-clickable'
               >
-                {`${search.index}${filterCount ? `(${filterCount})` : ''}`}
+                {/* display an asterisk if search.index is undefined */}
+                {`${search.index ? search.index : '*'}${
+                  filterCount ? `(${filterCount})` : ''
+                }`}
                 {ind !== recentSearches.length - 1 && ', '}
               </span>
             )

@@ -41,12 +41,9 @@ const SearchResults = ({history}) => {
     setRecentSearches,
     newSearch,
   ) {
-    //only update search history if there is an index word.
-    if (newSearch.index) {
-      recentSearches.length > 3
-        ? setRecentSearches([...recentSearches.slice(1, 4), newSearch])
-        : setRecentSearches([...recentSearches, newSearch])
-    }
+    recentSearches.length > 3
+      ? setRecentSearches([...recentSearches.slice(1, 4), newSearch])
+      : setRecentSearches([...recentSearches, newSearch])
   }
 
   //filter component states  START
@@ -211,21 +208,19 @@ const SearchResults = ({history}) => {
           initialText={indexText}
           address={filterAddress}
         />
-        {recentSearches[0].index && (
-          <RecentSearches
-            recentSearches={recentSearches}
-            setRecentSearches={setRecentSearches}
-            setRecentSearchesLimited={setRecentSearchesLimited}
-            setTags={setTags}
-            setLocation={setLocation}
-            setDateRange={setDateRange}
-            setPrice010={setPrice010}
-            setPrice1020={setPrice1020}
-            setPrice2040={setPrice2040}
-            setPrice4080={setPrice4080}
-            setPrice80={setPrice80}
-          />
-        )}
+        <RecentSearches
+          recentSearches={recentSearches}
+          setRecentSearches={setRecentSearches}
+          setRecentSearchesLimited={setRecentSearchesLimited}
+          setTags={setTags}
+          setLocation={setLocation}
+          setDateRange={setDateRange}
+          setPrice010={setPrice010}
+          setPrice1020={setPrice1020}
+          setPrice2040={setPrice2040}
+          setPrice4080={setPrice4080}
+          setPrice80={setPrice80}
+        />
         <div className='is-flex level justify-between is-dark '>
           <h3
             className={`is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis ${pageTitle}`}
