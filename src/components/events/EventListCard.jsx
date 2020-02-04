@@ -134,7 +134,9 @@ export default function EventListCard(props) {
         >
           {item.description}
         </p>
-        <div className={descriptionFade}></div>
+        <div
+          className={`${descriptionFade} ${useListView ? '' : 'd-none'}`}
+        ></div>
         <div className={descriptionUnderline}></div>
       </div>
     </Link>
