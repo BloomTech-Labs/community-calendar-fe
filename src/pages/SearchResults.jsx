@@ -20,7 +20,7 @@ import {
   filtersEventsWrap,
   pageTitle,
   hiddenMenu,
-  gobackpadding,
+  gobackPadding,
 } from './styles/SearchResults.module.scss'
 
 import GoBack from 'go_back/GoBack'
@@ -123,7 +123,7 @@ const SearchResults = ({history}) => {
             : undefined,
         index: qsFilters.index,
       },
-    }, 
+    },
   })
 
   // used to set cards to list or grid
@@ -197,8 +197,8 @@ const SearchResults = ({history}) => {
 
   return (
     <div className='page-wrapper'>
-      <GoBack />
-      <section className='section mobile-section'>
+      <GoBack isSearchPage />
+      <section className={`section mobile-section ${gobackPadding}`}>
         <Searchbar
           isLarge
           filters={qsFilters}

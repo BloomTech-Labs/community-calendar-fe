@@ -26,9 +26,7 @@
 }
 
 .gobackPadding {
-  padding-top: 36px !important;
-
-  @include tablet {
-    padding-top: 36px !important;
+  @include mobile {
+    margin-top: 24px !important;
   }
 }
