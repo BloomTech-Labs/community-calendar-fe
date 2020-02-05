@@ -6,12 +6,13 @@ import {
     container,
     section1,
     section2,
+    card
 } from "./Leadership.module.scss";
 
 const teamMembers =[
     {name: "Skyler Dowdy", role: "Team Lead", imagePath: require(`../../assets/images/team-members/skyler.jpg`).default},
     {name: "Jan Patrick Eliares", role: "UX/UI Designer", imagePath: require(`../../assets/images/team-members/jp.png`).default},
-    {name: "Nora Barazanchi", role: "UX/UI Designer", imagePath: require(`../../assets/images/team-members/placeholder.jpg`).default},
+    {name: "Nora Barazanchi", role: "UX/UI Designer", imagePath: ""},
     {name: "Louis Gelinas", role: "Engineer", imagePath: require(`../../assets/images/team-members/louis.jpg`).default},
     {name: "Mark King", role: "Engineer", imagePath: require(`../../assets/images/team-members/mark.jpg`).default},
     {name: "Westley Strellis", role: "Engineer", imagePath: require(`../../assets/images/team-members/westley.png`).default},
@@ -42,8 +43,8 @@ const Leadership = () => {
 
                 {
                    teamMembers.map(member => 
-                        <div>
-                            <img src={member.imagePath}/>
+                        <div className={card}>
+                            {member.imagePath.length > 0 ? <img src={member.imagePath}/> : <div/>}
                             <p className="color_black is-bold is-family-secondary">{member.name}</p>
                             <p className="color_chalice">{member.role}</p>
                         </div>
