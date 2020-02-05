@@ -133,7 +133,7 @@
             border: solid $bittersweet;
             background-size: cover;
             background-repeat: no-repeat;
-            background-position: 50% 50%;
+            background-position: 50% 50% !important;
             width: 175px;
             height: 175px;
             @include mobile-xs-to-tablet {
