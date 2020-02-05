@@ -253,7 +253,14 @@ export default function Navbar() {
               >
                 Log Out
               </div>
-              
+              <Link
+                to='/about-us'
+                role='button'
+                className={`has-text-centered is-size-5-tablet ${navButton} no-outline-focus`}
+                onClick={() => setNavMenuIsOpen(false)}
+              >
+                About
+              </Link>
               <div
                 className={`dropdown is-right is-hidden-mobile is-clickable`}
               >
@@ -315,16 +322,16 @@ export default function Navbar() {
               >
                 Sign Up
               </button>
+              <Link
+                to='/about-us'
+                role='button'
+                className={`has-text-centered is-size-5-tablet ${navButton} no-outline-focus`}
+                onClick={() => setNavMenuIsOpen(false)}
+              >
+                About
+              </Link>
             </>
           )}
-          <Link
-            to='/about-us'
-            role='button'
-            className={`has-text-centered is-size-5-tablet ${navButton} no-outline-focus`}
-            onClick={() => setNavMenuIsOpen(false)}
-          >
-            About
-          </Link>
         </div>
         {/* navbar-end */}
       </div>
