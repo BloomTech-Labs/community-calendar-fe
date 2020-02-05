@@ -70,6 +70,7 @@
       }
 
       .imageInput {
+        margin-top: 17px;
         opacity: 0;
         pointer-events: none;
         width: 1px;
@@ -132,7 +133,7 @@
             border: solid $bittersweet;
             background-size: cover;
             background-repeat: no-repeat;
-            background-position: 50% 50%;
+            background-position: 50% 50% !important;
             width: 175px;
             height: 175px;
             @include mobile-xs-to-tablet {

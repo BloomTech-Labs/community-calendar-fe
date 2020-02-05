@@ -378,16 +378,22 @@ const EventView = ({history}) => {
                   {ticketPrice ? '$' + ticketPrice.toFixed(2) : 'FREE'}
                 </p>
               </div>
-              {attendees > 0 && (
                 <div className='column has-text-centered-mobile'>
-                  <p className='color_chalice is-size-6half-mobile has-text-centered'>
-                    Attending:
-                  </p>
-                  <p className='is-size-6half-mobile has-text-centered'>
-                    {attendees}
-                  </p>
+                  {attendees === 0 ? (
+                    <p style={{ color: '#ffffff' }} className='color_chalice is-size-6half-mobile has-text-centered'>
+                      Attending:
+                    </p>
+                  ) : (
+                    <p className='color_chalice is-size-6half-mobile has-text-centered'>
+                      Attending:
+                    </p>
+                  )}
+                  {attendees > 0 && (
+                    <p className='is-size-6half-mobile has-text-centered'>
+                      {attendees}
+                    </p>
+                  )}
                 </div>
-              )}
             </div>
             <div className={descriptionDiv}>
               <div className={`${row}`}>
