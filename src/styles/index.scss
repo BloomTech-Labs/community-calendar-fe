@@ -15,11 +15,29 @@ bulma or the classes will be duplicated in the output
 
 @import '~bulma/sass/base/generic.sass';
 @import '~bulma/sass/base/helpers.sass';
-@import '~bulma/sass/elements/_all.sass';
-@import '~bulma/sass/components/_all.sass';
-@import '~bulma/sass/form/_all.sass';
-@import '~bulma/sass/grid/_all.sass';
-@import '~bulma/sass/layout/_all.sass';
+// @import '~bulma/sass/elements/_all.sass';
+@import '~bulma/sass/elements/button.sass';
+@import '~bulma/sass/elements/container.sass';
+@import '~bulma/sass/elements/icon.sass';
+@import '~bulma/sass/elements/image.sass';
+@import '~bulma/sass/elements/tag.sass';
+@import '~bulma/sass/elements/title.sass';
+// @import '~bulma/sass/components/_all.sass';
+@import '~bulma/sass/components/dropdown.sass';
+@import '~bulma/sass/components/modal.sass';
+@import '~bulma/sass/components/navbar.sass';
+@import '~bulma/sass/components/card.sass';
+@import '~bulma/sass/components/tabs.sass';
+@import '~bulma/sass/components/level.sass';
+// @import '~bulma/sass/form/_all.sass';
+@import '~bulma/sass/form/shared.sass';
+@import '~bulma/sass/form/input-textarea.sass';
+@import '~bulma/sass/form/tools.sass';
+@import '~bulma/sass/form/select.sass';
+// @import '~bulma/sass/grid/_all.sass';
+@import '~bulma/sass/grid/columns.sass';
+// @import '~bulma/sass/layout/_all.sass';
+@import '~bulma/sass/layout/section.sass';
 @import '~react-spring-carousel/src/assets/scss/carousel.scss';
 /* 
 Customizations of Bulma classes
