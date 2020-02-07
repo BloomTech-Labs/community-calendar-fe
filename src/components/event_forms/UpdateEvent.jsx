@@ -1,14 +1,28 @@
 import React from 'react'
 import {useParams} from 'react-router-dom'
 import {Redirect} from 'react-router-dom'
+import loadable from '@loadable/component'
 
 // graphql
 import {useMutation, useQuery} from '@apollo/react-hooks'
 import {GET_EVENT_BY_ID, UPDATE_EVENT, GET_USER_ID} from '../../graphql'
 
 // components
-import EventForm from './EventForm'
 import LoadingLogo from '../loading/LoadingLogo'
+
+const EventForm = loadable(
+  () => import(/* webpackChunkName: "eventForm" */ './EventForm'),
+  {
+    fallback: (
+      <div
+        className='container level is-flex'
+        style={{height: '100vh', width: '100vw'}}
+      >
+        <LoadingLogo />
+      </div>
+    ),
+  },
+)
 
 export default function UpdateEvent({history}) {
   // get event id out of url for query
@@ -45,11 +59,13 @@ export default function UpdateEvent({history}) {
   // create updateEventHandler to pass eventId and loactionId into the mutation
   const updateEventHandler = data => {
     const {variables} = data
-    updateEvent({variables: {
-      eventId: item.id,
-      locationId: item.locations[0].id,
-      ...variables
-    }}).then(res => {
+    updateEvent({
+      variables: {
+        eventId: item.id,
+        locationId: item.locations[0].id,
+        ...variables,
+      },
+    }).then(res => {
       console.log(res)
     })
   }

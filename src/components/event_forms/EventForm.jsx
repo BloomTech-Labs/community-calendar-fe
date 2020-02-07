@@ -4,8 +4,6 @@ import loadable from '@loadable/component'
 
 // form components
 import {useForm, ErrorMessage} from 'react-hook-form'
-// import DateTimePicker from 'react-datetime-picker'
-import Dropzone from 'react-dropzone'
 import TagInput from './TagInput'
 import ErrorModal from './ErrorModal'
 
@@ -46,8 +44,13 @@ import {
 } from './styles/EventForm.module.scss'
 import {date} from 'yup'
 
+/* split react-date-timepicker from the rest of the bundle */
 const DateTimePickerSplit = loadable.lib(() =>
   import(/* webpackChunkName: "reactDatetimePicker" */ 'react-datetime-picker'),
+)
+
+const DropzoneSplit = loadable.lib(() =>
+  import(/* webpackChunkName: "reactDropzone" */ 'react-dropzone'),
 )
 
 const EventForm = props => {
@@ -455,50 +458,56 @@ const EventForm = props => {
                 pointerEvents: 'none',
               }}
             >
-              <Dropzone
-                // If used uploads file, replace the image in state with the new uploaded file
-                onDrop={acceptedFiles => {
-                  acceptedFiles.length ? setImages(acceptedFiles) : null
-                }}
-              >
-                {({getRootProps, getInputProps}) => (
-                  <div className={`${imageUploader} ${flexCenter}`}>
-                    <div
-                      {...getRootProps()}
-                      className={`${uploadContainer} ${flexCenter}`}
-                    >
-                      <input {...getInputProps()} />
-                      {/* Chained ternary is an expression that executes the following logic:
+              <DropzoneSplit fallback={<LoadingDots />}>
+                {({default: Dropzone}) => (
+                  <Dropzone
+                    // If used uploads file, replace the image in state with the new uploaded file
+                    onDrop={acceptedFiles => {
+                      acceptedFiles.length ? setImages(acceptedFiles) : null
+                    }}
+                  >
+                    {({getRootProps, getInputProps}) => (
+                      <div className={`${imageUploader} ${flexCenter}`}>
+                        <div
+                          {...getRootProps()}
+                          className={`${uploadContainer} ${flexCenter}`}
+                        >
+                          <input {...getInputProps()} />
+                          {/* Chained ternary is an expression that executes the following logic:
                       1. If an "update" and NO image in upload state, initially show image from database in preview.
                       2. If an "update" and the user has added a new image to upload state, preview the new image
                       3. If an "add" and NO image in upload state, show upload icon
                       4. If an "add" and the user has added a new image to upload state, preview the new image */}
-                      {formType === 'update' && !images ? (
-                        !(item.eventImages[0] && item.eventImages[0].url) ? (
-                          <UploadIcon />
-                        ) : (
-                          <img
-                            src={item.eventImages[0].url}
-                            className={imagePreview}
-                          />
-                        )
-                      ) : formType === 'update' && images ? (
-                        <img
-                          src={URL.createObjectURL(images[0])}
-                          className={imagePreview}
-                        />
-                      ) : formType === 'add' && !images ? (
-                        <UploadIcon />
-                      ) : (
-                        <img
-                          src={URL.createObjectURL(images[0])}
-                          className={imagePreview}
-                        />
-                      )}
-                    </div>
-                  </div>
+                          {formType === 'update' && !images ? (
+                            !(
+                              item.eventImages[0] && item.eventImages[0].url
+                            ) ? (
+                              <UploadIcon />
+                            ) : (
+                              <img
+                                src={item.eventImages[0].url}
+                                className={imagePreview}
+                              />
+                            )
+                          ) : formType === 'update' && images ? (
+                            <img
+                              src={URL.createObjectURL(images[0])}
+                              className={imagePreview}
+                            />
+                          ) : formType === 'add' && !images ? (
+                            <UploadIcon />
+                          ) : (
+                            <img
+                              src={URL.createObjectURL(images[0])}
+                              className={imagePreview}
+                            />
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </Dropzone>
                 )}
-              </Dropzone>
+              </DropzoneSplit>
             </div>
           </label>
         </div>
