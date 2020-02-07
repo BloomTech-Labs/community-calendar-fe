@@ -45,6 +45,7 @@ export default function EventListCard(props) {
       {item.eventImages && item.eventImages.length > 0 && (
         <img
           src={item.eventImages[0].url}
+          alt={item.title}
           className={(column, isNarrow, event_image)}
         />
       )}

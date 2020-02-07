@@ -240,7 +240,7 @@ const EventView = ({history}) => {
           <img
             className={`${eventImage}`}
             src={eventImages[0].url}
-            alt='banner'
+            alt={title}
           />
         )}
         <div className={padDivContent}>
