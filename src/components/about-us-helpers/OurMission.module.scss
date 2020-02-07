@@ -2,13 +2,32 @@
 
 #section1 {
     display: flex;
+    flex-wrap: wrap;
     width: 80%;
     margin: 0 auto;
     align-items: center;
     padding: 3rem 0;
 
+    @media(max-width: $mobile-xs) {
+        width: 100%;
+
+    }
+
     div {
         width: 50%;
+
+        h2 {
+            width: 1rem;
+        }
+
+        @media(max-width: $mobile-xs) {
+            width: 100%;
+
+            h2 {
+                width: 100%;
+                text-align: center;
+            }
+        }
     }
 }
 

@@ -16,7 +16,7 @@ const OurMission = () => {
             <section id={section1}>
                 <div>
                     <h2 className="is-bold is-size-3 is-family-secondary">
-                        OUR<br/>MISSION
+                        OUR MISSION
                     </h2>
                 </div>
                 <div>

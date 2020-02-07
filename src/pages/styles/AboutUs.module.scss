@@ -1,12 +1,11 @@
-.container {
-    // position: absolute;
-    // top: 0;
-}
+@import "_variables.scss";
+@import "_mixins.scss";
 
 //div containing "our mission" and "leadership" buttons
 .buttonContainer {
     width: 80%;
     margin: 0 auto;
+    
 
     :hover {
         cursor: pointer;
@@ -19,8 +18,28 @@
         justify-content: center;
         align-items: center;
 
+        
+
         span {
             display: inline-block;
+        }
+    }
+
+    @include mobile-xs-only {
+        width: 100%;
+
+        div {
+            width: 100%;
+        }
+    }
+
+    //when "our mission" or "leadership" button was last pressed
+    .buttonSelected {
+        border-bottom: 1px solid red;
+
+        @include mobile-xs-only {
+            border: none;
+            background-color: $chalice;
         }
     }
 }
@@ -35,6 +54,10 @@
     -o-background-size: 100% 50rem;
     background-position-y: -15rem;
     padding-top: 9rem;
+
+    @include mobile-xs-only {
+        display: none;
+    }
 
     h1 {
         text-align: center;
