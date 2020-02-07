@@ -1,15 +1,15 @@
 import React, {useRef, useState, useEffect} from 'react'
 import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link, useLocation} from 'react-router-dom'
-import ReactGA from 'react-ga'
 import gql from 'graphql-tag'
 import navUtils from './navbar_utils'
 import {useDropdown} from '../../utils'
+import loadable from '@loadable/component'
 
 //components
 import {CCLogo, MapMarkerCircle, DropdownIcon} from 'icons'
 import Searchbar from 'searchbar/Searchbar'
-import Geocoder from 'geocoder/Geocoder'
+import LoadingDots from 'loading/LoadingDots'
 
 //styles
 import {
@@ -26,6 +26,17 @@ import {
   GET_USER_PICTURE,
   GET_USER_PICTURE_FROM_CACHE,
 } from '../../graphql'
+
+const Geocoder = loadable(
+  () => import(/* webpackChunkName: "geocoder" */ '../geocoder/Geocoder'),
+  {
+    fallback: (
+      <div className='is-flex justify-center'>
+        <LoadingDots />
+      </div>
+    ),
+  },
+)
 
 export default function Navbar() {
   const pageLocation = useLocation()

@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import * as yup from 'yup'
+import loadable from '@loadable/component'
 
 // form components
 import {useForm, ErrorMessage} from 'react-hook-form'
-import DateTimePicker from 'react-datetime-picker'
-import Dropzone from 'react-dropzone'
 import TagInput from './TagInput'
 import ErrorModal from './ErrorModal'
 
@@ -44,6 +43,15 @@ import {
   desktopEndfield,
 } from './styles/EventForm.module.scss'
 import {date} from 'yup'
+
+/* split react-date-timepicker from the rest of the bundle */
+const DateTimePickerSplit = loadable.lib(() =>
+  import(/* webpackChunkName: "reactDatetimePicker" */ 'react-datetime-picker'),
+)
+
+const DropzoneSplit = loadable.lib(() =>
+  import(/* webpackChunkName: "reactDropzone" */ 'react-dropzone'),
+)
 
 const EventForm = props => {
   /* FORM FUNCTIONS AND DATA:
@@ -138,29 +146,31 @@ const EventForm = props => {
   }
 
   const onTicketPriceChange = () => {
-    const ticketPriceVal = getValues().ticketPrice;
-    const arrTicketPriceVal = ticketPriceVal.split("");
+    const ticketPriceVal = getValues().ticketPrice
+    const arrTicketPriceVal = ticketPriceVal.split('')
 
-    var hasPeriod = false;
+    var hasPeriod = false
 
-    const newTicketPriceVal = 
-        arrTicketPriceVal.filter(letter => {
-          if(letter === ".") {
-            if(hasPeriod)
-              return false;
+    const newTicketPriceVal = arrTicketPriceVal
+      .filter(letter => {
+        if (letter === '.') {
+          if (hasPeriod) return false
 
-            hasPeriod = true;
-          }
-          return /[0-9.]/.test(letter)
+          hasPeriod = true
         }
-      ).join("");
+        return /[0-9.]/.test(letter)
+      })
+      .join('')
 
-    setValue("ticketPrice", newTicketPriceVal);      
+    setValue('ticketPrice', newTicketPriceVal)
   }
 
   const onTicketPriceBlur = () => {
-    const ticketPriceVal = getValues().ticketPrice;
-    setValue("ticketPrice", ticketPriceVal ? parseFloat(getValues().ticketPrice).toFixed(2) : "0.00")
+    const ticketPriceVal = getValues().ticketPrice
+    setValue(
+      'ticketPrice',
+      ticketPriceVal ? parseFloat(getValues().ticketPrice).toFixed(2) : '0.00',
+    )
   }
 
   // submit handler pulls together state from all sources and creates a mutation request
@@ -360,25 +370,33 @@ const EventForm = props => {
           {/* Group 1: Start date/time */}
           <div className='field start-field'>
             <label className='label'>Starts</label>
-            <DateTimePicker
-              onChange={startChange}
-              value={startDatetime}
-              className={picker}
-              disableClock={true}
-              minDate={new Date()}
-            />
+            <DateTimePickerSplit fallback={<LoadingDots />}>
+              {({default: DateTimePicker}) => (
+                <DateTimePicker
+                  onChange={startChange}
+                  value={startDatetime}
+                  className={picker}
+                  disableClock={true}
+                  minDate={new Date()}
+                />
+              )}
+            </DateTimePickerSplit>
           </div>
 
           {/* Group 2: End date/time */}
           <div className={`${desktopEndfield} field`}>
             <label className='label'>Ends</label>
-            <DateTimePicker
-              onChange={endChange}
-              value={endDatetime}
-              className={picker}
-              disableClock={true}
-              minDate={new Date()}
-            />
+            <DateTimePickerSplit fallback={<LoadingDots />}>
+              {({default: DateTimePicker}) => (
+                <DateTimePicker
+                  onChange={endChange}
+                  value={endDatetime}
+                  className={picker}
+                  disableClock={true}
+                  minDate={new Date()}
+                />
+              )}
+            </DateTimePickerSplit>
           </div>
         </div>
 
@@ -407,9 +425,11 @@ const EventForm = props => {
               name='ticketPrice'
               ref={register}
               onBlur={onTicketPriceBlur}
-              onFocus={() => getValues().ticketPrice === "0" && setValue("ticketPrice", "")}
+              onFocus={() =>
+                getValues().ticketPrice === '0' && setValue('ticketPrice', '')
+              }
               onChange={onTicketPriceChange}
-              defaultValue="0"
+              defaultValue='0'
             />
             <p className={`is-size-7 ${errorMessage}`}>
               <ErrorMessage errors={formErrors} name='ticketPrice' />
@@ -438,48 +458,56 @@ const EventForm = props => {
                 pointerEvents: 'none',
               }}
             >
-              <Dropzone
-                // If used uploads file, replace the image in state with the new uploaded file
-                onDrop={acceptedFiles => {
-                  acceptedFiles.length ? setImages(acceptedFiles) : null
-                }}
-              >
-                {({getRootProps, getInputProps}) => (
-                  <div className={`${imageUploader} ${flexCenter}`}>
-                    <div
-                      {...getRootProps()}
-                      className={`${uploadContainer} ${flexCenter}`}
-                    >
-                      <input {...getInputProps()} />
-                      {/* Chained ternary is an expression that executes the following logic:
+              <DropzoneSplit fallback={<LoadingDots />}>
+                {({default: Dropzone}) => (
+                  <Dropzone
+                    // If used uploads file, replace the image in state with the new uploaded file
+                    onDrop={acceptedFiles => {
+                      acceptedFiles.length ? setImages(acceptedFiles) : null
+                    }}
+                  >
+                    {({getRootProps, getInputProps}) => (
+                      <div className={`${imageUploader} ${flexCenter}`}>
+                        <div
+                          {...getRootProps()}
+                          className={`${uploadContainer} ${flexCenter}`}
+                        >
+                          <input {...getInputProps()} />
+                          {/* Chained ternary is an expression that executes the following logic:
                       1. If an "update" and NO image in upload state, initially show image from database in preview.
                       2. If an "update" and the user has added a new image to upload state, preview the new image
                       3. If an "add" and NO image in upload state, show upload icon
                       4. If an "add" and the user has added a new image to upload state, preview the new image */}
-                      {formType === 'update' && !images ? (!(item.eventImages[0] && item.eventImages[0].url) ? (
-                        <UploadIcon />
-                      ) :
-                        (<img
-                          src={item.eventImages[0].url}
-                          className={imagePreview}
-                        />)
-                      ) : formType === 'update' && images ? (
-                        <img
-                          src={URL.createObjectURL(images[0])}
-                          className={imagePreview}
-                        />
-                      ) : formType === 'add' && !images ? (
-                        <UploadIcon />
-                      ) : (
-                        <img
-                          src={URL.createObjectURL(images[0])}
-                          className={imagePreview}
-                        />
-                      )}
-                    </div>
-                  </div>
+                          {formType === 'update' && !images ? (
+                            !(
+                              item.eventImages[0] && item.eventImages[0].url
+                            ) ? (
+                              <UploadIcon />
+                            ) : (
+                              <img
+                                src={item.eventImages[0].url}
+                                className={imagePreview}
+                              />
+                            )
+                          ) : formType === 'update' && images ? (
+                            <img
+                              src={URL.createObjectURL(images[0])}
+                              className={imagePreview}
+                            />
+                          ) : formType === 'add' && !images ? (
+                            <UploadIcon />
+                          ) : (
+                            <img
+                              src={URL.createObjectURL(images[0])}
+                              className={imagePreview}
+                            />
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </Dropzone>
                 )}
-              </Dropzone>
+              </DropzoneSplit>
             </div>
           </label>
         </div>

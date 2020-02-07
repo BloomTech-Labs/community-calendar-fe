@@ -1,6 +1,7 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect} from 'react'
 import ReactGA from 'react-ga'
 import moment from 'moment'
+import loadable from '@loadable/component'
 
 //components
 import EventList from '../components/events/EventList'
@@ -8,12 +9,26 @@ import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
 import FeatCarousel from '../components/featured/FeaturedCarousel'
 import {DropdownIcon} from 'icons'
 import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
-import SelectedRange from '../components/daypicker/selectedRange'
+import LoadingDots from 'loading/LoadingDots'
 import ViewToggle from 'events/ViewToggle'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_EVENTS_FILTERED, GET_FEATURED_EVENTS, GET_CACHE} from '../graphql'
+
+const SelectedRange = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "selectedRange" */ '../components/daypicker/selectedRange'
+    ),
+  {
+    fallback: (
+      <div className='is-flex justify-center'>
+        <LoadingDots />
+      </div>
+    ),
+  },
+)
 
 /* The first page user's see when opening the app */
 const Home = () => {
@@ -29,7 +44,7 @@ const Home = () => {
   const {data: localCache} = useQuery(GET_CACHE)
 
   // FeaturedCarousel data (returns chronological list with few event fields for carousel)
-  const featuredApolloData = useQuery(GET_FEATURED_EVENTS);
+  const featuredApolloData = useQuery(GET_FEATURED_EVENTS)
 
   // EventList data (refetches and updates results based on filters and user location)
   const apolloData = useQuery(GET_EVENTS_FILTERED, {

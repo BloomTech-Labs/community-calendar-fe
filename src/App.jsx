@@ -28,6 +28,7 @@ import AboutUs from './pages/AboutUs'
 import Navbar from 'navbar/Navbar'
 import PrivateRoute from 'private-route/PrivateRoute'
 import {GetUserPosition} from './utils'
+import LoadingLogo from 'loading/LoadingLogo'
 
 function App() {
   const decode = require('jwt-decode') //used to decode access token
@@ -117,18 +118,18 @@ function App() {
       maxDistance: null,
       userId: null,
       recentSearches: null,
-      profileImage: null
+      profileImage: null,
     },
   })
 
   return (
     <ApolloProvider client={client}>
       <GetUserPosition />
-      <Navbar/>
+      <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/create-event' component={CreateEventPage} />
-        <Route path='/myprofile' component={UserProfile}/>
+        <Route path='/myprofile' component={UserProfile} />
         <Route exact path='/events/:id' component={EventView} />
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />
