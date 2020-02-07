@@ -9,12 +9,26 @@ import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
 import FeatCarousel from '../components/featured/FeaturedCarousel'
 import {DropdownIcon} from 'icons'
 import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
-import SelectedRange from '../components/daypicker/selectedRange'
+import LoadingDots from 'loading/LoadingDots'
 import ViewToggle from 'events/ViewToggle'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_EVENTS_FILTERED, GET_FEATURED_EVENTS, GET_CACHE} from '../graphql'
+
+const SelectedRange = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "selectedRange" */ '../components/daypicker/selectedRange'
+    ),
+  {
+    fallback: (
+      <div className='is-flex justify-center'>
+        <LoadingDots />
+      </div>
+    ),
+  },
+)
 
 /* The first page user's see when opening the app */
 const Home = () => {

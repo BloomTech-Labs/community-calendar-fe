@@ -4,13 +4,13 @@ import {useDropdown} from '../../utils'
 import moment from 'moment'
 import {DateRange} from 'moment-range'
 import {useHistory} from 'react-router-dom'
+import loadable from '@loadable/component'
 
 //Components
-import Geocoder from 'geocoder/Geocoder'
 import {FilterIcon, MapMarkerCircle, DropdownIcon} from 'icons'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import TagInput from 'event_forms/TagInput'
-import SelectedRange from 'daypicker/selectedRange'
+import LoadingDots from 'loading/LoadingDots'
 
 //GQL
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
@@ -27,6 +27,31 @@ import {
   datePickerDropdown,
 } from './FilterMenu.module.scss'
 import {locationContent} from 'navbar/Navbar.module.scss'
+
+const SelectedRange = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "selectedRange" */ '../daypicker/selectedRange'
+    ),
+  {
+    fallback: (
+      <div className='is-flex justify-center'>
+        <LoadingDots />
+      </div>
+    ),
+  },
+)
+
+const Geocoder = loadable(
+  () => import(/* webpackChunkName: "geocoder" */ '../geocoder/Geocoder'),
+  {
+    fallback: (
+      <div className='is-flex justify-center'>
+        <LoadingDots />
+      </div>
+    ),
+  },
+)
 
 const FilterMenu = props => {
   const {
@@ -230,7 +255,6 @@ const FilterMenu = props => {
     setPrice4080(false)
     setPrice80(false)
     setIndexText('')
-    // rccHistory.push(`/search${buildQS({index: ''})}`)
     rccHistory.push(`/search`)
   }
   return (
