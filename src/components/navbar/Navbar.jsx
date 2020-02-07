@@ -1,7 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react'
 import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link, useLocation} from 'react-router-dom'
-import ReactGA from 'react-ga'
 import gql from 'graphql-tag'
 import navUtils from './navbar_utils'
 import {useDropdown} from '../../utils'
