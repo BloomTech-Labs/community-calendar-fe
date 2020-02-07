@@ -9,9 +9,10 @@ module.exports = (isDevelopment, path, webpack, envKeys) => ({
     app: './src/index.js',
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[hash].js',
     publicPath: '/',
     path: path.resolve(__dirname, '../', 'public'),
+    chunkFilename: '[name].[hash].js',
   },
   module: {
     rules: [

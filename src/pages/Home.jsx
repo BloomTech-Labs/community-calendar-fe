@@ -1,6 +1,7 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect} from 'react'
 import ReactGA from 'react-ga'
 import moment from 'moment'
+import loadable from '@loadable/component'
 
 //components
 import EventList from '../components/events/EventList'
@@ -29,7 +30,7 @@ const Home = () => {
   const {data: localCache} = useQuery(GET_CACHE)
 
   // FeaturedCarousel data (returns chronological list with few event fields for carousel)
-  const featuredApolloData = useQuery(GET_FEATURED_EVENTS);
+  const featuredApolloData = useQuery(GET_FEATURED_EVENTS)
 
   // EventList data (refetches and updates results based on filters and user location)
   const apolloData = useQuery(GET_EVENTS_FILTERED, {
