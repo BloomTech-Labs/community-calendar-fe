@@ -44,7 +44,7 @@ const DistanceDropdown = (client, userLat, userLong, maxDistance) => {
     >
       <div
         className='dropdown-trigger has-text-centered'
-        style={{width: '100px'}}
+        style={{width: '110px'}}
         aria-haspopup='true'
         aria-controls='dropdown-menu2'
         data-id='distance-trigger'
