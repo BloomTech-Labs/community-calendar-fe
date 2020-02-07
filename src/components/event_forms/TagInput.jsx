@@ -195,6 +195,8 @@ const TagInput = ({
       {/* where tags are searched for */}
       <input
         onChange={handleTagInputChange}
+        aria-haspopup="true"
+        aria-expanded="false"
         ref={tagInputRef}
         value={tagInput}
         placeholder='Enter tags'
@@ -207,12 +209,13 @@ const TagInput = ({
         className={`${suggestedTags} ${filterMenu ? filter : ''}`}
         ref={suggestedTagsRef}
         style={{visibility: 'hidden'}}
+        role="menu"
       >
         {data.tags
           .filter(filterTags)
           .sort()
           .map((tag, idx) => (
-            <p key={idx} onClick={toggleSelectedTag} tabIndex='0'>
+            <p key={idx} onClick={toggleSelectedTag} tabIndex='0' role="menuitem">
               {tag.title}
             </p>
           ))}
