@@ -1,5 +1,4 @@
 name: build
-#Condition - pushes and pulls
     on: [push, pull_request]
     jobs:
       coverage:

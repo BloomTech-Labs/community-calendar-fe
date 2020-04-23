@@ -9,7 +9,16 @@
     "format": "prettier --write \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" ",
     "lint": "eslint \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" --quiet",
     "test": "jest --passWithNoTests",
-    "test:watch": "jest --watch --passWithNoTests"
+    "test:watch": "jest --watch --passWithNoTests",
+    "coverage": "CI=true npm test --coverage --watchAll=false || true"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/__tests__/**"
+    ]
   },
   "keywords": [],
   "author": "",
