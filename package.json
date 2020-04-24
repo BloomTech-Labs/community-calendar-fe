@@ -10,7 +10,7 @@
     "lint": "eslint \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" --quiet",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",
-    "coverage": "CI=true npm test --coverage --watchAll=false || true"
+    "coverage": "CI=true yarn test --coverage --watchAll=false || true"
   },
   "jest": {
     "collectCoverageFrom": [
