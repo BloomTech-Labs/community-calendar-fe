@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import ReactGA from 'react-ga'
 import moment from 'moment'
 import loadable from '@loadable/component'
 
@@ -36,8 +35,6 @@ const Home = () => {
   const [eventRange, setEventRange] = useState('ALL')
   const [start, setStart] = useState(undefined)
   const [end, setEnd] = useState(undefined)
-
-  ReactGA.pageview('/')
 
   // local cache data
   const client = useApolloClient()
