@@ -18,6 +18,11 @@ We create incredible neighborhoods and community spaces through meaningful share
 
 | [Skyler Dowdy](https://github.com/skylerwebdev) | [Louis Gelinas](https://github.com/gelinas) | [Lowell Jacobs](https://github.com/lowell1) | [Mark King](https://github.com/markpkng) | [Ben Rogers](https://github.com/thisbenrogers) | [Westley Strellis](https://github.com/wstrellis) |
 
+### Labs 23 - April 6, 2020 to May 29, 2020
+
+| [Josue Rodriguez](https://github.com/JosueRodriguez-webdev) | [Kennith Howe](https://github.com/Draxxus702) | [Daniel Prue](https://github.com/fireblastdaniel) | [Rachel Carter](https://github.com/rjcrter11) | [Minakshi Verma](https://github.com/Minakshi-Verma) |
+
+
 ## Project Overview
 
 [Product Vision](https://www.notion.so/Community-Calendar-Labs-19-25c4624fa8fe46e49361d73215459050)
@@ -40,7 +45,7 @@ Community Calendar uses the apollo-client library to conduct GraphQL queries and
 - Create a user profile and manage events from a dashboard (Release 3)
 - View events in an interactive map (future release)
 - Comment on events and message hosts (future release)
-- Integrate events from external APIs (future release)
+- Integrate events from external APIs (future release) 
 
 ## Build and Installation
 
@@ -66,6 +71,7 @@ Create a file for environment variables: `.env` .
 - REACT_APP_AUTH0_API_AUDIENCE
 - REACT_APP_APOLLO_SERVER
 - REACT_APP_MAPBOX
+- REACT_APP_GOOGLE_ANALYTICS_TAG
 
 ### For developing in VS Code
 
