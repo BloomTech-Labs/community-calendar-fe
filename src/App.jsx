@@ -2,11 +2,8 @@ import React, {useState, useEffect} from 'react'
 import {Route, Switch, useLocation} from 'react-router-dom'
 import ReactGA from 'react-ga'
 
-//auth0
-import {useAuth0} from './contexts/auth0-context.jsx'
-
 //okta
-import {Security, LoginCallback, useOktaAuth} from '@okta/okta-react'
+import {LoginCallback, useOktaAuth} from '@okta/okta-react'
 
 //apollo
 import {ApolloProvider, useQuery} from '@apollo/react-hooks'
@@ -35,47 +32,32 @@ import LoadingLogo from './components/loading/LoadingLogo'
 
 function App() {
   const decode = require('jwt-decode') //used to decode access token
-  const {
-    // isLoading,
-    // user,
-    // loginWithRedirect,
-    // logout,
-    getTokenSilently,
-  } = useAuth0()
   const [accessToken, setAccessToken] = useState('')
   const [user, setUser] = useState(null)
 
   const {authState, authService} = useOktaAuth()
 
   useEffect(() => {
-    if (!authState.isAuthenticated) {
-      setUser(null)
-    } else {
-      authService.getUser().then(info => {
-        setUser(info)
-      })
-    }
+    updateUserAndToken()
   }, [authState, authService])
 
-  const getAccessToken = async () => {
-    try {
-      // setAccessToken(authState.accessToken)
-      // console.log(accessToken)
-      const token = await getTokenSilently()
-      const decodedToken = decode(token)
-      setAccessToken(token)
-      cache.writeData({
-        data: {
-          userId: decodedToken['http://cc_id'],
-        },
+  const updateUserAndToken = async () => {
+    if (!authState.isAuthenticated) {
+      setUser(null)
+      setAccessToken(null)
+    } else {
+      await authService.getUser().then(response => {
+        // setUser(response)
+        // console.log(user)
+        console.log(response)
       })
-    } catch (err) {
-      console.log(err)
+      await authService.getAccessToken().then(response => {
+        // setAccessToken(response)
+        // console.log(accessToken)
+        console.log(response)
+      })
     }
   }
-
-  // console.log(authState.isAuthenticated)
-  user && getAccessToken()
 
   const errorLink = new onError(({graphQLErrors, networkError}) => {
     if (graphQLErrors)
@@ -101,7 +83,7 @@ function App() {
       return {
         headers: {
           ...headers,
-          authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     } else {
