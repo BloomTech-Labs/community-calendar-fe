@@ -15,3 +15,4 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CodeClimateReporterId }}
         with:
           coverageCommand: npm run coverage
+          dubug: true
