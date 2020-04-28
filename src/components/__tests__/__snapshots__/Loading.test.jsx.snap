@@ -10,15 +10,15 @@ Object {
       >
         <div
           class="dot"
-          style="width: 8px; height: 8px; margin: 0px 2px; animation-delay: 0s;"
+          style="width: 8px; height: 8px; background-color: rgb(33, 36, 44); margin: 0px 2px; animation-delay: 0s;"
         />
         <div
           class="dot"
-          style="width: 8px; height: 8px; margin: 0px 2px; animation-delay: 0.2s;"
+          style="width: 8px; height: 8px; background-color: rgb(33, 36, 44); margin: 0px 2px; animation-delay: 0.2s;"
         />
         <div
           class="dot"
-          style="width: 8px; height: 8px; margin: 0px 2px; animation-delay: 0.4s;"
+          style="width: 8px; height: 8px; background-color: rgb(33, 36, 44); margin: 0px 2px; animation-delay: 0.4s;"
         />
       </div>
     </div>
@@ -29,15 +29,15 @@ Object {
     >
       <div
         class="dot"
-        style="width: 8px; height: 8px; margin: 0px 2px; animation-delay: 0s;"
+        style="width: 8px; height: 8px; background-color: rgb(33, 36, 44); margin: 0px 2px; animation-delay: 0s;"
       />
       <div
         class="dot"
-        style="width: 8px; height: 8px; margin: 0px 2px; animation-delay: 0.2s;"
+        style="width: 8px; height: 8px; background-color: rgb(33, 36, 44); margin: 0px 2px; animation-delay: 0.2s;"
       />
       <div
         class="dot"
-        style="width: 8px; height: 8px; margin: 0px 2px; animation-delay: 0.4s;"
+        style="width: 8px; height: 8px; background-color: rgb(33, 36, 44); margin: 0px 2px; animation-delay: 0.4s;"
       />
     </div>
   </div>,
@@ -124,15 +124,15 @@ Object {
         >
           <div
             class="dot"
-            style="width: 15px; height: 15px; margin: 0px 3.75px; animation-delay: 0s;"
+            style="width: 15px; height: 15px; background-color: rgb(33, 36, 44); margin: 0px 3.75px; animation-delay: 0s;"
           />
           <div
             class="dot"
-            style="width: 15px; height: 15px; margin: 0px 3.75px; animation-delay: 0.2s;"
+            style="width: 15px; height: 15px; background-color: rgb(33, 36, 44); margin: 0px 3.75px; animation-delay: 0.2s;"
           />
           <div
             class="dot"
-            style="width: 15px; height: 15px; margin: 0px 3.75px; animation-delay: 0.4s;"
+            style="width: 15px; height: 15px; background-color: rgb(33, 36, 44); margin: 0px 3.75px; animation-delay: 0.4s;"
           />
         </div>
       </div>
@@ -163,15 +163,15 @@ Object {
       >
         <div
           class="dot"
-          style="width: 15px; height: 15px; margin: 0px 3.75px; animation-delay: 0s;"
+          style="width: 15px; height: 15px; background-color: rgb(33, 36, 44); margin: 0px 3.75px; animation-delay: 0s;"
         />
         <div
           class="dot"
-          style="width: 15px; height: 15px; margin: 0px 3.75px; animation-delay: 0.2s;"
+          style="width: 15px; height: 15px; background-color: rgb(33, 36, 44); margin: 0px 3.75px; animation-delay: 0.2s;"
         />
         <div
           class="dot"
-          style="width: 15px; height: 15px; margin: 0px 3.75px; animation-delay: 0.4s;"
+          style="width: 15px; height: 15px; background-color: rgb(33, 36, 44); margin: 0px 3.75px; animation-delay: 0.4s;"
         />
       </div>
     </div>
