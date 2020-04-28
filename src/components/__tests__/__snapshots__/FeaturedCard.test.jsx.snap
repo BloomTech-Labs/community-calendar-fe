@@ -34,16 +34,16 @@ Object {
           <p>
             <time
               class="subtitle is-size-7"
-              datetime="12:00"
+              datetime="09:00"
             >
-              12:00 pm
+              9:00 am
             </time>
              ‐ 
             <time
               class="subtitle is-size-7"
-              datetime="14:30"
+              datetime="11:30"
             >
-              2:30 pm
+              11:30 am
             </time>
           </p>
           <p
@@ -90,16 +90,16 @@ Object {
         <p>
           <time
             class="subtitle is-size-7"
-            datetime="12:00"
+            datetime="09:00"
           >
-            12:00 pm
+            9:00 am
           </time>
            ‐ 
           <time
             class="subtitle is-size-7"
-            datetime="14:30"
+            datetime="11:30"
           >
-            2:30 pm
+            11:30 am
           </time>
         </p>
         <p
