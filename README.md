@@ -2,7 +2,7 @@
 
 # Community Calendar Front End
 
-We create incredible neighborhoods and community spaces through meaningful shared events. You can find the deployed project at [Community Calendar](https://www.communitycalendar.xyz)!
+We create incredible neighborhoods and community spaces through meaningful shared events. You can find the deployed project at [Community Calendar](https://www.communitycalendar.xyz).
 
 - [Contributors](#contributors)
 - [Project Overview](#project-overview)
