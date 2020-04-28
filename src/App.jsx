@@ -1,6 +1,7 @@
 import {hot} from 'react-hot-loader/root'
 import React, {useState, useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
+import ReactGA from 'react-ga'
 
 //auth0
 import {useAuth0} from './contexts/auth0-context.jsx'
@@ -93,6 +94,10 @@ function App() {
       }
     }
   })
+
+  // Google Analytics app tracking
+  // The Lambda Labs google account for production
+  ReactGA.pageview(window.location.pathname + window.location.search)
 
   // initialize cache that will be used for state from server queries and local state
   const cache = new InMemoryCache()
