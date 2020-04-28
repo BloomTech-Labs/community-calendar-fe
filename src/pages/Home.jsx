@@ -15,6 +15,9 @@ import ViewToggle from '../components/events/ViewToggle'
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_EVENTS_FILTERED, GET_FEATURED_EVENTS, GET_CACHE} from '../graphql'
 
+//okta
+import {useOktaAuth} from '@okta/okta-react'
+
 const SelectedRange = loadable(
   () =>
     import(
@@ -94,8 +97,18 @@ const Home = () => {
   // used to set cards to list or grid
   const [useListView, setShowListView] = useState(true)
 
+  // const {authState, authService} = useOktaAuth()
+  // const login = () => authService.login('/')
+
   return (
     <div className='page-wrapper'>
+      {/* <button
+        onClick={login}
+        className={` has-text-weight-bold is-size-6-tablet is-size-5-desktop no-outline-focus `}
+      >
+        Sign In
+      </button> */}
+
       {/* Featured Events carousel */}
       {featuredApolloData.data && featuredApolloData.data.events.length > 0 ? (
         <>

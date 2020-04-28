@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 //create the context
 export const Auth0Context = createContext()
 
-//exoirt tge context as useAuth-
+//export the context as useAuth-
 export const useAuth0 = () => useContext(Auth0Context)
 
 //create a provider

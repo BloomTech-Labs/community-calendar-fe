@@ -5,6 +5,9 @@ import ReactGA from 'react-ga'
 //auth0
 import {useAuth0} from './contexts/auth0-context.jsx'
 
+//okta
+import {Security, LoginCallback, useOktaAuth} from '@okta/okta-react'
+
 //apollo
 import {ApolloProvider, useQuery} from '@apollo/react-hooks'
 import {ApolloClient} from 'apollo-client'
@@ -33,16 +36,31 @@ import LoadingLogo from './components/loading/LoadingLogo'
 function App() {
   const decode = require('jwt-decode') //used to decode access token
   const {
-    isLoading,
-    user,
-    loginWithRedirect,
-    logout,
+    // isLoading,
+    // user,
+    // loginWithRedirect,
+    // logout,
     getTokenSilently,
   } = useAuth0()
   const [accessToken, setAccessToken] = useState('')
+  const [user, setUser] = useState(null)
+
+  const {authState, authService} = useOktaAuth()
+
+  useEffect(() => {
+    if (!authState.isAuthenticated) {
+      setUser(null)
+    } else {
+      authService.getUser().then(info => {
+        setUser(info)
+      })
+    }
+  }, [authState, authService])
 
   const getAccessToken = async () => {
     try {
+      // setAccessToken(authState.accessToken)
+      // console.log(accessToken)
       const token = await getTokenSilently()
       const decodedToken = decode(token)
       setAccessToken(token)
@@ -56,6 +74,7 @@ function App() {
     }
   }
 
+  // console.log(authState.isAuthenticated)
   user && getAccessToken()
 
   const errorLink = new onError(({graphQLErrors, networkError}) => {
@@ -143,6 +162,8 @@ function App() {
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />
         <Route path='/about-us' component={AboutUs} />
+
+        <Route path='/implicit/callback' component={LoginCallback} />
       </Switch>
     </ApolloProvider>
   )
