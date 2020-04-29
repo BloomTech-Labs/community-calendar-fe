@@ -7,7 +7,11 @@ import {MemoryRouter} from 'react-router-dom'
 import moment from 'moment'
 
 //mock data
-import { TEST_FULL, TEST_NO_NEIGHBORHOOD, TEST_NO_DISTANCE } from 'mock_data/test_event'
+import {
+  TEST_FULL,
+  TEST_NO_NEIGHBORHOOD,
+  TEST_NO_DISTANCE,
+} from 'mock_data/test_event'
 
 jest.mock('moment', () => {
   const moment = require.requireActual('moment')
@@ -44,15 +48,23 @@ describe('Tests for EventListCard', () => {
       </MemoryRouter>,
     )
 
-    expect(getByTestId('event_description')).toHaveTextContent(TEST_FULL.description,)
+    expect(getByTestId('event_description')).toHaveTextContent(
+      TEST_FULL.description,
+    )
     expect(getByTestId('event_title')).toHaveTextContent(TEST_FULL.title)
 
     // only neighborhood, not city, displays if neighborhood provided
-    expect(getByTestId('event_location')).toHaveTextContent(TEST_FULL.locations[0].neighborhood)
-    expect(getByTestId('event_location')).not.toHaveTextContent(TEST_FULL.locations[0].city)
+    expect(getByTestId('event_location')).toHaveTextContent(
+      TEST_FULL.locations[0].neighborhood,
+    )
+    expect(getByTestId('event_location')).not.toHaveTextContent(
+      TEST_FULL.locations[0].city,
+    )
 
     // distance from user displays when provided
-    expect(getByTestId('event_location')).toHaveTextContent(TEST_FULL.locations[0].distanceFromUser.toFixed(1))
+    expect(getByTestId('event_location')).toHaveTextContent(
+      TEST_FULL.locations[0].distanceFromUser.toFixed(1),
+    )
     expect(getByTestId('event_location')).toHaveTextContent(/mi away/i)
   })
 
@@ -62,10 +74,14 @@ describe('Tests for EventListCard', () => {
         <EventListCard item={TEST_NO_NEIGHBORHOOD} />
       </MemoryRouter>,
     )
-    
+
     // only city displays if no neighborhood provided
-    expect(getByTestId('event_location')).not.toHaveTextContent(TEST_NO_NEIGHBORHOOD.locations[0].neighborhood)
-    expect(getByTestId('event_location')).toHaveTextContent(TEST_NO_NEIGHBORHOOD.locations[0].city)
+    expect(getByTestId('event_location')).not.toHaveTextContent(
+      TEST_NO_NEIGHBORHOOD.locations[0].neighborhood,
+    )
+    expect(getByTestId('event_location')).toHaveTextContent(
+      TEST_NO_NEIGHBORHOOD.locations[0].city,
+    )
   })
 
   test('Should render TEST_NO_DISTANCE data from props', () => {
