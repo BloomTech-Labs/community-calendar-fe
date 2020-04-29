@@ -8,7 +8,7 @@
     "build": "cross-env NODE_ENV=production webpack --mode=production --env.environment=production  --config build-utils/webpack.config.js  ",
     "format": "prettier --write \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" ",
     "lint": "eslint \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" --quiet",
-    "test": "jest EventListCard.test.jsx",
+    "test": "jest --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",
     "coverage": "CI=true npm test --coverage --watchAll=false || true"
   },
