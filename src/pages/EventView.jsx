@@ -226,19 +226,18 @@ const EventView = ({history}) => {
 
   const rsvpEvent = () => {
     rsvpEventMutation({variables: {id}}).then(({data: {rsvpEvent}}) => {
-      console.log(rsvpEvent)
       rsvpEvent
         ? (setAttendees(attendees + 1),
           ReactGA.event({
             category: 'Attending Event',
             action: 'User Clicked Attend Event Button on Event Card',
           }))
-        : setAttendees(attendees - 1),
-        ReactGA.event({
-          category: 'Unattending Event',
-          action:
-            'User Clicked Unattend Event Button, they no longer wish to attend event',
-        })
+        : (setAttendees(attendees - 1),
+          ReactGA.event({
+            category: 'Unattending Event',
+            action:
+              'User Clicked Unattend Event Button, they no longer wish to attend event',
+          }))
       setRsvp(rsvpEvent)
     })
   }
