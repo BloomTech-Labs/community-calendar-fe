@@ -8,8 +8,18 @@
     "build": "cross-env NODE_ENV=production webpack --mode=production --env.environment=production  --config build-utils/webpack.config.js  ",
     "format": "prettier --write \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" ",
     "lint": "eslint \"src/**/*.{js,jsx}\" \"build-utils/**/*.{js,jsx}\" --quiet",
-    "test": "jest --passWithNoTests",
-    "test:watch": "jest --watch --passWithNoTests"
+    "test": "jest",
+    "test:watch": "jest --watch --passWithNoTests",
+    "coverage": "jest --coverage"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/__tests__/**",
+      "!**/test-utils/**"
+    ]
   },
   "keywords": [],
   "author": "",

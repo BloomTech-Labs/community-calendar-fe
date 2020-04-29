@@ -1,6 +1,7 @@
 import {hot} from 'react-hot-loader/root'
 import React, {useState, useEffect} from 'react'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, useLocation} from 'react-router-dom'
+import ReactGA from 'react-ga'
 
 //auth0
 import {useAuth0} from './contexts/auth0-context.jsx'
@@ -93,6 +94,15 @@ function App() {
       }
     }
   })
+
+  const location = useLocation()
+
+  // Google Analytics app tracking
+  useEffect(() => {
+    // When user location changes, useEffect will be triggered
+    // ReactGA will ping new user location
+    ReactGA.pageview(window.location.pathname + window.location.search)
+  }, [location])
 
   // initialize cache that will be used for state from server queries and local state
   const cache = new InMemoryCache()

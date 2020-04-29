@@ -1,4 +1,4 @@
-![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg) [![Netlify Status](https://api.netlify.com/api/v1/badges/8c065a2a-b94a-48b5-83ec-55a863c635d5/deploy-status)](https://app.netlify.com/sites/communitycalendar/deploys) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg) [![Netlify Status](https://api.netlify.com/api/v1/badges/8c065a2a-b94a-48b5-83ec-55a863c635d5/deploy-status)](https://app.netlify.com/sites/communitycalendar/deploys) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Maintainability](https://api.codeclimate.com/v1/badges/be4c9e543ea59cfc8469/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/community-calendar-fe/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/be4c9e543ea59cfc8469/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/community-calendar-fe/test_coverage)
 
 # Community Calendar Front End
 
@@ -17,6 +17,11 @@ We create incredible neighborhoods and community spaces through meaningful share
 ### Labs 19 - December 2nd, 2019 to February 7th, 2020
 
 | [Skyler Dowdy](https://github.com/skylerwebdev) | [Louis Gelinas](https://github.com/gelinas) | [Lowell Jacobs](https://github.com/lowell1) | [Mark King](https://github.com/markpkng) | [Ben Rogers](https://github.com/thisbenrogers) | [Westley Strellis](https://github.com/wstrellis) |
+
+### Labs 23 - April 6, 2020 to May 29, 2020
+
+| [Josue Rodriguez](https://github.com/JosueRodriguez-webdev) | [Kennith Howe](https://github.com/Draxxus702) | [Daniel Prue](https://github.com/fireblastdaniel) | [Rachel Carter](https://github.com/rjcrter11) | [Minakshi Verma](https://github.com/Minakshi-Verma) |
+
 
 ## Project Overview
 
@@ -40,7 +45,7 @@ Community Calendar uses the apollo-client library to conduct GraphQL queries and
 - Create a user profile and manage events from a dashboard (Release 3)
 - View events in an interactive map (future release)
 - Comment on events and message hosts (future release)
-- Integrate events from external APIs (future release)
+- Integrate events from external APIs (future release) 
 
 ## Build and Installation
 
@@ -66,6 +71,7 @@ Create a file for environment variables: `.env` .
 - REACT_APP_AUTH0_API_AUDIENCE
 - REACT_APP_APOLLO_SERVER
 - REACT_APP_MAPBOX
+- REACT_APP_GOOGLE_ANALYTICS_TAG
 
 ### For developing in VS Code
 

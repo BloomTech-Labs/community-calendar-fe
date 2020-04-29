@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useParams, Link} from 'react-router-dom'
 import moment, {relativeTimeRounding} from 'moment'
+import ReactGA from 'react-ga'
 
 // components
 import LoadingLogo from 'loading/LoadingLogo'
@@ -225,7 +226,18 @@ const EventView = ({history}) => {
 
   const rsvpEvent = () => {
     rsvpEventMutation({variables: {id}}).then(({data: {rsvpEvent}}) => {
-      rsvpEvent ? setAttendees(attendees + 1) : setAttendees(attendees - 1)
+      rsvpEvent
+        ? (setAttendees(attendees + 1),
+          ReactGA.event({
+            category: 'Attending Event',
+            action: 'User Clicked Attend Event Button on Event Card',
+          }))
+        : (setAttendees(attendees - 1),
+          ReactGA.event({
+            category: 'Unattending Event',
+            action:
+              'User Clicked Unattend Event Button, they no longer wish to attend event',
+          }))
       setRsvp(rsvpEvent)
     })
   }
@@ -378,22 +390,25 @@ const EventView = ({history}) => {
                   {ticketPrice ? '$' + ticketPrice.toFixed(2) : 'FREE'}
                 </p>
               </div>
-                <div className='column has-text-centered-mobile'>
-                  {attendees === 0 ? (
-                    <p style={{ color: '#ffffff' }} className='color_chalice is-size-6half-mobile has-text-centered'>
-                      Attending:
-                    </p>
-                  ) : (
-                    <p className='color_chalice is-size-6half-mobile has-text-centered'>
-                      Attending:
-                    </p>
-                  )}
-                  {attendees > 0 && (
-                    <p className='is-size-6half-mobile has-text-centered'>
-                      {attendees}
-                    </p>
-                  )}
-                </div>
+              <div className='column has-text-centered-mobile'>
+                {attendees === 0 ? (
+                  <p
+                    style={{color: '#ffffff'}}
+                    className='color_chalice is-size-6half-mobile has-text-centered'
+                  >
+                    Attending:
+                  </p>
+                ) : (
+                  <p className='color_chalice is-size-6half-mobile has-text-centered'>
+                    Attending:
+                  </p>
+                )}
+                {attendees > 0 && (
+                  <p className='is-size-6half-mobile has-text-centered'>
+                    {attendees}
+                  </p>
+                )}
+              </div>
             </div>
             <div className={descriptionDiv}>
               <div className={`${row}`}>

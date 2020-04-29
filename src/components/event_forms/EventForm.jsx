@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import * as yup from 'yup'
 import loadable from '@loadable/component'
+import ReactGA from 'react-ga'
 
 // form components
 import {useForm, ErrorMessage} from 'react-hook-form'
@@ -230,6 +231,20 @@ const EventForm = props => {
   if (mutationData) {
     const {id} = mutationData.addEvent || mutationData.updateEvent
     props.history.push(`/events/${id}`)
+  }
+
+  const handleCreateEvent = () => {
+    if (formType === 'update') {
+      ReactGA.event({
+        category: 'Update Event',
+        action: 'User clicked Update Event Button to Update Listing',
+      })
+    } else {
+      ReactGA.event({
+        category: 'Create Event',
+        action: 'User clicked Create Event button to Create Listing',
+      })
+    }
   }
 
   // render form component
@@ -541,6 +556,7 @@ const EventForm = props => {
             className={`button is-medium ${shark} has-text-white ${littleTopMargin}`}
             type='submit'
             value={formType === 'update' ? 'Update Event' : 'Create Event'}
+            onClick={handleCreateEvent()}
           />
         )}
       </form>
