@@ -6,7 +6,7 @@ Object {
   "baseElement": <body>
     <div>
       <svg
-        class="arrow "
+        class="darkFill "
         fill="none"
         height="14"
         viewBox="0 0 14 14"
@@ -21,7 +21,7 @@ Object {
   </body>,
   "container": <div>
     <svg
-      class="arrow "
+      class="darkFill "
       fill="none"
       height="14"
       viewBox="0 0 14 14"
