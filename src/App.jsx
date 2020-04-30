@@ -28,6 +28,7 @@ import AboutUs from './pages/AboutUs'
 import Navbar from './components/navbar/Navbar'
 import PrivateRoute from './components/private-route/PrivateRoute'
 import {GetUserPosition} from './utils'
+import GetUserInfo from './utils/GetUserInfo'
 import LoadingLogo from './components/loading/LoadingLogo'
 
 function App() {
@@ -131,6 +132,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <GetUserPosition />
+      <GetUserInfo />
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />

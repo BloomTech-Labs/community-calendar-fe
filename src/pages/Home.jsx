@@ -103,26 +103,24 @@ const Home = () => {
     localCache.maxDistance,
   ])
 
-  useEffect(() => {
-    updateUser()
-  }, [authState, authService])
+  // useEffect(() => {
+  //   updateUser()
+  // }, [authState, authService])
 
-  const updateUser = async () => {
-    if (!authState.isAuthenticated) {
-      setUser(null)
-    } else {
-      await authService.getUser().then(response => {
-        setUser(response.sub)
-        console.log(response)
-      })
-    }
-  }
+  // const updateUser = async () => {
+  //   if (!authState.isAuthenticated) {
+  //     setUser(null)
+  //   } else {
+  //     await authService.getUser().then(response => {
+  //       setUser(response.sub)
+  //       console.log(response)
+  //     })
+  //   }
+  // }
 
-  const {data: ccid} = useQuery(GET_CCID, {variables: {oktaId: user}})
+  // const {data: ccid} = useQuery(GET_CCID, {variables: {oktaId: user}})
 
-  ccid ? client.writeData({data: {userId: ccid.user.id}}) : null
-  const {data: testuserid} = useQuery(GET_USER_ID)
-  console.log(testuserid)
+  // ccid ? client.writeData({data: {userId: ccid.user.id}}) : null
 
   // used to set cards to list or grid
   const [useListView, setShowListView] = useState(true)
