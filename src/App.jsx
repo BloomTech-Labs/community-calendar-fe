@@ -17,7 +17,7 @@ import {onError} from 'apollo-link-error'
 
 //pages
 import Home from './pages/Home'
-// import EventView from './pages/EventView'
+import EventView from './pages/EventView'
 // import UpdateEventPage from './pages/UpdateEventPage'
 // import CreateEventPage from './pages/CreateEventPage'
 // import SearchResults from './pages/SearchResults'
@@ -132,12 +132,12 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
-        {/* <Route path='/create-event' component={CreateEventPage} />
-        <Route path='/myprofile' component={UserProfile} />
+        {/* <Route path='/create-event' component={CreateEventPage} /> */}
+        {/* <Route path='/myprofile' component={UserProfile} /> */}
         <Route exact path='/events/:id' component={EventView} />
-        <Route exact path='/events/:id/update' component={UpdateEventPage} />
-        <Route path='/search' component={SearchResults} />
-        <Route path='/about-us' component={AboutUs} /> */}
+        {/* <Route exact path='/events/:id/update' component={UpdateEventPage} /> */}
+        {/* <Route path='/search' component={SearchResults} /> */}
+        {/* <Route path='/about-us' component={AboutUs} /> */}
       </Switch>
     </ApolloProvider>
   )
