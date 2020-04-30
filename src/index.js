@@ -30,10 +30,8 @@ const config = {
 ReactDOM.render(
   <Router>
     <Security {...config}>
-      <Auth0Provider>
-        <ScrollToTop />
-        <App />
-      </Auth0Provider>
+      <ScrollToTop />
+      <App />
     </Security>
   </Router>,
   document.getElementById('root'),
