@@ -30,6 +30,7 @@ $lgGrid: $smallGrid * 3;
   @include mx-auto;
   width: 100%;
   max-width: 100%;
+  flex-wrap: wrap;
   a:first-of-type {
     margin-top: 0 !important;
   }

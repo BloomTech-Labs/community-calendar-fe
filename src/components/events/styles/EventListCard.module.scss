@@ -3,7 +3,7 @@
 @import '~bulma/sass/utilities/_all.sass';
 @import '~bulma/sass/grid/columns.sass';
 
-a.list-card {
+a.listCard {
   display: flex;
   flex-direction: row;
   margin-top: $gap-md * 2 !important;
@@ -80,7 +80,7 @@ a.list-card {
   }
 } //end list-card
 
-a.grid-card {
+a.gridCard {
   display: inline-flex;
   flex-direction: column;
   width: 100%;
@@ -112,7 +112,7 @@ a.grid-card {
     letter-spacing: 2px;
   }
 
-  .event_description {
+  .eventDescription {
     display: none;
   }
 
