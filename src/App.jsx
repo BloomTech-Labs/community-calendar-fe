@@ -20,7 +20,7 @@ import Home from './pages/Home'
 import EventView from './pages/EventView'
 // import UpdateEventPage from './pages/UpdateEventPage'
 // import CreateEventPage from './pages/CreateEventPage'
-// import SearchResults from './pages/SearchResults'
+import SearchResults from './pages/SearchResults'
 // import UserProfile from './pages/UserProfilePage'
 import AboutUs from './pages/AboutUs'
 
@@ -141,7 +141,7 @@ function App() {
         {/* <Route path='/myprofile' component={UserProfile} /> */}
         <Route exact path='/events/:id' component={EventView} />
         {/* <Route exact path='/events/:id/update' component={UpdateEventPage} /> */}
-        {/* <Route path='/search' component={SearchResults} /> */}
+        <Route path='/search' component={SearchResults} />
         <Route path='/about-us' component={AboutUs} />
       </Switch>
     </ApolloProvider>
