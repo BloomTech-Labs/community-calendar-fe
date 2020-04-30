@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import loadable from '@loadable/component'
-import LoadingLogo from 'loading/LoadingLogo'
+import LoadingLogo from '../components/loading/LoadingLogo'
 
 import {banner, container, buttonContainer} from './styles/AboutUs.module.scss'
 

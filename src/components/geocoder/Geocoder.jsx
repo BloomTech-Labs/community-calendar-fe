@@ -3,7 +3,7 @@ import {useCombobox} from 'downshift'
 import {fetchGeocode} from '../../utils'
 import {geocoder, geocoderReset, hide, filterMenu} from './Geocoder.module.scss'
 import PropTypes from 'prop-types'
-import {SearchIcon, CloseIconSquare} from 'icons'
+import {SearchIcon, CloseIconSquare} from '../icons'
 
 export default function Geocoder({
   labelText,

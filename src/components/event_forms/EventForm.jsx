@@ -17,7 +17,7 @@ import {fetchGeocode} from '../../utils'
 
 // styles
 import UploadIcon from '../icons/UploadIcon'
-import LoadingDots from 'loading/LoadingDots'
+import LoadingDots from '../loading/LoadingDots'
 import {
   createEventForm,
   input,

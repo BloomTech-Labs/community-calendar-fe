@@ -11,7 +11,7 @@ import {
 } from './Searchbar.module.scss'
 
 import {buildQS, createQSObj} from '../../utils'
-import {SearchIcon} from 'icons'
+import {SearchIcon} from '../icons'
 
 const Searchbar = ({
   isLarge,

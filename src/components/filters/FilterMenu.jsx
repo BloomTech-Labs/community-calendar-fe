@@ -7,10 +7,10 @@ import {useHistory} from 'react-router-dom'
 import loadable from '@loadable/component'
 
 //Components
-import {FilterIcon, MapMarkerCircle, DropdownIcon} from 'icons'
+import {FilterIcon, MapMarkerCircle, DropdownIcon} from '../icons'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
-import TagInput from 'event_forms/TagInput'
-import LoadingDots from 'loading/LoadingDots'
+import TagInput from '../event_forms/TagInput'
+import LoadingDots from '../loading/LoadingDots'
 
 //GQL
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
@@ -26,7 +26,7 @@ import {
   picker,
   datePickerDropdown,
 } from './FilterMenu.module.scss'
-import {locationContent} from 'navbar/Navbar.module.scss'
+import {locationContent} from '../navbar/Navbar.module.scss'
 
 const SelectedRange = loadable(
   () =>

@@ -1,6 +1,6 @@
 import React from 'react'
 import CreateEvent from '../components/event_forms/CreateEvent'
-import GoBack from 'go_back/GoBack'
+import GoBack from '../components/go_back/GoBack'
 
 // styles
 import {

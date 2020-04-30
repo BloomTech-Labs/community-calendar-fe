@@ -7,9 +7,9 @@ import {useDropdown} from '../../utils'
 import loadable from '@loadable/component'
 
 //components
-import {CCLogo, MapMarkerCircle, DropdownIcon} from 'icons'
-import Searchbar from 'searchbar/Searchbar'
-import LoadingDots from 'loading/LoadingDots'
+import {CCLogo, MapMarkerCircle, DropdownIcon} from '../icons'
+import Searchbar from '../searchbar/Searchbar'
+import LoadingDots from '../loading/LoadingDots'
 
 //styles
 import {

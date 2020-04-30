@@ -1,7 +1,7 @@
 import React from 'react'
 import {useParams} from 'react-router-dom'
 import UpdateEvent from '../components/event_forms/UpdateEvent'
-import GoBack from 'go_back/GoBack'
+import GoBack from '../components/go_back/GoBack'
 
 // styles
 import {

@@ -4,12 +4,12 @@ import moment, {relativeTimeRounding} from 'moment'
 import ReactGA from 'react-ga'
 
 // components
-import LoadingLogo from 'loading/LoadingLogo'
-import LoadingDots from 'loading/LoadingDots'
-import {DropdownIcon, HeartIcon, CheckmarkIcon} from 'icons'
-import GoBack from 'go_back/GoBack'
+import LoadingLogo from '../components/loading/LoadingLogo'
+import LoadingDots from '../components/loading/LoadingDots'
+import {DropdownIcon, HeartIcon, CheckmarkIcon} from '../components/icons'
+import GoBack from '../components/go_back/GoBack'
 
-import DeleteEventModal from 'events/DeleteEventModal'
+import DeleteEventModal from '../components/events/DeleteEventModal'
 
 //graphql
 import {useQuery, useMutation} from '@apollo/react-hooks'

@@ -1,4 +1,3 @@
-import {hot} from 'react-hot-loader/root'
 import React, {useState, useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
 import ReactGA from 'react-ga'
@@ -18,18 +17,18 @@ import {onError} from 'apollo-link-error'
 
 //pages
 import Home from './pages/Home'
-import EventView from './pages/EventView'
-import UpdateEventPage from './pages/UpdateEventPage'
-import CreateEventPage from './pages/CreateEventPage'
-import SearchResults from './pages/SearchResults'
-import UserProfile from './pages/UserProfilePage'
-import AboutUs from './pages/AboutUs'
+// import EventView from './pages/EventView'
+// import UpdateEventPage from './pages/UpdateEventPage'
+// import CreateEventPage from './pages/CreateEventPage'
+// import SearchResults from './pages/SearchResults'
+// import UserProfile from './pages/UserProfilePage'
+// import AboutUs from './pages/AboutUs'
 
 //components
-import Navbar from 'navbar/Navbar'
-import PrivateRoute from 'private-route/PrivateRoute'
+import Navbar from './components/navbar/Navbar'
+import PrivateRoute from './components/private-route/PrivateRoute'
 import {GetUserPosition} from './utils'
-import LoadingLogo from 'loading/LoadingLogo'
+import LoadingLogo from './components/loading/LoadingLogo'
 
 function App() {
   const decode = require('jwt-decode') //used to decode access token
@@ -133,15 +132,15 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route path='/create-event' component={CreateEventPage} />
+        {/* <Route path='/create-event' component={CreateEventPage} />
         <Route path='/myprofile' component={UserProfile} />
         <Route exact path='/events/:id' component={EventView} />
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />
-        <Route path='/about-us' component={AboutUs} />
+        <Route path='/about-us' component={AboutUs} /> */}
       </Switch>
     </ApolloProvider>
   )
 }
 
-export default hot(App)
+export default App

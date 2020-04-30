@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 
-import {DropdownIcon} from 'icons'
+import {DropdownIcon} from '../icons'
 
 import {useDropdown} from '../../utils'
 
