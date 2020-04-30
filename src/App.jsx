@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, useLocation} from 'react-router-dom'
 import ReactGA from 'react-ga'
 
 //auth0
@@ -94,9 +94,14 @@ function App() {
     }
   })
 
+  const location = useLocation()
+
   // Google Analytics app tracking
-  // The Lambda Labs google account for production
-  ReactGA.pageview(window.location.pathname + window.location.search)
+  useEffect(() => {
+    // When user location changes, useEffect will be triggered
+    // ReactGA will ping new user location
+    ReactGA.pageview(window.location.pathname + window.location.search)
+  }, [location])
 
   // initialize cache that will be used for state from server queries and local state
   const cache = new InMemoryCache()

@@ -2,16 +2,16 @@ import ReactGA from 'react-ga'
 
 function handleLogin(e, cb) {
   ReactGA.event({
-    category: 'User',
-    action: 'Clicked Login',
+    category: 'Login',
+    action: 'User clicked Login button',
   })
   cb()
 }
 
 function handleLogout(e, cb) {
   ReactGA.event({
-    category: 'User',
-    action: 'Clicked Logout',
+    category: 'Logout',
+    action: 'User clicked the Logout button',
   })
   cb({returnTo: window.location.origin})
 }
