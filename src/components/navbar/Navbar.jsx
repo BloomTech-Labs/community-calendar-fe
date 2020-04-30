@@ -330,10 +330,7 @@ export default function Navbar() {
                     </Link>
                     <div
                       className='dropdown-item is-clickable'
-                      onClick={e => {
-                        setNavMenuIsOpen(false)
-                        navUtils.handleLogout(e, logout)
-                      }}
+                      onClick={logout}
                     >
                       Log Out
                     </div>
