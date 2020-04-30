@@ -388,6 +388,14 @@ const EventForm = props => {
             <DateTimePickerSplit fallback={<LoadingDots />}>
               {({default: DateTimePicker}) => (
                 <DateTimePicker
+                  monthAriaLabel="Month"
+                  dayAriaLabel="Day"
+                  yearAriaLabel="Year"
+                  hourAriaLabel="Hour"
+                  minuteAriaLabel="Minute"
+                  amPmAriaLabel="Select AM/PM"
+                  calendarIcon="Calendar"
+                  clearAriaLabel="Clear Date"
                   onChange={startChange}
                   value={startDatetime}
                   className={picker}
@@ -404,6 +412,14 @@ const EventForm = props => {
             <DateTimePickerSplit fallback={<LoadingDots />}>
               {({default: DateTimePicker}) => (
                 <DateTimePicker
+                  monthAriaLabel="Month"
+                  dayAriaLabel="Day"
+                  yearAriaLabel="Year"
+                  hourAriaLabel="Hour"
+                  minuteAriaLabel="Minute"
+                  amPmAriaLabel="Select AM/PM"
+                  calendarIcon="Calendar"
+                  clearAriaLabel="Clear Date"
                   onChange={endChange}
                   value={endDatetime}
                   className={picker}
