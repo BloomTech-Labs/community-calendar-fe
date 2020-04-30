@@ -47,14 +47,10 @@ function App() {
       setAccessToken(null)
     } else {
       await authService.getUser().then(response => {
-        // setUser(response)
-        // console.log(user)
-        console.log(response)
+        setUser(response)
       })
       await authService.getAccessToken().then(response => {
-        // setAccessToken(response)
-        // console.log(accessToken)
-        console.log(response)
+        setAccessToken(response)
       })
     }
   }

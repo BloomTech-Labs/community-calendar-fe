@@ -6,4 +6,12 @@ const GET_USER_ID = gql`
   }
 `
 
+export const GET_CCID = gql`
+  query GetCCID($oktaId: String) {
+    user(where: {oktaId: $oktaId}) {
+      id
+    }
+  }
+`
+
 export default GET_USER_ID

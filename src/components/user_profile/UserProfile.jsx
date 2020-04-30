@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import {useAuth0} from '../../contexts/auth0-context'
 
 import UserInfo from './UserInfo'
 import UserEvents from './UserEvents'
@@ -8,14 +7,18 @@ import GearIcon from '../icons/GearIcon'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_USER_AND_EVENTS, GET_USER_PICTURE_FROM_CACHE} from '../../graphql'
+import {
+  GET_USER_AND_EVENTS,
+  GET_USER_PICTURE_FROM_CACHE,
+  GET_USER_ID,
+} from '../../graphql'
 import gql from 'graphql-tag'
 
 import {
   userProfile,
   profileInfo,
   profileSmall,
-  gearWrapper
+  gearWrapper,
 } from './UserProfile.module.scss'
 
 const UserProfile = () => {
@@ -24,46 +27,46 @@ const UserProfile = () => {
   const [lastName, setLastName] = useState(undefined)
   const client = useApolloClient()
 
-  const {data: profileImageFromCache, refetch: profileImageRefetch} = useQuery(GET_USER_PICTURE_FROM_CACHE);
+  const {data: profileImageFromCache, refetch: profileImageRefetch} = useQuery(
+    GET_USER_PICTURE_FROM_CACHE,
+  )
+
+  const {data: userId} = useQuery(GET_USER_ID)
+  console.log(userId)
 
   const {
     data: userData,
     loading: userLoading,
     error: userError,
     refetch: userRefetch,
-  } = useQuery(GET_USER_AND_EVENTS, {variables: {useLocation: false}, fetchPolicy: 'no-cache'})
+  } = useQuery(GET_USER_AND_EVENTS, {
+    variables: {useLocation: false, userId: userId.userId},
+    fetchPolicy: 'no-cache',
+  })
 
   const updateImage = url => {
     client.writeQuery({
-      query: gql `
-      query GetUserProfileImage {
-        profileImage @client
-      }
-    `,
+      query: gql`
+        query GetUserProfileImage {
+          profileImage @client
+        }
+      `,
       data: {
-        profileImage: url
-      }
+        profileImage: url,
+      },
     })
   }
-  
-  const {
-    user
-  } = userData || {};
-  
-  const {
-    firstName: first,
-    lastName: last,
-    createdEvents,
-    saved,
-    rsvps
-  } = user || {};
+
+  const {user} = userData || {}
+
+  const {firstName: first, lastName: last, createdEvents, saved, rsvps} =
+    user || {}
 
   useEffect(() => {
-    setFirstName(first);
+    setFirstName(first)
     setLastName(last)
+    console.log(userData)
   }, [userData])
-
-  
 
   return (
     <div className={userProfile}>
@@ -73,7 +76,9 @@ const UserProfile = () => {
         </div>
         {isEditing ? (
           <EditUserForm
-            profileImage={profileImageFromCache && profileImageFromCache.profileImage}
+            profileImage={
+              profileImageFromCache && profileImageFromCache.profileImage
+            }
             updateImage={updateImage}
             isEditing={isEditing}
             setIsEditing={setIsEditing}
@@ -96,7 +101,13 @@ const UserProfile = () => {
           />
         )}
       </div>
-      <UserEvents created={createdEvents} attending={rsvps} saved={saved} loading={userLoading} error={userError}/>
+      <UserEvents
+        created={createdEvents}
+        attending={rsvps}
+        saved={saved}
+        loading={userLoading}
+        error={userError}
+      />
     </div>
   )
 }

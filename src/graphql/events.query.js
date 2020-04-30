@@ -26,7 +26,7 @@ export const ADDRESS_DETAIL_DATA = gql`
 // query for building the tag dropdown on the create/update event form
 export const GET_ALL_TAGS = gql`
   query {
-    tags (orderBy: title_ASC){
+    tags(orderBy: title_ASC) {
       id
       title
     }
@@ -74,8 +74,8 @@ export const GET_EVENTS_FILTERED = gql`
     $useLocation: Boolean!
   ) {
     events(
-      where: {id: $id}, 
-      orderBy: start_ASC, 
+      where: {id: $id}
+      orderBy: start_ASC
       searchFilters: $searchFilters
     ) {
       ...EventDetail
@@ -113,9 +113,7 @@ export const GET_EVENTS_FILTERED = gql`
 // no filters and no location, returns events in chronological order
 export const GET_FEATURED_EVENTS = gql`
   query {
-    events(
-      orderBy: start_ASC, 
-    ) {
+    events(orderBy: start_ASC) {
       ...EventDetail
       locations {
         id
@@ -135,18 +133,19 @@ export const GET_FEATURED_EVENTS = gql`
 `
 
 // query used by `../components/user_profile/UserProfile.jsx` for dashboard
-export const GET_USER_AND_EVENTS = gql `
+export const GET_USER_AND_EVENTS = gql`
   query GetUserAttending(
     $userLatitude: Float
     $userLongitude: Float
     $useLocation: Boolean!
-    ){
-    user{
+    $userId: ID
+  ) {
+    user(where: {id: $userId}) {
       firstName
       lastName
       rsvps {
         ...EventDetail
-        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
           id
           name
           latitude
@@ -169,7 +168,7 @@ export const GET_USER_AND_EVENTS = gql `
       }
       saved {
         ...EventDetail
-        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
           id
           name
           latitude
@@ -192,7 +191,7 @@ export const GET_USER_AND_EVENTS = gql `
       }
       createdEvents {
         ...EventDetail
-        locations(userLatitude: $userLatitude, userLongitude: $userLongitude){
+        locations(userLatitude: $userLatitude, userLongitude: $userLongitude) {
           id
           name
           latitude
