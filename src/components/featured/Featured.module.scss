@@ -3,7 +3,7 @@
 @import '~bulma/sass/utilities/_all.sass';
 
 .featured {
-  &-wrapper {
+  &Wrapper {
     margin-top: $gap-sm;
     display: flex;
     flex-wrap: nowrap;
@@ -19,7 +19,7 @@
     }
   }
 
-  &-card {
+  &Card {
     display: inline-block;
     flex-shrink: 0;
     margin: {
@@ -38,7 +38,7 @@
       color: $white;
     }
 
-    &-content {
+    &Content {
       padding: $gap-xs;
     }
   }
