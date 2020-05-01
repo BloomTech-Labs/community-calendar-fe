@@ -32,7 +32,6 @@ const UserProfile = () => {
   )
 
   const {data: userId} = useQuery(GET_USER_ID)
-  console.log(userId)
 
   const {
     data: userData,
@@ -65,7 +64,6 @@ const UserProfile = () => {
   useEffect(() => {
     setFirstName(first)
     setLastName(last)
-    console.log(userData)
   }, [userData])
 
   return (

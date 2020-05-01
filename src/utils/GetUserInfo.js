@@ -3,15 +3,22 @@ import {useApolloClient, useQuery} from '@apollo/react-hooks'
 import {useOktaAuth} from '@okta/okta-react'
 
 import {GET_CCID} from '../graphql/getUserId.query'
+import {GET_USER_PICTURE} from '../graphql/users.query'
 
 export default function GetUserInfo() {
   const client = useApolloClient()
   const {authState, authService} = useOktaAuth()
   const [user, setUser] = useState(null)
 
+  const [userId, setUserId] = useState('')
+
   useEffect(() => {
     updateUser()
   }, [authState, authService])
+
+  useEffect(() => {
+    ccid ? setUserId(ccid.user.id) : null
+  }, ccid)
 
   const updateUser = async () => {
     if (!authState.isAuthenticated) {
@@ -19,13 +26,20 @@ export default function GetUserInfo() {
     } else {
       await authService.getUser().then(response => {
         setUser(response.sub)
-        console.log(response)
       })
     }
   }
 
   const {data: ccid} = useQuery(GET_CCID, {variables: {oktaId: user}})
+  console.log(ccid)
+  const {data: userImage} = useQuery(GET_USER_PICTURE, {
+    variables: {ccid: userId},
+  })
+  console.log(userImage)
   ccid ? client.writeData({data: {userId: ccid.user.id}}) : null
+  userImage
+    ? client.writeData({data: {profileImage: userImage.user.profileImage}})
+    : null
 
   return null
 }
