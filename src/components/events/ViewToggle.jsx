@@ -1,6 +1,6 @@
 import React from 'react'
 import {iconDivider} from './styles/EventList.module.scss'
-import {GridIcon, ListIcon} from 'icons'
+import {GridIcon, ListIcon} from '../icons'
 
 const ViewToggle = ({toggleFunc, viewState}) => (
   <div className={` is-flex level `}>

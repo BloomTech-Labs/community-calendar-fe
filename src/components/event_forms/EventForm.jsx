@@ -17,7 +17,7 @@ import {fetchGeocode} from '../../utils'
 
 // styles
 import UploadIcon from '../icons/UploadIcon'
-import LoadingDots from 'loading/LoadingDots'
+import LoadingDots from '../loading/LoadingDots'
 import {
   createEventForm,
   input,
@@ -79,32 +79,32 @@ const EventForm = props => {
   Ternary maps values passed in on `item` prop as default values for `update` forms
   yup validationSchema imported from `eventSchema.js` */
   const {register, handleSubmit, errors: formErrors, getValues, setValue} =
-    formType === 'update' && item
-      ? useForm({
-          validationSchema: eventSchema,
-          defaultValues: {
-            title: item.title || null,
-            placeName: item.locations[item.locations.length - 1].name || null,
-            streetAddress:
-              item.locations[item.locations.length - 1].streetAddress || null,
-            streetAddress2:
-              item.locations[item.locations.length - 1].streetAddress2 || null,
-            city: item.locations[item.locations.length - 1].city || null,
-            state: item.locations[item.locations.length - 1].state || null,
-            zipcode: item.locations[item.locations.length - 1].zipcode || null,
-            description: item.description || null,
-            ticketPrice: item.ticketPrice || null,
-          },
-          mode: 'onBlur',
-        })
-      : useForm({validationSchema: eventSchema, mode: 'onBlur'})
+    useForm(formType === 'update' && item
+      ? {
+        validationSchema: eventSchema,
+        defaultValues: {
+          title: item.title || null,
+          placeName: item.locations[item.locations.length - 1].name || null,
+          streetAddress:
+            item.locations[item.locations.length - 1].streetAddress || null,
+          streetAddress2:
+            item.locations[item.locations.length - 1].streetAddress2 || null,
+          city: item.locations[item.locations.length - 1].city || null,
+          state: item.locations[item.locations.length - 1].state || null,
+          zipcode: item.locations[item.locations.length - 1].zipcode || null,
+          description: item.description || null,
+          ticketPrice: item.ticketPrice || null,
+        },
+        mode: 'onBlur',
+        }
+      : {validationSchema: eventSchema, mode: 'onBlur'})
 
   // create `tag` state to be used in backend mutation request
   // Ternary maps values passed in on `item` prop as default tags for `update` forms,
   const [selectedTags, setSelectedTags] =
-    formType === 'update' && item.tags.length
-      ? useState(item.tags.map(tag => tag.title))
-      : useState([])
+    useState(formType === 'update' && item.tags.length
+      ? item.tags.map(tag => tag.title)
+      : [])
 
   // create `images` state to be used in backend mutation request
   const [images, setImages] = useState(null)
@@ -116,9 +116,9 @@ const EventForm = props => {
   nextNoon.setHours(12, 0, 0, 0)
 
   const [startDatetime, setStartDatetime] =
-    formType === 'update' && item.start
-      ? useState(new Date(item.start))
-      : useState(nextNoon)
+    useState(formType === 'update' && item.start
+      ? new Date(item.start)
+      : nextNoon)
 
   const startChange = datetime => {
     setStartDatetime(datetime)
@@ -132,9 +132,9 @@ const EventForm = props => {
   nextAfternoon.setHours(15, 0, 0, 0)
 
   const [endDatetime, setEndDatetime] =
-    formType === 'update' && item.end
-      ? useState(new Date(item.end))
-      : useState(nextAfternoon)
+    useState(formType === 'update' && item.end
+      ? new Date(item.end)
+      : nextAfternoon)
 
   const endChange = datetime => {
     setEndDatetime(datetime)
@@ -394,7 +394,6 @@ const EventForm = props => {
                   hourAriaLabel="Hour"
                   minuteAriaLabel="Minute"
                   amPmAriaLabel="Select AM/PM"
-                  calendarIcon="Calendar"
                   clearAriaLabel="Clear Date"
                   onChange={startChange}
                   value={startDatetime}
@@ -418,7 +417,6 @@ const EventForm = props => {
                   hourAriaLabel="Hour"
                   minuteAriaLabel="Minute"
                   amPmAriaLabel="Select AM/PM"
-                  calendarIcon="Calendar"
                   clearAriaLabel="Clear Date"
                   onChange={endChange}
                   value={endDatetime}
@@ -494,7 +492,9 @@ const EventForm = props => {
                   <Dropzone
                     // If used uploads file, replace the image in state with the new uploaded file
                     onDrop={acceptedFiles => {
-                      acceptedFiles.length ? setImages(acceptedFiles) : null
+                      if(acceptedFiles.length){
+                        setImages(acceptedFiles)
+                      }
                     }}
                   >
                     {({getRootProps, getInputProps}) => (

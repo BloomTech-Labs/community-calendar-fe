@@ -44,7 +44,7 @@ export default function EventList({
         <div
           className={` ${
             listView
-              ? `${list_container} ${columns} ${isMultiline}`
+              ? `${list_container} ${columns}`
               : grid_container
           }`}
         >

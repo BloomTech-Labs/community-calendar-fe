@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CCLogo from 'icons/CCLogo'
+import CCLogo from '../icons/CCLogo'
 import LoadingDots from './LoadingDots'
 import {wrapper, logo} from './Loading.module.scss'
 

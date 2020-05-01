@@ -1,5 +1,5 @@
-@import '_variables.scss';
-@import '_mixins.scss';
+@import '../../../styles/_variables.scss';
+@import '../../../styles/_mixins.scss';
 @import '~bulma/sass/utilities/_all.sass';
 @import '~bulma/sass/grid/columns.sass';
 
@@ -30,6 +30,7 @@ $lgGrid: $smallGrid * 3;
   @include mx-auto;
   width: 100%;
   max-width: 100%;
+  flex-wrap: wrap;
   a:first-of-type {
     margin-top: 0 !important;
   }

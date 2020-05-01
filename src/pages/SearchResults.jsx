@@ -6,14 +6,14 @@ import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_EVENTS_FILTERED, GET_CACHE} from '../graphql'
 
 // Components
-import EventList from 'events/EventList'
-import FilterBtns from 'event_fltr_btns/EvntFltrBtns'
-import DistanceDropdown from 'distance-dropdown/DistanceDropdown'
-import Searchbar from 'searchbar/Searchbar'
-import FilterMenu from 'filters/FilterMenu'
-import ViewToggle from 'events/ViewToggle'
-import {FilterIcon, CloseIconSquare} from 'icons'
-import RecentSearches from 'recent-searches/RecentSearches'
+import EventList from '../components/events/EventList'
+import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
+import DistanceDropdown from '../components/distance-dropdown/DistanceDropdown'
+import Searchbar from '../components/searchbar/Searchbar'
+import FilterMenu from '../components/filters/FilterMenu'
+import ViewToggle from '../components/events/ViewToggle'
+import {FilterIcon, CloseIconSquare} from '../components/icons'
+import RecentSearches from '../components/recent-searches/RecentSearches'
 
 //Styles
 import {
@@ -23,7 +23,7 @@ import {
   gobackPadding,
 } from './styles/SearchResults.module.scss'
 
-import GoBack from 'go_back/GoBack'
+import GoBack from '../components/go_back/GoBack'
 
 //utilities
 import {useObjFromQS} from '../utils'

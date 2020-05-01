@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import loadable from '@loadable/component'
-import LoadingLogo from 'loading/LoadingLogo'
+import LoadingLogo from '../components/loading/LoadingLogo'
 
 const UserProfile = loadable(
   () =>

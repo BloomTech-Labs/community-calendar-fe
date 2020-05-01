@@ -22,7 +22,7 @@ import {
   descriptionFade,
 } from './styles/EventListCard.module.scss'
 
-import {TimeIcon, CalendarIcon} from 'icons'
+import {TimeIcon, CalendarIcon} from '../icons'
 
 /* 
 The cards shown on the EventList component.

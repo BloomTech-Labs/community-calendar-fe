@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import Moment from 'moment'
 import {extendMoment} from 'moment-range'
-const moment = extendMoment(Moment)
 import {event_filter_buttons} from './EvntFltrBtns.module.scss'
+const moment = extendMoment(Moment)
 
 /* Buttons used to quickly filter events by date */
 const FilterBtns = ({

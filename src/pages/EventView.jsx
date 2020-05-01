@@ -4,12 +4,12 @@ import moment, {relativeTimeRounding} from 'moment'
 import ReactGA from 'react-ga'
 
 // components
-import LoadingLogo from 'loading/LoadingLogo'
-import LoadingDots from 'loading/LoadingDots'
-import {DropdownIcon, HeartIcon, CheckmarkIcon} from 'icons'
-import GoBack from 'go_back/GoBack'
+import LoadingLogo from '../components/loading/LoadingLogo'
+import LoadingDots from '../components/loading/LoadingDots'
+import {DropdownIcon, HeartIcon, CheckmarkIcon} from '../components/icons'
+import GoBack from '../components/go_back/GoBack'
 
-import DeleteEventModal from 'events/DeleteEventModal'
+import DeleteEventModal from '../components/events/DeleteEventModal'
 
 //graphql
 import {useQuery, useMutation} from '@apollo/react-hooks'
@@ -226,18 +226,20 @@ const EventView = ({history}) => {
 
   const rsvpEvent = () => {
     rsvpEventMutation({variables: {id}}).then(({data: {rsvpEvent}}) => {
-      rsvpEvent
-        ? (setAttendees(attendees + 1),
-          ReactGA.event({
-            category: 'Attending Event',
-            action: 'User Clicked Attend Event Button on Event Card',
-          }))
-        : (setAttendees(attendees - 1),
-          ReactGA.event({
-            category: 'Unattending Event',
-            action:
-              'User Clicked Unattend Event Button, they no longer wish to attend event',
-          }))
+      console.log(rsvpEvent)
+      if(rsvpEvent) {
+        setAttendees(attendees + 1)
+        ReactGA.event({
+          category: 'Attending Event',
+          action: 'User Clicked Attend Event Button on Event Card',
+        })
+      } else{setAttendees(attendees - 1)
+        ReactGA.event({
+          category: 'Unattending Event',
+          action:
+            'User Clicked Unattend Event Button, they no longer wish to attend event',
+        })
+      }        
       setRsvp(rsvpEvent)
     })
   }
