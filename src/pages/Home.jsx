@@ -13,16 +13,10 @@ import ViewToggle from '../components/events/ViewToggle'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {
-  GET_EVENTS_FILTERED,
-  GET_FEATURED_EVENTS,
-  GET_CACHE,
-  UPDATE_USER,
-} from '../graphql'
-import GET_USER_ID, {GET_CCID} from '../graphql/getUserId.query'
+import {GET_EVENTS_FILTERED, GET_FEATURED_EVENTS, GET_CACHE} from '../graphql'
 
 //okta
-import {useOktaAuth, useLazyQuery} from '@okta/okta-react'
+import {useOktaAuth} from '@okta/okta-react'
 
 const SelectedRange = loadable(
   () =>
@@ -44,9 +38,6 @@ const Home = () => {
   const [eventRange, setEventRange] = useState('ALL')
   const [start, setStart] = useState(undefined)
   const [end, setEnd] = useState(undefined)
-  const [user, setUser] = useState(null)
-
-  const {authState, authService} = useOktaAuth()
 
   // local cache data
   const client = useApolloClient()
@@ -103,37 +94,11 @@ const Home = () => {
     localCache.maxDistance,
   ])
 
-  // useEffect(() => {
-  //   updateUser()
-  // }, [authState, authService])
-
-  // const updateUser = async () => {
-  //   if (!authState.isAuthenticated) {
-  //     setUser(null)
-  //   } else {
-  //     await authService.getUser().then(response => {
-  //       setUser(response.sub)
-  //       console.log(response)
-  //     })
-  //   }
-  // }
-
-  // const {data: ccid} = useQuery(GET_CCID, {variables: {oktaId: user}})
-
-  // ccid ? client.writeData({data: {userId: ccid.user.id}}) : null
-
   // used to set cards to list or grid
   const [useListView, setShowListView] = useState(true)
 
   return (
     <div className='page-wrapper'>
-      {/* <button
-        onClick={login}
-        className={` has-text-weight-bold is-size-6-tablet is-size-5-desktop no-outline-focus `}
-      >
-        Sign In
-      </button> */}
-
       {/* Featured Events carousel */}
       {featuredApolloData.data && featuredApolloData.data.events.length > 0 ? (
         <>

@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Auth0Provider} from './contexts/auth0-context.jsx'
 import {BrowserRouter as Router} from 'react-router-dom'
 import ReactGA from 'react-ga'
 import gaConfig from './gaConfig.js'
@@ -20,9 +19,9 @@ const trackingID = process.env.REACT_APP_GOOGLE_ANALYTICS_TAG
 ReactGA.initialize(trackingID, gaConfig[process.env.NODE_ENV])
 
 const config = {
-  clientId: '0oaajfti2Xgb3790a4x6',
-  issuer: 'https://dev-996287.okta.com/oauth2/default',
-  redirectUri: 'http://localhost:3000/implicit/callback',
+  clientId: process.env.OKTA_CONFIG_CLIENTID,
+  issuer: process.env.OKTA_CONFIG_ISSUER,
+  redirectUri: process.env.OKTA_CONFIG_REDIRECT_URI,
   scopes: ['openid', 'profile', 'email'],
   pkce: true,
 }

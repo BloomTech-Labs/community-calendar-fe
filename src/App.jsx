@@ -26,7 +26,6 @@ import AboutUs from './pages/AboutUs'
 
 //components
 import Navbar from './components/navbar/Navbar'
-import PrivateRoute from './components/private-route/PrivateRoute'
 import {GetUserPosition} from './utils'
 import GetUserInfo from './utils/GetUserInfo'
 import LoadingLogo from './components/loading/LoadingLogo'
@@ -34,7 +33,6 @@ import LoadingLogo from './components/loading/LoadingLogo'
 function App() {
   const decode = require('jwt-decode') //used to decode access token
   const [accessToken, setAccessToken] = useState('')
-  const [user, setUser] = useState(null)
 
   const {authState, authService} = useOktaAuth()
 
@@ -44,12 +42,8 @@ function App() {
 
   const updateUserAndToken = async () => {
     if (!authState.isAuthenticated) {
-      setUser(null)
       setAccessToken(null)
     } else {
-      await authService.getUser().then(response => {
-        setUser(response)
-      })
       await authService.getAccessToken().then(response => {
         setAccessToken(response)
       })

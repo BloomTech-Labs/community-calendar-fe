@@ -31,11 +31,9 @@ export default function GetUserInfo() {
   }
 
   const {data: ccid} = useQuery(GET_CCID, {variables: {oktaId: user}})
-  console.log(ccid)
   const {data: userImage} = useQuery(GET_USER_PICTURE, {
     variables: {ccid: userId},
   })
-  console.log(userImage)
   ccid ? client.writeData({data: {userId: ccid.user.id}}) : null
   userImage
     ? client.writeData({data: {profileImage: userImage.user.profileImage}})

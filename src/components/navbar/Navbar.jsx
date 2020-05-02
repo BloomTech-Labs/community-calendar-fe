@@ -1,5 +1,4 @@
 import React, {useRef, useState, useEffect} from 'react'
-import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link, useLocation} from 'react-router-dom'
 import gql from 'graphql-tag'
 import navUtils from './navbar_utils'
@@ -74,8 +73,6 @@ export default function Navbar() {
       })
     }
   }, [authState, authService])
-
-  // const {loginWithRedirect, logout} = useAuth0()
 
   // used to show/hide the dropdown menu
   const dropMenu = useRef(null)
@@ -274,7 +271,7 @@ export default function Navbar() {
               <Link
                 to={'/myprofile'}
                 role='button'
-                className={`is-size-6-tablet is-flex has-text-centered ${navButton} no-outline-focus`}
+                className={`is-hidden-tablet is-flex has-text-centered ${navButton} no-outline-focus`}
                 onClick={() => setNavMenuIsOpen(false)}
               >
                 My Profile
@@ -282,7 +279,7 @@ export default function Navbar() {
 
               <div
                 role='button'
-                className={` is-size-6-tablet is-flex has-text-centered ${navButton} is-clickable no-outline-focus`}
+                className={` is-hidden-tablet is-flex has-text-centered ${navButton} is-clickable no-outline-focus`}
                 onClick={logout}
               >
                 Log Out
