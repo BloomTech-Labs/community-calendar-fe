@@ -23,7 +23,7 @@
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.24.0",
+    "moment": "2.24.0",
     "moment-range": "^4.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
