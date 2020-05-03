@@ -19,9 +19,9 @@ const trackingID = process.env.REACT_APP_GOOGLE_ANALYTICS_TAG
 ReactGA.initialize(trackingID, gaConfig[process.env.NODE_ENV])
 
 const config = {
-  clientId: process.env.OKTA_CONFIG_CLIENTID,
-  issuer: process.env.OKTA_CONFIG_ISSUER,
-  redirectUri: process.env.OKTA_CONFIG_REDIRECT_URI,
+  clientId: process.env.REACT_APP_OKTA_CLIENT_ID,
+  issuer: process.env.REACT_APP_OKTA_ISSUER,
+  redirectUri: process.env.REACT_APP_OKTA_REDIRECT_URI,
   scopes: ['openid', 'profile', 'email'],
   pkce: true,
 }
