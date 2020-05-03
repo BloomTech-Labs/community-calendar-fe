@@ -26,8 +26,7 @@ import AboutUs from './pages/AboutUs'
 
 //components
 import Navbar from './components/navbar/Navbar'
-import {GetUserPosition} from './utils'
-import GetUserInfo from './utils/GetUserInfo'
+import {GetUserPosition, GetUserInfo} from './utils'
 import LoadingLogo from './components/loading/LoadingLogo'
 
 function App() {

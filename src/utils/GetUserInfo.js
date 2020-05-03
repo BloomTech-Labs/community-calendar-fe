@@ -12,12 +12,19 @@ export default function GetUserInfo() {
 
   const [userId, setUserId] = useState('')
 
+  const {data: ccid} = useQuery(GET_CCID, {variables: {oktaId: user}})
+  const {data: userImage} = useQuery(GET_USER_PICTURE, {
+    variables: {ccid: userId},
+  })
+
   useEffect(() => {
     updateUser()
   }, [authState, authService])
 
   useEffect(() => {
-    ccid ? setUserId(ccid.user.id) : null
+    if(ccid) {
+      setUserId(ccid.user.id)
+    }
   }, ccid)
 
   const updateUser = async () => {
@@ -29,15 +36,13 @@ export default function GetUserInfo() {
       })
     }
   }
+  
+  if(ccid) {
+    client.writeData({data: {userId: ccid.user.id}})
+  }
 
-  const {data: ccid} = useQuery(GET_CCID, {variables: {oktaId: user}})
-  const {data: userImage} = useQuery(GET_USER_PICTURE, {
-    variables: {ccid: userId},
-  })
-  ccid ? client.writeData({data: {userId: ccid.user.id}}) : null
-  userImage
-    ? client.writeData({data: {profileImage: userImage.user.profileImage}})
-    : null
-
+  if (userImage) {
+    client.writeData({data: {profileImage: userImage.user.profileImage}})
+  }
   return null
 }
