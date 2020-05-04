@@ -1,5 +1,4 @@
 import React, {useRef, useState, useEffect} from 'react'
-import {useAuth0} from '../../contexts/auth0-context.jsx'
 import {Link, useLocation} from 'react-router-dom'
 import gql from 'graphql-tag'
 import navUtils from './navbar_utils'
@@ -27,6 +26,9 @@ import {
   GET_USER_PICTURE_FROM_CACHE,
 } from '../../graphql'
 
+//Okta
+import {useOktaAuth} from '@okta/okta-react'
+
 const Geocoder = loadable(
   () => import(/* webpackChunkName: "geocoder" */ '../geocoder/Geocoder'),
   {
@@ -46,6 +48,11 @@ export default function Navbar() {
   const {data: userImage} = useQuery(GET_USER_PICTURE)
   const {data: profileImageFromCache} = useQuery(GET_USER_PICTURE_FROM_CACHE)
 
+  const {authState, authService} = useOktaAuth()
+  const [user, setUser] = useState(null)
+  const login = () => authService.login('/')
+  const logout = () => authService.logout('/')
+
   useEffect(() => {
     if (userImage && userImage.user && userImage.user.profileImage) {
       client.writeQuery({
@@ -57,7 +64,15 @@ export default function Navbar() {
     }
   }, [userImage])
 
-  const {user, loginWithRedirect, logout} = useAuth0()
+  useEffect(() => {
+    if (!authState.isAuthenticated) {
+      setUser(null)
+    } else {
+      authService.getUser().then(info => {
+        setUser(info)
+      })
+    }
+  }, [authState, authService])
 
   // used to show/hide the dropdown menu
   const dropMenu = useRef(null)
@@ -256,7 +271,7 @@ export default function Navbar() {
               <Link
                 to={'/myprofile'}
                 role='button'
-                className={` is-hidden-tablet  is-flex has-text-centered ${navButton} no-outline-focus`}
+                className={`is-hidden-tablet is-flex has-text-centered ${navButton} no-outline-focus`}
                 onClick={() => setNavMenuIsOpen(false)}
               >
                 My Profile
@@ -264,11 +279,8 @@ export default function Navbar() {
 
               <div
                 role='button'
-                className={` is-hidden-tablet  is-flex has-text-centered ${navButton} is-clickable no-outline-focus`}
-                onClick={e => {
-                  setNavMenuIsOpen(false)
-                  navUtils.handleLogout(e, logout)
-                }}
+                className={` is-hidden-tablet is-flex has-text-centered ${navButton} is-clickable no-outline-focus`}
+                onClick={logout}
               >
                 Log Out
               </div>
@@ -315,10 +327,7 @@ export default function Navbar() {
                     </Link>
                     <div
                       className='dropdown-item is-clickable'
-                      onClick={e => {
-                        setNavMenuIsOpen(false)
-                        navUtils.handleLogout(e, logout)
-                      }}
+                      onClick={logout}
                     >
                       Log Out
                     </div>
@@ -330,13 +339,13 @@ export default function Navbar() {
             /* No user */
             <>
               <button
-                onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
+                onClick={login}
                 className={`${navButton} has-text-weight-bold is-size-6-tablet is-size-5-desktop no-outline-focus `}
               >
                 Sign In
               </button>
               <button
-                onClick={e => navUtils.handleLogin(e, loginWithRedirect)}
+                onClick={login}
                 className={`${navButton}  is-size-6-tablet  is-size-5-desktop no-outline-focus `}
               >
                 Sign Up

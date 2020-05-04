@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Auth0Provider} from './contexts/auth0-context.jsx'
 import {BrowserRouter as Router} from 'react-router-dom'
 import ReactGA from 'react-ga'
 import gaConfig from './gaConfig.js'
+
+//okta
+import {Security} from '@okta/okta-react'
 
 //components
 import App from './App'
@@ -16,12 +18,20 @@ const trackingID = process.env.REACT_APP_GOOGLE_ANALYTICS_TAG
 
 ReactGA.initialize(trackingID, gaConfig[process.env.NODE_ENV])
 
+const config = {
+  clientId: process.env.REACT_APP_OKTA_CLIENT_ID,
+  issuer: process.env.REACT_APP_OKTA_ISSUER,
+  redirectUri: process.env.REACT_APP_OKTA_REDIRECT_URI,
+  scopes: ['openid', 'profile', 'email'],
+  pkce: true,
+}
+
 ReactDOM.render(
   <Router>
-    <Auth0Provider>
+    <Security {...config}>
       <ScrollToTop />
       <App />
-    </Auth0Provider>
+    </Security>
   </Router>,
   document.getElementById('root'),
 )

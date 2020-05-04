@@ -9,8 +9,8 @@ export const GET_USERS = gql`
 `
 
 export const GET_USER_PICTURE = gql`
-  query{
-    user{
+  query($ccid: ID) {
+    user(where: {id: $ccid}) {
       profileImage
     }
   }

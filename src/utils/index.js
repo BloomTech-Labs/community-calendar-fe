@@ -1,5 +1,6 @@
 import useGeo from './useGeo'
 import GetUserPosition from './GetUserPosition'
+import GetUserInfo from './GetUserInfo'
 import ScrollToTop from './ScrollToTop'
 import {months, weekDays} from './time-helpers'
 import buildQS from './buildQS'
@@ -12,6 +13,7 @@ import createQSObj from './createQSObj'
 export {
   useGeo,
   GetUserPosition,
+  GetUserInfo,
   ScrollToTop,
   months,
   buildQS,

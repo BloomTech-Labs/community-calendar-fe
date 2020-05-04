@@ -11,7 +11,7 @@ import {
   TEST_FULL,
   TEST_NO_NEIGHBORHOOD,
   TEST_NO_DISTANCE,
-} from 'mock_data/test_event'
+} from '../../../test-utils/mock_data/test_event'
 
 jest.mock('moment', () => {
   const moment = require.requireActual('moment')

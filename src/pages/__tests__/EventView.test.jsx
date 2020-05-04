@@ -11,7 +11,7 @@ import {MemoryRouter} from 'react-router-dom'
 import {GET_EVENT_BY_ID} from '../../graphql/events.query'
 
 //mock data
-import { TEST_FULL } from 'mock_data/test_event'
+import { TEST_FULL } from '../../../test-utils/mock_data/test_event'
 
 //Apollo mock
 const mocks = [

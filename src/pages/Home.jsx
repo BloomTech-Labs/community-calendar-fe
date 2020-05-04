@@ -15,6 +15,9 @@ import ViewToggle from '../components/events/ViewToggle'
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
 import {GET_EVENTS_FILTERED, GET_FEATURED_EVENTS, GET_CACHE} from '../graphql'
 
+//okta
+import {useOktaAuth} from '@okta/okta-react'
+
 const SelectedRange = loadable(
   () =>
     import(

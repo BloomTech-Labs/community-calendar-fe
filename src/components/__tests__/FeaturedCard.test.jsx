@@ -12,7 +12,7 @@ import moment from 'moment'
 import FeaturedCard from '../featured/FeaturedCard'
 
 //mock TEST_FULL
-import {TEST_FULL} from 'mock_data/test_event'
+import {TEST_FULL} from '../../../test-utils/mock_data/test_event'
 
 describe('Tests for FeaturedCards', () => {
   beforeEach(() => {

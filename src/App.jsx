@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react'
 import {Route, Switch, useLocation} from 'react-router-dom'
 import ReactGA from 'react-ga'
 
-//auth0
-import {useAuth0} from './contexts/auth0-context.jsx'
+//okta
+import {LoginCallback, useOktaAuth} from '@okta/okta-react'
 
 //apollo
 import {ApolloProvider, useQuery} from '@apollo/react-hooks'
@@ -26,37 +26,28 @@ import AboutUs from './pages/AboutUs'
 
 //components
 import Navbar from './components/navbar/Navbar'
-import PrivateRoute from './components/private-route/PrivateRoute'
-import {GetUserPosition} from './utils'
+import {GetUserPosition, GetUserInfo} from './utils'
 import LoadingLogo from './components/loading/LoadingLogo'
 
 function App() {
   const decode = require('jwt-decode') //used to decode access token
-  const {
-    isLoading,
-    user,
-    loginWithRedirect,
-    logout,
-    getTokenSilently,
-  } = useAuth0()
   const [accessToken, setAccessToken] = useState('')
 
-  const getAccessToken = async () => {
-    try {
-      const token = await getTokenSilently()
-      const decodedToken = decode(token)
-      setAccessToken(token)
-      cache.writeData({
-        data: {
-          userId: decodedToken['http://cc_id'],
-        },
+  const {authState, authService} = useOktaAuth()
+
+  useEffect(() => {
+    updateUserAndToken()
+  }, [authState, authService])
+
+  const updateUserAndToken = async () => {
+    if (!authState.isAuthenticated) {
+      setAccessToken(null)
+    } else {
+      await authService.getAccessToken().then(response => {
+        setAccessToken(response)
       })
-    } catch (err) {
-      console.log(err)
     }
   }
-
-  user && getAccessToken()
 
   const errorLink = new onError(({graphQLErrors, networkError}) => {
     if (graphQLErrors)
@@ -82,7 +73,7 @@ function App() {
       return {
         headers: {
           ...headers,
-          authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     } else {
@@ -134,6 +125,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <GetUserPosition />
+      <GetUserInfo />
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
@@ -143,6 +135,8 @@ function App() {
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
         <Route path='/search' component={SearchResults} />
         <Route path='/about-us' component={AboutUs} />
+
+        <Route path='/implicit/callback' component={LoginCallback} />
       </Switch>
     </ApolloProvider>
   )

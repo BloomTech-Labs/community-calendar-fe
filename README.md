@@ -14,14 +14,13 @@ We create incredible neighborhoods and community spaces through meaningful share
 
 ## Contributors
 
-### Labs 19 - December 2nd, 2019 to February 7th, 2020
-
-| [Skyler Dowdy](https://github.com/skylerwebdev) | [Louis Gelinas](https://github.com/gelinas) | [Lowell Jacobs](https://github.com/lowell1) | [Mark King](https://github.com/markpkng) | [Ben Rogers](https://github.com/thisbenrogers) | [Westley Strellis](https://github.com/wstrellis) |
-
-### Labs 23 - April 6, 2020 to May 29, 2020
+### Labs 23 - April 6th, 2020 to May 29th, 2020
 
 | [Josue Rodriguez](https://github.com/JosueRodriguez-webdev) | [Kennith Howe](https://github.com/Draxxus702) | [Daniel Prue](https://github.com/fireblastdaniel) | [Rachel Carter](https://github.com/rjcrter11) | [Minakshi Verma](https://github.com/Minakshi-Verma) |
 
+### Labs 19 - December 2nd, 2019 to February 7th, 2020
+
+| [Skyler Dowdy](https://github.com/skylerwebdev) | [Louis Gelinas](https://github.com/gelinas) | [Lowell Jacobs](https://github.com/lowell1) | [Mark King](https://github.com/markpkng) | [Ben Rogers](https://github.com/thisbenrogers) | [Westley Strellis](https://github.com/wstrellis) |
 
 ## Project Overview
 
@@ -53,12 +52,11 @@ Community Calendar uses the apollo-client library to conduct GraphQL queries and
 
 | npm run    | Description                                                                                                                                                                                                                                           |
 | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| dev        | Starts a webpack-dev-server for development. Opens in default browser. Automatically updates on save.                                                                                                                                                 |
-| build      | Create a minified production build. Files are output to /public. The complete contents of /public are overwritten each time this script is executed. /public is ignored by git. To inspect the output of the build command view the files in /public. |  |
-| format     | Recursively format all .js and .jsx files in the /src directory.                                                                                                                                                                                      |
-| lint       | Run Eslint and report errors found by recursively searching and analyzing all javascript files in the /src directory.                                                                                                                                 |
-| test       | Run the Jest test suite once.                                                                                                                                                                                                                         |
-| test:watch | Run the Jest test suite in `watch` mode. The test suite will run when a file used in tests is updated.                                                                                                                                                |
+| start      | Runs the app in development mode. Open http://localhost:3000 to view it in the browser. The page will automatically reload if you make changes to the code. You will see the build errors and lint warnings in the console.                           |
+| test       | Runs the test watcher in an interactive mode. By default, runs tests related to files changed since the last commit.                                                                                                                                  |
+| build      | Builds the app for production to the build folder. It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes. Your app is ready to be deployed.      |
+
+This application uses [Create-React-App](https://github.com/facebook/create-react-app) and runs all build utils through react-scripts
 
 ### Environment Variables
 
@@ -66,9 +64,9 @@ Create a file for environment variables: `.env` .
 
 #### Required env variables:
 
-- REACT_APP_AUTH0_DOMAIN
-- REACT_APP_AUTH0_CLIENT_ID
-- REACT_APP_AUTH0_API_AUDIENCE
+- REACT_APP_OKTA_CLIENT_ID
+- REACT_APP_OKTA_ISSUER
+- REACT_APP_OKTA_REDIRECT_URI
 - REACT_APP_APOLLO_SERVER
 - REACT_APP_MAPBOX
 - REACT_APP_GOOGLE_ANALYTICS_TAG
@@ -88,12 +86,6 @@ Install the [Prettier](https://marketplace.visualstudio.com/items?itemName=esben
 ## Styling
 
 This project use Sass for stying. The Bulma library was incorporated to speed up development.
-
-Webpack will convert kabob-case class names in modules to camelCase.
-
-So '.best-class-ever' in App.module.scss must be used in App.jsx as '.bestClassEver'.
-
-Kabob-case class names are not altered for classes created in non-module style sheets.
 
 `src/styles/` - contains classes, mixins, and variables that are used throughout the application.
 
@@ -116,10 +108,6 @@ The Testing-Library/React library is used to help test React components. It incl
 ## Future Developers
 
 There are a few key considerations for the development team inheriting development of this application:
-
-### Custom Webpack
-
-[Westley Strellis](https://github.com/wstrellis) rolled a custom webpack for this project. If you are used to developing with `Create-React-App`, there are few nuances to how styles are imported and built. If you follow the file naming conventions in the [Styling](#styling) section development is straightforward. You can contact Westley by slack, github, or email with any questions.
 
 ### State Management
 
