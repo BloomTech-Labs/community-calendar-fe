@@ -10,6 +10,7 @@ import {DropdownIcon} from '../components/icons/'
 import DistanceDropdown from '../components/distance-dropdown/DistanceDropdown'
 import LoadingDots from '../components/loading/LoadingDots'
 import ViewToggle from '../components/events/ViewToggle'
+import SearchResults from '../pages/SearchResults'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
@@ -104,6 +105,7 @@ const Home = () => {
         <FeatCarousel apolloData={featuredApolloData} />
         <div className='content-divider-x'></div>
       </>
+      <SearchResults />
     </div>
   )
 }
