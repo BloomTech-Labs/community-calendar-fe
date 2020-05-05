@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react'
 import {Route, Switch, useLocation} from 'react-router-dom'
 import ReactGA from 'react-ga'
 
+//privateRoutes
+// import ProtectedRoute from "./components/protected_route/protectedRoute"
+
 //okta
 import {LoginCallback, useOktaAuth} from '@okta/okta-react'
 
@@ -26,7 +29,7 @@ import AboutUs from './pages/AboutUs'
 
 //components
 import Navbar from './components/navbar/Navbar'
-import {GetUserPosition, GetUserInfo} from './utils'
+import {GetUserPosition, GetUserInfo, ProtectedRoute} from './utils'
 import LoadingLogo from './components/loading/LoadingLogo'
 
 function App() {
@@ -129,11 +132,11 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route path='/create-event' component={CreateEventPage} />
-        <Route path='/myprofile' component={UserProfile} />
+        <ProtectedRoute path='/create-event' component={CreateEventPage} />
+        <ProtectedRoute path='/myprofile' component={UserProfile} />
         <Route exact path='/events/:id' component={EventView} />
-        <Route exact path='/events/:id/update' component={UpdateEventPage} />
-        <Route path='/search' component={SearchResults} />
+        <ProtectedRoute exact path='/events/:id/update' component={UpdateEventPage} />
+        <ProtectedRoute path='/search' component={SearchResults} />
         <Route path='/about-us' component={AboutUs} />
 
         <Route path='/implicit/callback' component={LoginCallback} />
