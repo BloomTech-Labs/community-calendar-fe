@@ -2,9 +2,6 @@ import React, {useState, useEffect} from 'react'
 import {Route, Switch, useLocation} from 'react-router-dom'
 import ReactGA from 'react-ga'
 
-//privateRoutes
-// import ProtectedRoute from "./components/protected_route/protectedRoute"
-
 //okta
 import {LoginCallback, useOktaAuth} from '@okta/okta-react'
 
