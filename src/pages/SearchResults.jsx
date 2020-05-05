@@ -66,35 +66,35 @@ const SearchResults = ({history}) => {
   const [price010, setPrice010] = useState(
     qsFilters.ticketPrice
       ? qsFilters.ticketPrice.some(
-          pr => pr.minPrice === 0 && pr.maxPrice === 10,
+          (pr) => pr.minPrice === 0 && pr.maxPrice === 10,
         )
       : false,
   )
   const [price1020, setPrice1020] = useState(
     qsFilters.ticketPrice
       ? qsFilters.ticketPrice.some(
-          pr => pr.minPrice === 10 && pr.maxPrice === 20,
+          (pr) => pr.minPrice === 10 && pr.maxPrice === 20,
         )
       : false,
   )
   const [price2040, setPrice2040] = useState(
     qsFilters.ticketPrice
       ? qsFilters.ticketPrice.some(
-          pr => pr.minPrice === 20 && pr.maxPrice === 40,
+          (pr) => pr.minPrice === 20 && pr.maxPrice === 40,
         )
       : false,
   )
   const [price4080, setPrice4080] = useState(
     qsFilters.ticketPrice
       ? qsFilters.ticketPrice.some(
-          pr => pr.minPrice === 40 && pr.maxPrice === 80,
+          (pr) => pr.minPrice === 40 && pr.maxPrice === 80,
         )
       : false,
   )
   const [price80, setPrice80] = useState(
     qsFilters.ticketPrice
       ? qsFilters.ticketPrice.some(
-          pr => pr.minPrice === 80 && pr.maxPrice === 100000000,
+          (pr) => pr.minPrice === 80 && pr.maxPrice === 100000000,
         )
       : false,
   )
@@ -197,7 +197,6 @@ const SearchResults = ({history}) => {
 
   return (
     <div className='page-wrapper'>
-      <GoBack isSearchPage />
       <section className={`section mobile-section ${gobackPadding}`}>
         <Searchbar
           isLarge
