@@ -26,7 +26,7 @@ const Searchbar = ({
   const [index, setIndex] = useState(initialText)
   const rccHistory = useHistory()
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setIndex(e.target.value)
   }
 
@@ -42,8 +42,8 @@ const Searchbar = ({
         filterAddress: address,
       })
 
-    // push to /search with query string
-    rccHistory.push(`/search${buildQS(qsObj)}`)
+    // push to / with query string
+    rccHistory.push(`/${buildQS(qsObj)}`)
 
     // execute callback if provided
     cb && cb()
@@ -66,9 +66,9 @@ const Searchbar = ({
         }`}
         type='text'
         placeholder='Search'
-        onChange={e => handleChange(e)}
+        onChange={(e) => handleChange(e)}
         value={index}
-        onKeyDown={e => {
+        onKeyDown={(e) => {
           if (e.keyCode === 13 && index.length) {
             handleSearch()
           }
