@@ -12,8 +12,9 @@ import {featuredWrapper} from './Featured.module.scss'
 import ReactSimpleCarousel from 'react-spring-carousel'
 
 function FeatCarousel({apolloData: {data, loading, error}}) {
-  const eventsToShow = !loading && data.events ? data.events.slice(0, 6) : null
-
+ // const eventsToShow = !loading && data.events ? data.events.slice(0, 6) : null
+  const filtered = !loading && data.events ? data.events.filter(i => new Date(i.start) - new Date() > 0) : null
+  const eventsToShow = filtered.slice(0,6)
   return (
     <section style={{paddingBottom: 0}} className='section mobile-section'>
       <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
