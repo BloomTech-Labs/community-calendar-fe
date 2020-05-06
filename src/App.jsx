@@ -43,7 +43,7 @@ function App() {
     if (!authState.isAuthenticated) {
       setAccessToken(null)
     } else {
-      await authService.getAccessToken().then(response => {
+      await authService.getAccessToken().then((response) => {
         setAccessToken(response)
       })
     }
@@ -133,7 +133,6 @@ function App() {
         <Route path='/myprofile' component={UserProfile} />
         <Route exact path='/events/:id' component={EventView} />
         <Route exact path='/events/:id/update' component={UpdateEventPage} />
-        <Route path='/search' component={SearchResults} />
         <Route path='/about-us' component={AboutUs} />
 
         <Route path='/implicit/callback' component={LoginCallback} />

@@ -31,6 +31,7 @@ const RecentSearches = ({
             let qs = buildQS(
               createQSObj(search.index, search, search.filterAddress),
             )
+            console.log(qs, `this is qs`)
 
             return (
               <span
@@ -90,7 +91,12 @@ const RecentSearches = ({
                       : false,
                   )
 
-                  rccHistory.push(`/${qs}`)
+                  // On user search, the components / page will not rereender, instead it will add on
+                  //  to the existing URL with what the user searches for, this however effects only the url
+                  // for user feedback
+                  window.history.pushState(null, null, `${qs}`)
+                  // injects what the user searches for in location.search
+                  rccHistory.location.search = `${qs}`
                 }}
                 className='has-text-link is-clickable'
               >

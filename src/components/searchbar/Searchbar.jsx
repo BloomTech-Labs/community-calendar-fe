@@ -46,7 +46,6 @@ const Searchbar = ({
     // On user search, the components / page will not rereender, instead it will add on
     //  to the existing URL with what the user searches for, this however effects only the url
     // for user feedback
-    console.log(window.location)
     window.history.pushState(null, null, `${buildQS(qsObj)}`)
     // injects what the user searches for in location.search
     rccHistory.location.search = `${buildQS(qsObj)}`
