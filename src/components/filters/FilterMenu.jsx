@@ -53,7 +53,7 @@ const Geocoder = loadable(
   },
 )
 
-const FilterMenu = props => {
+const FilterMenu = (props) => {
   const {
     setLocation,
     currentLocation,
@@ -114,7 +114,7 @@ const FilterMenu = props => {
       })
 
       const qsObj = createQSObj(qsFilters.index, newFilters, address)
-      rccHistory.push(`/search${buildQS(qsObj)}`)
+      rccHistory.push(`/${buildQS(qsObj)}`)
     }
   } // end SetUserLocation
 
@@ -140,7 +140,7 @@ const FilterMenu = props => {
     })
 
     const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
-    rccHistory.push(`/search${buildQS(qsObj)}`)
+    rccHistory.push(`/${buildQS(qsObj)}`)
   } //end setRadius
 
   // DATE RANGE SEARCH HANDLERS
@@ -167,7 +167,7 @@ const FilterMenu = props => {
     })
 
     const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
-    rccHistory.push(`/search${buildQS(qsObj)}`)
+    rccHistory.push(`/${buildQS(qsObj)}`)
   } //end updateDateRange
 
   // TAG SEARCH HANDLERS
@@ -186,7 +186,7 @@ const FilterMenu = props => {
     })
 
     const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
-    rccHistory.push(`/search${buildQS(qsObj)}`)
+    rccHistory.push(`/${buildQS(qsObj)}`)
   } //end setFilterTags
 
   // tags dropdown
@@ -214,7 +214,7 @@ const FilterMenu = props => {
     if (price) {
       if (oldPrices) {
         ticketPrice = oldPrices.filter(
-          priceRange =>
+          (priceRange) =>
             priceRange.minPrice !== minPrice &&
             priceRange.maxPrice !== maxPrice,
         )
@@ -237,7 +237,7 @@ const FilterMenu = props => {
     })
 
     const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
-    rccHistory.push(`/search${buildQS(qsObj)}`)
+    rccHistory.push(`/${buildQS(qsObj)}`)
   } //end setFilterPrice
 
   // fake cb  for close function
@@ -255,7 +255,7 @@ const FilterMenu = props => {
     setPrice4080(false)
     setPrice80(false)
     setIndexText('')
-    rccHistory.push(`/search`)
+    rccHistory.push(`/`)
   }
   return (
     <div className={`${filterWrapper} ${props.mobile ? mobile : ''}`}>
