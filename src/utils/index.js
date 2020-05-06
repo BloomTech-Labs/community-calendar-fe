@@ -9,6 +9,7 @@ import fetchGeocode from './fetchGeocode'
 import useDropdown from './useDropdown'
 import useObjFromQS from './useObjFromQS'
 import createQSObj from './createQSObj'
+import ProtectedRoute from './protectedRoute'
 
 export {
   useGeo,
@@ -23,4 +24,5 @@ export {
   useDropdown,
   useObjFromQS,
   createQSObj,
+  ProtectedRoute
 }

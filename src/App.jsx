@@ -26,7 +26,7 @@ import AboutUs from './pages/AboutUs'
 
 //components
 import Navbar from './components/navbar/Navbar'
-import {GetUserPosition, GetUserInfo} from './utils'
+import {GetUserPosition, GetUserInfo, ProtectedRoute} from './utils'
 import LoadingLogo from './components/loading/LoadingLogo'
 
 function App() {
@@ -129,10 +129,14 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route path='/create-event' component={CreateEventPage} />
-        <Route path='/myprofile' component={UserProfile} />
+        <ProtectedRoute path='/create-event' component={CreateEventPage} />
+        <ProtectedRoute path='/myprofile' component={UserProfile} />
         <Route exact path='/events/:id' component={EventView} />
-        <Route exact path='/events/:id/update' component={UpdateEventPage} />
+        <ProtectedRoute
+          exact
+          path='/events/:id/update'
+          component={UpdateEventPage}
+        />
         <Route path='/about-us' component={AboutUs} />
 
         <Route path='/implicit/callback' component={LoginCallback} />
