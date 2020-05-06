@@ -31,7 +31,7 @@ export default function EventList(
   {apolloData: {data, loading, error},
   listView,
 }) {
-  const filteredDates = data && data.length ? data.filter(item => new Date(item.start) - new Date() > 0 ) : null
+  const filteredDates =  data ? data.filter(item => new Date(item.start) - new Date() > 0 ) : null
   return (
     <>
       {/* List and Grid view toggle buttons */}
@@ -63,7 +63,7 @@ export default function EventList(
             ))}
             
           {/* Inform user if query/filtering resolves to empty array with no error */}
-          {!loading && data && !data.length && (
+          {!loading && !error && data && !data.length  && (
             <div className='container' style={{gridColumnStart: 'span 3'}}>
               <h5 className='has-text-centered color_chalice'>
                 No events found for the selected filter(s)
