@@ -240,7 +240,6 @@ const FilterMenu = (props) => {
     setPrice4080(false)
     setPrice80(false)
     setIndexText('')
-    rccHistory.push(`/`)
   }
   return (
     <div className={`${filterWrapper} ${props.mobile ? mobile : ''}`}>
