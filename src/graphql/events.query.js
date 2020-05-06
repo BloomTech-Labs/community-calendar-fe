@@ -113,7 +113,7 @@ export const GET_EVENTS_FILTERED = gql`
 // no filters and no location, returns events in chronological order
 export const GET_FEATURED_EVENTS = gql`
   query {
-    events(orderBy: start_ASC) {
+    events(orderBy: start_DESC) {
       ...EventDetail
       locations {
         id

@@ -27,10 +27,11 @@ EventList shows events passed in on the apolloData prop to the user
 -Filtering by distance happens when parent component passes `maxDistance` prop
 */
 
-export default function EventList({
-  apolloData: {data, loading, error},
+export default function EventList(
+  {apolloData: {data, loading, error},
   listView,
 }) {
+  const filteredDates = data && data.length ? data.filter(item => new Date(item.start) - new Date() > 0 ) : null
   return (
     <>
       {/* List and Grid view toggle buttons */}
@@ -54,13 +55,13 @@ export default function EventList({
             <p>Error fetching data from the server, please refresh the page</p>
           )}
 
-          {/* Render EventListCards for each item in `eventsToDisplay` array */}
+          {/* Render EventListCards for each item in `eventsToDisplay` array */} 
           {!loading &&
-            !error &&
-            data.map(item => (
-              <EventListCard item={item} key={item.id} useListView={listView} />
+            !error && 
+            filteredDates.map(item => (
+              <EventListCard item={item} key={item.id} useListView={listView}  />
             ))}
-
+            
           {/* Inform user if query/filtering resolves to empty array with no error */}
           {!loading && data && !data.length && (
             <div className='container' style={{gridColumnStart: 'span 3'}}>
