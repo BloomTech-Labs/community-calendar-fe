@@ -33,7 +33,6 @@ const Searchbar = ({
   const handleSearch = () => {
     //encode text and filters to query string
     let qsObj = createQSObj(index, filters, address)
-    console.log(`this is the qs`, qsObj)
 
     // if use is on SearchResult page update the list of recent searches
     setRecentSearchesLimited &&

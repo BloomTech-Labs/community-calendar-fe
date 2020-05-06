@@ -31,7 +31,6 @@ const RecentSearches = ({
             let qs = buildQS(
               createQSObj(search.index, search, search.filterAddress),
             )
-            console.log(qs, `this is qs`)
 
             return (
               <span

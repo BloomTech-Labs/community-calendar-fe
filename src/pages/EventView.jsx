@@ -226,7 +226,6 @@ const EventView = ({history}) => {
 
   const rsvpEvent = () => {
     rsvpEventMutation({variables: {id}}).then(({data: {rsvpEvent}}) => {
-      console.log(rsvpEvent)
       if (rsvpEvent) {
         setAttendees(attendees + 1)
         ReactGA.event({
