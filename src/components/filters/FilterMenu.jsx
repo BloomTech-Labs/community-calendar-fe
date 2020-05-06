@@ -240,6 +240,8 @@ const FilterMenu = (props) => {
     setPrice4080(false)
     setPrice80(false)
     setIndexText('')
+    window.history.pushState(null, null, `${window.location.origin}/`)
+    rccHistory.location.search = '?'
   }
   return (
     <div className={`${filterWrapper} ${props.mobile ? mobile : ''}`}>
