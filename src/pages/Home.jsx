@@ -2,7 +2,7 @@ import React from 'react'
 
 //components
 import FeatCarousel from '../components/featured/FeaturedCarousel'
-import SearchResults from '../pages/SearchResults'
+import SearchResults from '../components/search-results/SearchResults'
 
 //graphql
 import {useQuery} from '@apollo/react-hooks'

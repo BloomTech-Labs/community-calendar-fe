@@ -20,7 +20,7 @@ import Home from './pages/Home'
 import EventView from './pages/EventView'
 import UpdateEventPage from './pages/UpdateEventPage'
 import CreateEventPage from './pages/CreateEventPage'
-import SearchResults from './pages/SearchResults'
+import SearchResults from './components/search-results/SearchResults'
 import UserProfile from './pages/UserProfilePage'
 import AboutUs from './pages/AboutUs'
 
