@@ -12,6 +12,7 @@ import {
   userEventGrid,
   userEventCards
 } from './UserProfile.module.scss'
+import EventListCard from '../events/EventListCard'
 
 const UserEvents = ({created, attending, saved, loading, error}) => {
   console.log("Props in UserEvents",  saved)
@@ -26,13 +27,16 @@ const UserEvents = ({created, attending, saved, loading, error}) => {
         <div className={`1 ${userEventCards}`}>
             {(attending && attending.length) ? (
                 <>
-                {attending.map(i => (
+                {/* {attending.map(i => (
                   <div key={i.id} >
                   <img src={i.eventImages[0].url} alt="event" />
                   <h3>{i.title}</h3>
                   <h3>{i.locations[0].city}</h3>
                 </div>
-                ))}
+                ))} */}
+                  {attending.map(item => (
+            <EventListCard item={item} key={item.id}  />
+          ))}
                   </>
               //<EventList apolloData={{data: attending, loading, error}}/>
             ) : (<p>You are not currently RSVP'd to any events.</p>)}
@@ -43,12 +47,15 @@ const UserEvents = ({created, attending, saved, loading, error}) => {
         <div className={`2 ${userEventCards}`}>
           {(saved && saved.length) ? (
             <>
-          {saved.map(i => (
+          {/* {saved.map(i => (
             <div key={i.id} >
             <img src={i.eventImages[0].url} alt="event" />
             <h3>{i.title}</h3>
             <h3>{i.locations[0].city}</h3>
           </div>
+          ))} */}
+          {saved.map(item => (
+            <EventListCard item={item} key={item.id}  />
           ))}
             </>
              // <EventList apolloData={{data: saved, loading, error}}/>
@@ -60,13 +67,16 @@ const UserEvents = ({created, attending, saved, loading, error}) => {
         <div className={`3 ${userEventCards}`}>
           {(created && created.length) ? (
               <>
-              {created.map(i => (
+              {/* {created.map(i => (
                 <div key={i.id} >
                 <img src={i.eventImages[0].url} alt="event" />
                 <h3>{i.title}</h3>
                 <h3>{i.locations[0].city}</h3>
               </div>
-              ))}
+              ))} */}
+                {created.map(item => (
+            <EventListCard item={item} key={item.id}  />
+          ))}
                 </>
               //<EventList apolloData={{data: created, loading, error}}/>
             ) : (<p>You have not created any events yet.</p>)}
@@ -77,13 +87,16 @@ const UserEvents = ({created, attending, saved, loading, error}) => {
         <div className={`1 ${userEventCards}`}>
           {(attending && attending.length) ? (
               <>
-              {attending.map(i => (
+              {/* {attending.map(i => (
                 <div key={i.id} >
                 <img src={i.eventImages[0].url} alt="event" />
                 <h3>{i.title}</h3>
                 <h3>{i.locations[0].city}</h3>
               </div>
-              ))}
+              ))} */}
+                {attending.map(item => (
+            <EventListCard item={item} key={item.id}  />
+          ))}
                 </>
             //<EventList apolloData={{data: attending, loading, error}}/>
             ) : (<p>You are not currently RSVP'd to any events.</p>)}
