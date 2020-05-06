@@ -2,12 +2,13 @@
 
 Okta is an enterprise-grade authentication management platform that runs on the cloud. Okta is a standards-compliant OAuth 2.0 authorization server that provides API security via scoped access tokens and supports single sign-on functionality. For more info: [Okta Docs](https://support.okta.com/help/s/article/What-is-Okta)
 
-## Vocabulary **_MOVE THIS SECTION TO FAQ_**
+## Table of Contents
 
-- **Domain**: This is the url that your project can be found at, and will be formatted as `https://dev-######.okta.com`. Your domain will have a bank of users associated with it, and can contain several applications that share this user bank.
-- **Application**: You can add applications to the dashboard on your domain, which will manage the security settings of the login experience on an application. You can add multiple applications to the same project domain, which can allow you to have different security configurations between development/staging/production environments and also maintain the same user base for mobile versions of an application.
-- **User**: A user is an account that is associated with an Okta domain. This account can be used with any of the applications on the domain. Note that the login you use to get into the developer dashboard will be in the same used to login to your application
-- **API**: **_ADD CONTENT HERE_**
+- [Getting Started](##getting-started)
+- [Using the Dashboard](##using-the-dashboard)
+- [Key Environment Variables](##finding-key-environment-variables)
+- [Terms](##terms)
+- [Helpful Links](##helpful-links)
 
 ## Getting Started
 
@@ -29,7 +30,10 @@ The back end also uses 3 environment variables related to Okta found [below](###
 
 ### Preparing Okta for a Staging Branch
 
-**_FIND STAGING BRANCH DOCS_**
+When you connect a branch through amplify to test a PR in staging, you will need to update some of the Okta environmental variables.
+
+- First, within amplify, create a branch override for the `REACT_APP_OKTA_REDIRECT_URI` variable as found [below](###front-end)
+- Then, from the Okta Developer Console dashboard, navigate to Applications > [your application] > General > Edit. Add `https://[staging home page].com/implicit/callback` to the `Login redirect URIs` and add `https://[staging home page].com` to the `Logout redirect URIs`.
 
 ## Using the Dashboard
 
@@ -37,21 +41,35 @@ The back end also uses 3 environment variables related to Okta found [below](###
 
 There are two different dashboard views with slightly different tools on each. To switch between the two, you can hover over the selector in the top left side of the screen which says `Developer Console` or `Classic UI` depending on which you are in, then click the other option that appears.
 
+### Applications
+
+This tab manages all of the applications within your organization. Adminstrators can add applications to the organization here, or edit security settings, login redirect paths, sign on rules, and consented API scopes.
+
+### Users
+
+This tab manages all of the users in your organization. The credentials that you use to access this dashboard are the same that you will use to access an account on your application, so these users will contain all of the developers who are working with Okta on the dashboard as well as all of your application's users. If you ever need to manage your users as an administrator, this tab will give you access to reset passwords, activate/deactivate accounts, assign users to applications or groups within your organization, or hard edit information about their profile as stored in Okta.
+
 ### Claims
 
 Okta stores certain fields of information about users, such as firstName and lastName. You can create additional fields for okta to track about users called claims through the dashboard.
 
-To create a claim, start in the Developer Console, and go to API > Authorization Servers, and click on the name of an authorization server. Under the Claims tab, there is an Add Claim button that can be used to encode a new variable into a token.
+To create a claim, start in the Developer Console, and go to API > Authorization Servers, and click on the name of an authorization server. Under the Claims tab, there is an `Add Claim` button that can be used to encode a new variable into a token.
 
 For more info about Claims, visit the [Okta Docs](https://developer.okta.com/docs/guides/customize-authz-server/create-claims/).
 
 ### Scopes
 
-**_ADD QUICK GUIDE ON SCOPES_**
+Scopes specify what access privileges are being requested as part of the authorization. For example, the `email` scope requests access to the user's email address.
 
-### Applications
+To create a scope, start in the Developer Console, and go to API > Authorization Servers, and click on the name of an authorization server. Under the Scopes tab, there is an `Add Scope` button that can be used to create a new scope. Then, go to `src/index.js` and add the scope to the `config` object.
 
-**_ADD QUICK GUIDE ON APPLICATIONS_**
+For more info about creating Scopes, visit the [Okta Docs](https://developer.okta.com/docs/guides/customize-authz-server/create-scopes/)
+
+### Enable Self-Service Registration
+
+By default, new applications have self-service registration disabled, meaning that only administrators can create accounts on your applications. To enable self-service registration, navigate to Classic UI > Directory > Self-Service Registration. If you are using the default Okta client as the login form for your application, the tool will now display a message that says `Don't have an account? Sign up` at the bottom of the login tool which links to a registration form.
+
+After self-service registration is enabled, the page that you went to to activate it will contain registration settings. You can return here to change the required fields for creating an account, assign the new user to a group within your application, or toggle the email verification option.
 
 ## Finding key environment variables
 
@@ -72,11 +90,16 @@ For more info about Claims, visit the [Okta Docs](https://developer.okta.com/doc
 
 \* (`######` found at Dashboard > Org URL near the top)
 
-## Helpful Links **_MOVE SECTION DOWN TO FAQ MAYBE_**
+## Terms
+
+- **Domain**: This is the url that your project can be found at, and will be formatted as `https://dev-######.okta.com`. Your domain will have a bank of users associated with it, and can contain several applications that share this user bank. Your domain will be used for everything in your Okta organization, and will be useful for making API calls in the authentication process. [Okta Docs](https://developer.okta.com/docs/concepts/okta-organizations/)
+- **Application**: You can add applications to the dashboard on your domain, which will manage the security settings of the login experience on an application. You can add multiple applications to the same project domain, which can allow you to have different security configurations between development/staging/production environments and also maintain the same user base for mobile versions of an application.
+- **User**: A user is an account that is associated with an Okta domain. This account can be used with any of the applications on the domain. Note that the login you use to get into the developer dashboard will be in the same used to login to your application
+- **Authorization Server**: An authorization server, found in the API menu of the Developer Console, defines your security boundary, and is used to mint access and identity tokens when accessing your resources via API. The authorization is central to customizing scopes, claims, and access policies. [Okta Docs](https://developer.okta.com/docs/concepts/auth-servers/)
+
+## Helpful Links
 
 - [Prismatopia docs](https://prismatopia.dev/)
 - [Okta SPA integration](https://developer.okta.com/docs/guides/sign-into-spa/angular/before-you-begin/)
 - [Okta server-side router web integration](https://developer.okta.com/docs/guides/sign-into-web-app/aspnet/before-you-begin/)
 - [Okta iOS integration](https://developer.okta.com/docs/guides/sign-into-mobile-app/ios/before-you-begin/)
-
-## FAQ
