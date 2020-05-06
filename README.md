@@ -44,17 +44,17 @@ Community Calendar uses the apollo-client library to conduct GraphQL queries and
 - Create a user profile and manage events from a dashboard (Release 3)
 - View events in an interactive map (future release)
 - Comment on events and message hosts (future release)
-- Integrate events from external APIs (future release) 
+- Integrate events from external APIs (future release)
 
 ## Build and Installation
 
 ### Scripts
 
-| npm run    | Description                                                                                                                                                                                                                                           |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| start      | Runs the app in development mode. Open http://localhost:3000 to view it in the browser. The page will automatically reload if you make changes to the code. You will see the build errors and lint warnings in the console.                           |
-| test       | Runs the test watcher in an interactive mode. By default, runs tests related to files changed since the last commit.                                                                                                                                  |
-| build      | Builds the app for production to the build folder. It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes. Your app is ready to be deployed.      |
+| npm run | Description                                                                                                                                                                                                                                      |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| start   | Runs the app in development mode. Open http://localhost:3000 to view it in the browser. The page will automatically reload if you make changes to the code. You will see the build errors and lint warnings in the console.                      |
+| test    | Runs the test watcher in an interactive mode. By default, runs tests related to files changed since the last commit.                                                                                                                             |
+| build   | Builds the app for production to the build folder. It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes. Your app is ready to be deployed. |
 
 This application uses [Create-React-App](https://github.com/facebook/create-react-app) and runs all build utils through react-scripts
 
@@ -82,6 +82,10 @@ Install the [Prettier](https://marketplace.visualstudio.com/items?itemName=esben
   "prettier.requireConfig": true
 }
 ```
+
+## Okta
+
+This project uses Okta to authenticate user accounts. You can find a brief introduction to Okta and how this project uses it [here](/okta-guide.md)
 
 ## Styling
 
@@ -123,7 +127,7 @@ There are several other dependencies that use of Apollo Client brought in to our
 
 ### Media Upload
 
-[apollo-upload-client](https://github.com/jaydenseric/apollo-upload-client) and [react-dropzone](https://github.com/react-dropzone/react-dropzone) are used together to accomplish media upload by embedding image files in GraphQL mutation requests. The image files are resolved on the backend, where the files are uploaded to a hosting service with the URL stored in the database. 
+[apollo-upload-client](https://github.com/jaydenseric/apollo-upload-client) and [react-dropzone](https://github.com/react-dropzone/react-dropzone) are used together to accomplish media upload by embedding image files in GraphQL mutation requests. The image files are resolved on the backend, where the files are uploaded to a hosting service with the URL stored in the database.
 
 ## Contributing
 
