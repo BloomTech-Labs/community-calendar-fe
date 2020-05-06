@@ -29,7 +29,8 @@ EventList shows events passed in on the apolloData prop to the user
 
 export default function EventList({
   apolloData: {data, loading, error},
-  listView,
+  listView
+    
 }) {
   return (
     <>
