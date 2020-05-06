@@ -161,7 +161,7 @@ const TagInput = ({
     return () => {
       document.removeEventListener('click', handleClick)
     }
-  }, [])
+  }, [handleClick])
 
   if (loading) {
     return <LoadingDots />
