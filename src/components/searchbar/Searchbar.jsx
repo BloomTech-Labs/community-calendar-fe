@@ -33,6 +33,7 @@ const Searchbar = ({
   const handleSearch = () => {
     //encode text and filters to query string
     let qsObj = createQSObj(index, filters, address)
+    console.log(`this is the qs`, qsObj)
 
     // if use is on SearchResult page update the list of recent searches
     setRecentSearchesLimited &&
@@ -42,8 +43,13 @@ const Searchbar = ({
         filterAddress: address,
       })
 
-    // push to / with query string
-    rccHistory.push(`/${buildQS(qsObj)}`)
+    // On user search, the components / page will not rereender, instead it will add on
+    //  to the existing URL with what the user searches for, this however effects only the url
+    // for user feedback
+    console.log(window.location)
+    window.history.pushState(null, null, `${buildQS(qsObj)}`)
+    // injects what the user searches for in location.search
+    rccHistory.location.search = `${buildQS(qsObj)}`
 
     // execute callback if provided
     cb && cb()
