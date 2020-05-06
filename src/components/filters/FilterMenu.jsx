@@ -112,9 +112,6 @@ const FilterMenu = (props) => {
         ...newFilters,
         filterAddress: address,
       })
-
-      const qsObj = createQSObj(qsFilters.index, newFilters, address)
-      rccHistory.push(`/${buildQS(qsObj)}`)
     }
   } // end SetUserLocation
 
@@ -138,9 +135,6 @@ const FilterMenu = (props) => {
       ...newFilters,
       filterAddress,
     })
-
-    const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
-    rccHistory.push(`/${buildQS(qsObj)}`)
   } //end setRadius
 
   // DATE RANGE SEARCH HANDLERS
@@ -165,9 +159,6 @@ const FilterMenu = (props) => {
       ...newFilters,
       filterAddress,
     })
-
-    const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
-    rccHistory.push(`/${buildQS(qsObj)}`)
   } //end updateDateRange
 
   // TAG SEARCH HANDLERS
@@ -184,9 +175,6 @@ const FilterMenu = (props) => {
       ...newFilters,
       filterAddress,
     })
-
-    const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
-    rccHistory.push(`/${buildQS(qsObj)}`)
   } //end setFilterTags
 
   // tags dropdown
@@ -235,9 +223,6 @@ const FilterMenu = (props) => {
       ...newFilters,
       filterAddress,
     })
-
-    const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
-    rccHistory.push(`/${buildQS(qsObj)}`)
   } //end setFilterPrice
 
   // fake cb  for close function
