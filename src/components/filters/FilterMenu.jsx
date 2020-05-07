@@ -14,7 +14,7 @@ import LoadingDots from '../loading/LoadingDots'
 
 //GQL
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_CACHE} from '../../graphql'
+import {GET_CACHE, GET_CALENDAR_EVENTS} from '../../graphql'
 
 // Utils
 import {fetchGeocode, buildQS, createQSObj} from '../../utils'
@@ -80,6 +80,15 @@ const FilterMenu = (props) => {
   } = props
 
   const rccHistory = useHistory()
+
+  const calendarData = useQuery(GET_CALENDAR_EVENTS)
+
+  const {data} = calendarData
+  //console.log('Calendar data', data)
+
+  const startDates =
+    data && data.events && data.events.map((event) => event.start)
+  console.log(startDates)
 
   // EVENT LOCATION SEARCH HANDLERS
 
@@ -495,6 +504,7 @@ const FilterMenu = (props) => {
                   ))}
               </div>
               <SelectedRange
+                calendarData={startDates}
                 setDate={setDate}
                 updateDateRange={updateDateRange}
                 start={currentDate.start}
