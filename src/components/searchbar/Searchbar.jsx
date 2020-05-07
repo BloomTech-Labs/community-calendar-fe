@@ -26,7 +26,7 @@ const Searchbar = ({
   const [index, setIndex] = useState(initialText)
   const rccHistory = useHistory()
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setIndex(e.target.value)
   }
 
@@ -42,8 +42,12 @@ const Searchbar = ({
         filterAddress: address,
       })
 
-    // push to /search with query string
-    rccHistory.push(`/search${buildQS(qsObj)}`)
+    // On user search, the components / page will not rereender, instead it will add on
+    //  to the existing URL with what the user searches for, this however effects only the url
+    // for user feedback
+    window.history.pushState(null, null, `${buildQS(qsObj)}`)
+    // injects what the user searches for in location.search
+    rccHistory.location.search = `${buildQS(qsObj)}`
 
     // execute callback if provided
     cb && cb()
@@ -66,9 +70,9 @@ const Searchbar = ({
         }`}
         type='text'
         placeholder='Search'
-        onChange={e => handleChange(e)}
+        onChange={(e) => handleChange(e)}
         value={index}
-        onKeyDown={e => {
+        onKeyDown={(e) => {
           if (e.keyCode === 13 && index.length) {
             handleSearch()
           }

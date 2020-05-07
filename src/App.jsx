@@ -20,7 +20,7 @@ import Home from './pages/Home'
 import EventView from './pages/EventView'
 import UpdateEventPage from './pages/UpdateEventPage'
 import CreateEventPage from './pages/CreateEventPage'
-import SearchResults from './pages/SearchResults'
+import SearchResults from './components/search-results/SearchResults'
 import UserProfile from './pages/UserProfilePage'
 import AboutUs from './pages/AboutUs'
 
@@ -43,7 +43,7 @@ function App() {
     if (!authState.isAuthenticated) {
       setAccessToken(null)
     } else {
-      await authService.getAccessToken().then(response => {
+      await authService.getAccessToken().then((response) => {
         setAccessToken(response)
       })
     }
@@ -132,8 +132,11 @@ function App() {
         <ProtectedRoute path='/create-event' component={CreateEventPage} />
         <ProtectedRoute path='/myprofile' component={UserProfile} />
         <Route exact path='/events/:id' component={EventView} />
-        <ProtectedRoute exact path='/events/:id/update' component={UpdateEventPage} />
-        <ProtectedRoute path='/search' component={SearchResults} />
+        <ProtectedRoute
+          exact
+          path='/events/:id/update'
+          component={UpdateEventPage}
+        />
         <Route path='/about-us' component={AboutUs} />
 
         <Route path='/implicit/callback' component={LoginCallback} />

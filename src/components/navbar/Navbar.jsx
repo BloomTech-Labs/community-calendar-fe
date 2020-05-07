@@ -68,7 +68,7 @@ export default function Navbar() {
     if (!authState.isAuthenticated) {
       setUser(null)
     } else {
-      authService.getUser().then(info => {
+      authService.getUser().then((info) => {
         setUser(info)
       })
     }
@@ -105,7 +105,7 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    const profileDropdownTrigger = e => {
+    const profileDropdownTrigger = (e) => {
       // if user clicks div.dropdown-trigger toggle the menu&&
       if (e.target.getAttribute('data-id') === 'navbar-profile-dropdown') {
         dropMenu.current.classList.toggle('is-active')
@@ -141,11 +141,6 @@ export default function Navbar() {
         <Link to='/' title='Go to Community Calendar home page'>
           <CCLogo dimensions={35} />
         </Link>
-        <div className='is-hidden-tablet'>
-          {!/\/search/i.test(pageLocation.pathname) && (
-            <Searchbar cb={() => setNavMenuIsOpen(false)} />
-          )}
-        </div>
         <a
           role='button'
           className={`navbar-burger burger is-hidden-tablet ${
@@ -168,11 +163,6 @@ export default function Navbar() {
         id='navbarMenu'
         data-id='navbar-menu'
       >
-        <div className='navbar-start '>
-          <div className='is-hidden-mobile'>
-            {!/\/search/i.test(pageLocation.pathname) && <Searchbar />}
-          </div>
-        </div>
         <div className='navbar-end'>
           <div
             className={`dropdown  navDropdown ${
@@ -303,8 +293,10 @@ export default function Navbar() {
                   data-id='navbar-profile-dropdown'
                 >
                   <img
-                    src={`${profileImageFromCache &&
-                      profileImageFromCache.profileImage}`}
+                    src={`${
+                      profileImageFromCache &&
+                      profileImageFromCache.profileImage
+                    }`}
                     className={`${navatar} is-round`}
                     width='35'
                     height='35'

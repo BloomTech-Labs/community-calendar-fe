@@ -176,7 +176,7 @@ const EventView = ({history}) => {
   // find out if current user rsvp'd for event
   const didRsvp =
     rsvps.length && cacheUserId
-      ? rsvps.filter(rsvpData => rsvpData.id === cacheUserId.userId)[0]
+      ? rsvps.filter((rsvpData) => rsvpData.id === cacheUserId.userId)[0]
       : null
 
   //destructure first item in locations array
@@ -226,20 +226,20 @@ const EventView = ({history}) => {
 
   const rsvpEvent = () => {
     rsvpEventMutation({variables: {id}}).then(({data: {rsvpEvent}}) => {
-      console.log(rsvpEvent)
-      if(rsvpEvent) {
+      if (rsvpEvent) {
         setAttendees(attendees + 1)
         ReactGA.event({
           category: 'Attending Event',
           action: 'User Clicked Attend Event Button on Event Card',
         })
-      } else{setAttendees(attendees - 1)
+      } else {
+        setAttendees(attendees - 1)
         ReactGA.event({
           category: 'Unattending Event',
           action:
             'User Clicked Unattend Event Button, they no longer wish to attend event',
         })
-      }        
+      }
       setRsvp(rsvpEvent)
     })
   }
@@ -469,11 +469,9 @@ const EventView = ({history}) => {
                 Tags
               </p>
               {tags &&
-                tags.map(tag => (
+                tags.map((tag) => (
                   <Link
-                    to={`/search${buildQS(
-                      createQSObj(null, {tags: [tag.title]}),
-                    )}`}
+                    to={`/${buildQS(createQSObj(null, {tags: [tag.title]}))}`}
                     className='tag is-small is-white color_shark tag-hover'
                     key={tag.title}
                   >

@@ -3,17 +3,17 @@ import {useLocation} from 'react-router-dom'
 
 //graphql
 import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_EVENTS_FILTERED, GET_CACHE} from '../graphql'
+import {GET_EVENTS_FILTERED, GET_CACHE} from '../../graphql'
 
 // Components
-import EventList from '../components/events/EventList'
-import FilterBtns from '../components/event_fltr_btns/EvntFltrBtns'
-import DistanceDropdown from '../components/distance-dropdown/DistanceDropdown'
-import Searchbar from '../components/searchbar/Searchbar'
-import FilterMenu from '../components/filters/FilterMenu'
-import ViewToggle from '../components/events/ViewToggle'
-import {FilterIcon, CloseIconSquare} from '../components/icons'
-import RecentSearches from '../components/recent-searches/RecentSearches'
+import EventList from '../events/EventList'
+import FilterBtns from '../event_fltr_btns/EvntFltrBtns'
+import DistanceDropdown from '../distance-dropdown/DistanceDropdown'
+import Searchbar from '../searchbar/Searchbar'
+import FilterMenu from '../filters/FilterMenu'
+import ViewToggle from '../events/ViewToggle'
+import {FilterIcon, CloseIconSquare} from '../icons'
+import RecentSearches from '../recent-searches/RecentSearches'
 
 //Styles
 import {
@@ -21,12 +21,10 @@ import {
   pageTitle,
   hiddenMenu,
   gobackPadding,
-} from './styles/SearchResults.module.scss'
-
-import GoBack from '../components/go_back/GoBack'
+} from './SearchResults.module.scss'
 
 //utilities
-import {useObjFromQS} from '../utils'
+import {useObjFromQS} from '../../utils'
 
 const SearchResults = ({history}) => {
   const {filtersObj: qsFilters, filterAddress} = useObjFromQS()
@@ -66,35 +64,35 @@ const SearchResults = ({history}) => {
   const [price010, setPrice010] = useState(
     qsFilters.ticketPrice
       ? qsFilters.ticketPrice.some(
-          pr => pr.minPrice === 0 && pr.maxPrice === 10,
+          (pr) => pr.minPrice === 0 && pr.maxPrice === 10,
         )
       : false,
   )
   const [price1020, setPrice1020] = useState(
     qsFilters.ticketPrice
       ? qsFilters.ticketPrice.some(
-          pr => pr.minPrice === 10 && pr.maxPrice === 20,
+          (pr) => pr.minPrice === 10 && pr.maxPrice === 20,
         )
       : false,
   )
   const [price2040, setPrice2040] = useState(
     qsFilters.ticketPrice
       ? qsFilters.ticketPrice.some(
-          pr => pr.minPrice === 20 && pr.maxPrice === 40,
+          (pr) => pr.minPrice === 20 && pr.maxPrice === 40,
         )
       : false,
   )
   const [price4080, setPrice4080] = useState(
     qsFilters.ticketPrice
       ? qsFilters.ticketPrice.some(
-          pr => pr.minPrice === 40 && pr.maxPrice === 80,
+          (pr) => pr.minPrice === 40 && pr.maxPrice === 80,
         )
       : false,
   )
   const [price80, setPrice80] = useState(
     qsFilters.ticketPrice
       ? qsFilters.ticketPrice.some(
-          pr => pr.minPrice === 80 && pr.maxPrice === 100000000,
+          (pr) => pr.minPrice === 80 && pr.maxPrice === 100000000,
         )
       : false,
   )
@@ -197,7 +195,6 @@ const SearchResults = ({history}) => {
 
   return (
     <div className='page-wrapper'>
-      <GoBack isSearchPage />
       <section className={`section mobile-section ${gobackPadding}`}>
         <Searchbar
           isLarge
