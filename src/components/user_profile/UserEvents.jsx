@@ -14,12 +14,10 @@ import {
 } from './UserProfile.module.scss'
 import EventListCard from '../events/EventListCard'
 
-const UserEvents = ({created, attending, saved, loading, error}) => {
-  console.log("Props in UserEvents",  saved)
+const UserEvents = ({created, attending, saved }) => {
 
   const [activeTab, setActiveTab] = useState('1');
  
-  // replace switch statement with following commented-out function
   const tabContentSwitch = (tabIndex) => {
     switch(tabIndex) {
       case '1':
@@ -27,18 +25,10 @@ const UserEvents = ({created, attending, saved, loading, error}) => {
         <div className={`1 ${userEventCards}`}>
             {(attending && attending.length) ? (
                 <>
-                {/* {attending.map(i => (
-                  <div key={i.id} >
-                  <img src={i.eventImages[0].url} alt="event" />
-                  <h3>{i.title}</h3>
-                  <h3>{i.locations[0].city}</h3>
-                </div>
-                ))} */}
                   {attending.map(item => (
             <EventListCard item={item} key={item.id}  />
           ))}
-                  </>
-              //<EventList apolloData={{data: attending, loading, error}}/>
+                  </> 
             ) : (<p>You are not currently RSVP'd to any events.</p>)}
           </div>
           );
@@ -47,18 +37,10 @@ const UserEvents = ({created, attending, saved, loading, error}) => {
         <div className={`2 ${userEventCards}`}>
           {(saved && saved.length) ? (
             <>
-          {/* {saved.map(i => (
-            <div key={i.id} >
-            <img src={i.eventImages[0].url} alt="event" />
-            <h3>{i.title}</h3>
-            <h3>{i.locations[0].city}</h3>
-          </div>
-          ))} */}
           {saved.map(item => (
             <EventListCard item={item} key={item.id}  />
           ))}
             </>
-             // <EventList apolloData={{data: saved, loading, error}}/>
             ) : (<p>You have not saved any events yet.</p>)}
         </div>
         );
@@ -67,18 +49,10 @@ const UserEvents = ({created, attending, saved, loading, error}) => {
         <div className={`3 ${userEventCards}`}>
           {(created && created.length) ? (
               <>
-              {/* {created.map(i => (
-                <div key={i.id} >
-                <img src={i.eventImages[0].url} alt="event" />
-                <h3>{i.title}</h3>
-                <h3>{i.locations[0].city}</h3>
-              </div>
-              ))} */}
                 {created.map(item => (
             <EventListCard item={item} key={item.id}  />
           ))}
                 </>
-              //<EventList apolloData={{data: created, loading, error}}/>
             ) : (<p>You have not created any events yet.</p>)}
         </div>
         );
@@ -87,31 +61,15 @@ const UserEvents = ({created, attending, saved, loading, error}) => {
         <div className={`1 ${userEventCards}`}>
           {(attending && attending.length) ? (
               <>
-              {/* {attending.map(i => (
-                <div key={i.id} >
-                <img src={i.eventImages[0].url} alt="event" />
-                <h3>{i.title}</h3>
-                <h3>{i.locations[0].city}</h3>
-              </div>
-              ))} */}
                 {attending.map(item => (
             <EventListCard item={item} key={item.id}  />
           ))}
                 </>
-            //<EventList apolloData={{data: attending, loading, error}}/>
             ) : (<p>You are not currently RSVP'd to any events.</p>)}
         </div>
         );
     }
   }
-  // const tabContentSwitch = (tabIndex, eventData) => {
-  //   return (
-  //     {eventData.map(event => (
-  //       <EventListCard className={`${tabIndex} ${userEventCards}`} event={event} key={event.id} useListView={listView} />
-  //     ))}
-  //   )
-  // }
-
   return (
     <div className={userEvents}>
       <div className={userEventStage}>
