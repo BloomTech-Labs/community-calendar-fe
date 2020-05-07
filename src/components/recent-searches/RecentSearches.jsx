@@ -52,7 +52,7 @@ const RecentSearches = ({
                   setPrice010(
                     search.ticketPrice
                       ? search.ticketPrice.some(
-                          pr => pr.minPrice === 0 && pr.maxPrice === 10,
+                          (pr) => pr.minPrice === 0 && pr.maxPrice === 10,
                         )
                       : false,
                   )
@@ -60,7 +60,7 @@ const RecentSearches = ({
                   setPrice1020(
                     search.ticketPrice
                       ? search.ticketPrice.some(
-                          pr => pr.minPrice === 10 && pr.maxPrice === 20,
+                          (pr) => pr.minPrice === 10 && pr.maxPrice === 20,
                         )
                       : false,
                   )
@@ -68,7 +68,7 @@ const RecentSearches = ({
                   setPrice2040(
                     search.ticketPrice
                       ? search.ticketPrice.some(
-                          pr => pr.minPrice === 20 && pr.maxPrice === 40,
+                          (pr) => pr.minPrice === 20 && pr.maxPrice === 40,
                         )
                       : false,
                   )
@@ -76,7 +76,7 @@ const RecentSearches = ({
                   setPrice4080(
                     search.ticketPrice
                       ? search.ticketPrice.some(
-                          pr => pr.minPrice === 40 && pr.maxPrice === 80,
+                          (pr) => pr.minPrice === 40 && pr.maxPrice === 80,
                         )
                       : false,
                   )
@@ -84,12 +84,18 @@ const RecentSearches = ({
                   setPrice80(
                     search.ticketPrice
                       ? search.ticketPrice.some(
-                          pr => pr.minPrice === 80 && pr.maxPrice === 100000000,
+                          (pr) =>
+                            pr.minPrice === 80 && pr.maxPrice === 100000000,
                         )
                       : false,
                   )
 
-                  rccHistory.push(`/search${qs}`)
+                  // On user search, the components / page will not rereender, instead it will add on
+                  //  to the existing URL with what the user searches for, this however effects only the url
+                  // for user feedback
+                  window.history.pushState(null, null, `${qs}`)
+                  // injects what the user searches for in location.search
+                  rccHistory.location.search = `${qs}`
                 }}
                 className='has-text-link is-clickable'
               >
