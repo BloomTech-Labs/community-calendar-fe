@@ -8,6 +8,5 @@
   "bracketSpacing": false,
   "jsxBracketSameLine": false,
   "jsxSingleQuote": true,
-  "endOfLine": "lf",
-  "editor.formatOnSave": true
+  "endOfLine": "lf" 
 } 
