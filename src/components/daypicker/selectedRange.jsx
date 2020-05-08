@@ -13,13 +13,13 @@ export default class SelectedRange extends React.Component {
     super(props)
     this.handleDayClick = this.handleDayClick.bind(this)
     this.state = this.getInitialState()
-  }
+  }  
 
   getInitialState() {
     return {
       from: this.props.start ? new Date(this.props.start) : undefined,
       to: this.props.end ? new Date(this.props.end) : undefined,
-    }
+    }    
   }
 
   handleDayClick(day) {
@@ -68,12 +68,11 @@ export default class SelectedRange extends React.Component {
       this.setState({
         from: this.props.start ? new Date(this.props.start) : undefined,
         to: this.props.end ? new Date(this.props.end) : undefined,
-      })
-    }
-  }
-
-  render() {
-    const {from, to} = this.state
+      })     
+    }    
+  }  
+  render() {    
+    const {from, to} = this.state    
     // day picker needs a date object, so calendarData is mapped to turn array of string into array of objects
     const dateArr =
       this.props.calendarData &&
@@ -91,6 +90,7 @@ export default class SelectedRange extends React.Component {
           selectedDays={[from, {from, to}]}
           modifiers={modifiers}
           onDayClick={this.handleDayClick}
+          showOutsideDays={true}
         />
         <Helmet>
           <style>{`
@@ -105,6 +105,9 @@ export default class SelectedRange extends React.Component {
 
   .Selectable .DayPicker-Day {
     border-radius: 0 !important;
+  }
+  .Selectable .DayPicker-Day--outside {
+    color: rgba(223, 223, 223, 0.719)
   }
   .Selectable .DayPicker-Day--start {
     border-top-left-radius: 50% !important;
@@ -124,7 +127,19 @@ export default class SelectedRange extends React.Component {
     top: 12px !important;
     display: inline-block !important;     
   }
-
+  
+  .Selectable .DayPicker-Day--events.DayPicker-Day--outside::after  {
+    content: '' !important;
+    background: white !important;
+    border: white solid 1px;
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+    position: relative !important;
+    right: 9.5px !important;
+    top: 12px !important;
+    display: inline-block !important;
+  }
   .Selectable .DayPicker-Day--end {
     border-top-right-radius: 50% !important;
     border-bottom-right-radius: 50% !important;
