@@ -31,6 +31,7 @@ sets the style to List format or Grid format
  */
 export default function EventListCard(props) {
   const {item, useListView} = props
+  console.log('Props from event cards', props)
   const location =
     item.locations && item.locations[0].streetAddress
       ? item.locations[item.locations.length - 1]

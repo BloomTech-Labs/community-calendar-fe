@@ -329,10 +329,13 @@
       }
 
       .userEventGrid {
-        padding: 2%;
-
+        
         .userEventCards {
-
+          width: 100%;
+         display: flex;
+         flex-flow: row wrap; 
+         justify-content: flex-start;
+         padding-left: 1.5%; 
         }
       }
     }

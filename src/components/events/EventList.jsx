@@ -32,6 +32,9 @@ export default function EventList({
   listView
     
 }) {
+  const filteredDates = data
+    ? data.filter((item) => new Date(item.start) - new Date() > 0)
+    : null
   return (
     <>
       {/* List and Grid view toggle buttons */}
@@ -44,9 +47,7 @@ export default function EventList({
       <div className={`${cardWrapper}`}>
         <div
           className={` ${
-            listView
-              ? `${list_container} ${columns}`
-              : grid_container
+            listView ? `${list_container} ${columns}` : grid_container
           }`}
         >
           {/* Render loading spinner during fetch or error message on error */}
@@ -58,12 +59,12 @@ export default function EventList({
           {/* Render EventListCards for each item in `eventsToDisplay` array */}
           {!loading &&
             !error &&
-            data.map(item => (
+            filteredDates.map((item) => (
               <EventListCard item={item} key={item.id} useListView={listView} />
             ))}
 
           {/* Inform user if query/filtering resolves to empty array with no error */}
-          {!loading && data && !data.length && (
+          {!loading && !error && data && !data.length && (
             <div className='container' style={{gridColumnStart: 'span 3'}}>
               <h5 className='has-text-centered color_chalice'>
                 No events found for the selected filter(s)
