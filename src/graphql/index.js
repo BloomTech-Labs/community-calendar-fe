@@ -7,6 +7,7 @@ import {
   LOCATION_FILTER,
   DATE_FILTER,
   GET_EVENTS,
+  GET_CALENDAR_EVENTS,
   GET_EVENTS_WITH_DISTANCE,
   GET_EVENT_BY_ID,
   GET_EVENT_BY_ID_WITH_DISTANCE,
@@ -14,8 +15,8 @@ import {
   GET_FEATURED_EVENTS,
   GET_USER_AND_EVENTS,
 } from './events.query.js'
-import {GET_USER_PICTURE} from './users.query.js'
-import {UPDATE_USER} from './users.mutation.js'
+import { GET_USER_PICTURE } from './users.query.js'
+import { UPDATE_USER } from './users.mutation.js'
 
 // pure server GraphQL API mutations
 import {
@@ -29,7 +30,7 @@ import {
 // mixed server and client GraphQL API queries
 
 // local state - client GraphQL API typeDefs, resolvers, and queries
-import {typeDefs} from './localState'
+import { typeDefs } from './localState'
 import USER_LOCATION from './userLocation.query.js'
 import {
   GET_CACHE,
@@ -44,6 +45,7 @@ export {
   EVENT_DETAIL_DATA,
   ADDRESS_DETAIL_DATA,
   GET_EVENTS,
+  GET_CALENDAR_EVENTS,
   GET_EVENTS_WITH_DISTANCE,
   GET_EVENT_BY_ID,
   GET_EVENT_BY_ID_WITH_DISTANCE,

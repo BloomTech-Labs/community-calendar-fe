@@ -64,6 +64,19 @@ export const LOCATION_FILTER = gql`
   }
 `
 
+export const GET_CALENDAR_EVENTS = gql`
+  query {
+    events {
+    start
+    end
+    title 
+    locations {
+      streetAddress
+    }
+  }
+  }
+`
+
 // query used by `../pages/Home.jsx` for EventList
 export const GET_EVENTS_FILTERED = gql`
   query EventsFiltered(

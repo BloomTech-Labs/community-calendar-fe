@@ -1,29 +1,25 @@
-import React, {useState} from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import {useDropdown} from '../../utils'
 import moment from 'moment'
-import {DateRange} from 'moment-range'
 import {useHistory} from 'react-router-dom'
 import loadable from '@loadable/component'
 
 //Components
-import {FilterIcon, MapMarkerCircle, DropdownIcon} from '../icons'
-import DateRangePicker from '@wojtekmaj/react-daterange-picker'
+import {MapMarkerCircle, DropdownIcon} from '../icons'
 import TagInput from '../event_forms/TagInput'
 import LoadingDots from '../loading/LoadingDots'
 
 //GQL
-import {useQuery, useApolloClient} from '@apollo/react-hooks'
-import {GET_CACHE} from '../../graphql'
+import {useQuery} from '@apollo/react-hooks'
+import {GET_CALENDAR_EVENTS} from '../../graphql'
 
 // Utils
-import {fetchGeocode, buildQS, createQSObj} from '../../utils'
+import {buildQS, createQSObj} from '../../utils'
 
 // Styles
 import {
   filterWrapper,
   mobile,
-  picker,
   datePickerDropdown,
 } from './FilterMenu.module.scss'
 import {locationContent} from '../navbar/Navbar.module.scss'
@@ -80,6 +76,16 @@ const FilterMenu = (props) => {
   } = props
 
   const rccHistory = useHistory()
+
+  // DATA FOR RENDERING CUSTOM CSS IN SELECTED RANGE COMPONENT
+
+  // queries for event data to pass to selectedRange component
+  const calendarData = useQuery(GET_CALENDAR_EVENTS)
+  const {data} = calendarData
+
+  // maps through queried data to get an array of start times to pass to selectedRange component
+  const startDates =
+    data && data.events && data.events.map((event) => event.start)
 
   // EVENT LOCATION SEARCH HANDLERS
 
@@ -495,6 +501,7 @@ const FilterMenu = (props) => {
                   ))}
               </div>
               <SelectedRange
+                calendarData={startDates}
                 setDate={setDate}
                 updateDateRange={updateDateRange}
                 start={currentDate.start}

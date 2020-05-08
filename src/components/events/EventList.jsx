@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import EventListCard from './EventListCard'
 import LoadingLogo from '../loading/LoadingLogo'
 import ViewToggle from './ViewToggle'
+// import SelectedRange from '../daypicker/selectedRange'
+
 //utils
 
 //styles
@@ -29,7 +31,8 @@ EventList shows events passed in on the apolloData prop to the user
 
 export default function EventList({
   apolloData: {data, loading, error},
-  listView,
+  listView
+    
 }) {
   const filteredDates = data
     ? data.filter((item) => new Date(item.start) - new Date() > 0)
