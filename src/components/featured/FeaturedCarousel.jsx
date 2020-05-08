@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 //components
 import FeaturedCard from './FeaturedCard.jsx'
@@ -12,8 +11,12 @@ import {featuredWrapper} from './Featured.module.scss'
 import ReactSimpleCarousel from 'react-spring-carousel'
 
 function FeatCarousel({apolloData: {data, loading, error}}) {
-  const eventsToShow = !loading && data.events ? data.events.slice(0, 6) : null
-
+  const filtered =
+    !loading && data.events
+      ? data.events
+          .filter((i) => new Date(i.start) - new Date() > 0)
+          .slice(0, 6)
+      : null
   return (
     <section style={{paddingBottom: 0}} className='section mobile-section'>
       <h3 className='is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis'>
@@ -30,8 +33,8 @@ function FeatCarousel({apolloData: {data, loading, error}}) {
 
         {/* map over events and create cards */}
         {!loading && data && (
-          <ReactSimpleCarousel slidesToShow={eventsToShow.length}>
-            {eventsToShow.map(event => (
+          <ReactSimpleCarousel slidesToShow={filtered.length}>
+            {filtered.map((event) => (
               <FeaturedCard key={event.id} item={event} />
             ))}
           </ReactSimpleCarousel>
