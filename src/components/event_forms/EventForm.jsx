@@ -15,6 +15,10 @@ import {eventSchema} from './eventSchema'
 // utils
 import {fetchGeocode} from '../../utils'
 
+//GQL
+import {useQuery} from '@apollo/react-hooks'
+import {GET_CALENDAR_EVENTS} from '../../graphql'
+
 // styles
 import UploadIcon from '../icons/UploadIcon'
 import LoadingDots from '../loading/LoadingDots'
@@ -69,6 +73,11 @@ const EventForm = props => {
     mutationError,
     mutationLoading,
   } = props
+
+
+  const createEventData = useQuery(GET_CALENDAR_EVENTS)
+  console.log("I am the createEventData", createEventData )
+
 
   /* FORM STATE:
   react-hook-form manages state for all text values (location and details) inputted by user
