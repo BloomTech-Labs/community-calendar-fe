@@ -110,24 +110,20 @@ export default class SelectedRange extends React.Component {
     border-top-left-radius: 50% !important;
     border-bottom-left-radius: 50% !important;
     background-color: #ff4b4d !important
-  }
-
-  
+  } 
   
   .Selectable .DayPicker-Day--events::after {
     content: '' !important; 
-    background: #3333cc;
-    width: 5px !important;
-    height: 5px !important;
+    background: #00ff00;
+    border:black solid 1.5px;
+    width: 8px !important;
+    height: 8px !important;
     border-radius: 50% !important;
     position: relative !important;
-    left: 5px !important;
-    top: 7px !important;
-    display: inline-block !important;
-     
+    right: 9.5px !important;
+    top: 12px !important;
+    display: inline-block !important;     
   }
-
-
 
   .Selectable .DayPicker-Day--end {
     border-top-right-radius: 50% !important;
