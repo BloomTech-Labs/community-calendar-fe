@@ -262,6 +262,10 @@ const EventForm = (props) => {
     mutation({variables: mutationValues})
   } //end onSubmit
 
+  if (fileUpload && error) {
+    document.querySelector(`.${dropBoxError}`).remove()
+  }
+
   // log errors and success messages
   useEffect(() => {
     if (mutationError) {
