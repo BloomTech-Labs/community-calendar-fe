@@ -118,20 +118,26 @@ const EventForm = (props) => {
   // create `images` state to be used in backend mutation request
   const [images, setImages] = useState(null)
 
+  // Error for image uploader * start
   // Keeps track whether user uploads image when creating an event
   const [fileUpload, setFileUpload] = useState(false)
 
-  // Error created when user attempts to submit form without uploading an image
-  const p = document.createElement('p')
-  p.classList.add('is-size-7', `${dropBoxError}`)
-  const text = document.createTextNode('Event Image is required')
-
   // Function to append image error, when user submits form without image
-  const displayError = () => {
-    const imgDropBox = document.querySelector(`.${dropBoxError}`)
+  const appendErrorOnImageUploader = () => {
+    // Error created when user attempts to submit form without uploading an image
+    const p = document.createElement('p')
+    p.classList.add('is-size-7', `${dropBoxError}`)
+    const text = document.createTextNode('Event Image is required')
+
+    // appending of error
+    const imgDropBox = document.querySelector(`.dropBox`)
     imgDropBox.append(p)
     p.appendChild(text)
   }
+
+  // Checks to see if the error is already deing displayed on the users screen
+  const error = document.querySelector(`.${dropBoxError}`)
+  // Error for image uploader * End
 
   // create `startDatetime` state to be used in datepicker and backend mutation request
   // defaults to the next noon (today or tomorrow)
@@ -240,6 +246,17 @@ const EventForm = (props) => {
       ticketPrice,
       images,
       eventImages: images && images.length ? [] : undefined,
+    }
+
+    if (formType === 'add' && !fileUpload) {
+      if (error) {
+        return null
+      } else {
+        appendErrorOnImageUploader()
+        return null
+      }
+    } else {
+      setFileUpload(false)
     }
 
     mutation({variables: mutationValues})
