@@ -4,155 +4,158 @@
 @import '~bulma/sass/grid/columns.sass';
 @import '~bulma/sass/form/_all.sass';
 
-
 .createEventForm {
-    padding-top: 5vh;
-    width: 60%;
-    height: 100%;
-    margin: 0 auto;
-    
+  padding-top: 5vh;
+  width: 60%;
+  height: 100%;
+  margin: 0 auto;
+
+  @include mobile {
+    width: 95%;
+  }
+
+  div,
+  label,
+  input {
+    width: 100%;
+  }
+
+  select {
+    appearance: none;
+    border-radius: 0px;
+  }
+
+  label {
+    // margin: $gap-sm 0;
+    font-weight: bold;
+  }
+
+  .input,
+  .select {
+    border: none;
+    border-bottom: 2px solid black;
+    border-radius: 0px;
+    box-shadow: none;
+    text-align: left;
+    padding: 0;
+    background-color: white;
+    font-size: $gap-xs;
+    width: 100%;
+  }
+
+  .shark {
+    background-color: $shark;
+  }
+
+  .errorMessage {
+    margin: 0;
+    position: absolute;
+    color: $red;
+  }
+
+  .errorMargin {
+    margin-top: $gap-xxs;
+  }
+
+  .errorMarginMobile {
     @include mobile {
-        width: 95%;
+      margin-top: $gap-md;
     }
-
-    div, label, input {
-        width: 100%;
-    }
-
-    select {
-        appearance: none;
-        border-radius: 0px;
-    }
-    
-    label {
-        // margin: $gap-sm 0;
-        font-weight: bold;
-    }
-    
-    .input, .select {
-        border: none;
-        border-bottom: 2px solid black;
-        border-radius: 0px;
-        box-shadow: none;
-        text-align: left;
-        padding: 0;
-        background-color: white;
-        font-size: $gap-xs;
-        width: 100%;
-    }
-
-    .shark {
-        background-color: $shark;
-    }
-
-    .errorMessage {
-        margin: 0;
-        position: absolute;
-        color: $red;
-    }
-
-    .errorMargin {
-        margin-top: $gap-xxs;
-    }
-
-    .errorMarginMobile {
-        @include mobile {
-            margin-top: $gap-md;
-        }
-    }
+  }
+  .dropBoxError {
+    color: $red;
+  }
 }
 
 .vSpacing {
-    margin: 2rem 1rem 2rem 1rem;
-
+  margin: 2rem 1rem 2rem 1rem;
 }
 
 .littleTopMargin {
-    margin-top: $gap-sm;
+  margin-top: $gap-sm;
 }
 
 .littleTopPadding {
-    padding-top: 2vh;
+  padding-top: 2vh;
 }
 
 .location {
-    padding-top: 3vh;
+  padding-top: 3vh;
 }
 
 .picker {
-    border: 2px solid black;
-    border-radius: 4px;
-    resize: none;
-    text-align: center;
+  border: 2px solid black;
+  border-radius: 4px;
+  resize: none;
+  text-align: center;
 }
 
 .textarea {
-    border: 2px solid black;
-    border-radius: 4px;
-    resize: none;
+  border: 2px solid black;
+  border-radius: 4px;
+  resize: none;
 }
 
 .imageUploader {
-    width: 198px !important;
-    border-radius: 4px;
-    border: 2px solid black;
+  width: 198px !important;
+  border-radius: 4px;
+  border: 2px solid black;
 
-    .uploadContainer {
-        height: 194px;
-        width: 194px;
-    }
+  .uploadContainer {
+    height: 194px;
+    width: 194px;
+  }
 
-    .imagePreview {
-        height: 194px;
-        width: 194px;
-        object-fit: cover;
-    }
+  .imagePreview {
+    height: 194px;
+    width: 194px;
+    object-fit: cover;
+  }
 }
 
-
 .flexcolumn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .flexrow {
-    display: flex;
+  display: flex;
 }
 
 .flexCenter {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .tabletFlexrow {
-    display: flex;
-    flex-direction: column;
-    @include tablet {
-        flex-direction: row;
-    }
+  display: flex;
+  flex-direction: column;
+  @include tablet {
+    flex-direction: row;
+  }
 }
 
 .tabletEndfield {
-    margin-left: 0;
-    @include tablet {
-        margin-left: $gap-sm;
-    }
+  margin-left: 0;
+  @include tablet {
+    margin-left: $gap-sm;
+  }
 }
 
 .desktopFlexrow {
-    display: flex;
-    flex-direction: column;
-    @include desktop {
-        flex-direction: row;
-    }
+  display: flex;
+  flex-direction: column;
+  @include desktop {
+    flex-direction: row;
+  }
 }
 
 .desktopEndfield {
-    margin-left: 0;
-    @include desktop {
-        margin-left: $gap-sm;
-    }
+  margin-left: 0;
+  @include desktop {
+    margin-left: $gap-sm;
+  }
 }

@@ -42,6 +42,7 @@ import {
   tabletEndfield,
   desktopFlexrow,
   desktopEndfield,
+  dropBoxError,
 } from './styles/EventForm.module.scss'
 import {date} from 'yup'
 
