@@ -45,6 +45,7 @@ import {
   dropBoxError,
 } from './styles/EventForm.module.scss'
 import {date} from 'yup'
+import {object} from 'prop-types'
 
 /* split react-date-timepicker from the rest of the bundle */
 const DateTimePickerSplit = loadable.lib(() =>
@@ -264,6 +265,12 @@ const EventForm = (props) => {
 
   if (fileUpload && error) {
     document.querySelector(`.${dropBoxError}`).remove()
+  }
+
+  if (Object.keys(formErrors).length && !fileUpload) {
+    if (!error) {
+      appendErrorOnImageUploader()
+    }
   }
 
   // log errors and success messages
