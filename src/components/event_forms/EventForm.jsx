@@ -120,6 +120,11 @@ const EventForm = (props) => {
   // Keeps track whether user uploads image when creating an event
   const [fileUpload, setFileUpload] = useState(false)
 
+  // Error created when user attempts to submit form without uploading an image
+  const p = document.createElement('p')
+  p.classList.add('is-size-7', `${dropBoxError}`)
+  const text = document.createTextNode('Event Image is required')
+
   // create `startDatetime` state to be used in datepicker and backend mutation request
   // defaults to the next noon (today or tomorrow)
   let nextNoon = new Date()
@@ -493,7 +498,7 @@ const EventForm = (props) => {
           <label className={`field ${flexCenter}`}>
             Event image
             <div
-              className={`field ${flexCenter}`}
+              className={`field ${flexCenter} dropBox`}
               style={{
                 pointerEvents: 'none',
               }}
@@ -505,6 +510,7 @@ const EventForm = (props) => {
                     onDrop={(acceptedFiles) => {
                       if (acceptedFiles.length) {
                         setImages(acceptedFiles)
+                        setFileUpload(true)
                       }
                     }}
                   >
