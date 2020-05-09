@@ -54,7 +54,7 @@ const DropzoneSplit = loadable.lib(() =>
   import(/* webpackChunkName: "reactDropzone" */ 'react-dropzone'),
 )
 
-const EventForm = props => {
+const EventForm = (props) => {
   /* FORM FUNCTIONS AND DATA:
   Destructure `formType`, `item`, `mutation` function, `mutationData`, and `mutationError`
   `formType` is "add" or "update"
@@ -78,36 +78,47 @@ const EventForm = props => {
   Destructure the `register` value handler, submit handler, and error handler
   Ternary maps values passed in on `item` prop as default values for `update` forms
   yup validationSchema imported from `eventSchema.js` */
-  const {register, handleSubmit, errors: formErrors, getValues, setValue} =
-    useForm(formType === 'update' && item
+  const {
+    register,
+    handleSubmit,
+    errors: formErrors,
+    getValues,
+    setValue,
+  } = useForm(
+    formType === 'update' && item
       ? {
-        validationSchema: eventSchema,
-        defaultValues: {
-          title: item.title || null,
-          placeName: item.locations[item.locations.length - 1].name || null,
-          streetAddress:
-            item.locations[item.locations.length - 1].streetAddress || null,
-          streetAddress2:
-            item.locations[item.locations.length - 1].streetAddress2 || null,
-          city: item.locations[item.locations.length - 1].city || null,
-          state: item.locations[item.locations.length - 1].state || null,
-          zipcode: item.locations[item.locations.length - 1].zipcode || null,
-          description: item.description || null,
-          ticketPrice: item.ticketPrice || null,
-        },
-        mode: 'onBlur',
+          validationSchema: eventSchema,
+          defaultValues: {
+            title: item.title || null,
+            placeName: item.locations[item.locations.length - 1].name || null,
+            streetAddress:
+              item.locations[item.locations.length - 1].streetAddress || null,
+            streetAddress2:
+              item.locations[item.locations.length - 1].streetAddress2 || null,
+            city: item.locations[item.locations.length - 1].city || null,
+            state: item.locations[item.locations.length - 1].state || null,
+            zipcode: item.locations[item.locations.length - 1].zipcode || null,
+            description: item.description || null,
+            ticketPrice: item.ticketPrice || null,
+          },
+          mode: 'onBlur',
         }
-      : {validationSchema: eventSchema, mode: 'onBlur'})
+      : {validationSchema: eventSchema, mode: 'onBlur'},
+  )
 
   // create `tag` state to be used in backend mutation request
   // Ternary maps values passed in on `item` prop as default tags for `update` forms,
-  const [selectedTags, setSelectedTags] =
-    useState(formType === 'update' && item.tags.length
-      ? item.tags.map(tag => tag.title)
-      : [])
+  const [selectedTags, setSelectedTags] = useState(
+    formType === 'update' && item.tags.length
+      ? item.tags.map((tag) => tag.title)
+      : [],
+  )
 
   // create `images` state to be used in backend mutation request
   const [images, setImages] = useState(null)
+
+  // Keeps track whether user uploads image when creating an event
+  const [fileUpload, setFileUpload] = useState(false)
 
   // create `startDatetime` state to be used in datepicker and backend mutation request
   // defaults to the next noon (today or tomorrow)
@@ -115,12 +126,11 @@ const EventForm = props => {
   if (nextNoon.getHours() >= 12) nextNoon.setDate(nextNoon.getDate() + 1)
   nextNoon.setHours(12, 0, 0, 0)
 
-  const [startDatetime, setStartDatetime] =
-    useState(formType === 'update' && item.start
-      ? new Date(item.start)
-      : nextNoon)
+  const [startDatetime, setStartDatetime] = useState(
+    formType === 'update' && item.start ? new Date(item.start) : nextNoon,
+  )
 
-  const startChange = datetime => {
+  const startChange = (datetime) => {
     setStartDatetime(datetime)
   }
 
@@ -131,12 +141,11 @@ const EventForm = props => {
     nextAfternoon.setDate(nextAfternoon.getDate() + 1)
   nextAfternoon.setHours(15, 0, 0, 0)
 
-  const [endDatetime, setEndDatetime] =
-    useState(formType === 'update' && item.end
-      ? new Date(item.end)
-      : nextAfternoon)
+  const [endDatetime, setEndDatetime] = useState(
+    formType === 'update' && item.end ? new Date(item.end) : nextAfternoon,
+  )
 
-  const endChange = datetime => {
+  const endChange = (datetime) => {
     setEndDatetime(datetime)
   }
 
@@ -153,7 +162,7 @@ const EventForm = props => {
     var hasPeriod = false
 
     const newTicketPriceVal = arrTicketPriceVal
-      .filter(letter => {
+      .filter((letter) => {
         if (letter === '.') {
           if (hasPeriod) return false
 
@@ -175,7 +184,7 @@ const EventForm = props => {
   }
 
   // submit handler pulls together state from all sources and creates a mutation request
-  const onSubmit = async formValues => {
+  const onSubmit = async (formValues) => {
     const {
       title,
       placeName,
@@ -212,7 +221,9 @@ const EventForm = props => {
       zipcode: parseInt(zipcode),
       latitude: lat, // pass event coordinates to mutation
       longitude: long,
-      tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : [],
+      tags: selectedTags.length
+        ? selectedTags.map((tag) => ({title: tag}))
+        : [],
       ticketPrice,
       images,
       eventImages: images && images.length ? [] : undefined,
@@ -388,13 +399,13 @@ const EventForm = props => {
             <DateTimePickerSplit fallback={<LoadingDots />}>
               {({default: DateTimePicker}) => (
                 <DateTimePicker
-                  monthAriaLabel="Month"
-                  dayAriaLabel="Day"
-                  yearAriaLabel="Year"
-                  hourAriaLabel="Hour"
-                  minuteAriaLabel="Minute"
-                  amPmAriaLabel="Select AM/PM"
-                  clearAriaLabel="Clear Date"
+                  monthAriaLabel='Month'
+                  dayAriaLabel='Day'
+                  yearAriaLabel='Year'
+                  hourAriaLabel='Hour'
+                  minuteAriaLabel='Minute'
+                  amPmAriaLabel='Select AM/PM'
+                  clearAriaLabel='Clear Date'
                   onChange={startChange}
                   value={startDatetime}
                   className={picker}
@@ -411,13 +422,13 @@ const EventForm = props => {
             <DateTimePickerSplit fallback={<LoadingDots />}>
               {({default: DateTimePicker}) => (
                 <DateTimePicker
-                  monthAriaLabel="Month"
-                  dayAriaLabel="Day"
-                  yearAriaLabel="Year"
-                  hourAriaLabel="Hour"
-                  minuteAriaLabel="Minute"
-                  amPmAriaLabel="Select AM/PM"
-                  clearAriaLabel="Clear Date"
+                  monthAriaLabel='Month'
+                  dayAriaLabel='Day'
+                  yearAriaLabel='Year'
+                  hourAriaLabel='Hour'
+                  minuteAriaLabel='Minute'
+                  amPmAriaLabel='Select AM/PM'
+                  clearAriaLabel='Clear Date'
                   onChange={endChange}
                   value={endDatetime}
                   className={picker}
@@ -491,8 +502,8 @@ const EventForm = props => {
                 {({default: Dropzone}) => (
                   <Dropzone
                     // If used uploads file, replace the image in state with the new uploaded file
-                    onDrop={acceptedFiles => {
-                      if(acceptedFiles.length){
+                    onDrop={(acceptedFiles) => {
+                      if (acceptedFiles.length) {
                         setImages(acceptedFiles)
                       }
                     }}
