@@ -126,6 +126,13 @@ const EventForm = (props) => {
   p.classList.add('is-size-7', `${dropBoxError}`)
   const text = document.createTextNode('Event Image is required')
 
+  // Function to append image error, when user submits form without image
+  const displayError = () => {
+    const imgDropBox = document.querySelector(`.${dropBoxError}`)
+    imgDropBox.append(p)
+    p.appendChild(text)
+  }
+
   // create `startDatetime` state to be used in datepicker and backend mutation request
   // defaults to the next noon (today or tomorrow)
   let nextNoon = new Date()
