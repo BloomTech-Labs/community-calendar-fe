@@ -25,6 +25,7 @@ import LoadingDots from '../loading/LoadingDots'
 import {
   createEventForm,
   input,
+  cal,
   select,
   shark,
   errorMessage,
@@ -34,7 +35,7 @@ import {
   littleTopMargin,
   littleTopPadding,
   location,
-  picker,
+  picker,  
   textarea,
   imageUploader,
   uploadContainer,
@@ -61,7 +62,7 @@ const DropzoneSplit = loadable.lib(() =>
 )
 
 const EventForm = (props) => {
-  /* FORM FUNCTIONS AND DATA:
+    /* FORM FUNCTIONS AND DATA:
   Destructure `formType`, `item`, `mutation` function, `mutationData`, and `mutationError`
   `formType` is "add" or "update"
   `item` is result of GET_EVENT_BY_ID query which is only passed down for an EditForm
@@ -76,10 +77,15 @@ const EventForm = (props) => {
     mutationLoading,
   } = props
 
-
   const createEventData = useQuery(GET_CALENDAR_EVENTS)
-  console.log("I am the createEventData", createEventData )
+  console.log('I am the createEventData', createEventData)
 
+  const {data} = createEventData
+
+  const startTime =
+    data &&
+    data.events.map((event) => event.start).map((event) => new Date(event))
+  console.log('I am the starttime', startTime)
 
   /* FORM STATE:
   react-hook-form manages state for all text values (location and details) inputted by user
@@ -460,7 +466,9 @@ const EventForm = (props) => {
                   value={startDatetime}
                   className={picker}
                   disableClock={true}
-                  minDate={new Date()}
+                  minDate={new Date()}                  
+                  tileClassName={cal} 
+                               
                 />
               )}
             </DateTimePickerSplit>
@@ -483,9 +491,9 @@ const EventForm = (props) => {
                   value={endDatetime}
                   className={picker}
                   disableClock={true}
-                  minDate={new Date()}
-                />
-              )}
+                  minDate={new Date()}                                 
+                />               
+              )}               
             </DateTimePickerSplit>
           </div>
         </div>
@@ -629,3 +637,5 @@ const EventForm = (props) => {
 }
 
 export default EventForm
+
+

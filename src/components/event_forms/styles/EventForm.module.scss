@@ -60,6 +60,53 @@
   .errorMarginMobile {
     @include mobile {
       margin-top: $gap-md;
+        width: 95%;
+    }
+
+    div, label, input {
+        width: 100%;
+    }
+
+    select {
+        appearance: none;
+        border-radius: 0px;
+    }
+    
+    label {
+        // margin: $gap-sm 0;
+        font-weight: bold;
+    }
+    
+    .input, .select {
+        border: none;
+        border-bottom: 2px solid black;
+        border-radius: 0px;
+        box-shadow: none;
+        text-align: left;
+        padding: 0;
+        background-color: white;
+        font-size: $gap-xs;
+        width: 100%;
+    }
+
+    .shark {
+        background-color: $shark;
+    }
+   
+    .errorMessage {
+        margin: 0;
+        position: absolute;
+        color: $red;
+    }
+
+    .errorMargin {
+        margin-top: $gap-xxs;
+    }
+
+    .errorMarginMobile {
+        @include mobile {
+            margin-top: $gap-md;
+        }
     }
   }
   .dropBoxError {
@@ -88,6 +135,22 @@
   border-radius: 4px;
   resize: none;
   text-align: center;
+    border: 2px solid black;
+    border-radius: 4px;
+    resize: none;
+    text-align: center;  
+}
+
+.cal{
+    content: '';
+    background: #00ff00;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    position: relative;
+    right: 9.5px;
+    top: 12px;
+    // display: inline-block; 
 }
 
 .textarea {
