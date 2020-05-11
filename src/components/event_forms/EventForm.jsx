@@ -51,6 +51,7 @@ import {
 } from './styles/EventForm.module.scss'
 import {date} from 'yup'
 import {object} from 'prop-types'
+import moment from 'moment'
 
 /* split react-date-timepicker from the rest of the bundle */
 const DateTimePickerSplit = loadable.lib(() =>
@@ -82,11 +83,34 @@ const EventForm = (props) => {
 
   const {data} = createEventData
 
-  const startTime =
-    data &&
-    data.events.map((event) => event.start).map((event) => new Date(event))
-  console.log('I am the starttime', startTime)
+  const startDates =
+   data &&
+   data.events.map((event) => event.start).map((event) => new Date(event))
+  console.log('I am the startDates', startDates)
+  
 
+  function isSameDay(a, b) {
+    return moment(a, 'month').isSame(b, 'month')
+  }
+
+  // Function: ({ activeStartDate, date, view }) => view === 'month' && date.getDay() === 3 ? 'wednesday' : null
+
+  // function tileClass({activeStartDate, date, view}){
+  //  return view === 'month' && date.getDay() === 3 ? 'wednesday' : null
+  // } 
+  
+  function tileClass({date, view}) {
+    if (view === 'month') {
+      if (startDates && startDates.find(dDate => isSameDay(dDate, date))) {        
+        return cal
+      }
+    }
+    console.log('Dates in calendar', date)
+  }
+  console.log('tileClass function', tileClass('2020-5-11', 'month'))
+  console.log('isSameDay function', isSameDay('5-11-2020', '5-11-2020'))
+
+  
   /* FORM STATE:
   react-hook-form manages state for all text values (location and details) inputted by user
   `tags`, `images`, `startDatetime`, and `endDatetime` all require custom state handlers */
@@ -467,7 +491,15 @@ const EventForm = (props) => {
                   className={picker}
                   disableClock={true}
                   minDate={new Date()}                  
-                  tileClassName={cal} 
+                  // tileClassName={tileClass}
+
+                  tileClassName={({date,view})=>{
+                    if(startDates.find(x=>x===moment(date).format("DD-MM-YYYY"))){
+                      return  'cal'
+                     }
+                  }}
+                  
+
                                
                 />
               )}
