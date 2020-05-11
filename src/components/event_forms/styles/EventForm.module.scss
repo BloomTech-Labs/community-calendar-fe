@@ -135,19 +135,18 @@
   border-radius: 4px;
   resize: none;
   text-align: center;
-    border: 2px solid black;
-    border-radius: 4px;
-    resize: none;
-    text-align: center;  
 }
 
-.cal{
-    content: '';
-    background:#ff8533 !important;   
-    border-radius: 80% !important;
-    position: relative !important;   
-    display: inline-block !important; 
-    padding:3.5% !important;    
+.cal {
+  content: '';
+  background: #00ff00;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: relative;
+  right: 9.5px;
+  top: 12px;
+  // display: inline-block;
 }
 
 .textarea {
@@ -218,4 +217,13 @@
   @include desktop {
     margin-left: $gap-sm;
   }
+}
+
+.cal {
+  content: '';
+  background: #ff8533 !important;
+  border-radius: 80% !important;
+  position: relative !important;
+  display: inline-block !important;
+  padding: 3.5% !important;
 }

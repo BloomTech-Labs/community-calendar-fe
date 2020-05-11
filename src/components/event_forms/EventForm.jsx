@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import * as yup from 'yup'
 import loadable from '@loadable/component'
 import ReactGA from 'react-ga'
+import moment from 'moment'
 
 // form components
 import {useForm, ErrorMessage} from 'react-hook-form'
@@ -35,7 +36,7 @@ import {
   littleTopMargin,
   littleTopPadding,
   location,
-  picker,  
+  picker,
   textarea,
   imageUploader,
   uploadContainer,
@@ -63,7 +64,7 @@ const DropzoneSplit = loadable.lib(() =>
 )
 
 const EventForm = (props) => {
-    /* FORM FUNCTIONS AND DATA:
+  /* FORM FUNCTIONS AND DATA:
   Destructure `formType`, `item`, `mutation` function, `mutationData`, and `mutationError`
   `formType` is "add" or "update"
   `item` is result of GET_EVENT_BY_ID query which is only passed down for an EditForm
@@ -83,11 +84,8 @@ const EventForm = (props) => {
 
   const {data} = createEventData
 
-  const startDates =
-   data &&
-   data.events.map((event) => event.start).map((event) => new Date(event))
-  console.log('I am the startDates', startDates)
-  
+  const startTime = data && data.events.map((event) => event.start)
+  console.log('I am the starttime', startTime)
 
   function isSameDay(a, b) {
     return moment(a, 'month').isSame(b, 'month')
@@ -490,17 +488,18 @@ const EventForm = (props) => {
                   value={startDatetime}
                   className={picker}
                   disableClock={true}
-                  minDate={new Date()}                  
-                  // tileClassName={tileClass}
-
-                  tileClassName={({date,view})=>{
-                    if(startDates.find(x=>x===moment(date).format("DD-MM-YYYY"))){
-                      return  'cal'
-                     }
+                  minDate={new Date()}
+                  tileClassName={({date, view}) => {
+                    if (
+                      startTime.find(
+                        (x) =>
+                          moment(x).format('DD-MM-YYYY') ===
+                          moment(date).format('DD-MM-YYYY'),
+                      )
+                    ) {
+                      return cal
+                    }
                   }}
-                  
-
-                               
                 />
               )}
             </DateTimePickerSplit>
@@ -523,9 +522,9 @@ const EventForm = (props) => {
                   value={endDatetime}
                   className={picker}
                   disableClock={true}
-                  minDate={new Date()}                                 
-                />               
-              )}               
+                  minDate={new Date()}
+                />
+              )}
             </DateTimePickerSplit>
           </div>
         </div>
@@ -669,5 +668,3 @@ const EventForm = (props) => {
 }
 
 export default EventForm
-
-
