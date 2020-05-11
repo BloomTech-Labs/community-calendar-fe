@@ -18,13 +18,13 @@ export default function createQSObj(text, filters = null, address = null) {
     }
     // if "locations" exist add to qs
     if (filters.location) {
-      Object.keys(filters.location).forEach(k => {
+      Object.keys(filters.location).forEach((k) => {
         qsObj[k] = filters.location[k]
       })
     }
     // if "dateRange" exist add to qs
     if (filters.dateRange) {
-      Object.keys(filters.dateRange).forEach(k => {
+      Object.keys(filters.dateRange).forEach((k) => {
         qsObj[k] = filters.dateRange[k]
       })
     }
