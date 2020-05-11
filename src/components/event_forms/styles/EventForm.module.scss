@@ -137,16 +137,13 @@
   text-align: center;
 }
 
-.cal {
-  content: '';
-  background: #00ff00;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  position: relative;
-  right: 9.5px;
-  top: 12px;
-  // display: inline-block;
+.cal{
+    content: '';
+    background:#ff8533 !important;   
+    border-radius: 80% !important;
+    position: relative !important;   
+    display: inline-block !important; 
+    padding:3.5% !important;    
 }
 
 .textarea {
