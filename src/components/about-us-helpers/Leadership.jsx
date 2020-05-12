@@ -100,10 +100,15 @@ const Leadership = () => {
             ) : (
               <div />
             )}
-            <p className='color_black is-bold is-family-secondary'>
+            <p
+              className='color_black is-bold is-family-secondary'
+              data-testid='name'
+            >
               {member.name}
             </p>
-            <p className='color_chalice'>{member.role}</p>
+            <p className='color_chalice' data-testid='role'>
+              {member.role}
+            </p>
           </div>
         ))}
       </section>
