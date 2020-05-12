@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for OurMission.jsx Snapshot should match snapshot 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <section
+        id="section1"
+      >
+        <div>
+          <h2
+            class="is-bold is-size-3 is-family-secondary"
+          >
+            OUR
+            <br />
+            MISSION
+          </h2>
+        </div>
+        <div>
+          <p
+            data-testid="mission-statement"
+          >
+            Our platform should make discovering a local event on any given day as easy and as rewarding as finding something new to watch on Netflix. A local event app serving municipalities and neighborhoods. See the events happening in your local area in an intuitive way.
+          </p>
+        </div>
+      </section>
+      <section
+        id="section2"
+      >
+        <div>
+          <div />
+        </div>
+      </section>
+      <section
+        id="section3"
+      >
+        <div
+          class="div1"
+        />
+        <div
+          class="div2"
+        >
+          <h3
+            class="is-family-secondary is-size-3"
+            data-testid="target-audience"
+          >
+            Target Audience
+          </h3>
+          <p>
+            We are targeting real people in communities
+            <br />
+            who find it hard to find local events.
+          </p>
+        </div>
+        <div
+          class="div3"
+        />
+      </section>
+      <section
+        id="section4"
+      >
+        <div
+          class="div1"
+        >
+          <h3
+            class="is-family-secondary is-size-3"
+            data-testid="our-focus"
+          >
+            Our Focus
+          </h3>
+          <p>
+            To make easier to find local events in their community and respective location.
+            <br />
+            We aim to solve that by creating a design
+            <br />
+            that is elegant and intuitive.
+          </p>
+        </div>
+        <div
+          class="div2"
+        />
+      </section>
+    </div>
+  </body>,
+  "container": <div>
+    <section
+      id="section1"
+    >
+      <div>
+        <h2
+          class="is-bold is-size-3 is-family-secondary"
+        >
+          OUR
+          <br />
+          MISSION
+        </h2>
+      </div>
+      <div>
+        <p
+          data-testid="mission-statement"
+        >
+          Our platform should make discovering a local event on any given day as easy and as rewarding as finding something new to watch on Netflix. A local event app serving municipalities and neighborhoods. See the events happening in your local area in an intuitive way.
+        </p>
+      </div>
+    </section>
+    <section
+      id="section2"
+    >
+      <div>
+        <div />
+      </div>
+    </section>
+    <section
+      id="section3"
+    >
+      <div
+        class="div1"
+      />
+      <div
+        class="div2"
+      >
+        <h3
+          class="is-family-secondary is-size-3"
+          data-testid="target-audience"
+        >
+          Target Audience
+        </h3>
+        <p>
+          We are targeting real people in communities
+          <br />
+          who find it hard to find local events.
+        </p>
+      </div>
+      <div
+        class="div3"
+      />
+    </section>
+    <section
+      id="section4"
+    >
+      <div
+        class="div1"
+      >
+        <h3
+          class="is-family-secondary is-size-3"
+          data-testid="our-focus"
+        >
+          Our Focus
+        </h3>
+        <p>
+          To make easier to find local events in their community and respective location.
+          <br />
+          We aim to solve that by creating a design
+          <br />
+          that is elegant and intuitive.
+        </p>
+      </div>
+      <div
+        class="div2"
+      />
+    </section>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
