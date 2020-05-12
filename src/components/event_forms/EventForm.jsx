@@ -47,14 +47,9 @@ import {
   desktopFlexrow,
   desktopEndfield,
   dropBoxError,
-} from './styles/EventForm.module.scss'
-import {date} from 'yup'
-import {object} from 'prop-types'
-import moment from 'moment'
-
   events,
-  eventContainer,
-} from './styles/EventForm.module.scss'
+  eventContainer
+} from './styles/EventForm.module.scss' 
 
 /* split react-date-timepicker from the rest of the bundle */
 const DateTimePickerSplit = loadable.lib(() =>
@@ -333,7 +328,6 @@ const EventForm = (props) => {
       })
     }
   }
-
   // render form component
   return (
     <>
@@ -619,7 +613,7 @@ const EventForm = (props) => {
             <label className={`field ${flexCenter}`}>
               Event image
               <div
-                className={`field ${flexCenter}`}
+                className={`field ${flexCenter} dropBox`}
                 style={{
                   pointerEvents: 'none',
                 }}
@@ -631,6 +625,7 @@ const EventForm = (props) => {
                       onDrop={(acceptedFiles) => {
                         if (acceptedFiles.length) {
                           setImages(acceptedFiles)
+                          setFileUpload(true)
                         }
                       }}
                     >
