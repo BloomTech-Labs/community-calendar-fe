@@ -6,6 +6,7 @@ export default function useDropdown(
   element = window, // element to add listener to.
 ) {
   const [isOpen, setIsOpen] = useState(initialState)
+  console.log(`isOpen status:`, isOpen)
 
   useEffect(() => {
     // if use does not click on dropdown close it
