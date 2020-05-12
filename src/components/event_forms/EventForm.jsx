@@ -46,8 +46,10 @@ import {
   tabletEndfield,
   desktopFlexrow,
   desktopEndfield,
+  dropBoxError,
 } from './styles/EventForm.module.scss'
 import {date} from 'yup'
+import {object} from 'prop-types'
 
 /* split react-date-timepicker from the rest of the bundle */
 const DateTimePickerSplit = loadable.lib(() =>
@@ -58,7 +60,7 @@ const DropzoneSplit = loadable.lib(() =>
   import(/* webpackChunkName: "reactDropzone" */ 'react-dropzone'),
 )
 
-const EventForm = props => {
+const EventForm = (props) => {
   /* FORM FUNCTIONS AND DATA:
   Destructure `formType`, `item`, `mutation` function, `mutationData`, and `mutationError`
   `formType` is "add" or "update"
@@ -87,36 +89,63 @@ const EventForm = props => {
   Destructure the `register` value handler, submit handler, and error handler
   Ternary maps values passed in on `item` prop as default values for `update` forms
   yup validationSchema imported from `eventSchema.js` */
-  const {register, handleSubmit, errors: formErrors, getValues, setValue} =
-    useForm(formType === 'update' && item
+  const {
+    register,
+    handleSubmit,
+    errors: formErrors,
+    getValues,
+    setValue,
+  } = useForm(
+    formType === 'update' && item
       ? {
-        validationSchema: eventSchema,
-        defaultValues: {
-          title: item.title || null,
-          placeName: item.locations[item.locations.length - 1].name || null,
-          streetAddress:
-            item.locations[item.locations.length - 1].streetAddress || null,
-          streetAddress2:
-            item.locations[item.locations.length - 1].streetAddress2 || null,
-          city: item.locations[item.locations.length - 1].city || null,
-          state: item.locations[item.locations.length - 1].state || null,
-          zipcode: item.locations[item.locations.length - 1].zipcode || null,
-          description: item.description || null,
-          ticketPrice: item.ticketPrice || null,
-        },
-        mode: 'onBlur',
+          validationSchema: eventSchema,
+          defaultValues: {
+            title: item.title || null,
+            placeName: item.locations[item.locations.length - 1].name || null,
+            streetAddress:
+              item.locations[item.locations.length - 1].streetAddress || null,
+            streetAddress2:
+              item.locations[item.locations.length - 1].streetAddress2 || null,
+            city: item.locations[item.locations.length - 1].city || null,
+            state: item.locations[item.locations.length - 1].state || null,
+            zipcode: item.locations[item.locations.length - 1].zipcode || null,
+            description: item.description || null,
+            ticketPrice: item.ticketPrice || null,
+          },
+          mode: 'onBlur',
         }
-      : {validationSchema: eventSchema, mode: 'onBlur'})
+      : {validationSchema: eventSchema, mode: 'onBlur'},
+  )
 
   // create `tag` state to be used in backend mutation request
   // Ternary maps values passed in on `item` prop as default tags for `update` forms,
-  const [selectedTags, setSelectedTags] =
-    useState(formType === 'update' && item.tags.length
-      ? item.tags.map(tag => tag.title)
-      : [])
+  const [selectedTags, setSelectedTags] = useState(
+    formType === 'update' && item.tags.length
+      ? item.tags.map((tag) => tag.title)
+      : [],
+  )
 
   // create `images` state to be used in backend mutation request
   const [images, setImages] = useState(null)
+
+  // Keeps track whether user uploads image when creating an event
+  const [fileUpload, setFileUpload] = useState(false)
+
+  // Function to append image error, when user submits form without image
+  const appendErrorOnImageUploader = () => {
+    // Error created when user attempts to submit form without uploading an image
+    const p = document.createElement('p')
+    p.classList.add('is-size-7', `${dropBoxError}`)
+    const text = document.createTextNode('Event Image is required')
+
+    // appending of error
+    const imgDropBox = document.querySelector(`.dropBox`)
+    imgDropBox.append(p)
+    p.appendChild(text)
+  }
+
+  // Checks to see if the error is already being displayed on the users screen
+  const error = document.querySelector(`.${dropBoxError}`)
 
   // create `startDatetime` state to be used in datepicker and backend mutation request
   // defaults to the next noon (today or tomorrow)
@@ -124,12 +153,11 @@ const EventForm = props => {
   if (nextNoon.getHours() >= 12) nextNoon.setDate(nextNoon.getDate() + 1)
   nextNoon.setHours(12, 0, 0, 0)
 
-  const [startDatetime, setStartDatetime] =
-    useState(formType === 'update' && item.start
-      ? new Date(item.start)
-      : nextNoon)
+  const [startDatetime, setStartDatetime] = useState(
+    formType === 'update' && item.start ? new Date(item.start) : nextNoon,
+  )
 
-  const startChange = datetime => {
+  const startChange = (datetime) => {
     setStartDatetime(datetime)
   }
 
@@ -140,12 +168,11 @@ const EventForm = props => {
     nextAfternoon.setDate(nextAfternoon.getDate() + 1)
   nextAfternoon.setHours(15, 0, 0, 0)
 
-  const [endDatetime, setEndDatetime] =
-    useState(formType === 'update' && item.end
-      ? new Date(item.end)
-      : nextAfternoon)
+  const [endDatetime, setEndDatetime] = useState(
+    formType === 'update' && item.end ? new Date(item.end) : nextAfternoon,
+  )
 
-  const endChange = datetime => {
+  const endChange = (datetime) => {
     setEndDatetime(datetime)
   }
 
@@ -162,7 +189,7 @@ const EventForm = props => {
     var hasPeriod = false
 
     const newTicketPriceVal = arrTicketPriceVal
-      .filter(letter => {
+      .filter((letter) => {
         if (letter === '.') {
           if (hasPeriod) return false
 
@@ -184,7 +211,7 @@ const EventForm = props => {
   }
 
   // submit handler pulls together state from all sources and creates a mutation request
-  const onSubmit = async formValues => {
+  const onSubmit = async (formValues) => {
     const {
       title,
       placeName,
@@ -221,14 +248,39 @@ const EventForm = props => {
       zipcode: parseInt(zipcode),
       latitude: lat, // pass event coordinates to mutation
       longitude: long,
-      tags: selectedTags.length ? selectedTags.map(tag => ({title: tag})) : [],
+      tags: selectedTags.length
+        ? selectedTags.map((tag) => ({title: tag}))
+        : [],
       ticketPrice,
       images,
       eventImages: images && images.length ? [] : undefined,
     }
 
+    if (formType === 'add' && !fileUpload) {
+      if (error) {
+        return null
+      } else {
+        appendErrorOnImageUploader()
+        return null
+      }
+    } else {
+      setFileUpload(false)
+    }
+
     mutation({variables: mutationValues})
   } //end onSubmit
+
+  // if image is uploaded and error is true, remove the error
+  if (fileUpload && error) {
+    document.querySelector(`.${dropBoxError}`).remove()
+  }
+
+  // if user attempt to submit empty form throw error
+  if (Object.keys(formErrors).length && !fileUpload) {
+    if (!error) {
+      appendErrorOnImageUploader()
+    }
+  }
 
   // log errors and success messages
   useEffect(() => {
@@ -397,13 +449,13 @@ const EventForm = props => {
             <DateTimePickerSplit fallback={<LoadingDots />}>
               {({default: DateTimePicker}) => (
                 <DateTimePicker
-                  monthAriaLabel="Month"
-                  dayAriaLabel="Day"
-                  yearAriaLabel="Year"
-                  hourAriaLabel="Hour"
-                  minuteAriaLabel="Minute"
-                  amPmAriaLabel="Select AM/PM"
-                  clearAriaLabel="Clear Date"
+                  monthAriaLabel='Month'
+                  dayAriaLabel='Day'
+                  yearAriaLabel='Year'
+                  hourAriaLabel='Hour'
+                  minuteAriaLabel='Minute'
+                  amPmAriaLabel='Select AM/PM'
+                  clearAriaLabel='Clear Date'
                   onChange={startChange}
                   value={startDatetime}
                   className={picker}
@@ -420,13 +472,13 @@ const EventForm = props => {
             <DateTimePickerSplit fallback={<LoadingDots />}>
               {({default: DateTimePicker}) => (
                 <DateTimePicker
-                  monthAriaLabel="Month"
-                  dayAriaLabel="Day"
-                  yearAriaLabel="Year"
-                  hourAriaLabel="Hour"
-                  minuteAriaLabel="Minute"
-                  amPmAriaLabel="Select AM/PM"
-                  clearAriaLabel="Clear Date"
+                  monthAriaLabel='Month'
+                  dayAriaLabel='Day'
+                  yearAriaLabel='Year'
+                  hourAriaLabel='Hour'
+                  minuteAriaLabel='Minute'
+                  amPmAriaLabel='Select AM/PM'
+                  clearAriaLabel='Clear Date'
                   onChange={endChange}
                   value={endDatetime}
                   className={picker}
@@ -491,7 +543,7 @@ const EventForm = props => {
           <label className={`field ${flexCenter}`}>
             Event image
             <div
-              className={`field ${flexCenter}`}
+              className={`field ${flexCenter} dropBox`}
               style={{
                 pointerEvents: 'none',
               }}
@@ -500,9 +552,10 @@ const EventForm = props => {
                 {({default: Dropzone}) => (
                   <Dropzone
                     // If used uploads file, replace the image in state with the new uploaded file
-                    onDrop={acceptedFiles => {
-                      if(acceptedFiles.length){
+                    onDrop={(acceptedFiles) => {
+                      if (acceptedFiles.length) {
                         setImages(acceptedFiles)
+                        setFileUpload(true)
                       }
                     }}
                   >
