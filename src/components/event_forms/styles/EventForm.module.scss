@@ -60,6 +60,53 @@
   .errorMarginMobile {
     @include mobile {
       margin-top: $gap-md;
+        width: 95%;
+    }
+
+    div, label, input {
+        width: 100%;
+    }
+
+    select {
+        appearance: none;
+        border-radius: 0px;
+    }
+    
+    label {
+        // margin: $gap-sm 0;
+        font-weight: bold;
+    }
+    
+    .input, .select {
+        border: none;
+        border-bottom: 2px solid black;
+        border-radius: 0px;
+        box-shadow: none;
+        text-align: left;
+        padding: 0;
+        background-color: white;
+        font-size: $gap-xs;
+        width: 100%;
+    }
+
+    .shark {
+        background-color: $shark;
+    }
+   
+    .errorMessage {
+        margin: 0;
+        position: absolute;
+        color: $red;
+    }
+
+    .errorMargin {
+        margin-top: $gap-xxs;
+    }
+
+    .errorMarginMobile {
+        @include mobile {
+            margin-top: $gap-md;
+        }
     }
   }
   .dropBoxError {
@@ -157,5 +204,40 @@
   margin-left: 0;
   @include desktop {
     margin-left: $gap-sm;
+  }
+}
+
+.cal {
+  background: #ff6768 !important;
+  color: white !important;
+  border-radius: 80% !important;
+}
+
+.events {
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  &:hover {
+    border: 2px solid lightgray;
+  }
+}
+
+.eventContainer {
+  margin-bottom: 12px;
+  line-height: 1.1rem;
+  padding-top: 5px;
+  h2 {
+    border-bottom: 1px solid lightgray;
+    width: 60%;
+    margin-bottom: 5px;
+    font-weight: 500;
+    @include mobile {
+      width: 85%;
+    }
+  }
+
+  h3,
+  h4 {
+    margin-left: 10px;
   }
 }

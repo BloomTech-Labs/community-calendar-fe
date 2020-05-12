@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import * as yup from 'yup'
 import loadable from '@loadable/component'
 import ReactGA from 'react-ga'
+import moment from 'moment'
 
 // form components
 import {useForm, ErrorMessage} from 'react-hook-form'
@@ -15,18 +15,23 @@ import {eventSchema} from './eventSchema'
 // utils
 import {fetchGeocode} from '../../utils'
 
+//GQL
+import {useQuery} from '@apollo/react-hooks'
+import {GET_CALENDAR_EVENTS} from '../../graphql'
+
 // styles
 import UploadIcon from '../icons/UploadIcon'
 import LoadingDots from '../loading/LoadingDots'
+import LoadingLogo from '../loading/LoadingLogo'
 import {
   createEventForm,
   input,
+  cal,
   select,
   shark,
   errorMessage,
   errorMargin,
   errorMarginMobile,
-  vSpacing,
   littleTopMargin,
   littleTopPadding,
   location,
@@ -36,16 +41,15 @@ import {
   uploadContainer,
   imagePreview,
   flexcolumn,
-  flexrow,
   flexCenter,
   tabletFlexrow,
   tabletEndfield,
   desktopFlexrow,
   desktopEndfield,
   dropBoxError,
-} from './styles/EventForm.module.scss'
-import {date} from 'yup'
-import {object} from 'prop-types'
+  events,
+  eventContainer
+} from './styles/EventForm.module.scss' 
 
 /* split react-date-timepicker from the rest of the bundle */
 const DateTimePickerSplit = loadable.lib(() =>
@@ -71,6 +75,24 @@ const EventForm = (props) => {
     mutationError,
     mutationLoading,
   } = props
+
+  const createEventData = useQuery(GET_CALENDAR_EVENTS)
+  const {data, loading} = createEventData
+
+  // map events to get start times for calendar
+  const startTime = data && data.events.map((event) => event.start)
+
+  // function to style calendar tiles selectively
+  function tileClass({date}) {
+    if (
+      startTime.find(
+        (x) =>
+          moment(x).format('DD-MM-YYYY') === moment(date).format('DD-MM-YYYY'),
+      )
+    ) {
+      return cal
+    }
+  }
 
   /* FORM STATE:
   react-hook-form manages state for all text values (location and details) inputted by user
@@ -151,6 +173,14 @@ const EventForm = (props) => {
   const startChange = (datetime) => {
     setStartDatetime(datetime)
   }
+  // variables used for conditionally rendering either event info for a selected day, or a message
+  // that there are no events scheduled for that day yet
+  const compareDates = moment(startDatetime).format('DD-MM-YYYY')
+  const renderedEvents =
+    data &&
+    data.events
+      .map((event) => moment(event.start).format('DD-MM-YYYY'))
+      .includes(compareDates)
 
   // create `endDatetime` state to be used in datepicker and backend mutation request
   // defaults to 3PM after the next noon (today or tomorrow)
@@ -298,324 +328,377 @@ const EventForm = (props) => {
       })
     }
   }
-
   // render form component
   return (
-    <div className={`${createEventForm}`}>
-      <form onSubmit={handleSubmit(onSubmit)} className={`${flexcolumn}`}>
-        {/* EVENT TITLE */}
-        <div className='field'>
-          <label className='label'>
-            Event Title
-            <div className='control'>
-              <input
-                className={`${input} input `}
-                type='text'
-                name='title'
-                ref={register}
-              />
-              <p className={`is-size-7 ${errorMessage}`}>
-                <ErrorMessage errors={formErrors} name='title' />
-              </p>
-            </div>
-          </label>
-        </div>
-
-        {/* LOCATION: 3 rows tablet and up, 6 rows mobile */}
-        <div className={` field ${location}`}>
-          <label className='label'>
-            Location
-            <div className={` field ${littleTopPadding}`}>
-              {/* Group 1: Place name */}
-              <label className='label'>
-                Place Name
+    <>
+      {loading && <LoadingLogo />}
+      <div className={`${createEventForm}`}>
+        <form onSubmit={handleSubmit(onSubmit)} className={`${flexcolumn}`}>
+          {/* EVENT TITLE */}
+          <div className='field'>
+            <label className='label'>
+              Event Title
+              <div className='control'>
                 <input
-                  className={`${input}`}
+                  className={`${input} input `}
                   type='text'
-                  placeholder='Enter place name if applicable'
-                  name='placeName'
+                  name='title'
                   ref={register}
                 />
                 <p className={`is-size-7 ${errorMessage}`}>
-                  <ErrorMessage errors={formErrors} name='placeName' />
+                  <ErrorMessage errors={formErrors} name='title' />
                 </p>
-              </label>
+              </div>
+            </label>
+          </div>
 
-              {/* Group 2: Street address, street address line 2 */}
-              <div className={`${tabletFlexrow}`}>
-                <div className={`field ${errorMargin}`}>
-                  <label className='label'>
-                    Street Address
-                    <input
-                      className={`${input}`}
-                      type='text'
-                      name='streetAddress'
-                      ref={register}
-                    />
-                    <p className={`is-size-7 ${errorMessage}`}>
-                      <ErrorMessage errors={formErrors} name='streetAddress' />
-                    </p>
-                  </label>
+          {/* LOCATION: 3 rows tablet and up, 6 rows mobile */}
+          <div className={` field ${location}`}>
+            <label className='label'>
+              Location
+              <div className={` field ${littleTopPadding}`}>
+                {/* Group 1: Place name */}
+                <label className='label'>
+                  Place Name
+                  <input
+                    className={`${input}`}
+                    type='text'
+                    placeholder='Enter place name if applicable'
+                    name='placeName'
+                    ref={register}
+                  />
+                  <p className={`is-size-7 ${errorMessage}`}>
+                    <ErrorMessage errors={formErrors} name='placeName' />
+                  </p>
+                </label>
+
+                {/* Group 2: Street address, street address line 2 */}
+                <div className={`${tabletFlexrow}`}>
+                  <div className={`field ${errorMargin}`}>
+                    <label className='label'>
+                      Street Address
+                      <input
+                        className={`${input}`}
+                        type='text'
+                        name='streetAddress'
+                        ref={register}
+                      />
+                      <p className={`is-size-7 ${errorMessage}`}>
+                        <ErrorMessage
+                          errors={formErrors}
+                          name='streetAddress'
+                        />
+                      </p>
+                    </label>
+                  </div>
+                  <div className={`field ${errorMargin} ${tabletEndfield}`}>
+                    <label className='label'>
+                      Street Address 2
+                      <input
+                        className={`${input}`}
+                        type='text'
+                        name='streetAddress2'
+                        ref={register}
+                      />
+                      <p className={`is-size-7 ${errorMessage}`}>
+                        <ErrorMessage
+                          errors={formErrors}
+                          name='streetAddress2'
+                        />
+                      </p>
+                    </label>
+                  </div>
                 </div>
-                <div className={`field ${errorMargin} ${tabletEndfield}`}>
-                  <label className='label'>
-                    Street Address 2
-                    <input
-                      className={`${input}`}
-                      type='text'
-                      name='streetAddress2'
-                      ref={register}
-                    />
-                    <p className={`is-size-7 ${errorMessage}`}>
-                      <ErrorMessage errors={formErrors} name='streetAddress2' />
-                    </p>
-                  </label>
+
+                {/* Group 3: City, state, zip */}
+                <div className={`${tabletFlexrow}`}>
+                  <div className={`field ${errorMargin} ${errorMarginMobile}`}>
+                    <label className='label'>
+                      City
+                      <input
+                        className={`${input}`}
+                        type='text'
+                        name='city'
+                        ref={register}
+                      />
+                      <p className={`is-size-7 ${errorMessage}`}>
+                        <ErrorMessage errors={formErrors} name='city' />
+                      </p>
+                    </label>
+                  </div>
+                  <div className={`field ${errorMargin} ${tabletEndfield}`}>
+                    <label className='label'>
+                      State
+                      <select
+                        name='state'
+                        ref={register}
+                        className={`${select}`}
+                        defaultValue={null}
+                      >
+                        <option value={null}>Select state</option>
+                        {states.map((stateName, i) => (
+                          <option
+                            key={stateName}
+                            value={`${statesAbbreviated[i]}`}
+                          >
+                            {stateName}
+                          </option>
+                        ))}
+                      </select>
+                      <p className={`is-size-7 ${errorMessage}`}>
+                        <ErrorMessage errors={formErrors} name='state' />
+                      </p>
+                    </label>
+                  </div>
+                  <div className={`field ${errorMargin} ${tabletEndfield}`}>
+                    <label className='label'>
+                      Zip Code
+                      <input
+                        className={`${input}`}
+                        type='text'
+                        name='zipcode'
+                        ref={register}
+                      />
+                      <p className={`is-size-7 ${errorMessage}`}>
+                        <ErrorMessage errors={formErrors} name='zipcode' />
+                      </p>
+                    </label>
+                  </div>
                 </div>
               </div>
+            </label>
+          </div>
 
-              {/* Group 3: City, state, zip */}
-              <div className={`${tabletFlexrow}`}>
-                <div className={`field ${errorMargin} ${errorMarginMobile}`}>
-                  <label className='label'>
-                    City
-                    <input
-                      className={`${input}`}
-                      type='text'
-                      name='city'
-                      ref={register}
+          {/* EVENT DATES AND TIME: 1 row desktop and up, 2 rows tablet and mobile */}
+          <div className={`${desktopFlexrow}`}>
+            {/* Group 1: Start date/time */}
+            <div className='field start-field'>
+              <label className='label'>Starts</label>
+              {loading ? (
+                <LoadingDots />
+              ) : (
+                <DateTimePickerSplit fallback={<LoadingDots />}>
+                  {({default: DateTimePicker}) => (
+                    <DateTimePicker
+                      monthAriaLabel='Month'
+                      dayAriaLabel='Day'
+                      yearAriaLabel='Year'
+                      hourAriaLabel='Hour'
+                      minuteAriaLabel='Minute'
+                      amPmAriaLabel='Select AM/PM'
+                      clearAriaLabel='Clear Date'
+                      onChange={startChange}
+                      value={startDatetime}
+                      className={picker}
+                      disableClock={true}
+                      minDate={new Date()}
+                      tileClassName={tileClass}
                     />
-                    <p className={`is-size-7 ${errorMessage}`}>
-                      <ErrorMessage errors={formErrors} name='city' />
-                    </p>
-                  </label>
-                </div>
-                <div className={`field ${errorMargin} ${tabletEndfield}`}>
-                  <label className='label'>
-                    State
-                    <select
-                      name='state'
-                      ref={register}
-                      className={`${select}`}
-                      defaultValue={null}
-                    >
-                      <option value={null}>Select state</option>
-                      {states.map((stateName, i) => (
-                        <option
-                          key={stateName}
-                          value={`${statesAbbreviated[i]}`}
-                        >
-                          {stateName}
-                        </option>
-                      ))}
-                    </select>
-                    <p className={`is-size-7 ${errorMessage}`}>
-                      <ErrorMessage errors={formErrors} name='state' />
-                    </p>
-                  </label>
-                </div>
-                <div className={`field ${errorMargin} ${tabletEndfield}`}>
-                  <label className='label'>
-                    Zip Code
-                    <input
-                      className={`${input}`}
-                      type='text'
-                      name='zipcode'
-                      ref={register}
+                  )}
+                </DateTimePickerSplit>
+              )}
+            </div>
+
+            {/* Group 2: End date/time */}
+            <div className={`${desktopEndfield} field`}>
+              <label className='label'>Ends</label>
+              {loading ? (
+                <LoadingDots />
+              ) : (
+                <DateTimePickerSplit fallback={<LoadingDots />}>
+                  {({default: DateTimePicker}) => (
+                    <DateTimePicker
+                      monthAriaLabel='Month'
+                      dayAriaLabel='Day'
+                      yearAriaLabel='Year'
+                      hourAriaLabel='Hour'
+                      minuteAriaLabel='Minute'
+                      amPmAriaLabel='Select AM/PM'
+                      clearAriaLabel='Clear Date'
+                      onChange={endChange}
+                      value={endDatetime}
+                      className={picker}
+                      disableClock={true}
+                      minDate={new Date()}
                     />
-                    <p className={`is-size-7 ${errorMessage}`}>
-                      <ErrorMessage errors={formErrors} name='zipcode' />
-                    </p>
-                  </label>
-                </div>
-              </div>
+                  )}
+                </DateTimePickerSplit>
+              )}
+            </div>
+          </div>
+
+          {/* PLANNED EVENTS ON CHOSEN DATE */}
+          <label className='label'>
+            Events for {moment(startDatetime).format('dddd MMMM D, YYYY')}
+            <div className={events}>
+              {!renderedEvents ? (
+                <h3>No events scheduled yet!</h3>
+              ) : (
+                data &&
+                data.events.map((event, index) => {
+                  if (
+                    moment(event.start).format('DD-MM-YYYY') === compareDates
+                  ) {
+                    return (
+                      <div className={eventContainer} key={index}>
+                        <h2>{event.title}</h2>
+                        <h3>
+                          {event.locations[0].streetAddress},{' '}
+                          {event.locations[0].city}
+                        </h3>
+                        <h4>
+                          {moment(event.start).format('LT')} -{' '}
+                          {moment(event.end).format('LT')}{' '}
+                        </h4>
+                      </div>
+                    )
+                  } else {
+                    return null
+                  }
+                })
+              )}
             </div>
           </label>
-        </div>
 
-        {/* EVENT DATES AND TIME: 1 row desktop and up, 2 rows tablet and mobile */}
-        <div className={`${desktopFlexrow}`}>
-          {/* Group 1: Start date/time */}
-          <div className='field start-field'>
-            <label className='label'>Starts</label>
-            <DateTimePickerSplit fallback={<LoadingDots />}>
-              {({default: DateTimePicker}) => (
-                <DateTimePicker
-                  monthAriaLabel='Month'
-                  dayAriaLabel='Day'
-                  yearAriaLabel='Year'
-                  hourAriaLabel='Hour'
-                  minuteAriaLabel='Minute'
-                  amPmAriaLabel='Select AM/PM'
-                  clearAriaLabel='Clear Date'
-                  onChange={startChange}
-                  value={startDatetime}
-                  className={picker}
-                  disableClock={true}
-                  minDate={new Date()}
-                />
-              )}
-            </DateTimePickerSplit>
+          {/* EVENT DESCRIPTION */}
+          <div className={`field ${errorMarginMobile}`}>
+            <label className='label'>
+              Event Description
+              <textarea
+                className={`${textarea} has-fixed-size`}
+                name='description'
+                ref={register}
+              />
+              <p className={`is-size-7 ${errorMessage}`}>
+                <ErrorMessage errors={formErrors} name='description' />
+              </p>
+            </label>
           </div>
 
-          {/* Group 2: End date/time */}
-          <div className={`${desktopEndfield} field`}>
-            <label className='label'>Ends</label>
-            <DateTimePickerSplit fallback={<LoadingDots />}>
-              {({default: DateTimePicker}) => (
-                <DateTimePicker
-                  monthAriaLabel='Month'
-                  dayAriaLabel='Day'
-                  yearAriaLabel='Year'
-                  hourAriaLabel='Hour'
-                  minuteAriaLabel='Minute'
-                  amPmAriaLabel='Select AM/PM'
-                  clearAriaLabel='Clear Date'
-                  onChange={endChange}
-                  value={endDatetime}
-                  className={picker}
-                  disableClock={true}
-                  minDate={new Date()}
-                />
-              )}
-            </DateTimePickerSplit>
+          {/* TICKET PRICE */}
+          <div className={`field ${errorMargin} ${errorMarginMobile}`}>
+            <label className='label'>
+              Admission Price
+              <input
+                className={`${input}`}
+                type='text'
+                name='ticketPrice'
+                ref={register}
+                onBlur={onTicketPriceBlur}
+                onFocus={() =>
+                  getValues().ticketPrice === '0' && setValue('ticketPrice', '')
+                }
+                onChange={onTicketPriceChange}
+                defaultValue='0'
+              />
+              <p className={`is-size-7 ${errorMessage}`}>
+                <ErrorMessage errors={formErrors} name='ticketPrice' />
+              </p>
+            </label>
           </div>
-        </div>
 
-        {/* EVENT DESCRIPTION */}
-        <div className={`field ${errorMarginMobile}`}>
-          <label className='label'>
-            Event Description
-            <textarea
-              className={`${textarea} has-fixed-size`}
-              name='description'
-              ref={register}
-            />
-            <p className={`is-size-7 ${errorMessage}`}>
-              <ErrorMessage errors={formErrors} name='description' />
-            </p>
-          </label>
-        </div>
+          {/* EVENT TAGS */}
+          <div className={`field ${errorMargin}`}>
+            <label>
+              Tags
+              <TagInput
+                selectedTags={selectedTags}
+                setSelectedTags={setSelectedTags}
+              />
+            </label>
+          </div>
 
-        {/* TICKET PRICE */}
-        <div className={`field ${errorMargin} ${errorMarginMobile}`}>
-          <label className='label'>
-            Admission Price
-            <input
-              className={`${input}`}
-              type='text'
-              name='ticketPrice'
-              ref={register}
-              onBlur={onTicketPriceBlur}
-              onFocus={() =>
-                getValues().ticketPrice === '0' && setValue('ticketPrice', '')
-              }
-              onChange={onTicketPriceChange}
-              defaultValue='0'
-            />
-            <p className={`is-size-7 ${errorMessage}`}>
-              <ErrorMessage errors={formErrors} name='ticketPrice' />
-            </p>
-          </label>
-        </div>
-
-        {/* EVENT TAGS */}
-        <div className={`field ${errorMargin}`}>
-          <label>
-            Tags
-            <TagInput
-              selectedTags={selectedTags}
-              setSelectedTags={setSelectedTags}
-            />
-          </label>
-        </div>
-
-        {/* IMAGE UPLOAD */}
-        <div className={`field ${errorMargin} ${flexCenter}`}>
-          <label className={`field ${flexCenter}`}>
-            Event image
-            <div
-              className={`field ${flexCenter} dropBox`}
-              style={{
-                pointerEvents: 'none',
-              }}
-            >
-              <DropzoneSplit fallback={<LoadingDots />}>
-                {({default: Dropzone}) => (
-                  <Dropzone
-                    // If used uploads file, replace the image in state with the new uploaded file
-                    onDrop={(acceptedFiles) => {
-                      if (acceptedFiles.length) {
-                        setImages(acceptedFiles)
-                        setFileUpload(true)
-                      }
-                    }}
-                  >
-                    {({getRootProps, getInputProps}) => (
-                      <div className={`${imageUploader} ${flexCenter}`}>
-                        <div
-                          {...getRootProps()}
-                          className={`${uploadContainer} ${flexCenter}`}
-                        >
-                          <input {...getInputProps()} />
-                          {/* Chained ternary is an expression that executes the following logic:
+          {/* IMAGE UPLOAD */}
+          <div className={`field ${errorMargin} ${flexCenter}`}>
+            <label className={`field ${flexCenter}`}>
+              Event image
+              <div
+                className={`field ${flexCenter} dropBox`}
+                style={{
+                  pointerEvents: 'none',
+                }}
+              >
+                <DropzoneSplit fallback={<LoadingDots />}>
+                  {({default: Dropzone}) => (
+                    <Dropzone
+                      // If used uploads file, replace the image in state with the new uploaded file
+                      onDrop={(acceptedFiles) => {
+                        if (acceptedFiles.length) {
+                          setImages(acceptedFiles)
+                          setFileUpload(true)
+                        }
+                      }}
+                    >
+                      {({getRootProps, getInputProps}) => (
+                        <div className={`${imageUploader} ${flexCenter}`}>
+                          <div
+                            {...getRootProps()}
+                            className={`${uploadContainer} ${flexCenter}`}
+                          >
+                            <input {...getInputProps()} />
+                            {/* Chained ternary is an expression that executes the following logic:
                       1. If an "update" and NO image in upload state, initially show image from database in preview.
                       2. If an "update" and the user has added a new image to upload state, preview the new image
                       3. If an "add" and NO image in upload state, show upload icon
                       4. If an "add" and the user has added a new image to upload state, preview the new image */}
-                          {formType === 'update' && !images ? (
-                            !(
-                              item.eventImages[0] && item.eventImages[0].url
-                            ) ? (
+                            {formType === 'update' && !images ? (
+                              !(
+                                item.eventImages[0] && item.eventImages[0].url
+                              ) ? (
+                                <UploadIcon />
+                              ) : (
+                                <img
+                                  src={item.eventImages[0].url}
+                                  className={imagePreview}
+                                  alt='new event'
+                                />
+                              )
+                            ) : formType === 'update' && images ? (
+                              <img
+                                src={URL.createObjectURL(images[0])}
+                                className={imagePreview}
+                                alt='new event'
+                              />
+                            ) : formType === 'add' && !images ? (
                               <UploadIcon />
                             ) : (
                               <img
-                                src={item.eventImages[0].url}
+                                src={URL.createObjectURL(images[0])}
                                 className={imagePreview}
+                                alt='new event'
                               />
-                            )
-                          ) : formType === 'update' && images ? (
-                            <img
-                              src={URL.createObjectURL(images[0])}
-                              className={imagePreview}
-                            />
-                          ) : formType === 'add' && !images ? (
-                            <UploadIcon />
-                          ) : (
-                            <img
-                              src={URL.createObjectURL(images[0])}
-                              className={imagePreview}
-                            />
-                          )}
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </Dropzone>
-                )}
-              </DropzoneSplit>
-            </div>
-          </label>
-        </div>
-
-        {/* FORM CONTROLS (submit and preview) */}
-        {/* <button className='button is-medium'>Preview</button> */}
-        {mutationLoading ? (
-          <div
-            className={` button is-medium ${shark} ${littleTopMargin} is-medium `}
-          >
-            <LoadingDots bgColor='#fff' />
+                      )}
+                    </Dropzone>
+                  )}
+                </DropzoneSplit>
+              </div>
+            </label>
           </div>
-        ) : (
-          <input
-            className={`button is-medium ${shark} has-text-white ${littleTopMargin}`}
-            type='submit'
-            value={formType === 'update' ? 'Update Event' : 'Create Event'}
-            onClick={handleCreateEvent()}
-          />
-        )}
-      </form>
 
-      {showModal && <ErrorModal toggleModal={toggleModal} />}
-    </div>
+          {/* FORM CONTROLS (submit and preview) */}
+          {/* <button className='button is-medium'>Preview</button> */}
+          {mutationLoading ? (
+            <div
+              className={` button is-medium ${shark} ${littleTopMargin} is-medium `}
+            >
+              <LoadingDots bgColor='#fff' />
+            </div>
+          ) : (
+            <input
+              className={`button is-medium ${shark} has-text-white ${littleTopMargin}`}
+              type='submit'
+              value={formType === 'update' ? 'Update Event' : 'Create Event'}
+              onClick={handleCreateEvent()}
+            />
+          )}
+        </form>
+
+        {showModal && <ErrorModal toggleModal={toggleModal} />}
+      </div>
+    </>
   )
 }
 

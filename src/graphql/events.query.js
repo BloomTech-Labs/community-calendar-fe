@@ -72,6 +72,7 @@ export const GET_CALENDAR_EVENTS = gql`
     title 
     locations {
       streetAddress
+      city
     }
   }
   }
