@@ -137,15 +137,6 @@
   text-align: center;
 }
 
-.cal{
-    content: '';
-    background:#ff8533 !important;   
-    border-radius: 80% !important;
-    position: relative !important;   
-    display: inline-block !important; 
-    padding:3.5% !important;    
-}
-
 .textarea {
   border: 2px solid black;
   border-radius: 4px;
@@ -216,11 +207,8 @@
   }
 }
 
-.cal {
-  content: '';
-  background: #ff8533 !important;
-  border-radius: 80% !important;
-  position: relative !important;
-  display: inline-block !important;
-  padding: 3.5% !important;
+.cal {  
+  background:#FF6768 !important;
+  color: white !important;
+  border-radius: 80% !important;   
 }

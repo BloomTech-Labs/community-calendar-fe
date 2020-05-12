@@ -54,6 +54,7 @@ import {date} from 'yup'
 import {object} from 'prop-types'
 import moment from 'moment'
 
+
 /* split react-date-timepicker from the rest of the bundle */
 const DateTimePickerSplit = loadable.lib(() =>
   import(/* webpackChunkName: "reactDatetimePicker" */ 'react-datetime-picker'),
@@ -97,16 +98,16 @@ const EventForm = (props) => {
   //  return view === 'month' && date.getDay() === 3 ? 'wednesday' : null
   // } 
   
-  function tileClass({date, view}) {
-    if (view === 'month') {
-      if (startDates && startDates.find(dDate => isSameDay(dDate, date))) {        
-        return cal
-      }
-    }
-    console.log('Dates in calendar', date)
-  }
-  console.log('tileClass function', tileClass('2020-5-11', 'month'))
-  console.log('isSameDay function', isSameDay('5-11-2020', '5-11-2020'))
+  // function tileClass({date, view}) {
+  //   if (view === 'month') {
+  //     if (startDates && startDates.find(dDate => isSameDay(dDate, date))) {        
+  //       return cal
+  //     }
+  //   }
+  //   console.log('Dates in calendar', date)
+  // }
+  // console.log('tileClass function', tileClass('2020-5-11', 'month'))
+  // console.log('isSameDay function', isSameDay('5-11-2020', '5-11-2020'))
 
   
   /* FORM STATE:
