@@ -7,8 +7,10 @@ import {render} from '@testing-library/react'
 describe(`Tests for useObjFromQS.js`, () => {
   describe(`filtering using user location /  history`, () => {
     test(`should be able to read a query string and convert it into an objest`, () => {
+      // define variable globally so it can be accessed inside the test App component
       var query
-      //mock component
+
+      //fake/mock component
       const App = () => {
         query = useObjFromQS()
         return (
@@ -18,6 +20,7 @@ describe(`Tests for useObjFromQS.js`, () => {
         )
       }
 
+      // expected result from test
       const expected = {
         filtersObj: {
           index: 'codeing',
@@ -41,6 +44,7 @@ describe(`Tests for useObjFromQS.js`, () => {
         filterAddress: 'Moreno Valley, California, US',
       }
 
+      //function should read query string in the URI
       const tree = render(
         <MemoryRouter
           initialEntries={[
@@ -58,6 +62,7 @@ describe(`Tests for useObjFromQS.js`, () => {
         </MemoryRouter>,
       )
 
+      // expect our query function to equal a decoded query string
       expect(query).toEqual(expected)
     })
   })

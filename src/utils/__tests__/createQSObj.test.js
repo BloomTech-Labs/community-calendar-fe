@@ -1,5 +1,6 @@
 import createQSObj from '../createQSObj'
 
+// Example Data
 const text = `coding`
 const address = `Moreno Valley, California, US`
 const location = {userLatitude: 33.9375, userLongitude: -117.2306, radius: 10}
@@ -12,12 +13,14 @@ const dateRange = {
 
 describe(`Tests for createQSObj`, () => {
   test(`should flatten search, filters, and address into one object in order to build query string`, () => {
+    //Passing example data into function
     const flatten = createQSObj(
       text,
       {ticketPrice, location, tags, dateRange},
       address,
     )
 
+    // expect result to be flattened
     expect(flatten).toEqual(
       expect.objectContaining({
         index: expect.any(String),
