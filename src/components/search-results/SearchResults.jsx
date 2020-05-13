@@ -205,6 +205,7 @@ const SearchResults = ({history}) => {
           initialText={indexText}
           address={filterAddress}
         />
+        <div className='is-flex justify-between'>
         <RecentSearches
           recentSearches={recentSearches}
           setRecentSearches={setRecentSearches}
@@ -217,18 +218,11 @@ const SearchResults = ({history}) => {
           setPrice2040={setPrice2040}
           setPrice4080={setPrice4080}
           setPrice80={setPrice80}
-        />
-        <div className='is-flex level justify-between is-dark '>
-          <h3
-            className={`is-family-secondary is-size-3-mobile is-size-2-tablet has-text-black-bis ${pageTitle}`}
-          >
-            Search Results&nbsp;:&nbsp;
-            {qsFilters.index ? qsFilters.index.replace(/\s+/g, ', ') : ''}
-          </h3>
+        />               
           <div className='is-hidden-mobile'>
             <ViewToggle toggleFunc={setShowListView} viewState={useListView} />
           </div>
-        </div>
+        </div>        
         <div
           className='is-hidden-tablet is-flex level'
           style={{margin: '16px 0'}}
