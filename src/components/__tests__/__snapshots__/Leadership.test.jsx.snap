@@ -1,0 +1,578 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for Leadership.jsx Snapshot should match snapshot 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        id="container"
+      >
+        <section
+          id="section1"
+        >
+          <h2
+            class="is-bold is-size-3 is-family-secondary"
+          >
+            OUR
+            <br />
+            LEADERSHIP
+          </h2>
+          <p>
+            Our strength stems from individuality of the team that collides with great communication and deliverence.
+          </p>
+        </section>
+        <section
+          id="section2"
+        >
+          <div
+            id="bgSquare1"
+          />
+          <div
+            id="bgSquare2"
+          />
+          <h3>
+            OUR TEAM
+          </h3>
+          <div
+            class="card"
+          >
+            <img
+              src="skyler.jpg"
+            />
+            <p
+              class="color_black is-bold is-family-secondary"
+              data-testid="name"
+            >
+              Skyler Dowdy
+            </p>
+            <p
+              class="color_chalice"
+              data-testid="role"
+            >
+              Team Lead
+            </p>
+          </div>
+          <div
+            class="card"
+          >
+            <img
+              src="jp.png"
+            />
+            <p
+              class="color_black is-bold is-family-secondary"
+              data-testid="name"
+            >
+              Jan Patrick Eliares
+            </p>
+            <p
+              class="color_chalice"
+              data-testid="role"
+            >
+              UX/UI Designer
+            </p>
+          </div>
+          <div
+            class="card"
+          >
+            <div />
+            <p
+              class="color_black is-bold is-family-secondary"
+              data-testid="name"
+            >
+              Nora Barazanchi
+            </p>
+            <p
+              class="color_chalice"
+              data-testid="role"
+            >
+              UX/UI Designer
+            </p>
+          </div>
+          <div
+            class="card"
+          >
+            <img
+              src="louis.jpg"
+            />
+            <p
+              class="color_black is-bold is-family-secondary"
+              data-testid="name"
+            >
+              Louis Gelinas
+            </p>
+            <p
+              class="color_chalice"
+              data-testid="role"
+            >
+              Engineer
+            </p>
+          </div>
+          <div
+            class="card"
+          >
+            <img
+              src="mark.jpg"
+            />
+            <p
+              class="color_black is-bold is-family-secondary"
+              data-testid="name"
+            >
+              Mark King
+            </p>
+            <p
+              class="color_chalice"
+              data-testid="role"
+            >
+              Engineer
+            </p>
+          </div>
+          <div
+            class="card"
+          >
+            <img
+              src="westley.png"
+            />
+            <p
+              class="color_black is-bold is-family-secondary"
+              data-testid="name"
+            >
+              Westley Strellis
+            </p>
+            <p
+              class="color_chalice"
+              data-testid="role"
+            >
+              Engineer
+            </p>
+          </div>
+          <div
+            class="card"
+          >
+            <img
+              src="basil.jpg"
+            />
+            <p
+              class="color_black is-bold is-family-secondary"
+              data-testid="name"
+            >
+              Basil Havens
+            </p>
+            <p
+              class="color_chalice"
+              data-testid="role"
+            >
+              Mobile Engineer
+            </p>
+          </div>
+          <div
+            class="card"
+          >
+            <img
+              src="ben.jpg"
+            />
+            <p
+              class="color_black is-bold is-family-secondary"
+              data-testid="name"
+            >
+              Ben Rogers
+            </p>
+            <p
+              class="color_chalice"
+              data-testid="role"
+            >
+              Engineer
+            </p>
+          </div>
+          <div
+            class="card"
+          >
+            <img
+              src="tyler.jpg"
+            />
+            <p
+              class="color_black is-bold is-family-secondary"
+              data-testid="name"
+            >
+              Tyler Berrett
+            </p>
+            <p
+              class="color_chalice"
+              data-testid="role"
+            >
+              Mobile Engineer
+            </p>
+          </div>
+          <div
+            class="card"
+          >
+            <img
+              src="jordan.png"
+            />
+            <p
+              class="color_black is-bold is-family-secondary"
+              data-testid="name"
+            >
+              Jordan Christensen
+            </p>
+            <p
+              class="color_chalice"
+              data-testid="role"
+            >
+              Mobile Engineer
+            </p>
+          </div>
+          <div
+            class="card"
+          >
+            <img
+              src="justin.jpg"
+            />
+            <p
+              class="color_black is-bold is-family-secondary"
+              data-testid="name"
+            >
+              Justin Gent
+            </p>
+            <p
+              class="color_chalice"
+              data-testid="role"
+            >
+              Mobile Engineer
+            </p>
+          </div>
+          <div
+            class="card"
+          >
+            <img
+              src="lowell.jpg"
+            />
+            <p
+              class="color_black is-bold is-family-secondary"
+              data-testid="name"
+            >
+              Lowell Jacobs
+            </p>
+            <p
+              class="color_chalice"
+              data-testid="role"
+            >
+              Engineer
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      id="container"
+    >
+      <section
+        id="section1"
+      >
+        <h2
+          class="is-bold is-size-3 is-family-secondary"
+        >
+          OUR
+          <br />
+          LEADERSHIP
+        </h2>
+        <p>
+          Our strength stems from individuality of the team that collides with great communication and deliverence.
+        </p>
+      </section>
+      <section
+        id="section2"
+      >
+        <div
+          id="bgSquare1"
+        />
+        <div
+          id="bgSquare2"
+        />
+        <h3>
+          OUR TEAM
+        </h3>
+        <div
+          class="card"
+        >
+          <img
+            src="skyler.jpg"
+          />
+          <p
+            class="color_black is-bold is-family-secondary"
+            data-testid="name"
+          >
+            Skyler Dowdy
+          </p>
+          <p
+            class="color_chalice"
+            data-testid="role"
+          >
+            Team Lead
+          </p>
+        </div>
+        <div
+          class="card"
+        >
+          <img
+            src="jp.png"
+          />
+          <p
+            class="color_black is-bold is-family-secondary"
+            data-testid="name"
+          >
+            Jan Patrick Eliares
+          </p>
+          <p
+            class="color_chalice"
+            data-testid="role"
+          >
+            UX/UI Designer
+          </p>
+        </div>
+        <div
+          class="card"
+        >
+          <div />
+          <p
+            class="color_black is-bold is-family-secondary"
+            data-testid="name"
+          >
+            Nora Barazanchi
+          </p>
+          <p
+            class="color_chalice"
+            data-testid="role"
+          >
+            UX/UI Designer
+          </p>
+        </div>
+        <div
+          class="card"
+        >
+          <img
+            src="louis.jpg"
+          />
+          <p
+            class="color_black is-bold is-family-secondary"
+            data-testid="name"
+          >
+            Louis Gelinas
+          </p>
+          <p
+            class="color_chalice"
+            data-testid="role"
+          >
+            Engineer
+          </p>
+        </div>
+        <div
+          class="card"
+        >
+          <img
+            src="mark.jpg"
+          />
+          <p
+            class="color_black is-bold is-family-secondary"
+            data-testid="name"
+          >
+            Mark King
+          </p>
+          <p
+            class="color_chalice"
+            data-testid="role"
+          >
+            Engineer
+          </p>
+        </div>
+        <div
+          class="card"
+        >
+          <img
+            src="westley.png"
+          />
+          <p
+            class="color_black is-bold is-family-secondary"
+            data-testid="name"
+          >
+            Westley Strellis
+          </p>
+          <p
+            class="color_chalice"
+            data-testid="role"
+          >
+            Engineer
+          </p>
+        </div>
+        <div
+          class="card"
+        >
+          <img
+            src="basil.jpg"
+          />
+          <p
+            class="color_black is-bold is-family-secondary"
+            data-testid="name"
+          >
+            Basil Havens
+          </p>
+          <p
+            class="color_chalice"
+            data-testid="role"
+          >
+            Mobile Engineer
+          </p>
+        </div>
+        <div
+          class="card"
+        >
+          <img
+            src="ben.jpg"
+          />
+          <p
+            class="color_black is-bold is-family-secondary"
+            data-testid="name"
+          >
+            Ben Rogers
+          </p>
+          <p
+            class="color_chalice"
+            data-testid="role"
+          >
+            Engineer
+          </p>
+        </div>
+        <div
+          class="card"
+        >
+          <img
+            src="tyler.jpg"
+          />
+          <p
+            class="color_black is-bold is-family-secondary"
+            data-testid="name"
+          >
+            Tyler Berrett
+          </p>
+          <p
+            class="color_chalice"
+            data-testid="role"
+          >
+            Mobile Engineer
+          </p>
+        </div>
+        <div
+          class="card"
+        >
+          <img
+            src="jordan.png"
+          />
+          <p
+            class="color_black is-bold is-family-secondary"
+            data-testid="name"
+          >
+            Jordan Christensen
+          </p>
+          <p
+            class="color_chalice"
+            data-testid="role"
+          >
+            Mobile Engineer
+          </p>
+        </div>
+        <div
+          class="card"
+        >
+          <img
+            src="justin.jpg"
+          />
+          <p
+            class="color_black is-bold is-family-secondary"
+            data-testid="name"
+          >
+            Justin Gent
+          </p>
+          <p
+            class="color_chalice"
+            data-testid="role"
+          >
+            Mobile Engineer
+          </p>
+        </div>
+        <div
+          class="card"
+        >
+          <img
+            src="lowell.jpg"
+          />
+          <p
+            class="color_black is-bold is-family-secondary"
+            data-testid="name"
+          >
+            Lowell Jacobs
+          </p>
+          <p
+            class="color_chalice"
+            data-testid="role"
+          >
+            Engineer
+          </p>
+        </div>
+      </section>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
