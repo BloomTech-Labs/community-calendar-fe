@@ -579,11 +579,10 @@ const EventForm = (props) => {
 
           
 {/* Recurring events: Repeat type input */}
-<label>
+{/* <label>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css"/> 
-            <div class='dropdown'>            
-              {/* <div class='dropdown is-hoverable'>               */}
+            <div class='dropdown'>             
                 <span>Repeat&nbsp;type&nbsp;</span>
                 <div class='dropdown-trigger'>
                   <button
@@ -617,16 +616,15 @@ const EventForm = (props) => {
                     </a>
                   </div>
                 </div>
-               </div> 
-            {/* </div> */}
-          </label>  
+               </div>             
+          </label>   */}
 
           {/* Recurring events: Repeat on input part-1     */}
-        <div className={`${repeat} ${margin}`}>     
+
+        {/* <div className={`${repeat} ${margin}`}>     
           <label>          
-           <div class='dropdown'>
-              {/* <div class='dropdown is-active'> */}              
-                <span>Repeat&nbsp;on&nbsp;</span>
+           <div class='dropdown'>                      
+                <span>Repeat&nbsp;every&nbsp;</span>
                 <div class='dropdown-trigger'>
                   <button
                     class='button is-small'
@@ -661,16 +659,16 @@ const EventForm = (props) => {
                       With a divider
                     </a>
                   </div>
-                </div>
-              {/* </div> */}
+                </div>             
             </div>
             
-          </label>
+          </label> */}
 
           {/* Recurring events: Repeat on input part-2  */}
 
-          <label className='label'>
+          {/* <label className='label'>
             <div class='dropdown'>
+            <span>Starts&nbsp;on&nbsp;</span>
                 <div class='dropdown-trigger'>
                   <button
                     class='button is-small'
@@ -711,18 +709,14 @@ const EventForm = (props) => {
                       With a divider
                     </a>
                   </div>
-                </div>
-              {/* </div> */}
+                </div>             
             </div>            
           </label>
-        </div> 
-                    
+        </div>                      */}
 
           {/*React dropdown option */}
-
           {/* Reccuring events 
 Repeat type dropdown component */}
-
 
           <label>
             <span>Repeat&nbsp;type&nbsp;</span>
@@ -733,13 +727,11 @@ Repeat type dropdown component */}
              <option value="Weekly">Weekly</option>
              <option value="Monthly">Monthly</option>
             </select>
-          </label>
+          </label>         
 
-          {/* --------- */}
+   {/*  "Repeat on" input */}
 
-   {/*  Repeat on component */}
-
-          <div className={`${repeat}`}>          
+        <div className={`${repeat}`}>          
           <label>
             <span>Repeat&nbsp;every&nbsp;</span>            
             <select className ={`${repeaton}`}>
@@ -762,12 +754,8 @@ Repeat type dropdown component */}
              <option value="Saturday">Saturday</option>
              <option value="Sunday">Sunday</option>             
             </select>
-            </label>
-        
-          </div>
-
- 
- 
+            </label>        
+        </div> 
 
           {/* EVENT DESCRIPTION */}
           <div className={`field ${errorMarginMobile}`}>
