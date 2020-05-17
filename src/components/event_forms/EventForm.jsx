@@ -1,7 +1,14 @@
+
+
+// import {useDropdown} from '../../utils'
+
+
 import React, {useState, useEffect} from 'react'
 import loadable from '@loadable/component'
 import ReactGA from 'react-ga'
 import moment from 'moment'
+
+// import dropdown from 'react-bulma-components/lib/components/dropdown'
 
 // form components
 import {useForm, ErrorMessage} from 'react-hook-form'
@@ -48,8 +55,8 @@ import {
   desktopEndfield,
   dropBoxError,
   events,
-  eventContainer
-} from './styles/EventForm.module.scss' 
+  eventContainer,  
+} from './styles/EventForm.module.scss'
 
 /* split react-date-timepicker from the rest of the bundle */
 const DateTimePickerSplit = loadable.lib(() =>
@@ -328,6 +335,12 @@ const EventForm = (props) => {
       })
     }
   }
+  // toggle is-active class on dropdown menu
+  let dropdown = document.querySelector('.dropdown');
+  dropdown.addEventListener('click', function(event) {
+      event.stopPropagation();
+      dropdown.classList.toggle('is-active');
+  });
   // render form component
   return (
     <>
@@ -559,6 +572,7 @@ const EventForm = (props) => {
               )}
             </div>
           </label>
+ 
 
           {/* EVENT DESCRIPTION */}
           <div className={`field ${errorMarginMobile}`}>
