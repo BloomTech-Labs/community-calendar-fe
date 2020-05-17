@@ -616,7 +616,105 @@ const EventForm = (props) => {
                 </div>
                </div> 
             {/* </div> */}
-          </label>   
+          </label>  
+
+          {/* Recurring events: Repeat on input part-1     */}    
+          <label>          
+           <div class='dropdown'>
+              {/* <div class='dropdown is-active'> */}              
+                <span>Repeat&nbsp;on&nbsp;</span>
+                <div class='dropdown-trigger'>
+                  <button
+                    class='button is-small'
+                    aria-haspopup='true'
+                    aria-controls='dropdown-menu'
+                    >                    
+                    <span>Select week</span>
+                    <span class='icon is-small'>
+                      <i class='fas fa-angle-down' aria-hidden='true'></i>
+                    </span>
+                  </button>
+                </div>
+                <div class='dropdown-menu' id='dropdown-menu' role='menu'>
+                  <div class='dropdown-content'>
+                    <a href="#" class='dropdown-item'>
+                      First
+                    </a>                   
+                    <a href="#" class='dropdown-item is-active'>
+                      Second
+                    </a>
+                    <a href="#" class='dropdown-item'>
+                      Third
+                    </a>                    
+                    <a href="#" class='dropdown-item'>
+                      Fourth
+                    </a>
+                    <a href="#" class='dropdown-item'>
+                      Fifth
+                    </a>
+                    <hr class='dropdown-divider' />
+                    <a href='#' class='dropdown-item'>
+                      With a divider
+                    </a>
+                  </div>
+                </div>
+              {/* </div> */}
+            </div>
+            
+          </label>
+
+          {/* Recurring events: Repeat on input part-2  */}
+
+          <label className='label'>
+            <div class='dropdown'>
+                <div class='dropdown-trigger'>
+                  <button
+                    class='button is-small'
+                    aria-haspopup='true'
+                    aria-controls='dropdown-menu'
+                  >
+                    <span>Select day</span>
+                    <span class='icon is-small'>
+                      <i class='fas fa-angle-down' aria-hidden='true'></i>
+                    </span>
+                  </button>
+                </div>
+                <div class='dropdown-menu' id='dropdown-menu' role='menu'>
+                  <div class='dropdown-content'>
+                    <a href='#' class='dropdown-item'>
+                      Monday
+                    </a>                    
+                    <a href='#' class='dropdown-item is-active'>
+                      Tuesday
+                    </a>
+                    <a href='#' class='dropdown-item'>
+                      Wednesday
+                    </a>                    
+                    <a href='#' class='dropdown-item'>
+                      Thursday
+                    </a>
+                    <a href='#' class='dropdown-item'>
+                      Friday
+                    </a>
+                    <a href='#' class='dropdown-item'>
+                      Saturday
+                    </a>
+                    <a href='#' class='dropdown-item'>
+                      Sunday
+                    </a>
+                    <hr class='dropdown-divider' />
+                    <a href='#' class='dropdown-item'>
+                      With a divider
+                    </a>
+                  </div>
+                </div>
+              {/* </div> */}
+            </div>            
+          </label> 
+                    
+
+          {/* --------- */}
+ 
  
 
           {/* EVENT DESCRIPTION */}
