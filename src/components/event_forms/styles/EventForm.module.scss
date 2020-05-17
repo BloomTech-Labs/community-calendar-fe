@@ -250,3 +250,9 @@
     margin-left: 10px;
   }
 }
+.repeat{
+  display:flex;
+  justify-content: space-between;  
+  flex-direction: row;
+  flex-wrap:nowrap  
+}

@@ -55,7 +55,8 @@ import {
   desktopEndfield,
   dropBoxError,
   events,
-  eventContainer,  
+  eventContainer,
+  repeat,  
 } from './styles/EventForm.module.scss'
 
 /* split react-date-timepicker from the rest of the bundle */
@@ -618,7 +619,8 @@ const EventForm = (props) => {
             {/* </div> */}
           </label>  
 
-          {/* Recurring events: Repeat on input part-1     */}    
+          {/* Recurring events: Repeat on input part-1     */}
+        <div className={`${repeat}`}>     
           <label>          
            <div class='dropdown'>
               {/* <div class='dropdown is-active'> */}              
@@ -710,7 +712,8 @@ const EventForm = (props) => {
                 </div>
               {/* </div> */}
             </div>            
-          </label> 
+          </label>
+        </div> 
                     
 
           {/* --------- */}
