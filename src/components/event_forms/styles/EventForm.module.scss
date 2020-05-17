@@ -254,5 +254,14 @@
   display:flex;
   justify-content: space-between;  
   flex-direction: row;
-  flex-wrap:nowrap  
+  flex-wrap:nowrap;
+ }
+ .margin{
+  margin:1.5% 1.5%; 
+ }
+.repeaton{
+  margin:1.5% 14% 1.5% 0;
+  width:20%;
+  text-align-last:center; 
+  border:black 1.4px solid;
 }

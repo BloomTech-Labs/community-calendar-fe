@@ -56,7 +56,10 @@ import {
   dropBoxError,
   events,
   eventContainer,
-  repeat,  
+  repeat,
+  repeaton,
+  margin
+    
 } from './styles/EventForm.module.scss'
 
 /* split react-date-timepicker from the rest of the bundle */
@@ -579,8 +582,7 @@ const EventForm = (props) => {
 <label>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css"/> 
-            <div class='dropdown'>
-              {/* <div className={`${repeat}`}> */}
+            <div class='dropdown'>            
               {/* <div class='dropdown is-hoverable'>               */}
                 <span>Repeat&nbsp;type&nbsp;</span>
                 <div class='dropdown-trigger'>
@@ -620,7 +622,7 @@ const EventForm = (props) => {
           </label>  
 
           {/* Recurring events: Repeat on input part-1     */}
-        <div className={`${repeat}`}>     
+        <div className={`${repeat} ${margin}`}>     
           <label>          
            <div class='dropdown'>
               {/* <div class='dropdown is-active'> */}              
@@ -716,7 +718,54 @@ const EventForm = (props) => {
         </div> 
                     
 
+          {/*React dropdown option */}
+
+          {/* Reccuring events 
+Repeat type dropdown component */}
+
+
+          <label>
+            <span>Repeat&nbsp;type&nbsp;</span>
+            <select className ={`${repeaton}`}>
+            <option selected value="">Select type</option>
+             <option value="None">None</option>
+             <option value="Daily">Daily</option>
+             <option value="Weekly">Weekly</option>
+             <option value="Monthly">Monthly</option>
+            </select>
+          </label>
+
           {/* --------- */}
+
+   {/*  Repeat on component */}
+
+          <div className={`${repeat}`}>          
+          <label>
+            <span>Repeat&nbsp;every&nbsp;</span>            
+            <select className ={`${repeaton}`}>
+            <option selected value="">Select week</option>            
+             <option value="First week">First week</option>
+             <option value="Second week">Second week</option>
+             <option value="Third week">Third week</option>
+             <option value="Fourth week">Fourth week</option>
+             <option value="Fifth week">Fifth week</option>
+            </select>
+                
+            <span>Starts&nbsp;on&nbsp;</span>           
+            <select className ={`${repeaton}`}>
+            <option selected value="">Select day</option>
+             <option value="Monday">Monday</option>
+             <option value="Tuesday">Tuesday</option>
+             <option value="Wednesday">Wednesday</option>
+             <option value="Thursday">Thursday</option>
+             <option value="Friday">Friday</option>
+             <option value="Saturday">Saturday</option>
+             <option value="Sunday">Sunday</option>             
+            </select>
+            </label>
+        
+          </div>
+
  
  
 
