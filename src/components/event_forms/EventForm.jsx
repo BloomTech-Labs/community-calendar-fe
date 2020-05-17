@@ -572,6 +572,51 @@ const EventForm = (props) => {
               )}
             </div>
           </label>
+
+          
+{/* Recurring events: Repeat type input */}
+<label>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css"/> 
+            <div class='dropdown'>
+              {/* <div className={`${repeat}`}> */}
+              {/* <div class='dropdown is-hoverable'>               */}
+                <span>Repeat&nbsp;type&nbsp;</span>
+                <div class='dropdown-trigger'>
+                  <button
+                    class='button is-small'
+                    aria-haspopup='true'
+                    aria-controls='dropdown-menu'
+                    >                    
+                    <span>Select type</span>
+                    <span class='icon is-small'>
+                      <i class='fas fa-angle-down' aria-hidden='true'></i>
+                    </span>
+                  </button>
+                </div>
+                <div class='dropdown-menu' id='dropdown-menu' role='menu'>
+                  <div class='dropdown-content'>
+                    <a href="#" class='dropdown-item'>
+                      None
+                    </a>                   
+                    <a href="#" class='dropdown-item is-active'>
+                      Daily
+                    </a>
+                    <a href="#" class='dropdown-item'>
+                      Weekly
+                    </a>                    
+                    <a href="#" class='dropdown-item'>
+                      Monthly
+                    </a>
+                    <hr class='dropdown-divider' />
+                    <a href='#' class='dropdown-item'>
+                      With a divider
+                    </a>
+                  </div>
+                </div>
+               </div> 
+            {/* </div> */}
+          </label>   
  
 
           {/* EVENT DESCRIPTION */}
