@@ -7,6 +7,7 @@ import moment from 'moment'
 import {useForm, ErrorMessage} from 'react-hook-form'
 import TagInput from './TagInput'
 import ErrorModal from './ErrorModal'
+import UpdateEventModal from './UpdateEventModal'
 
 // form data
 import {states, statesAbbreviated} from './states'
@@ -193,6 +194,8 @@ const EventForm = (props) => {
     formType === 'update' && item.end ? new Date(item.end) : nextAfternoon,
   )
 
+  const [isSeries, setIsSeries] = useState(true)
+
   const endChange = (datetime) => {
     setEndDatetime(datetime)
   }
@@ -201,6 +204,12 @@ const EventForm = (props) => {
   const [showModal, setShowModal] = useState(false)
   const toggleModal = () => {
     setShowModal(!showModal)
+  }
+  //edit modal state
+  const [showEditModal, setShowEditModal] = useState(false)
+  const toggleEditModal = () => {
+    // setShowEditModal(!showEditModal)
+    console.log(showEditModal, 'wake up')
   }
 
   const onTicketPriceChange = () => {
@@ -316,7 +325,9 @@ const EventForm = (props) => {
   }
 
   const handleCreateEvent = () => {
-    if (formType === 'update') {
+    if(isSeries){
+      toggleEditModal()
+    } else if (formType === 'update') {
       ReactGA.event({
         category: 'Update Event',
         action: 'User clicked Update Event Button to Update Listing',
@@ -329,6 +340,7 @@ const EventForm = (props) => {
     }
   }
   // render form component
+  console.log(isSeries, ('hello world'))
   return (
     <>
       {loading && <LoadingLogo />}
@@ -697,6 +709,7 @@ const EventForm = (props) => {
         </form>
 
         {showModal && <ErrorModal toggleModal={toggleModal} />}
+        {/* {showEditModal && <UpdateEventModal toggleEditModal={toggleEditModal} />} */}
       </div>
     </>
   )
