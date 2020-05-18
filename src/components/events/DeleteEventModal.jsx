@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 //styles
 import {
@@ -13,6 +13,7 @@ import {
   } from './styles/DeleteEventModal.module.scss'
 
 function DeleteEventModal({deleteEvent, toggleModal, isSeries}) {
+    const [deleteOption, setDeleteOption] = useState('single')
     return (
         isSeries ?
         <div className={`${deleteEventModal}`}>
@@ -22,11 +23,11 @@ function DeleteEventModal({deleteEvent, toggleModal, isSeries}) {
                     <br/>
                     Would you like to:
                     <div className={`${checkboxes}`}>
-                        <input  type="checkbox"/> 
+                        <input onClick={() =>setDeleteOption('single')} type="radio" name='delete' value='single' checked/> 
                         <label> Delete this event</label>
                     </div>
                     <div className={`${checkboxes}`}>
-                        <input  type="checkbox"/>
+                        <input onClick={() =>setDeleteOption('series')} type="radio" name='delete' value='series'/>
                         <label> Delete this series</label>
                     </div>
                 </div>
@@ -35,7 +36,7 @@ function DeleteEventModal({deleteEvent, toggleModal, isSeries}) {
                 <button onClick={() => {deleteEvent()}} className={`${button} ${yes}`}>Confirm</button>
                 <button onClick={() => {toggleModal()}} className={`${button} ${no}`}>Cancel</button> 
             </div>
-        </div> :         <div className={`${deleteEventModal}`}>
+        </div> : <div className={`${deleteEventModal}`}>
             <div className={`${deleteEventModalContent}`}>
                 <div className={`${deleteEventModalBody}`}>
                     Are you sure you want to delete this event?
