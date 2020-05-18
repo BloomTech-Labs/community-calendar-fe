@@ -43,6 +43,7 @@ import {
   padDivContent,
   userImage,
   titleH1,
+  series
 } from './styles/EventView.module.scss'
 
 import {set} from 'react-ga'
@@ -55,7 +56,7 @@ const EventView = ({history}) => {
   const [attendees, setAttendees] = useState(0)
   const [rsvp, setRsvp] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [isSeries, setIsSeries] = useState(false)
+  const [isSeries, setIsSeries] = useState(true)
   const queryParams = useParams()
 
   const {data: localCache} = useQuery(GET_CACHE)
@@ -297,6 +298,8 @@ const EventView = ({history}) => {
             {`${streetAddress}, ${streetAddress2 ? `${streetAddress2}, ` : ''}
               ${city}, ${state}, ${zipcode}`}
           </p>
+          {isSeries ?
+          <div className={series}><p>This event is a recurring event!</p></div>: null}
         </div>
         <div className={panel_right}>
           {/* Manage Button, only displays if logged-in user is the event creator  */}
