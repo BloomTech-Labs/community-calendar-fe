@@ -255,22 +255,34 @@
   justify-content: space-between;  
   flex-direction: row;
   flex-wrap:nowrap;
- }
- .margin{
-  margin:1.5% 1.5%; 
- }
+  }
 .repeaton{
-  margin:1.5% 14% 1.5% 0;
+  margin:1.5% 8% 1.5% 0;
   width:20%;
   text-align-last:center; 
-  border:#e6e6e6 1px solid;
+  border:#000000 1.8px solid;
   padding:1%;
   font-size: 0.9rem;
+  border-radius: 5% !important;
 }
-// .repeat:hover{
-//   border:black 1.4px solid;
-// }
-
 .repeaton:hover{
-  border:black 1px solid;
+  border:#e6e6e6 1.8px solid;
 }
+.recPicker{
+  border: 2px solid #000000;
+  border-radius: 4px;  
+  margin-left:1.5%;
+  margin-right:21%;
+  text-align: center;
+}
+.recPicker:hover{
+  border:#e6e6e6 1.8px solid;
+}
+.recInput{  
+  display:flex;  
+  border-radius: 4px;  
+  text-align: center;  
+  margin-top:1.5%;
+}
+
+

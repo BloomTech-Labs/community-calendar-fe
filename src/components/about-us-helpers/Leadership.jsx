@@ -69,7 +69,7 @@ const teamMembers = [
     name: 'Lowell Jacobs',
     role: 'Engineer',
     imagePath: require(`../../assets/images/team-members/lowell.jpg`),
-  },
+  },  
 ]
 
 const Leadership = () => {

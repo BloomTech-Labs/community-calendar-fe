@@ -57,9 +57,9 @@ import {
   events,
   eventContainer,
   repeat,
-  repeaton,
-  margin
-    
+  repeaton,  
+  recPicker,
+  recInput,    
 } from './styles/EventForm.module.scss'
 
 /* split react-date-timepicker from the rest of the bundle */
@@ -338,13 +338,7 @@ const EventForm = (props) => {
         action: 'User clicked Create Event button to Create Listing',
       })
     }
-  }
-  // toggle is-active class on dropdown menu
-  let dropdown = document.querySelector('.dropdown');
-  dropdown.addEventListener('click', function(event) {
-      event.stopPropagation();
-      dropdown.classList.toggle('is-active');
-  });
+  } 
   // render form component
   return (
     <>
@@ -575,151 +569,10 @@ const EventForm = (props) => {
                 })
               )}
             </div>
-          </label>
-
-          
-{/* Recurring events: Repeat type input */}
-{/* <label>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css"/> 
-            <div class='dropdown'>             
-                <span>Repeat&nbsp;type&nbsp;</span>
-                <div class='dropdown-trigger'>
-                  <button
-                    class='button is-small'
-                    aria-haspopup='true'
-                    aria-controls='dropdown-menu'
-                    >                    
-                    <span>Select type</span>
-                    <span class='icon is-small'>
-                      <i class='fas fa-angle-down' aria-hidden='true'></i>
-                    </span>
-                  </button>
-                </div>
-                <div class='dropdown-menu' id='dropdown-menu' role='menu'>
-                  <div class='dropdown-content'>
-                    <a href="#" class='dropdown-item'>
-                      None
-                    </a>                   
-                    <a href="#" class='dropdown-item is-active'>
-                      Daily
-                    </a>
-                    <a href="#" class='dropdown-item'>
-                      Weekly
-                    </a>                    
-                    <a href="#" class='dropdown-item'>
-                      Monthly
-                    </a>
-                    <hr class='dropdown-divider' />
-                    <a href='#' class='dropdown-item'>
-                      With a divider
-                    </a>
-                  </div>
-                </div>
-               </div>             
-          </label>   */}
-
-          {/* Recurring events: Repeat on input part-1     */}
-
-        {/* <div className={`${repeat} ${margin}`}>     
-          <label>          
-           <div class='dropdown'>                      
-                <span>Repeat&nbsp;every&nbsp;</span>
-                <div class='dropdown-trigger'>
-                  <button
-                    class='button is-small'
-                    aria-haspopup='true'
-                    aria-controls='dropdown-menu'
-                    >                    
-                    <span>Select week</span>
-                    <span class='icon is-small'>
-                      <i class='fas fa-angle-down' aria-hidden='true'></i>
-                    </span>
-                  </button>
-                </div>
-                <div class='dropdown-menu' id='dropdown-menu' role='menu'>
-                  <div class='dropdown-content'>
-                    <a href="#" class='dropdown-item'>
-                      First
-                    </a>                   
-                    <a href="#" class='dropdown-item is-active'>
-                      Second
-                    </a>
-                    <a href="#" class='dropdown-item'>
-                      Third
-                    </a>                    
-                    <a href="#" class='dropdown-item'>
-                      Fourth
-                    </a>
-                    <a href="#" class='dropdown-item'>
-                      Fifth
-                    </a>
-                    <hr class='dropdown-divider' />
-                    <a href='#' class='dropdown-item'>
-                      With a divider
-                    </a>
-                  </div>
-                </div>             
-            </div>
-            
-          </label> */}
-
-          {/* Recurring events: Repeat on input part-2  */}
-
-          {/* <label className='label'>
-            <div class='dropdown'>
-            <span>Starts&nbsp;on&nbsp;</span>
-                <div class='dropdown-trigger'>
-                  <button
-                    class='button is-small'
-                    aria-haspopup='true'
-                    aria-controls='dropdown-menu'
-                  >
-                    <span>Select day</span>
-                    <span class='icon is-small'>
-                      <i class='fas fa-angle-down' aria-hidden='true'></i>
-                    </span>
-                  </button>
-                </div>
-                <div class='dropdown-menu' id='dropdown-menu' role='menu'>
-                  <div class='dropdown-content'>
-                    <a href='#' class='dropdown-item'>
-                      Monday
-                    </a>                    
-                    <a href='#' class='dropdown-item is-active'>
-                      Tuesday
-                    </a>
-                    <a href='#' class='dropdown-item'>
-                      Wednesday
-                    </a>                    
-                    <a href='#' class='dropdown-item'>
-                      Thursday
-                    </a>
-                    <a href='#' class='dropdown-item'>
-                      Friday
-                    </a>
-                    <a href='#' class='dropdown-item'>
-                      Saturday
-                    </a>
-                    <a href='#' class='dropdown-item'>
-                      Sunday
-                    </a>
-                    <hr class='dropdown-divider' />
-                    <a href='#' class='dropdown-item'>
-                      With a divider
-                    </a>
-                  </div>
-                </div>             
-            </div>            
-          </label>
-        </div>                      */}
-
-          {/*React dropdown option */}
-          {/* Reccuring events 
-Repeat type dropdown component */}
-
+          </label>        
+          {/* Recurring events: "Repeat type" dropdown component  */}
           <label>
-            <span>Repeat&nbsp;type&nbsp;</span>
+            <span>Repeat&nbsp;type&nbsp;  </span>
             <select className ={`${repeaton}`}>
             <option selected value="">Select type</option>
              <option value="None">None</option>
@@ -727,10 +580,8 @@ Repeat type dropdown component */}
              <option value="Weekly">Weekly</option>
              <option value="Monthly">Monthly</option>
             </select>
-          </label>         
-
-   {/*  "Repeat on" input */}
-
+          </label>
+          {/*  "Repeat every" input */}
         <div className={`${repeat}`}>          
           <label>
             <span>Repeat&nbsp;every&nbsp;</span>            
@@ -742,7 +593,7 @@ Repeat type dropdown component */}
              <option value="Fourth week">Fourth week</option>
              <option value="Fifth week">Fifth week</option>
             </select>
-                
+          {/*  "Starts on" input */}      
             <span>Starts&nbsp;on&nbsp;</span>           
             <select className ={`${repeaton}`}>
             <option selected value="">Select day</option>
@@ -756,6 +607,33 @@ Repeat type dropdown component */}
             </select>
             </label>        
         </div> 
+
+        {/* "Repeat until" input */}             
+        <div className= {`${recInput}`}>              
+            <span><strong>Repeat&nbsp;until&nbsp;</strong></span>
+              {loading ? (
+                <LoadingDots />
+              ) : (
+                <DateTimePickerSplit fallback={<LoadingDots />}>
+                  {({default: DateTimePicker}) => (
+                    <DateTimePicker
+                      monthAriaLabel='Month'
+                      dayAriaLabel='Day'
+                      yearAriaLabel='Year'
+                      hourAriaLabel='Hour'
+                      minuteAriaLabel='Minute'
+                      amPmAriaLabel='Select AM/PM'
+                      clearAriaLabel='Clear Date'
+                      onChange={endChange}
+                      value={endDatetime}                      
+                      className={`${recPicker}`}
+                      disableClock={true}
+                      minDate={new Date()}
+                    />
+                  )}
+                </DateTimePickerSplit>
+              )}
+              </div>
 
           {/* EVENT DESCRIPTION */}
           <div className={`field ${errorMarginMobile}`}>
