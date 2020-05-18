@@ -27,7 +27,7 @@
     background-color: $shark;
     width: 100%;
     max-width: 450px;
-    height: 100px;
+    height: 150px;
     border-radius: 6px;
 }
 
@@ -62,4 +62,9 @@
     justify-content: space-between;
     margin-top: 1rem;
     width: 450px;
+}
+
+.checkboxes{
+    margin-left:20%;
+    margin-top:2%
 }

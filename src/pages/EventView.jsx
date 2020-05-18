@@ -55,6 +55,7 @@ const EventView = ({history}) => {
   const [attendees, setAttendees] = useState(0)
   const [rsvp, setRsvp] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [isSeries, setIsSeries] = useState(true)
   const queryParams = useParams()
 
   const {data: localCache} = useQuery(GET_CACHE)
@@ -483,7 +484,7 @@ const EventView = ({history}) => {
         </div>
       </section>
       {showModal && (
-        <DeleteEventModal deleteEvent={deleteEvent} toggleModal={toggleModal} />
+        <DeleteEventModal deleteEvent={deleteEvent} toggleModal={toggleModal} isSeries={isSeries}/>
       )}
     </div>
   )
