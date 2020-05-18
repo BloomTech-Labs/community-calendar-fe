@@ -338,7 +338,74 @@ const EventForm = (props) => {
         action: 'User clicked Create Event button to Create Listing',
       })
     }
-  } 
+  }
+const [firstWeek, setFirstWeek] = useState(false)
+const [secondWeek, setSecondWeek] = useState(false)
+const [thirdWeek, setThirdWeek] = useState(false)
+const [fourthWeek, setFourthWeek] = useState(false)
+const [fifthWeek, setFifthWeek] = useState(false)
+
+const [monday, setMonday] = useState(false)
+const [tuesday, setTuesday] = useState(false)
+const [wednesday, setWednesday] = useState(false)
+const [thursday, setThursday] = useState(false)
+const [friday, setFriday] = useState(false)
+const [saturday, setSaturday] = useState(false)
+const [sunday, setSunday] = useState(false)
+
+
+const [week, setWeek] = useState(false)
+const [days, setDays] = useState (false)
+const [repeat,setRepeat]= useState(false)
+
+const [frequency, setFrequency] = useState(false)
+  const handleRecurringEvent = (e) =>{
+    setFrequency(e.target.value) 
+  }
+useEffect(()=>{
+// console.log("I am the frequency", frequency)
+if(frequency==="None"){
+  setWeek(false)
+  setDays(false)
+  setRepeat(false)
+}else if(frequency==="Daily"){
+  setWeek(false)
+  setDays(false)
+  setRepeat(true)
+}else if(frequency==="Weekly"){
+  setWeek(false)
+  setDays(true)
+  setRepeat(true)
+}else if(frequency==="Monthly"){
+  setWeek(true)
+  setDays(true)
+  setRepeat(true)
+}
+},[frequency])
+
+// useEffect(()=>{
+
+//   if(days==="Monday"){    
+//     setDays("Monday")
+    
+//   }else if(days==="Tuesday"){    
+//     setDays("Tuesday")
+    
+//   }else if(days==="Wednesday"){    
+//     setDays("Wednesday")    
+//   }else if(frequency==="Monthly"){
+//     setWeek(true)
+//     setDays(true)
+//     setRepeat(true)
+//   }
+
+
+console.log("display repeat", repeat)
+console.log("display week", week)
+console.log("display days", days)
+
+},[repeat,week,days])
+
   // render form component
   return (
     <>
@@ -573,7 +640,7 @@ const EventForm = (props) => {
           {/* Recurring events: "Repeat type" dropdown component  */}
           <label>
             <span>Repeat&nbsp;type&nbsp;  </span>
-            <select className ={`${repeaton}`}>
+            <select className ={`${repeaton}`} onChange={handleRecurringEvent}>
             <option selected value="">Select type</option>
              <option value="None">None</option>
              <option value="Daily">Daily</option>
@@ -583,7 +650,7 @@ const EventForm = (props) => {
           </label>
           {/*  "Repeat every" input */}
         <div className={`${repeat}`}>          
-          <label>
+          <label className={`${!week? "is-hidden":null}`}>
             <span>Repeat&nbsp;every&nbsp;</span>            
             <select className ={`${repeaton}`}>
             <option selected value="">Select week</option>            
@@ -593,7 +660,9 @@ const EventForm = (props) => {
              <option value="Fourth week">Fourth week</option>
              <option value="Fifth week">Fifth week</option>
             </select>
-          {/*  "Starts on" input */}      
+            </label>
+          {/*  "Starts on" input */} 
+          <label className={`${!days? "is-hidden":null}`}>     
             <span>Starts&nbsp;on&nbsp;</span>           
             <select className ={`${repeaton}`}>
             <option selected value="">Select day</option>
@@ -608,7 +677,8 @@ const EventForm = (props) => {
             </label>        
         </div> 
 
-        {/* "Repeat until" input */}             
+        {/* "Repeat until" input */}
+        <label className = {`${!repeat? "is-hidden":null}`}>            
         <div className= {`${recInput}`}>              
             <span><strong>Repeat&nbsp;until&nbsp;</strong></span>
               {loading ? (
@@ -634,6 +704,7 @@ const EventForm = (props) => {
                 </DateTimePickerSplit>
               )}
               </div>
+              </label> 
 
           {/* EVENT DESCRIPTION */}
           <div className={`field ${errorMarginMobile}`}>
