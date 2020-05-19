@@ -56,7 +56,7 @@ const EventView = ({history}) => {
   const [attendees, setAttendees] = useState(0)
   const [rsvp, setRsvp] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [isSeries, setIsSeries] = useState(true)
+  const [isSeries, setIsSeries] = useState(false)
   const queryParams = useParams()
 
   const {data: localCache} = useQuery(GET_CACHE)

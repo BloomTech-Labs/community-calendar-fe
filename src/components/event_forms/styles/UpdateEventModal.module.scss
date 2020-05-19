@@ -61,10 +61,17 @@
     display: flex;
     justify-content: space-between;
     margin-top: 1rem;
-    width: 450px;
+    max-width: 450px;
+}
+.modalLabel{
+    position: relative;
+    right:30px;
+    bottom:5px
 }
 
 .checkboxes{
-    margin-left:20%;
-    margin-top:2%
+    display:flex;
+    max-width: 80%;
+    margin-right:20%;
+    margin-top:2%;
 }

@@ -1,22 +1,22 @@
 import React, {useState} from "react"
 
 //styles
-import{
+import {
     updateEventModal,
     updateEventModalContent,
     updateEventModalBody,
     updateEventModalButtonContainer,
+    modalLabel,
     yes,
     no,
     button,
     checkboxes
-  } from './styles/UpdateEventModal.scss'
+  } from './styles/UpdateEventModal.module.scss'
 
 
 
-  function UpdateEventModal({updateEvent, toggleModal, isSeries}) {
+  function UpdateEventModal({modalCreateEvent, toggleEditModal, isSeries}) {
     const [updateOption, setUpdateOption] = useState('single')
-    console.log('hello world')
     return (
         isSeries ?
         <div className={`${updateEventModal}`}>
@@ -27,27 +27,27 @@ import{
                     Would you like to:
                     <div className={`${checkboxes}`}>
                         <input onClick={() =>setUpdateOption('single')} type="radio" name='update' value='single' checked/> 
-                        <label> Update this event</label>
+                        <label className={`${modalLabel}`}> Update this event</label>
                     </div>
                     <div className={`${checkboxes}`}>
                         <input onClick={() =>setUpdateOption('series')} type="radio" name='update' value='series'/>
-                        <label> Update this series</label>
+                        <label className={`${modalLabel}`}> Update this series</label>
                     </div>
                 </div>
             </div>
             <div className={`${updateEventModalButtonContainer}`}>
-                <button onClick={() => {updateEvent()}} className={`${button} ${yes}`}>Confirm</button>
-                <button onClick={() => {toggleModal()}} className={`${button} ${no}`}>Cancel</button> 
+                <button onClick={() => {modalCreateEvent()}} className={`${button} ${yes}`}>Confirm</button>
+                <button onClick={() => {toggleEditModal()}} className={`${button} ${no}`}>Cancel</button> 
             </div>
         </div> : <div className={`${updateEventModal}`}>
             <div className={`${updateEventModalContent}`}>
                 <div className={`${updateEventModalBody}`}>
-                    Are you sure you want to delete this event?
+                    Are you sure you want to update this event?
                 </div>
             </div>
             <div className={`${updateEventModalButtonContainer}`}>
-                <button onClick={() => {updateEvent()}} className={`${button} ${yes}`}>Yes</button>
-                <button onClick={() => {toggleModal()}} className={`${button} ${no}`}>No</button>
+                <button onClick={() => {modalCreateEvent()}} className={`${button} ${yes}`}>Yes</button>
+                <button onClick={() => {toggleEditModal()}} className={`${button} ${no}`}>No</button>
             </div>
         </div>
     )
