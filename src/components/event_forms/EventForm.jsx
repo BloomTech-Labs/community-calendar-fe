@@ -1,14 +1,8 @@
-
-
 // import {useDropdown} from '../../utils'
-
-
 import React, {useState, useEffect} from 'react'
 import loadable from '@loadable/component'
 import ReactGA from 'react-ga'
 import moment from 'moment'
-
-// import dropdown from 'react-bulma-components/lib/components/dropdown'
 
 // form components
 import {useForm, ErrorMessage} from 'react-hook-form'
@@ -339,72 +333,63 @@ const EventForm = (props) => {
       })
     }
   }
-const [firstWeek, setFirstWeek] = useState(false)
-const [secondWeek, setSecondWeek] = useState(false)
-const [thirdWeek, setThirdWeek] = useState(false)
-const [fourthWeek, setFourthWeek] = useState(false)
-const [fifthWeek, setFifthWeek] = useState(false)
 
-const [monday, setMonday] = useState(false)
-const [tuesday, setTuesday] = useState(false)
-const [wednesday, setWednesday] = useState(false)
-const [thursday, setThursday] = useState(false)
-const [friday, setFriday] = useState(false)
-const [saturday, setSaturday] = useState(false)
-const [sunday, setSunday] = useState(false)
-
-
-const [week, setWeek] = useState(false)
-const [days, setDays] = useState (false)
-const [repeat,setRepeat]= useState(false)
+//local states for recurring event inputs  
+const [week, setWeek] = useState("")
+const[day, setDay]= useState("")
 
 const [frequency, setFrequency] = useState(false)
-  const handleRecurringEvent = (e) =>{
+
+const [weeks, setWeeks] = useState(false)
+const [days, setDays] = useState (false)
+const [repeat,setRepeat]= useState(false)
+//onChange handlers for recurring events
+//handleRepeatType
+  const handleRepeatType = (e) =>{
     setFrequency(e.target.value) 
   }
+
+ //handleRepeatEvery
+ const handleRepeatEvery = (e)=>{
+   setWeek(e.target.value)
+  //  console.log("clicked week", week)
+ }
+
+ //handleStartsOn
+ const handleStartsOn = (e)=>{
+  setDay(e.target.value)
+  // console.log("clicked day", day)
+ }
+
 useEffect(()=>{
 // console.log("I am the frequency", frequency)
-if(frequency==="None"){
-  setWeek(false)
+if(frequency==="None"){  
+  setWeeks(false)
   setDays(false)
   setRepeat(false)
 }else if(frequency==="Daily"){
-  setWeek(false)
+  setWeeks(false)
   setDays(false)
   setRepeat(true)
 }else if(frequency==="Weekly"){
-  setWeek(false)
+  setWeeks(false)
   setDays(true)
   setRepeat(true)
 }else if(frequency==="Monthly"){
-  setWeek(true)
+  setWeeks(true)
   setDays(true)
   setRepeat(true)
 }
 },[frequency])
 
-// useEffect(()=>{
-
-//   if(days==="Monday"){    
-//     setDays("Monday")
-    
-//   }else if(days==="Tuesday"){    
-//     setDays("Tuesday")
-    
-//   }else if(days==="Wednesday"){    
-//     setDays("Wednesday")    
-//   }else if(frequency==="Monthly"){
-//     setWeek(true)
-//     setDays(true)
-//     setRepeat(true)
-//   }
-
+useEffect(()=>{
 
 console.log("display repeat", repeat)
-console.log("display week", week)
+console.log("display week", weeks)
 console.log("display days", days)
-
-},[repeat,week,days])
+console.log("clicked week", week)
+console.log("clicked day", day)
+},[repeat,weeks,days, day, week])
 
   // render form component
   return (
@@ -640,19 +625,20 @@ console.log("display days", days)
           {/* Recurring events: "Repeat type" dropdown component  */}
           <label>
             <span>Repeat&nbsp;type&nbsp;  </span>
-            <select className ={`${repeaton}`} onChange={handleRecurringEvent}>
-            <option selected value="">Select type</option>
+            {/* rules={{ required: 'Please select an option'}} */}
+            <select required className ={`${repeaton}`} onChange={handleRepeatType}>            
+             <option selected value="">Select type</option>
              <option value="None">None</option>
              <option value="Daily">Daily</option>
              <option value="Weekly">Weekly</option>
              <option value="Monthly">Monthly</option>
-            </select>
+            </select>                   
           </label>
           {/*  "Repeat every" input */}
         <div className={`${repeat}`}>          
-          <label className={`${!week? "is-hidden":null}`}>
+          <label className={`${!weeks? "is-hidden":null}`}>
             <span>Repeat&nbsp;every&nbsp;</span>            
-            <select className ={`${repeaton}`}>
+            <select className ={`${repeaton}`} onChange={handleRepeatEvery}>
             <option selected value="">Select week</option>            
              <option value="First week">First week</option>
              <option value="Second week">Second week</option>
@@ -664,7 +650,7 @@ console.log("display days", days)
           {/*  "Starts on" input */} 
           <label className={`${!days? "is-hidden":null}`}>     
             <span>Starts&nbsp;on&nbsp;</span>           
-            <select className ={`${repeaton}`}>
+            <select className ={`${repeaton}`} onChange={handleStartsOn}>
             <option selected value="">Select day</option>
              <option value="Monday">Monday</option>
              <option value="Tuesday">Tuesday</option>
