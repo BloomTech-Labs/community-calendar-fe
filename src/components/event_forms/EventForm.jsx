@@ -7,6 +7,7 @@ import moment from 'moment'
 import {useForm, ErrorMessage} from 'react-hook-form'
 import TagInput from './TagInput'
 import ErrorModal from './ErrorModal'
+import UpdateEventModal from './UpdateEventModal'
 
 // form data
 import {states, statesAbbreviated} from './states'
@@ -48,8 +49,8 @@ import {
   desktopEndfield,
   dropBoxError,
   events,
-  eventContainer
-} from './styles/EventForm.module.scss' 
+  eventContainer,
+} from './styles/EventForm.module.scss'
 
 /* split react-date-timepicker from the rest of the bundle */
 const DateTimePickerSplit = loadable.lib(() =>
@@ -193,6 +194,8 @@ const EventForm = (props) => {
     formType === 'update' && item.end ? new Date(item.end) : nextAfternoon,
   )
 
+  const [isSeries, setIsSeries] = useState(false)
+
   const endChange = (datetime) => {
     setEndDatetime(datetime)
   }
@@ -201,6 +204,11 @@ const EventForm = (props) => {
   const [showModal, setShowModal] = useState(false)
   const toggleModal = () => {
     setShowModal(!showModal)
+  }
+  //edit modal state
+  const [showEditModal, setShowEditModal] = useState(false)
+  const toggleEditModal = () => {
+    setShowEditModal(!showEditModal)
   }
 
   const onTicketPriceChange = () => {
@@ -315,8 +323,17 @@ const EventForm = (props) => {
     props.history.push(`/events/${id}`)
   }
 
+  const modalCreateEvent = () => {
+    ReactGA.event({
+      category: 'Update Event',
+      action: 'User clicked Update Event Button to Update Listing',
+    })
+  }
+
   const handleCreateEvent = () => {
-    if (formType === 'update') {
+    if (isSeries) {
+      toggleEditModal()
+    } else if (formType === 'update') {
       ReactGA.event({
         category: 'Update Event',
         action: 'User clicked Update Event Button to Update Listing',
@@ -691,12 +708,26 @@ const EventForm = (props) => {
               className={`button is-medium ${shark} has-text-white ${littleTopMargin}`}
               type='submit'
               value={formType === 'update' ? 'Update Event' : 'Create Event'}
-              onClick={handleCreateEvent()}
+              onClick={(e) => {
+                if (isSeries) {
+                  e.preventDefault()
+                  handleCreateEvent()
+                } else {
+                  handleCreateEvent()
+                }
+              }}
             />
           )}
         </form>
 
         {showModal && <ErrorModal toggleModal={toggleModal} />}
+        {showEditModal && (
+          <UpdateEventModal
+            toggleEditModal={toggleEditModal}
+            isSeries={isSeries}
+            modalCreateEvent={modalCreateEvent}
+          />
+        )}
       </div>
     </>
   )

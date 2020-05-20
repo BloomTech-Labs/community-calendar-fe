@@ -47,7 +47,7 @@
 
   .top_sec {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     background-color: $shark;
     color: white;
@@ -69,6 +69,12 @@
 
     .date_display {
       margin-bottom: $gap-xs;
+    }
+
+    .series{
+      margin-top:20%;
+      color:gold;
+      font-size:1.3rem
     }
 
     .panel_right {
