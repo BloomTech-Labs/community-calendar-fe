@@ -4,7 +4,7 @@
 @import '~bulma/sass/grid/columns.sass';
 @import '~bulma/sass/elements/button.sass';
 
-.deleteEventModal {
+.updateEventModal {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,7 +19,7 @@
     background-color: rgba(0,0,0,0.8);
 }
 
-.deleteEventModalContent {
+.updateEventModalContent {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,7 +31,7 @@
     border-radius: 6px;
 }
 
-.deleteEventModalBody {
+.updateEventModalBody {
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -57,14 +57,21 @@
     background: $red
 }
 
-.deleteEventModalButtonContainer {
+.updateEventModalButtonContainer {
     display: flex;
     justify-content: space-between;
     margin-top: 1rem;
-    width: 450px;
+    max-width: 450px;
+}
+.modalLabel{
+    position: relative;
+    right:30px;
+    bottom:5px
 }
 
 .checkboxes{
-    margin-left:20%;
-    margin-top:2%
+    display:flex;
+    max-width: 80%;
+    margin-right:20%;
+    margin-top:2%;
 }
