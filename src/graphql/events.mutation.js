@@ -18,9 +18,20 @@ export const ADD_EVENT = gql`
     $tags: [EventCreateTagInput!]
     $ticketPrice: Float!
     $images: [Upload!]
+    $series:Series
+    $seriesId:ID!
   ) {
     addEvent(
       data: {
+        series:{
+          create:[{            
+            frequency:$frequency
+            series_end:$series_end
+          }]
+          connect:{
+            id:$seriesId
+          }
+        }
         title: $title
         description: $description
         start: $start
