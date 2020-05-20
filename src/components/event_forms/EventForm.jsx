@@ -359,7 +359,6 @@ const EventForm = (props) => {
 
   //local states for recurring event inputs
   const [week, setWeek] = useState('')
-  const [day, setDay] = useState('')
 
   const [frequency, setFrequency] = useState(false)
 
@@ -375,11 +374,6 @@ const EventForm = (props) => {
   //handleRepeatEvery
   const handleRepeatEvery = (e) => {
     setWeek(e.target.value)
-  }
-
-  //handleStartsOn
-  const handleStartsOn = (e) => {
-    setDay(e.target.value)
   }
 
   useEffect(() => {
@@ -687,34 +681,6 @@ const EventForm = (props) => {
                   </select>
                   <p className={`is-size-7 ${errorMessage}`}>
                     <ErrorMessage errors={formErrors} name='week' />
-                  </p>
-                </label>
-              </div>
-            )}
-            {/*  "Starts on" input */}
-            {days && (
-              <div>
-                <label>
-                  <span>Starts&nbsp;on&nbsp;</span>
-                  <select
-                    name='day'
-                    className={`${repeaton}`}
-                    onChange={handleStartsOn}
-                    ref={register}
-                  >
-                    <option selected value=''>
-                      Select day
-                    </option>
-                    <option value='Monday'>Monday</option>
-                    <option value='Tuesday'>Tuesday</option>
-                    <option value='Wednesday'>Wednesday</option>
-                    <option value='Thursday'>Thursday</option>
-                    <option value='Friday'>Friday</option>
-                    <option value='Saturday'>Saturday</option>
-                    <option value='Sunday'>Sunday</option>
-                  </select>
-                  <p className={`is-size-7 ${errorMessage}`}>
-                    <ErrorMessage errors={formErrors} name='day' />
                   </p>
                 </label>
               </div>

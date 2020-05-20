@@ -44,14 +44,4 @@ export const eventSchema = yup.object().shape({
     is: 'Monthly',
     then: yup.string().required('Please select a week'),
   }),
-  day: yup
-    .string()
-    .when('frequency', {
-      is: 'Monthly',
-      then: yup.string().required('Please select a weekday'),
-    })
-    .when('frequency', {
-      is: 'Weekly',
-      then: yup.string().required('Please select a weekday'),
-    }),
 })
