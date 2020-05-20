@@ -50,10 +50,10 @@ import {
   dropBoxError,
   events,
   eventContainer,
-  repeat,
-  repeaton,  
+  repeatRules,
+  repeaton,
   recPicker,
-  recInput,    
+  recInput,
 } from './styles/EventForm.module.scss'
 
 /* split react-date-timepicker from the rest of the bundle */
@@ -170,6 +170,12 @@ const EventForm = (props) => {
   let nextNoon = new Date()
   if (nextNoon.getHours() >= 12) nextNoon.setDate(nextNoon.getDate() + 1)
   nextNoon.setHours(12, 0, 0, 0)
+
+  const [repeatUntilDate, setRepeatUntilDate] = useState(nextNoon)
+
+  const repeatUntilChange = (datetime) => {
+    setRepeatUntilDate(datetime)
+  }
 
   const [startDatetime, setStartDatetime] = useState(
     formType === 'update' && item.start ? new Date(item.start) : nextNoon,
@@ -334,62 +340,50 @@ const EventForm = (props) => {
     }
   }
 
-//local states for recurring event inputs  
-const [week, setWeek] = useState("")
-const[day, setDay]= useState("")
+  //local states for recurring event inputs
+  const [week, setWeek] = useState('')
+  const [day, setDay] = useState('')
 
-const [frequency, setFrequency] = useState(false)
+  const [frequency, setFrequency] = useState(false)
 
-const [weeks, setWeeks] = useState(false)
-const [days, setDays] = useState (false)
-const [repeat,setRepeat]= useState(false)
-//onChange handlers for recurring events
-//handleRepeatType
-  const handleRepeatType = (e) =>{
-    setFrequency(e.target.value) 
+  const [weeks, setWeeks] = useState(false)
+  const [days, setDays] = useState(false)
+  const [repeat, setRepeat] = useState(false)
+  //onChange handlers for recurring events
+  //handleRepeatType
+  const handleRepeatType = (e) => {
+    setFrequency(e.target.value)
   }
 
- //handleRepeatEvery
- const handleRepeatEvery = (e)=>{
-   setWeek(e.target.value)
-  //  console.log("clicked week", week)
- }
+  //handleRepeatEvery
+  const handleRepeatEvery = (e) => {
+    setWeek(e.target.value)
+  }
 
- //handleStartsOn
- const handleStartsOn = (e)=>{
-  setDay(e.target.value)
-  // console.log("clicked day", day)
- }
+  //handleStartsOn
+  const handleStartsOn = (e) => {
+    setDay(e.target.value)
+  }
 
-useEffect(()=>{
-// console.log("I am the frequency", frequency)
-if(frequency==="None"){  
-  setWeeks(false)
-  setDays(false)
-  setRepeat(false)
-}else if(frequency==="Daily"){
-  setWeeks(false)
-  setDays(false)
-  setRepeat(true)
-}else if(frequency==="Weekly"){
-  setWeeks(false)
-  setDays(true)
-  setRepeat(true)
-}else if(frequency==="Monthly"){
-  setWeeks(true)
-  setDays(true)
-  setRepeat(true)
-}
-},[frequency])
-
-useEffect(()=>{
-
-console.log("display repeat", repeat)
-console.log("display week", weeks)
-console.log("display days", days)
-console.log("clicked week", week)
-console.log("clicked day", day)
-},[repeat,weeks,days, day, week])
+  useEffect(() => {
+    if (frequency === 'None') {
+      setWeeks(false)
+      setDays(false)
+      setRepeat(false)
+    } else if (frequency === 'Daily') {
+      setWeeks(false)
+      setDays(false)
+      setRepeat(true)
+    } else if (frequency === 'Weekly') {
+      setWeeks(false)
+      setDays(true)
+      setRepeat(true)
+    } else if (frequency === 'Monthly') {
+      setWeeks(true)
+      setDays(true)
+      setRepeat(true)
+    }
+  }, [frequency])
 
   // render form component
   return (
@@ -397,6 +391,13 @@ console.log("clicked day", day)
       {loading && <LoadingLogo />}
       <div className={`${createEventForm}`}>
         <form onSubmit={handleSubmit(onSubmit)} className={`${flexcolumn}`}>
+          <input
+            className='is-hidden'
+            type='text'
+            name='formType'
+            value={formType === 'update' ? 'update' : 'create'}
+            ref={register}
+          />
           {/* EVENT TITLE */}
           <div className='field'>
             <label className='label'>
@@ -621,79 +622,126 @@ console.log("clicked day", day)
                 })
               )}
             </div>
-          </label>        
-          {/* Recurring events: "Repeat type" dropdown component  */}
-          <label>
-            <span>Repeat&nbsp;type&nbsp;  </span>
-            {/* rules={{ required: 'Please select an option'}} */}
-            <select required className ={`${repeaton}`} onChange={handleRepeatType}>            
-             <option selected value="">Select type</option>
-             <option value="None">None</option>
-             <option value="Daily">Daily</option>
-             <option value="Weekly">Weekly</option>
-             <option value="Monthly">Monthly</option>
-            </select>                   
           </label>
-          {/*  "Repeat every" input */}
-        <div className={`${repeat}`}>          
-          <label className={`${!weeks? "is-hidden":null}`}>
-            <span>Repeat&nbsp;every&nbsp;</span>            
-            <select className ={`${repeaton}`} onChange={handleRepeatEvery}>
-            <option selected value="">Select week</option>            
-             <option value="First week">First week</option>
-             <option value="Second week">Second week</option>
-             <option value="Third week">Third week</option>
-             <option value="Fourth week">Fourth week</option>
-             <option value="Fifth week">Fifth week</option>
-            </select>
+          {/* Recurring events: "Repeat type" dropdown component  */}
+          <div>
+            <label className={formType === 'update' ? 'is-hidden' : null}>
+              <span>Repeat&nbsp;type&nbsp; </span>
+              {/* rules={{ required: 'Please select an option'}} */}
+              <select
+                name='frequency'
+                className={`${repeaton}`}
+                onChange={handleRepeatType}
+                ref={register}
+              >
+                <option selected value=''>
+                  Select type
+                </option>
+                <option value='None'>None</option>
+                <option value='Daily'>Daily</option>
+                <option value='Weekly'>Weekly</option>
+                <option value='Monthly'>Monthly</option>
+              </select>
+              <p className={`is-size-7 ${errorMessage}`}>
+                <ErrorMessage errors={formErrors} name='frequency' />
+              </p>
             </label>
-          {/*  "Starts on" input */} 
-          <label className={`${!days? "is-hidden":null}`}>     
-            <span>Starts&nbsp;on&nbsp;</span>           
-            <select className ={`${repeaton}`} onChange={handleStartsOn}>
-            <option selected value="">Select day</option>
-             <option value="Monday">Monday</option>
-             <option value="Tuesday">Tuesday</option>
-             <option value="Wednesday">Wednesday</option>
-             <option value="Thursday">Thursday</option>
-             <option value="Friday">Friday</option>
-             <option value="Saturday">Saturday</option>
-             <option value="Sunday">Sunday</option>             
-            </select>
-            </label>        
-        </div> 
-
-        {/* "Repeat until" input */}
-        <label className = {`${!repeat? "is-hidden":null}`}>            
-        <div className= {`${recInput}`}>              
-            <span><strong>Repeat&nbsp;until&nbsp;</strong></span>
-              {loading ? (
-                <LoadingDots />
-              ) : (
-                <DateTimePickerSplit fallback={<LoadingDots />}>
-                  {({default: DateTimePicker}) => (
-                    <DateTimePicker
-                      monthAriaLabel='Month'
-                      dayAriaLabel='Day'
-                      yearAriaLabel='Year'
-                      hourAriaLabel='Hour'
-                      minuteAriaLabel='Minute'
-                      amPmAriaLabel='Select AM/PM'
-                      clearAriaLabel='Clear Date'
-                      onChange={endChange}
-                      value={endDatetime}                      
-                      className={`${recPicker}`}
-                      disableClock={true}
-                      minDate={new Date()}
-                    />
-                  )}
-                </DateTimePickerSplit>
-              )}
+          </div>
+          {/*  "Repeat every" input */}
+          <div className={`${repeatRules}`}>
+            {weeks && (
+              <div>
+                <label>
+                  <span>Repeat&nbsp;every&nbsp;</span>
+                  <select
+                    name='week'
+                    className={`${repeaton}`}
+                    onChange={handleRepeatEvery}
+                    ref={register}
+                  >
+                    <option selected value=''>
+                      Select week
+                    </option>
+                    <option value='First week'>First week</option>
+                    <option value='Second week'>Second week</option>
+                    <option value='Third week'>Third week</option>
+                    <option value='Fourth week'>Fourth week</option>
+                    <option value='Fifth week'>Fifth week</option>
+                  </select>
+                  <p className={`is-size-7 ${errorMessage}`}>
+                    <ErrorMessage errors={formErrors} name='week' />
+                  </p>
+                </label>
               </div>
-              </label> 
+            )}
+            {/*  "Starts on" input */}
+            {days && (
+              <div>
+                <label>
+                  <span>Starts&nbsp;on&nbsp;</span>
+                  <select
+                    name='day'
+                    className={`${repeaton}`}
+                    onChange={handleStartsOn}
+                    ref={register}
+                  >
+                    <option selected value=''>
+                      Select day
+                    </option>
+                    <option value='Monday'>Monday</option>
+                    <option value='Tuesday'>Tuesday</option>
+                    <option value='Wednesday'>Wednesday</option>
+                    <option value='Thursday'>Thursday</option>
+                    <option value='Friday'>Friday</option>
+                    <option value='Saturday'>Saturday</option>
+                    <option value='Sunday'>Sunday</option>
+                  </select>
+                  <p className={`is-size-7 ${errorMessage}`}>
+                    <ErrorMessage errors={formErrors} name='day' />
+                  </p>
+                </label>
+              </div>
+            )}
+          </div>
+
+          {/* "Repeat until" input */}
+          {repeat && (
+            <label className={`${errorMargin}`}>
+              <div className={`${recInput}`}>
+                <span>
+                  <strong>Repeat&nbsp;until&nbsp;</strong>
+                </span>
+                {loading ? (
+                  <LoadingDots />
+                ) : (
+                  <DateTimePickerSplit fallback={<LoadingDots />}>
+                    {({default: DateTimePicker}) => (
+                      <DateTimePicker
+                        monthAriaLabel='Month'
+                        dayAriaLabel='Day'
+                        yearAriaLabel='Year'
+                        hourAriaLabel='Hour'
+                        minuteAriaLabel='Minute'
+                        amPmAriaLabel='Select AM/PM'
+                        clearAriaLabel='Clear Date'
+                        onChange={repeatUntilChange}
+                        value={repeatUntilDate}
+                        className={`${recPicker}`}
+                        disableClock={true}
+                        minDate={new Date()}
+                      />
+                    )}
+                  </DateTimePickerSplit>
+                )}
+              </div>
+              <p className={`is-size-7 ${errorMessage}`}>
+                <ErrorMessage errors={formErrors} name='repeatEnd' />
+              </p>
+            </label>
+          )}
 
           {/* EVENT DESCRIPTION */}
-          <div className={`field ${errorMarginMobile}`}>
+          <div className={`field ${errorMargin} ${errorMarginMobile}`}>
             <label className='label'>
               Event Description
               <textarea
