@@ -4,6 +4,7 @@ import * as yup from 'yup'
 // if the schema is written properly, it should be impossible to induce an error otherwise!
 
 export const eventSchema = yup.object().shape({
+  formType: yup.string(),
   title: yup
     .string()
     .required('Please give your event a title')
@@ -17,10 +18,7 @@ export const eventSchema = yup.object().shape({
     .required('Street address is required')
     .max(128, 'Address is too long'),
   streetAddress2: yup.string().max(128, 'Address is too long'),
-  city: yup
-    .string()
-    .required('City is required')
-    .max(32, 'City is too long'),
+  city: yup.string().required('City is required').max(32, 'City is too long'),
   state: yup
     .string()
     .required('State is required')
@@ -38,4 +36,12 @@ export const eventSchema = yup.object().shape({
     .required('Price is required')
     .typeError('Please enter a positive number')
     .min(0, 'Please specify a price or enter 0 if the event is free'),
+  frequency: yup.string().when('formType', {
+    is: 'create',
+    then: yup.string().required('Please select an option'),
+  }),
+  week: yup.string().when('frequency', {
+    is: 'Monthly',
+    then: yup.string().required('Please select a week'),
+  }),
 })

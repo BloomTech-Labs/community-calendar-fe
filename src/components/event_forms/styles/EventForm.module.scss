@@ -54,59 +54,62 @@
   }
 
   .errorMargin {
-    margin-top: $gap-xxs;
+    margin-top: $gap-md;
   }
 
   .errorMarginMobile {
     @include mobile {
       margin-top: $gap-md;
-        width: 95%;
+      width: 95%;
     }
 
-    div, label, input {
-        width: 100%;
+    div,
+    label,
+    input {
+      width: 100%;
     }
 
     select {
-        appearance: none;
-        border-radius: 0px;
+      appearance: none;
+      border-radius: 0px;
     }
-    
+
     label {
-        // margin: $gap-sm 0;
-        font-weight: bold;
+      // margin: $gap-sm 0;
+      font-weight: bold;
     }
-    
-    .input, .select {
-        border: none;
-        border-bottom: 2px solid black;
-        border-radius: 0px;
-        box-shadow: none;
-        text-align: left;
-        padding: 0;
-        background-color: white;
-        font-size: $gap-xs;
-        width: 100%;
+
+    .input,
+    .select {
+      border: none;
+      border-bottom: 2px solid black;
+      border-radius: 0px;
+      box-shadow: none;
+      text-align: left;
+      padding: 0;
+      background-color: white;
+      font-size: $gap-xs;
+      width: 100%;
     }
 
     .shark {
-        background-color: $shark;
+      background-color: $shark;
     }
-   
+
     .errorMessage {
-        margin: 0;
-        position: absolute;
-        color: $red;
+      margin: 0;
+      position: absolute;
+      color: $red;
     }
 
     .errorMargin {
-        margin-top: $gap-xxs;
+      margin-top: $gap-xxs;
     }
 
     .errorMarginMobile {
-        @include mobile {
-            margin-top: $gap-md;
-        }
+      @include mobile {
+        margin-top: $gap-md;
+      }
     }
   }
   .dropBoxError {
@@ -213,13 +216,13 @@
   border-radius: 80% !important;
   padding: 5% !important;
   @include tablet {
-    border-radius: 60% !important;  
+    border-radius: 60% !important;
     padding: 4.3% !important;
   }
   @include mobile {
-    border-radius: 70% !important;  
+    border-radius: 70% !important;
     padding: 5% !important;
-  }  
+  }
 }
 
 .events {
@@ -249,4 +252,38 @@
   h4 {
     margin-left: 10px;
   }
+}
+.repeatRules {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.repeaton {
+  margin: 1.5% 8% 1.5% 0;
+  width: 45%;
+  text-align-last: center;
+  border: #000000 1.8px solid;
+  padding: 1%;
+  font-size: 0.9rem;
+  border-radius: 5% !important;
+}
+.repeaton:hover {
+  border: #e6e6e6 1.8px solid;
+}
+.recPicker {
+  border: 2px solid #000000;
+  border-radius: 4px;
+  margin-left: 1.5%;
+  margin-right: 21%;
+  text-align: center;
+}
+.recPicker:hover {
+  border: #e6e6e6 1.8px solid;
+}
+.recInput {
+  display: flex;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: 1.5%;
 }
