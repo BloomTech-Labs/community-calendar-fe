@@ -59,6 +59,46 @@ const teamMembers = [
     role: 'Engineer',
     imagePath: require(`../assets/images/team-members/lowell.jpg`),
   },
+  {
+    name: 'Rachel Carter',
+    role: 'Engineer',
+    imagePath: require(`../assets/images/team-members/rachel.png`),
+  },
+  {
+    name: 'Daniel Prue',
+    role: 'Engineer',
+    imagePath: require(`../assets/images/team-members/daniel.png`),
+  },
+  {
+    name: 'Minakshi Verma',
+    role: 'Engineer',
+    imagePath: require(`../assets/images/team-members/minakshi.png`),
+  },
+  {
+    name: 'Josue Rodriguez',
+    role: 'Engineer',
+    imagePath: require(`../assets/images/team-members/josue.png`),
+  },
+  {
+    name: 'Kennith Howe',
+    role: 'Engineer',
+    imagePath: require(`../assets/images/team-members/kennith.png`),
+  },
+  {
+    name: 'Austin Potts',
+    role: 'Mobile Engineer',
+    imagePath: require(`../assets/images/team-members/austin.png`),
+  },
+  {
+    name: 'Aaron Cleveland',
+    role: 'Mobile Engineer',
+    imagePath: require(`../assets/images/team-members/aaron.png`),
+  },
+  {
+    name: 'Michael McGrath',
+    role: 'Mobile Engineer',
+    imagePath: require(`../assets/images/team-members/michael.png`),
+  },
 ]
 
 export {teamMembers}
