@@ -14,6 +14,7 @@ import {
   GET_EVENTS_FILTERED,
   GET_FEATURED_EVENTS,
   GET_USER_AND_EVENTS,
+  GET_SERIES_BY_ID
 } from './events.query.js'
 import { GET_USER_PICTURE } from './users.query.js'
 import { UPDATE_USER } from './users.mutation.js'
@@ -24,8 +25,13 @@ import {
   UPDATE_EVENT,
   DELETE_EVENT,
   SAVE_EVENT,
-  RSVP_EVENT,
+  RSVP_EVENT,  
 } from './events.mutation.js'
+
+import {
+  DELETE_SERIES,
+  UPDATE_SERIES
+} from './series.mutation'
 
 // mixed server and client GraphQL API queries
 
@@ -57,12 +63,15 @@ export {
   GET_EVENTS_FILTERED,
   GET_FEATURED_EVENTS,
   GET_USER_AND_EVENTS,
+  GET_SERIES_BY_ID,
   // server mutations
   ADD_EVENT,
   UPDATE_EVENT,
   DELETE_EVENT,
   SAVE_EVENT,
   RSVP_EVENT,
+  DELETE_SERIES,
+  UPDATE_SERIES,
   // mixed server and client
 
   //users mutation

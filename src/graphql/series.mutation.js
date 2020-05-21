@@ -7,7 +7,6 @@ export const DELETE_SERIES = gql`
     }
   }
 `
-
 export const UPDATE_SERIES = gql`
 mutation UpdateSeries(
     $id: ID!   
@@ -31,9 +30,10 @@ mutation UpdateSeries(
                     end: $end 
                     ticketPrice: $ticketPrice  
                 }
-            }
-            }){
+             }
+            }}){
         id
     }
-}
+  }
+
 `

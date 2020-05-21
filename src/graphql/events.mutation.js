@@ -18,8 +18,9 @@ export const ADD_EVENT = gql`
     $tags: [EventCreateTagInput!]
     $ticketPrice: Float!
     $images: [Upload!]
-    $series:Series
-    $seriesId:ID!
+    $frequency:FrequencyType
+    $series_end:DateTime
+    $seriesId:ID
   ) {
     addEvent(
       data: {
