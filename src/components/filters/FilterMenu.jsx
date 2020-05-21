@@ -620,7 +620,12 @@ const FilterMenu = (props) => {
           <div
             className='dropdown-content '
             data-id='tag-picker-dropdown'
-            style={{boxShadow: 'none', backgroundColor: '#fff', paddingTop: 0}}
+            style={{
+              boxShadow: 'none',
+              backgroundColor: '#fff',
+              paddingTop: 0,
+              fontSize: '.9rem',
+            }}
           >
             <div
               className={locationContent}
