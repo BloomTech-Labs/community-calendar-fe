@@ -252,9 +252,9 @@ const FilterMenu = (props) => {
   return (
     <div className={`${filterWrapper} ${props.mobile ? mobile : ''}`}>
       <div className='level is-flex justify-between'>
-        <p className='is-size-4 has-text-weight-bold'>Filters</p>
+        <p className='is-size-6'>Filters</p>
         <button className={` has-text-link `} onClick={clearFilters}>
-          clear filters
+          clear
         </button>
       </div>
       {/* Select event location filter dropdown menu */}
@@ -431,7 +431,7 @@ const FilterMenu = (props) => {
           onClick={() => setDateIsOpen(!dateIsOpen)}
         >
           <span className={` is-size-5 no-outline-focus no-pointer-events`}>
-            Date
+            Date Range
           </span>
           <span
             className={`${dateIsOpen ? 'flip' : ''} no-pointer-events icon`}
