@@ -21,6 +21,7 @@ import {
   filterWrapper,
   mobile,
   datePickerDropdown,
+  datePickerMargin,
 } from './FilterMenu.module.scss'
 import {locationContent} from '../navbar/Navbar.module.scss'
 
@@ -461,9 +462,10 @@ const FilterMenu = (props) => {
             <div
               className={locationContent}
               data-id='date-picker-dropdown-content'
+              style={{marginLeft: '25px !important', padding: '0px'}}
             >
               <div
-                className={` has-text-centered no-outline-focus no-pointer-events`}
+                className={` has-text-left no-outline-focus no-pointer-events`}
                 style={{marginBottom: '8px'}}
               >
                 {currentDate.start &&
