@@ -3,8 +3,9 @@
 @import '~bulma/sass/utilities/_all.sass';
 
 .filterWrapper {
-  width: 100%;
+  width: 125%;
   max-width: 300px;
+  text-align: left;
 
   button:first-of-type() {
     border: none !important;
@@ -50,4 +51,9 @@
     border-radius: $radius;
     left: 0 !important;
   }
+}
+
+.datePickerMagrin {
+  margin-left: 25px !important;
+  padding: 0px;
 }

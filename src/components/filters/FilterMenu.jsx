@@ -21,6 +21,7 @@ import {
   filterWrapper,
   mobile,
   datePickerDropdown,
+  datePickerMargin,
 } from './FilterMenu.module.scss'
 import {locationContent} from '../navbar/Navbar.module.scss'
 
@@ -252,9 +253,9 @@ const FilterMenu = (props) => {
   return (
     <div className={`${filterWrapper} ${props.mobile ? mobile : ''}`}>
       <div className='level is-flex justify-between'>
-        <p className='is-size-4 has-text-weight-bold'>Filters</p>
+        <p className='is-size-6'>Filters</p>
         <button className={` has-text-link `} onClick={clearFilters}>
-          clear filters
+          clear
         </button>
       </div>
       {/* Select event location filter dropdown menu */}
@@ -431,7 +432,7 @@ const FilterMenu = (props) => {
           onClick={() => setDateIsOpen(!dateIsOpen)}
         >
           <span className={` is-size-5 no-outline-focus no-pointer-events`}>
-            Date
+            Date Range
           </span>
           <span
             className={`${dateIsOpen ? 'flip' : ''} no-pointer-events icon`}
@@ -461,9 +462,10 @@ const FilterMenu = (props) => {
             <div
               className={locationContent}
               data-id='date-picker-dropdown-content'
+              style={{marginLeft: '25px !important', padding: '0px'}}
             >
               <div
-                className={` has-text-centered no-outline-focus no-pointer-events`}
+                className={` has-text-left no-outline-focus no-pointer-events`}
                 style={{marginBottom: '8px'}}
               >
                 {currentDate.start &&
@@ -620,7 +622,12 @@ const FilterMenu = (props) => {
           <div
             className='dropdown-content '
             data-id='tag-picker-dropdown'
-            style={{boxShadow: 'none', backgroundColor: '#fff', paddingTop: 0}}
+            style={{
+              boxShadow: 'none',
+              backgroundColor: '#fff',
+              paddingTop: 0,
+              fontSize: '.9rem',
+            }}
           >
             <div
               className={locationContent}

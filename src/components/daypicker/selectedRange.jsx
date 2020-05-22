@@ -13,13 +13,13 @@ export default class SelectedRange extends React.Component {
     super(props)
     this.handleDayClick = this.handleDayClick.bind(this)
     this.state = this.getInitialState()
-  }  
+  }
 
   getInitialState() {
     return {
       from: this.props.start ? new Date(this.props.start) : undefined,
       to: this.props.end ? new Date(this.props.end) : undefined,
-    }    
+    }
   }
 
   handleDayClick(day) {
@@ -68,11 +68,11 @@ export default class SelectedRange extends React.Component {
       this.setState({
         from: this.props.start ? new Date(this.props.start) : undefined,
         to: this.props.end ? new Date(this.props.end) : undefined,
-      })     
-    }    
-  }  
-  render() {    
-    const {from, to} = this.state    
+      })
+    }
+  }
+  render() {
+    const {from, to} = this.state
     // day picker needs a date object, so calendarData is mapped to turn array of string into array of objects
     const dateArr =
       this.props.calendarData &&
