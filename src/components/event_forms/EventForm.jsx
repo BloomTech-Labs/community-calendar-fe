@@ -16,6 +16,7 @@ import {eventSchema} from './eventSchema'
 
 // utils
 import {fetchGeocode} from '../../utils'
+import createEventSeries from '../../utils'
 
 //GQL
 import {useQuery} from '@apollo/react-hooks'
@@ -275,6 +276,16 @@ const EventForm = (props) => {
       long = geoData.features[0].geometry.coordinates[0]
     }
 
+    //add repetition variables from state into a series object
+    let seriesValues = null
+    if (frequency === 'Daily') {
+      seriesValues = {frequency: 'DAILY', seriesEnd: repeatUntilDate}
+    } else if (frequency === 'Weekly') {
+      seriesValues = {frequency: 'WEEKLY', seriesEnd: repeatUntilDate}
+    } else if (frequency === 'Monthly') {
+      seriesValues = {frequency: 'MONTHLY', seriesEnd: repeatUntilDate}
+    }
+
     const mutationValues = {
       title,
       description,
@@ -296,6 +307,8 @@ const EventForm = (props) => {
       eventImages: images && images.length ? [] : undefined,
     }
 
+    //run util to get array of dates to create event for
+
     if (formType === 'add' && !fileUpload) {
       if (error) {
         return null
@@ -306,7 +319,7 @@ const EventForm = (props) => {
     } else {
       setFileUpload(false)
     }
-
+    //execute a for loop here to go through array of start dates
     mutation({variables: mutationValues})
   } //end onSubmit
 
@@ -360,7 +373,7 @@ const EventForm = (props) => {
   //local states for recurring event inputs
   const [week, setWeek] = useState('')
 
-  const [frequency, setFrequency] = useState(false)
+  const [frequency, setFrequency] = useState('')
 
   const [weeks, setWeeks] = useState(false)
   const [days, setDays] = useState(false)
@@ -406,7 +419,7 @@ const EventForm = (props) => {
             className='is-hidden'
             type='text'
             name='formType'
-            value={formType === 'update' ? 'update' : 'create'}
+            value={formType === 'update' ? 'update' : 'add'}
             ref={register}
           />
           {/* EVENT TITLE */}

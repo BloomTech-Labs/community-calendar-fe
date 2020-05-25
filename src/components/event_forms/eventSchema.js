@@ -37,7 +37,7 @@ export const eventSchema = yup.object().shape({
     .typeError('Please enter a positive number')
     .min(0, 'Please specify a price or enter 0 if the event is free'),
   frequency: yup.string().when('formType', {
-    is: 'create',
+    is: 'add',
     then: yup.string().required('Please select an option'),
   }),
   week: yup.string().when('frequency', {
