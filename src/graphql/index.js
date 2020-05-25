@@ -14,23 +14,28 @@ import {
   GET_EVENTS_FILTERED,
   GET_FEATURED_EVENTS,
   GET_USER_AND_EVENTS,
+  GET_SERIES_BY_ID,
 } from './events.query.js'
-import { GET_USER_PICTURE } from './users.query.js'
-import { UPDATE_USER } from './users.mutation.js'
+import {GET_USER_PICTURE} from './users.query.js'
+import {UPDATE_USER} from './users.mutation.js'
 
 // pure server GraphQL API mutations
 import {
   ADD_EVENT,
+  ADD_EVENT_NEW_SERIES,
+  ADD_EVENT_EXISTING_SERIES,
   UPDATE_EVENT,
   DELETE_EVENT,
   SAVE_EVENT,
   RSVP_EVENT,
 } from './events.mutation.js'
 
+import {DELETE_SERIES, UPDATE_SERIES} from './series.mutation'
+
 // mixed server and client GraphQL API queries
 
 // local state - client GraphQL API typeDefs, resolvers, and queries
-import { typeDefs } from './localState'
+import {typeDefs} from './localState'
 import USER_LOCATION from './userLocation.query.js'
 import {
   GET_CACHE,
@@ -57,12 +62,17 @@ export {
   GET_EVENTS_FILTERED,
   GET_FEATURED_EVENTS,
   GET_USER_AND_EVENTS,
+  GET_SERIES_BY_ID,
   // server mutations
   ADD_EVENT,
+  ADD_EVENT_NEW_SERIES,
+  ADD_EVENT_EXISTING_SERIES,
   UPDATE_EVENT,
   DELETE_EVENT,
   SAVE_EVENT,
   RSVP_EVENT,
+  DELETE_SERIES,
+  UPDATE_SERIES,
   // mixed server and client
 
   //users mutation

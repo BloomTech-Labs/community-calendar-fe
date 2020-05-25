@@ -67,17 +67,16 @@ export const LOCATION_FILTER = gql`
 export const GET_CALENDAR_EVENTS = gql`
   query {
     events {
-    start
-    end
-    title 
-    locations {
-      streetAddress
-      city
+      start
+      end
+      title
+      locations {
+        streetAddress
+        city
+      }
     }
   }
-  }
 `
-
 // query used by `../pages/Home.jsx` for EventList
 export const GET_EVENTS_FILTERED = gql`
   query EventsFiltered(
@@ -380,6 +379,42 @@ export const GET_EVENTS = gql`
   }
   ${EVENT_DETAIL_DATA}
   ${ADDRESS_DETAIL_DATA}
+`
+export const GET_SERIES = gql`
+  query SeriesByEventID($id: ID) {
+    events(where: {id: $id}) {
+      series {
+        id
+      }
+    }
+  }
+`
+//GET_SERIES_BY_ID
+export const GET_SERIES_BY_ID = gql`
+  query SeriesByID($id: ID) {
+    series(where: {id: $id}) {
+      frequency
+      series_end
+      events {
+        title
+        description
+        start
+        end
+        creator {
+          firstName
+          lastName
+        }
+        ticketPrice
+        rsvps {
+          firstName
+          lastName
+        }
+        admins {
+          firstName
+        }
+      }
+    }
+  }
 `
 
 // not used in app -- replaced by GET_EVENT_BY_ID_WITH_DISTANCE

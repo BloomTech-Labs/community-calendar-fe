@@ -29,8 +29,8 @@ The cards shown on the EventList component.
 Changing the class names on the Link element
 sets the style to List format or Grid format
  */
-export default function EventListCard(props) { 
-   const {item, useListView} = props
+export default function EventListCard(props) {
+  const {item, useListView} = props
   const location =
     item.locations && item.locations[0].streetAddress
       ? item.locations[item.locations.length - 1]
