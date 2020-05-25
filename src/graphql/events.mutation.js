@@ -1,5 +1,110 @@
 import gql from 'graphql-tag'
 
+export const ADD_EVENT_NEW_SERIES = gql`
+  mutation AddEvent(
+    $title: String!
+    $description: String!
+    $start: DateTime!
+    $end: DateTime!
+    $eventImages: [EventCreateImageInput!]
+    $placeName: String!
+    $streetAddress: String!
+    $streetAddress2: String = null
+    $city: String!
+    $state: String!
+    $zipcode: Int!
+    $latitude: Float = null
+    $longitude: Float = null
+    $tags: [EventCreateTagInput!]
+    $ticketPrice: Float!
+    $images: [Upload!]
+    $frequency: FrequencyType
+    $series_end: DateTime
+  ) {
+    addEvent(
+      data: {
+        series: {create: [{frequency: $frequency, series_end: $series_end}]}
+        title: $title
+        description: $description
+        start: $start
+        end: $end
+        eventImages: $eventImages
+        locations: {
+          create: [
+            {
+              name: $placeName
+              streetAddress: $streetAddress
+              streetAddress2: $streetAddress2
+              city: $city
+              zipcode: $zipcode
+              state: $state
+              latitude: $latitude
+              longitude: $longitude
+            }
+          ]
+        }
+        tags: $tags
+        ticketPrice: $ticketPrice
+      }
+      images: $images
+    ) {
+      id
+    }
+  }
+`
+
+export const ADD_EVENT_EXISTING_SERIES = gql`
+  mutation AddEvent(
+    $title: String!
+    $description: String!
+    $start: DateTime!
+    $end: DateTime!
+    $eventImages: [EventCreateImageInput!]
+    $placeName: String!
+    $streetAddress: String!
+    $streetAddress2: String = null
+    $city: String!
+    $state: String!
+    $zipcode: Int!
+    $latitude: Float = null
+    $longitude: Float = null
+    $tags: [EventCreateTagInput!]
+    $ticketPrice: Float!
+    $images: [Upload!]
+    $seriesId: ID
+  ) {
+    addEvent(
+      data: {
+        connect: {id: $seriesId}
+        title: $title
+        description: $description
+        start: $start
+        end: $end
+        eventImages: $eventImages
+        locations: {
+          create: [
+            {
+              name: $placeName
+              streetAddress: $streetAddress
+              streetAddress2: $streetAddress2
+              city: $city
+              zipcode: $zipcode
+              state: $state
+              latitude: $latitude
+              longitude: $longitude
+            }
+          ]
+        }
+        tags: $tags
+        ticketPrice: $ticketPrice
+        images: $images
+      }
+    ) {
+      id
+    }
+  }
+`
+
 export const ADD_EVENT = gql`
   mutation AddEvent(
     $title: String!
@@ -83,7 +188,7 @@ export const UPDATE_EVENT = gql`
         eventImages: $eventImages
         locations: {
           update: {
-            where: { id: $locationId }
+            where: {id: $locationId}
             data: {
               name: $placeName
               streetAddress: $streetAddress
@@ -93,7 +198,7 @@ export const UPDATE_EVENT = gql`
               state: $state
               latitude: $latitude
               longitude: $longitude
-              }
+            }
           }
         }
         tags: $tags
