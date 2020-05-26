@@ -19,11 +19,11 @@ export const ADD_EVENT_NEW_SERIES = gql`
     $ticketPrice: Float!
     $images: [Upload!]
     $frequency: FrequencyType
-    $series_end: DateTime
+    $seriesEnd: DateTime
   ) {
     addEvent(
       data: {
-        series: {create: [{frequency: $frequency, series_end: $series_end}]}
+        series: {create: [{frequency: $frequency, series_end: $seriesEnd}]}
         title: $title
         description: $description
         start: $start

@@ -1,6 +1,10 @@
 import React from 'react'
 import {useMutation} from '@apollo/react-hooks'
-import {ADD_EVENT} from '../../graphql'
+import {
+  ADD_EVENT,
+  ADD_EVENT_NEW_SERIES,
+  ADD_EVENT_EXISTING_SERIES,
+} from '../../graphql'
 import loadable from '@loadable/component'
 import LoadingLogo from '../loading/LoadingLogo'
 
@@ -20,6 +24,12 @@ const EventForm = loadable(
 
 export default function CreateEvent({history}) {
   const [addEvent, {data, error, loading}] = useMutation(ADD_EVENT)
+  const [addEventNewSeries, {dataNS, errorNS, loadingNS}] = useMutation(
+    ADD_EVENT_NEW_SERIES,
+  )
+  const [addEventExistingSeries, {dataES, errorES, loadingES}] = useMutation(
+    ADD_EVENT_EXISTING_SERIES,
+  )
 
   return (
     <EventForm
@@ -29,6 +39,14 @@ export default function CreateEvent({history}) {
       mutationError={error}
       mutationLoading={loading}
       history={history}
+      mutationNS={addEventNewSeries}
+      mutationDataNS={dataNS}
+      mutationErrorNS={errorNS}
+      mutationLoadingNS={loadingNS}
+      mutationES={addEventExistingSeries}
+      mutationDataES={dataES}
+      mutationErrorES={errorES}
+      mutationLoadingES={loadingES}
     />
   )
 }

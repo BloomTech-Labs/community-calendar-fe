@@ -15,6 +15,7 @@ import {
   GET_FEATURED_EVENTS,
   GET_USER_AND_EVENTS,
   GET_SERIES_BY_ID,
+  GET_SERIES,
 } from './events.query.js'
 import {GET_USER_PICTURE} from './users.query.js'
 import {UPDATE_USER} from './users.mutation.js'
@@ -63,6 +64,7 @@ export {
   GET_FEATURED_EVENTS,
   GET_USER_AND_EVENTS,
   GET_SERIES_BY_ID,
+  GET_SERIES,
   // server mutations
   ADD_EVENT,
   ADD_EVENT_NEW_SERIES,

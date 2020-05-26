@@ -19,8 +19,8 @@ import {fetchGeocode} from '../../utils'
 import createEventSeries from '../../utils'
 
 //GQL
-import {useQuery} from '@apollo/react-hooks'
-import {GET_CALENDAR_EVENTS} from '../../graphql'
+import {useQuery, useMutation} from '@apollo/react-hooks'
+import {GET_CALENDAR_EVENTS, ADD_EVENT_NEW_SERIES} from '../../graphql'
 
 // styles
 import UploadIcon from '../icons/UploadIcon'
@@ -81,6 +81,14 @@ const EventForm = (props) => {
     mutationData,
     mutationError,
     mutationLoading,
+    mutationNS,
+    mutationDataNS,
+    mutationErrorNS,
+    mutationLoadingNS,
+    mutationES,
+    mutationDataES,
+    mutationErrorES,
+    mutationLoadingES,
   } = props
 
   const createEventData = useQuery(GET_CALENDAR_EVENTS)
@@ -307,6 +315,11 @@ const EventForm = (props) => {
       eventImages: images && images.length ? [] : undefined,
     }
 
+    if (formType === 'add' && isSeries) {
+      mutationValues.frequency = seriesValues.frequency
+      mutationValues.seriesEnd = seriesValues.seriesEnd
+    }
+
     //run util to get array of dates to create event for
 
     if (formType === 'add' && !fileUpload) {
@@ -320,7 +333,21 @@ const EventForm = (props) => {
       setFileUpload(false)
     }
     //execute a for loop here to go through array of start dates
-    mutation({variables: mutationValues})
+    console.log(mutationValues)
+    if ((formType === 'add' && !isSeries) || formType === 'update')
+      mutation({variables: mutationValues})
+    else {
+      //formType === 'add' && isSeries
+      //create event and series for the first iteration
+      //save series id
+      //create event and connect with series
+      if (!seriesID) {
+        mutationNS({variables: {mutationValues}})
+        console.log(mutationDataNS)
+      } else {
+        mutationES({variables: {mutationValues}})
+      }
+    }
   } //end onSubmit
 
   // if image is uploaded and error is true, remove the error
@@ -370,6 +397,8 @@ const EventForm = (props) => {
     }
   }
 
+  const [seriesID, setSeriesID] = useState(null)
+
   //local states for recurring event inputs
   const [week, setWeek] = useState('')
 
@@ -394,18 +423,22 @@ const EventForm = (props) => {
       setWeeks(false)
       setDays(false)
       setRepeat(false)
+      setIsSeries(false)
     } else if (frequency === 'Daily') {
       setWeeks(false)
       setDays(false)
       setRepeat(true)
+      setIsSeries(true)
     } else if (frequency === 'Weekly') {
       setWeeks(false)
       setDays(true)
       setRepeat(true)
+      setIsSeries(true)
     } else if (frequency === 'Monthly') {
       setWeeks(true)
       setDays(true)
       setRepeat(true)
+      setIsSeries(true)
     }
   }, [frequency])
 
@@ -868,7 +901,7 @@ const EventForm = (props) => {
               type='submit'
               value={formType === 'update' ? 'Update Event' : 'Create Event'}
               onClick={(e) => {
-                if (isSeries) {
+                if (isSeries && formType === 'update') {
                   e.preventDefault()
                   handleCreateEvent()
                 } else {
