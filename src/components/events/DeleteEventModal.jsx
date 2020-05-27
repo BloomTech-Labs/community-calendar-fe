@@ -13,7 +13,6 @@ import {
 } from './styles/DeleteEventModal.module.scss'
 
 function DeleteEventModal({deleteEvent, toggleModal, isSeries}) {
-  console.log(`this is triggering the delete event`, deleteEvent)
   const [deleteOption, setDeleteOption] = useState('single')
   return isSeries ? (
     <div className={`${deleteEventModal}`}>
