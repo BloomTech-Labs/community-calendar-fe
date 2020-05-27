@@ -11,7 +11,6 @@ import {
 } from './OurMission.module.scss'
 
 const OurMission = () => {
-  console.log(section1)
   return (
     <>
       <section id={section1}>
