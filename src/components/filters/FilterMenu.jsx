@@ -119,6 +119,10 @@ const FilterMenu = (props) => {
         ...newFilters,
         filterAddress: address,
       })
+      const qsObj = createQSObj(qsFilters.index, newFilters, address)
+      window.history.pushState(null, null, `${buildQS(qsObj)}`)
+      // injects what the user searches for in location.search
+      rccHistory.location.search = `${buildQS(qsObj)}`
     }
   } // end SetUserLocation
 
@@ -142,6 +146,10 @@ const FilterMenu = (props) => {
       ...newFilters,
       filterAddress,
     })
+    const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
+    window.history.pushState(null, null, `${buildQS(qsObj)}`)
+    // injects what the user searches for in location.search
+    rccHistory.location.search = `${buildQS(qsObj)}`
   } //end setRadius
 
   // DATE RANGE SEARCH HANDLERS
@@ -166,6 +174,11 @@ const FilterMenu = (props) => {
       ...newFilters,
       filterAddress,
     })
+
+    const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
+    window.history.pushState(null, null, `${buildQS(qsObj)}`)
+    // injects what the user searches for in location.search
+    rccHistory.location.search = `${buildQS(qsObj)}`
   } //end updateDateRange
 
   // TAG SEARCH HANDLERS
@@ -182,6 +195,11 @@ const FilterMenu = (props) => {
       ...newFilters,
       filterAddress,
     })
+
+    const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
+    window.history.pushState(null, null, `${buildQS(qsObj)}`)
+    // injects what the user searches for in location.search
+    rccHistory.location.search = `${buildQS(qsObj)}`
   } //end setFilterTags
 
   // tags dropdown
@@ -230,6 +248,11 @@ const FilterMenu = (props) => {
       ...newFilters,
       filterAddress,
     })
+
+    const qsObj = createQSObj(qsFilters.index, newFilters, filterAddress)
+    window.history.pushState(null, null, `${buildQS(qsObj)}`)
+    // injects what the user searches for in location.search
+    rccHistory.location.search = `${buildQS(qsObj)}`
   } //end setFilterPrice
 
   // fake cb  for close function
