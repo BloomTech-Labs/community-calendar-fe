@@ -69,9 +69,10 @@ const EventView = ({history}) => {
   })
 
   useEffect(() => {
-    eventSeries ? setIsSeries(true) : setIsSeries(false)
+    if (eventSeries)
+      eventSeries.events[0].series ? setIsSeries(true) : setIsSeries(false)
     console.log('isSeries: ', isSeries, ', eventSeries: ', eventSeries)
-  }, [eventSeries])
+  }, [eventSeries, isSeries])
 
   const [
     deleteEventMutation,
@@ -309,7 +310,7 @@ const EventView = ({history}) => {
           </p>
           {isSeries ? (
             <div className={series}>
-              <p>This event is a recurring event!</p>
+              <p>This is a recurring event!</p>
             </div>
           ) : null}
         </div>

@@ -2,11 +2,13 @@
 export default function createEventSeries(
   startDate,
   endDate,
+  endSeriesDate,
   repeatFreq,
   week = '',
 ) {
   //this function takes in information about how many times to repeat the event and returns an array of dates to create the event for
-  let eventDate = startDate
+  let eventStartDate = startDate
+  let eventEndDate = endDate
   const eventDates = []
   let whichWeek = -1
 
@@ -16,17 +18,24 @@ export default function createEventSeries(
   else if (week === 'Fourth week') whichWeek = 4
   else if (week === 'Fifth week') whichWeek = 5
 
+  console.log(eventStartDate.getDate())
   switch (repeatFreq) {
     case 'None':
-      eventDates.push(eventDate)
+      eventDates.push({eventStartDate, eventEndDate})
       break
     case 'Daily':
       //while eventDate <= endDate
       //add date to eventDates
       //add 1 day to eventDate
-      while (eventDate <= endDate) {
-        eventDates.push(eventDate)
-        eventDate = eventDate.setDate(eventDate.getDate() + 1)
+      eventStartDate.setDate(eventStartDate.getDate() + 1)
+      eventEndDate.setDate(eventEndDate.getDate() + 1)
+      while (eventStartDate <= endSeriesDate) {
+        eventDates.push({
+          start: new Date(eventStartDate),
+          end: new Date(eventEndDate),
+        })
+        eventStartDate.setDate(eventStartDate.getDate() + 1)
+        eventEndDate.setDate(eventEndDate.getDate() + 1)
       }
       break
     case 'Weekly':
@@ -34,19 +43,31 @@ export default function createEventSeries(
       //while eventDate <= endDate
       //add date to eventDates
       //add 1 week to the eventDate
-      while (eventDate <= endDate) {
-        eventDates.push(eventDate)
-        eventDate = eventDate.setDate(eventDate.getDate() + 7)
+      eventStartDate.setDate(eventStartDate.getDate() + 7)
+      eventEndDate.setDate(eventEndDate.getDate() + 7)
+      while (eventStartDate <= endSeriesDate) {
+        eventDates.push({
+          start: new Date(eventStartDate),
+          end: new Date(eventEndDate),
+        })
+        eventStartDate.setDate(eventStartDate.getDate() + 7)
+        eventEndDate.setDate(eventEndDate.getDate() + 7)
       }
       break
     case 'Monthly':
       //while eventDate <= endDate
       //add date to eventDates
       //find next day that meets the monthly critera (i.e. 2nd tuesday)
-      while (eventDate <= endDate) {
-        if (Math.ceil(eventDate.getDate() / 7) === whichWeek)
-          eventDates.push(eventDate)
-        eventDate = eventDate.setDate(eventDate.getDate() + 7)
+      eventStartDate.setDate(eventStartDate.getDate() + 7)
+      eventEndDate.setDate(eventEndDate.getDate() + 7)
+      while (eventStartDate <= endSeriesDate) {
+        if (Math.ceil(eventStartDate.getDate() / 7) === whichWeek)
+          eventDates.push({
+            start: new Date(eventStartDate),
+            end: new Date(eventEndDate),
+          })
+        eventStartDate.setDate(eventStartDate.getDate() + 7)
+        eventEndDate.setDate(eventEndDate.getDate() + 7)
       }
       break
     default:

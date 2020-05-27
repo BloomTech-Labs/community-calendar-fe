@@ -16,11 +16,15 @@ import {eventSchema} from './eventSchema'
 
 // utils
 import {fetchGeocode} from '../../utils'
-import createEventSeries from '../../utils'
+import {createEventSeries} from '../../utils'
 
 //GQL
 import {useQuery, useMutation} from '@apollo/react-hooks'
-import {GET_CALENDAR_EVENTS, ADD_EVENT_NEW_SERIES} from '../../graphql'
+import {
+  GET_CALENDAR_EVENTS,
+  ADD_EVENT_NEW_SERIES,
+  GET_SERIES,
+} from '../../graphql'
 
 // styles
 import UploadIcon from '../icons/UploadIcon'
@@ -320,8 +324,6 @@ const EventForm = (props) => {
       mutationValues.seriesEnd = seriesValues.seriesEnd
     }
 
-    //run util to get array of dates to create event for
-
     if (formType === 'add' && !fileUpload) {
       if (error) {
         return null
@@ -333,20 +335,54 @@ const EventForm = (props) => {
       setFileUpload(false)
     }
     //execute a for loop here to go through array of start dates
-    console.log(mutationValues)
-    if ((formType === 'add' && !isSeries) || formType === 'update')
+    if ((formType === 'add' && !isSeries) || formType === 'update') {
       mutation({variables: mutationValues})
-    else {
+    } else {
       //formType === 'add' && isSeries
       //create event and series for the first iteration
       //save series id
       //create event and connect with series
-      if (!seriesID) {
-        mutationNS({variables: {mutationValues}})
-        console.log(mutationDataNS)
-      } else {
-        mutationES({variables: {mutationValues}})
-      }
+      const eventDates = createEventSeries(
+        mutationValues.start,
+        mutationValues.end,
+        mutationValues.seriesEnd,
+        frequency,
+        week,
+      )
+
+      Promise.resolve(mutationNS({variables: mutationValues})).then(
+        (response) => {
+          console.log(response)
+          // setSeriesID(response.data.addEvent.series.id)
+          // console.log(seriesID)
+          eventDates.forEach((eventDate) => {
+            mutationValues.start = eventDate.start
+            mutationValues.end = eventDate.end
+            mutationValues.seriesId = response.data.addEvent.series.id
+            console.log(mutationValues)
+            mutationES({variables: mutationValues})
+          })
+        },
+      )
+      // .then(() => {
+      //   eventDates.forEach((eventDate) => {
+      //     mutationValues.start = eventDate.start
+      //     mutationValues.end = eventDate.end
+      //     // if (!seriesID) {
+      //     // mutationNS({variables: mutationValues})
+      //     // await setSeriesID(mutationDataNS.addEvent.series.id)
+      //     //
+      //     // handleSeriesID()
+      //     //set seriesID here, might need to await
+      //     // } else {
+      //     mutationValues.seriesId = seriesID
+      //     console.log(mutationValues)
+      //     mutationES({variables: mutationValues})
+      //     // }
+      //   })
+      // })
+      // while (!seriesID) {}
+      // await setSeriesID(mutationDataNS.addEvent.series.id)
     }
   } //end onSubmit
 
@@ -372,6 +408,12 @@ const EventForm = (props) => {
   if (mutationData) {
     const {id} = mutationData.addEvent || mutationData.updateEvent
     props.history.push(`/events/${id}`)
+  } else if (mutationDataNS) {
+    const {id} = mutationDataNS.addEvent || mutationData.updateEvent
+    props.history.push(`/events/${id}`)
+  } else if (mutationDataES) {
+    const {id} = mutationDataES.addEvent || mutationData.updateEvent
+    props.history.push(`/events/${id}`)
   }
 
   const modalCreateEvent = () => {
@@ -382,7 +424,7 @@ const EventForm = (props) => {
   }
 
   const handleCreateEvent = () => {
-    if (isSeries) {
+    if (isSeries && formType === 'update') {
       toggleEditModal()
     } else if (formType === 'update') {
       ReactGA.event({
@@ -398,6 +440,13 @@ const EventForm = (props) => {
   }
 
   const [seriesID, setSeriesID] = useState(null)
+  useEffect(() => {
+    console.log(seriesID)
+  }, [seriesID])
+  // useEffect(() => {
+  //   console.log('loading:', mutationLoadingNS)
+  //   console.log('data:', mutationDataNS)
+  // }, [mutationLoadingNS, mutationDataNS])
 
   //local states for recurring event inputs
   const [week, setWeek] = useState('')

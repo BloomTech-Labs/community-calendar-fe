@@ -24,12 +24,14 @@ const EventForm = loadable(
 
 export default function CreateEvent({history}) {
   const [addEvent, {data, error, loading}] = useMutation(ADD_EVENT)
-  const [addEventNewSeries, {dataNS, errorNS, loadingNS}] = useMutation(
-    ADD_EVENT_NEW_SERIES,
-  )
-  const [addEventExistingSeries, {dataES, errorES, loadingES}] = useMutation(
-    ADD_EVENT_EXISTING_SERIES,
-  )
+  const [
+    addEventNewSeries,
+    {data: dataNS, error: errorNS, loading: loadingNS},
+  ] = useMutation(ADD_EVENT_NEW_SERIES)
+  const [
+    addEventExistingSeries,
+    {data: dataES, error: errorES, loading: loadingES},
+  ] = useMutation(ADD_EVENT_EXISTING_SERIES)
 
   return (
     <EventForm

@@ -22,22 +22,23 @@ export default function GetUserInfo() {
   }, [authState, authService])
 
   useEffect(() => {
-    if(ccid) {
+    if (ccid) {
       setUserId(ccid.user.id)
     }
   }, [ccid])
 
   const updateUser = async () => {
+    console.log(authState)
     if (!authState.isAuthenticated) {
       setUser(null)
     } else {
-      await authService.getUser().then(response => {
+      await authService.getUser().then((response) => {
         setUser(response.sub)
       })
     }
   }
-  
-  if(ccid) {
+
+  if (ccid) {
     client.writeData({data: {userId: ccid.user.id}})
   }
 
