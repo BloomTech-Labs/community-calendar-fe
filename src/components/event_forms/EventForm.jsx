@@ -362,7 +362,7 @@ const EventForm = (props) => {
   }
 
   // if user attempt to submit empty form throw error
-  if (Object.keys(formErrors).length && !fileUpload) {
+  if (Object.keys(formErrors).length && !fileUpload && formErrors === 'add') {
     if (!error) {
       appendErrorOnImageUploader()
     }
