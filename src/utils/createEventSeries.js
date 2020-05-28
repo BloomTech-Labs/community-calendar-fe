@@ -24,9 +24,6 @@ export default function createEventSeries(
       eventDates.push({eventStartDate, eventEndDate})
       break
     case 'Daily':
-      //while eventDate <= endDate
-      //add date to eventDates
-      //add 1 day to eventDate
       eventStartDate.setDate(eventStartDate.getDate() + 1)
       eventEndDate.setDate(eventEndDate.getDate() + 1)
       while (eventStartDate <= endSeriesDate) {
@@ -39,10 +36,6 @@ export default function createEventSeries(
       }
       break
     case 'Weekly':
-      console.log('repeat Weekly')
-      //while eventDate <= endDate
-      //add date to eventDates
-      //add 1 week to the eventDate
       eventStartDate.setDate(eventStartDate.getDate() + 7)
       eventEndDate.setDate(eventEndDate.getDate() + 7)
       while (eventStartDate <= endSeriesDate) {
@@ -55,9 +48,6 @@ export default function createEventSeries(
       }
       break
     case 'Monthly':
-      //while eventDate <= endDate
-      //add date to eventDates
-      //find next day that meets the monthly critera (i.e. 2nd tuesday)
       eventStartDate.setDate(eventStartDate.getDate() + 7)
       eventEndDate.setDate(eventEndDate.getDate() + 7)
       while (eventStartDate <= endSeriesDate) {

@@ -19,12 +19,8 @@ import {fetchGeocode} from '../../utils'
 import {createEventSeries} from '../../utils'
 
 //GQL
-import {useQuery, useMutation} from '@apollo/react-hooks'
-import {
-  GET_CALENDAR_EVENTS,
-  ADD_EVENT_NEW_SERIES,
-  GET_SERIES,
-} from '../../graphql'
+import {useQuery} from '@apollo/react-hooks'
+import {GET_CALENDAR_EVENTS} from '../../graphql'
 
 // styles
 import UploadIcon from '../icons/UploadIcon'
@@ -334,14 +330,11 @@ const EventForm = (props) => {
     } else {
       setFileUpload(false)
     }
-    //execute a for loop here to go through array of start dates
     if ((formType === 'add' && !isSeries) || formType === 'update') {
+      //create single event (not part of a series)
       mutation({variables: mutationValues})
     } else {
-      //formType === 'add' && isSeries
-      //create event and series for the first iteration
-      //save series id
-      //create event and connect with series
+      //create series - make array of start and end dates, then create an event for each
       const eventDates = createEventSeries(
         new Date(mutationValues.start),
         new Date(mutationValues.end),
@@ -352,37 +345,14 @@ const EventForm = (props) => {
 
       Promise.resolve(mutationNS({variables: mutationValues})).then(
         (response) => {
-          console.log(response)
-          // setSeriesID(response.data.addEvent.series.id)
-          // console.log(seriesID)
           eventDates.forEach((eventDate) => {
             mutationValues.start = eventDate.start
             mutationValues.end = eventDate.end
             mutationValues.seriesId = response.data.addEvent.series.id
-            console.log(mutationValues)
             mutationES({variables: mutationValues})
           })
         },
       )
-      // .then(() => {
-      //   eventDates.forEach((eventDate) => {
-      //     mutationValues.start = eventDate.start
-      //     mutationValues.end = eventDate.end
-      //     // if (!seriesID) {
-      //     // mutationNS({variables: mutationValues})
-      //     // await setSeriesID(mutationDataNS.addEvent.series.id)
-      //     //
-      //     // handleSeriesID()
-      //     //set seriesID here, might need to await
-      //     // } else {
-      //     mutationValues.seriesId = seriesID
-      //     console.log(mutationValues)
-      //     mutationES({variables: mutationValues})
-      //     // }
-      //   })
-      // })
-      // while (!seriesID) {}
-      // await setSeriesID(mutationDataNS.addEvent.series.id)
     }
   } //end onSubmit
 
@@ -400,10 +370,10 @@ const EventForm = (props) => {
 
   // log errors and success messages
   useEffect(() => {
-    if (mutationError) {
+    if (mutationError || mutationErrorNS || mutationErrorES) {
       setShowModal(true)
     }
-  }, [mutationError])
+  }, [mutationError, mutationErrorNS, mutationErrorES])
 
   if (mutationData) {
     const {id} = mutationData.addEvent || mutationData.updateEvent
@@ -439,22 +409,12 @@ const EventForm = (props) => {
     }
   }
 
-  const [seriesID, setSeriesID] = useState(null)
-  useEffect(() => {
-    console.log(seriesID)
-  }, [seriesID])
-  // useEffect(() => {
-  //   console.log('loading:', mutationLoadingNS)
-  //   console.log('data:', mutationDataNS)
-  // }, [mutationLoadingNS, mutationDataNS])
-
   //local states for recurring event inputs
   const [week, setWeek] = useState('')
 
   const [frequency, setFrequency] = useState('')
 
   const [weeks, setWeeks] = useState(false)
-  const [days, setDays] = useState(false)
   const [repeat, setRepeat] = useState(false)
   //onChange handlers for recurring events
   //handleRepeatType
@@ -470,22 +430,18 @@ const EventForm = (props) => {
   useEffect(() => {
     if (frequency === 'None') {
       setWeeks(false)
-      setDays(false)
       setRepeat(false)
       setIsSeries(false)
     } else if (frequency === 'Daily') {
       setWeeks(false)
-      setDays(false)
       setRepeat(true)
       setIsSeries(true)
     } else if (frequency === 'Weekly') {
       setWeeks(false)
-      setDays(true)
       setRepeat(true)
       setIsSeries(true)
     } else if (frequency === 'Monthly') {
       setWeeks(true)
-      setDays(true)
       setRepeat(true)
       setIsSeries(true)
     }
@@ -938,7 +894,7 @@ const EventForm = (props) => {
 
           {/* FORM CONTROLS (submit and preview) */}
           {/* <button className='button is-medium'>Preview</button> */}
-          {mutationLoading ? (
+          {mutationLoading || mutationLoadingNS || mutationLoadingES ? (
             <div
               className={` button is-medium ${shark} ${littleTopMargin} is-medium `}
             >
