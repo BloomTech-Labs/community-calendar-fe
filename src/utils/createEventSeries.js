@@ -18,7 +18,6 @@ export default function createEventSeries(
   else if (week === 'Fourth week') whichWeek = 4
   else if (week === 'Fifth week') whichWeek = 5
 
-  console.log(eventStartDate.getDate())
   switch (repeatFreq) {
     case 'None':
       eventDates.push({eventStartDate, eventEndDate})

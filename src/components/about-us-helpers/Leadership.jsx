@@ -31,7 +31,6 @@ const Leadership = () => {
 
         {teamMembers.map((member) => (
           <div className={card}>
-            {console.log(member)}
             {member.imagePath.length > 0 ? (
               <img src={member.imagePath} />
             ) : (

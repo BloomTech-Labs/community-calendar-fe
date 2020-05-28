@@ -54,10 +54,9 @@ export default function UpdateEvent({history}) {
 
   // destructure event details if fetch successful
   const item = data.events[0]
-  console.log(item)
 
   // create updateEventHandler to pass eventId and loactionId into the mutation
-  const updateEventHandler = data => {
+  const updateEventHandler = (data) => {
     const {variables} = data
     updateEvent({
       variables: {
@@ -65,7 +64,7 @@ export default function UpdateEvent({history}) {
         locationId: item.locations[0].id,
         ...variables,
       },
-    }).then(res => {
+    }).then((res) => {
       console.log(res)
     })
   }

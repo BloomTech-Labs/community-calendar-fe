@@ -71,7 +71,6 @@ const EventView = ({history}) => {
   useEffect(() => {
     if (eventSeries)
       eventSeries.events[0].series ? setIsSeries(true) : setIsSeries(false)
-    console.log('isSeries: ', isSeries, ', eventSeries: ', eventSeries)
   }, [eventSeries, isSeries])
 
   const [
