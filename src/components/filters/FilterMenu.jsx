@@ -86,7 +86,13 @@ const FilterMenu = (props) => {
 
   // maps through queried data to get an array of start times to pass to selectedRange component
   const startDates =
-    data && data.events && data.events.map((event) => event.start)
+    data &&
+    data.events &&
+    data.events.map((event) => {
+      if (new Date(event.start) >= new Date()) {
+        return event.start
+      }
+    })
 
   // EVENT LOCATION SEARCH HANDLERS
 
