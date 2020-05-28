@@ -185,7 +185,7 @@ const EventForm = (props) => {
   if (nextNoon.getHours() >= 12) nextNoon.setDate(nextNoon.getDate() + 1)
   nextNoon.setHours(12, 0, 0, 0)
 
-  const [repeatUntilDate, setRepeatUntilDate] = useState(nextNoon)
+  const [repeatUntilDate, setRepeatUntilDate] = useState(new Date(nextNoon))
 
   const repeatUntilChange = (datetime) => {
     setRepeatUntilDate(datetime)
@@ -343,8 +343,8 @@ const EventForm = (props) => {
       //save series id
       //create event and connect with series
       const eventDates = createEventSeries(
-        mutationValues.start,
-        mutationValues.end,
+        new Date(mutationValues.start),
+        new Date(mutationValues.end),
         mutationValues.seriesEnd,
         frequency,
         week,
