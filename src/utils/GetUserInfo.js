@@ -28,7 +28,6 @@ export default function GetUserInfo() {
   }, [ccid])
 
   const updateUser = async () => {
-    console.log(authState)
     if (!authState.isAuthenticated) {
       setUser(null)
     } else {
