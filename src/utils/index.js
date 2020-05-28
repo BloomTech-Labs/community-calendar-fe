@@ -10,6 +10,7 @@ import useDropdown from './useDropdown'
 import useObjFromQS from './useObjFromQS'
 import createQSObj from './createQSObj'
 import ProtectedRoute from './protectedRoute'
+import createEventSeries from './createEventSeries'
 
 export {
   useGeo,
@@ -24,5 +25,6 @@ export {
   useDropdown,
   useObjFromQS,
   createQSObj,
-  ProtectedRoute
+  ProtectedRoute,
+  createEventSeries,
 }

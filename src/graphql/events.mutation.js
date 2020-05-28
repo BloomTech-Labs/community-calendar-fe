@@ -19,11 +19,11 @@ export const ADD_EVENT_NEW_SERIES = gql`
     $ticketPrice: Float!
     $images: [Upload!]
     $frequency: FrequencyType
-    $series_end: DateTime
+    $seriesEnd: DateTime
   ) {
     addEvent(
       data: {
-        series: {create: [{frequency: $frequency, series_end: $series_end}]}
+        series: {create: {frequency: $frequency, series_end: $seriesEnd}}
         title: $title
         description: $description
         start: $start
@@ -49,6 +49,9 @@ export const ADD_EVENT_NEW_SERIES = gql`
       images: $images
     ) {
       id
+      series {
+        id
+      }
     }
   }
 `
@@ -71,11 +74,11 @@ export const ADD_EVENT_EXISTING_SERIES = gql`
     $tags: [EventCreateTagInput!]
     $ticketPrice: Float!
     $images: [Upload!]
-    $seriesId: ID
+    $seriesId: ID!
   ) {
     addEvent(
       data: {
-        connect: {id: $seriesId}
+        series: {connect: {id: $seriesId}}
         title: $title
         description: $description
         start: $start
@@ -97,10 +100,13 @@ export const ADD_EVENT_EXISTING_SERIES = gql`
         }
         tags: $tags
         ticketPrice: $ticketPrice
-        images: $images
       }
+      images: $images
     ) {
       id
+      series {
+        id
+      }
     }
   }
 `

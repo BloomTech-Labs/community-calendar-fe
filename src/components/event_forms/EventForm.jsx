@@ -16,6 +16,7 @@ import {eventSchema} from './eventSchema'
 
 // utils
 import {fetchGeocode} from '../../utils'
+import {createEventSeries} from '../../utils'
 
 //GQL
 import {useQuery} from '@apollo/react-hooks'
@@ -80,6 +81,14 @@ const EventForm = (props) => {
     mutationData,
     mutationError,
     mutationLoading,
+    mutationNS,
+    mutationDataNS,
+    mutationErrorNS,
+    mutationLoadingNS,
+    mutationES,
+    mutationDataES,
+    mutationErrorES,
+    mutationLoadingES,
   } = props
 
   const createEventData = useQuery(GET_CALENDAR_EVENTS)
@@ -172,7 +181,7 @@ const EventForm = (props) => {
   if (nextNoon.getHours() >= 12) nextNoon.setDate(nextNoon.getDate() + 1)
   nextNoon.setHours(12, 0, 0, 0)
 
-  const [repeatUntilDate, setRepeatUntilDate] = useState(nextNoon)
+  const [repeatUntilDate, setRepeatUntilDate] = useState(new Date(nextNoon))
 
   const repeatUntilChange = (datetime) => {
     setRepeatUntilDate(datetime)
@@ -275,6 +284,16 @@ const EventForm = (props) => {
       long = geoData.features[0].geometry.coordinates[0]
     }
 
+    //add repetition variables from state into a series object
+    let seriesValues = null
+    if (frequency === 'Daily') {
+      seriesValues = {frequency: 'DAILY', seriesEnd: repeatUntilDate}
+    } else if (frequency === 'Weekly') {
+      seriesValues = {frequency: 'WEEKLY', seriesEnd: repeatUntilDate}
+    } else if (frequency === 'Monthly') {
+      seriesValues = {frequency: 'MONTHLY', seriesEnd: repeatUntilDate}
+    }
+
     const mutationValues = {
       title,
       description,
@@ -296,6 +315,11 @@ const EventForm = (props) => {
       eventImages: images && images.length ? [] : undefined,
     }
 
+    if (formType === 'add' && isSeries) {
+      mutationValues.frequency = seriesValues.frequency
+      mutationValues.seriesEnd = seriesValues.seriesEnd
+    }
+
     if (formType === 'add' && !fileUpload) {
       if (error) {
         return null
@@ -306,8 +330,30 @@ const EventForm = (props) => {
     } else {
       setFileUpload(false)
     }
+    if ((formType === 'add' && !isSeries) || formType === 'update') {
+      //create single event (not part of a series)
+      mutation({variables: mutationValues})
+    } else {
+      //create series - make array of start and end dates, then create an event for each
+      const eventDates = createEventSeries(
+        new Date(mutationValues.start),
+        new Date(mutationValues.end),
+        mutationValues.seriesEnd,
+        frequency,
+        week,
+      )
 
-    mutation({variables: mutationValues})
+      Promise.resolve(mutationNS({variables: mutationValues})).then(
+        (response) => {
+          eventDates.forEach((eventDate) => {
+            mutationValues.start = eventDate.start
+            mutationValues.end = eventDate.end
+            mutationValues.seriesId = response.data.addEvent.series.id
+            mutationES({variables: mutationValues})
+          })
+        },
+      )
+    }
   } //end onSubmit
 
   // if image is uploaded and error is true, remove the error
@@ -324,13 +370,19 @@ const EventForm = (props) => {
 
   // log errors and success messages
   useEffect(() => {
-    if (mutationError) {
+    if (mutationError || mutationErrorNS || mutationErrorES) {
       setShowModal(true)
     }
-  }, [mutationError])
+  }, [mutationError, mutationErrorNS, mutationErrorES])
 
   if (mutationData) {
     const {id} = mutationData.addEvent || mutationData.updateEvent
+    props.history.push(`/events/${id}`)
+  } else if (mutationDataNS) {
+    const {id} = mutationDataNS.addEvent || mutationData.updateEvent
+    props.history.push(`/events/${id}`)
+  } else if (mutationDataES) {
+    const {id} = mutationDataES.addEvent || mutationData.updateEvent
     props.history.push(`/events/${id}`)
   }
 
@@ -342,7 +394,7 @@ const EventForm = (props) => {
   }
 
   const handleCreateEvent = () => {
-    if (isSeries) {
+    if (isSeries && formType === 'update') {
       toggleEditModal()
     } else if (formType === 'update') {
       ReactGA.event({
@@ -360,10 +412,9 @@ const EventForm = (props) => {
   //local states for recurring event inputs
   const [week, setWeek] = useState('')
 
-  const [frequency, setFrequency] = useState(false)
+  const [frequency, setFrequency] = useState('')
 
   const [weeks, setWeeks] = useState(false)
-  const [days, setDays] = useState(false)
   const [repeat, setRepeat] = useState(false)
   //onChange handlers for recurring events
   //handleRepeatType
@@ -379,20 +430,20 @@ const EventForm = (props) => {
   useEffect(() => {
     if (frequency === 'None') {
       setWeeks(false)
-      setDays(false)
       setRepeat(false)
+      setIsSeries(false)
     } else if (frequency === 'Daily') {
       setWeeks(false)
-      setDays(false)
       setRepeat(true)
+      setIsSeries(true)
     } else if (frequency === 'Weekly') {
       setWeeks(false)
-      setDays(true)
       setRepeat(true)
+      setIsSeries(true)
     } else if (frequency === 'Monthly') {
       setWeeks(true)
-      setDays(true)
       setRepeat(true)
+      setIsSeries(true)
     }
   }, [frequency])
 
@@ -406,7 +457,7 @@ const EventForm = (props) => {
             className='is-hidden'
             type='text'
             name='formType'
-            value={formType === 'update' ? 'update' : 'create'}
+            value={formType === 'update' ? 'update' : 'add'}
             ref={register}
           />
           {/* EVENT TITLE */}
@@ -843,7 +894,7 @@ const EventForm = (props) => {
 
           {/* FORM CONTROLS (submit and preview) */}
           {/* <button className='button is-medium'>Preview</button> */}
-          {mutationLoading ? (
+          {mutationLoading || mutationLoadingNS || mutationLoadingES ? (
             <div
               className={` button is-medium ${shark} ${littleTopMargin} is-medium `}
             >
@@ -855,7 +906,7 @@ const EventForm = (props) => {
               type='submit'
               value={formType === 'update' ? 'Update Event' : 'Create Event'}
               onClick={(e) => {
-                if (isSeries) {
+                if (isSeries && formType === 'update') {
                   e.preventDefault()
                   handleCreateEvent()
                 } else {

@@ -20,6 +20,7 @@ import {
   DELETE_EVENT,
   SAVE_EVENT,
   RSVP_EVENT,
+  GET_SERIES,
 } from '../graphql'
 
 import {months, weekDays, buildQS, createQSObj, useDropdown} from '../utils'
@@ -43,7 +44,7 @@ import {
   padDivContent,
   userImage,
   titleH1,
-  series
+  series,
 } from './styles/EventView.module.scss'
 
 import {set} from 'react-ga'
@@ -63,6 +64,15 @@ const EventView = ({history}) => {
   let {userLatitude, userLongitude} = localCache
 
   const {data: cacheUserId} = useQuery(GET_USER_ID)
+  const {data: eventSeries} = useQuery(GET_SERIES, {
+    variables: {id: queryParams.id},
+  })
+
+  useEffect(() => {
+    if (eventSeries)
+      eventSeries.events[0].series ? setIsSeries(true) : setIsSeries(false)
+    console.log('isSeries: ', isSeries, ', eventSeries: ', eventSeries)
+  }, [eventSeries, isSeries])
 
   const [
     deleteEventMutation,
@@ -298,8 +308,11 @@ const EventView = ({history}) => {
             {`${streetAddress}, ${streetAddress2 ? `${streetAddress2}, ` : ''}
               ${city}, ${state}, ${zipcode}`}
           </p>
-          {isSeries ?
-          <div className={series}><p>This event is a recurring event!</p></div>: null}
+          {isSeries ? (
+            <div className={series}>
+              <p>This is a recurring event!</p>
+            </div>
+          ) : null}
         </div>
         <div className={panel_right}>
           {/* Manage Button, only displays if logged-in user is the event creator  */}
@@ -487,7 +500,11 @@ const EventView = ({history}) => {
         </div>
       </section>
       {showModal && (
-        <DeleteEventModal deleteEvent={deleteEvent} toggleModal={toggleModal} isSeries={isSeries}/>
+        <DeleteEventModal
+          deleteEvent={deleteEvent}
+          toggleModal={toggleModal}
+          isSeries={isSeries}
+        />
       )}
     </div>
   )
