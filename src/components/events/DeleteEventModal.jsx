@@ -12,8 +12,11 @@ import {
   checkboxes,
 } from './styles/DeleteEventModal.module.scss'
 
-function DeleteEventModal({deleteEvent, toggleModal, isSeries}) {
+function DeleteEventModal({deleteEvent, deleteSeries, toggleModal, isSeries}) {
   const [deleteOption, setDeleteOption] = useState('single')
+  const handleDeleteOptionChange = (event) => {
+    setDeleteOption(event.target.value)
+  }
   return isSeries ? (
     <div className={`${deleteEventModal}`}>
       <div className={`${deleteEventModalContent}`}>
@@ -22,30 +25,37 @@ function DeleteEventModal({deleteEvent, toggleModal, isSeries}) {
           <br />
           Would you like to:
           <div className={`${checkboxes}`}>
-            <input
-              onClick={() => setDeleteOption('single')}
-              type='radio'
-              name='delete'
-              value='single'
-              checked
-            />
-            <label> Delete this event</label>
+            <label for='single'>
+              <input
+                onClick={handleDeleteOptionChange}
+                id='single'
+                type='radio'
+                name='delete'
+                value='single'
+                checked={deleteOption === 'single'}
+              />
+              Delete this event
+            </label>
           </div>
           <div className={`${checkboxes}`}>
-            <input
-              onClick={() => setDeleteOption('series')}
-              type='radio'
-              name='delete'
-              value='series'
-            />
-            <label> Delete this series</label>
+            <label for='series'>
+              <input
+                onClick={handleDeleteOptionChange}
+                id='series'
+                type='radio'
+                name='delete'
+                value='series'
+                checked={deleteOption === 'series'}
+              />
+              Delete this series
+            </label>
           </div>
         </div>
       </div>
       <div className={`${deleteEventModalButtonContainer}`}>
         <button
           onClick={() => {
-            deleteEvent()
+            deleteOption === 'single' ? deleteEvent() : deleteSeries()
           }}
           className={`${button} ${yes}`}
         >

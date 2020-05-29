@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useParams, Link} from 'react-router-dom'
-import moment, {relativeTimeRounding} from 'moment'
+import moment from 'moment'
 import ReactGA from 'react-ga'
 
 // components
@@ -21,13 +21,13 @@ import {
   SAVE_EVENT,
   RSVP_EVENT,
   GET_SERIES,
+  DELETE_SERIES,
 } from '../graphql'
 
-import {months, weekDays, buildQS, createQSObj, useDropdown} from '../utils'
+import {buildQS, createQSObj, useDropdown} from '../utils'
 
 //styles
 import {
-  banner,
   top_sec,
   date_display,
   space_letters,
@@ -46,8 +46,6 @@ import {
   titleH1,
   series,
 } from './styles/EventView.module.scss'
-
-import {set} from 'react-ga'
 
 /* Show all of the details and information about an event.
 Users can RSVP to an event from here.
@@ -73,12 +71,13 @@ const EventView = ({history}) => {
       eventSeries.events[0].series ? setIsSeries(true) : setIsSeries(false)
   }, [eventSeries, isSeries])
 
-  const [
-    deleteEventMutation,
-    {data: deleteData, error: deleteError, loading: deleteLoading},
-  ] = useMutation(DELETE_EVENT)
+  const [deleteEventMutation, {data: deleteData}] = useMutation(DELETE_EVENT)
 
-  if (deleteData) {
+  const [deleteSeriesMutation, {data: deleteSeriesData}] = useMutation(
+    DELETE_SERIES,
+  )
+
+  if (deleteData || deleteSeriesData) {
     history.push('/')
   }
 
@@ -181,14 +180,7 @@ const EventView = ({history}) => {
     tags,
     rsvps,
     ticketPrice,
-    saved,
   } = data.events.length && data.events[0]
-
-  // find out if current user rsvp'd for event
-  const didRsvp =
-    rsvps.length && cacheUserId
-      ? rsvps.filter((rsvpData) => rsvpData.id === cacheUserId.userId)[0]
-      : null
 
   //destructure first item in locations array
   const {
@@ -227,6 +219,11 @@ const EventView = ({history}) => {
 
   const deleteEvent = () => {
     deleteEventMutation({variables: {id}})
+  }
+
+  const deleteSeries = () => {
+    const seriesId = eventSeries.events[0].series.id
+    deleteSeriesMutation({variables: {id: seriesId}})
   }
 
   const saveEvent = () => {
@@ -501,6 +498,7 @@ const EventView = ({history}) => {
       {showModal && (
         <DeleteEventModal
           deleteEvent={deleteEvent}
+          deleteSeries={deleteSeries}
           toggleModal={toggleModal}
           isSeries={isSeries}
         />
