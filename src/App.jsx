@@ -3,7 +3,8 @@ import {Route, Switch, useLocation} from 'react-router-dom'
 import ReactGA from 'react-ga'
 
 //okta
-import {LoginCallback, useOktaAuth} from '@okta/okta-react'
+import {useOktaAuth} from '@okta/okta-react'
+import ImplicitCallback from './utils/ImplicitCallback'
 
 //apollo
 import {ApolloProvider, useQuery} from '@apollo/react-hooks'
@@ -139,7 +140,7 @@ function App() {
         />
         <Route path='/about-us' component={AboutUs} />
 
-        <Route path='/implicit/callback' component={LoginCallback} />
+        <Route path='/implicit/callback' component={ImplicitCallback} />
       </Switch>
     </ApolloProvider>
   )
