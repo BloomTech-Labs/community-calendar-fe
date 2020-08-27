@@ -7,10 +7,11 @@ const ErrorRedirect = ({error}) => {
   if (error.name && error.message) {
     console.log(error.name, error.message)
     return <Redirect to='/' />
-  }
-  console.log('Okta error', error.toString())
+  } else if (error) {
+    console.log('Okta error', error.toString())
 
-  return <Redirect to='/' />
+    return <Redirect to='/' />
+  } else return null
 }
 
 const ImplicitCallback = () => <LoginCallback errorComponent={ErrorRedirect} />
