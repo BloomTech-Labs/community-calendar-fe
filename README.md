@@ -12,6 +12,11 @@ We create incredible neighborhoods and community spaces through meaningful share
 - [Future Developers](#future-developers)
 - [Contributing](#contributing)
 
+## Guest Access
+To preview features exclusive to registered users without registering, login with these guest credentials:
+- username: `guest@email.com`
+- password: `TestUser123`
+
 ## Contributors
 
 ### Labs 23 - April 6th, 2020 to May 29th, 2020
